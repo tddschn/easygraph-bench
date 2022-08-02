@@ -11,7 +11,7 @@ import time
 import os
 
 
-eval_functions_name = ["average_clustering"]
+eval_functions_name = ["average_clustering", "clustering"]
 
 load_functions_name = [
     "load_cheminformatics",
@@ -91,8 +91,8 @@ def load_soc():
 
 
 def draw(lf_n, data):
-    import matplotlib
-    from matplotlib import pyplot
+    # import matplotlib
+    # from matplotlib import pyplot
     import matplotlib.pyplot as plt
 
     # matplotlib.rc("font",family='fangsong')
