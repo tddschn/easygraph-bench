@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+import sys
+from pathlib import Path
+
+eg_master_dir = Path('~/testdir/Easy-Graph-master').expanduser()
+sys.path.insert(0, str(eg_master_dir))
 import easygraph as eg
 import networkx as nx
 import time
@@ -107,7 +112,7 @@ def draw(lf_n, data):
     ax.set_title('comparison of easygraph and networkx in ' + lf_n)
     ax.set_xlabel("method")
     ax.set_ylabel("cost(s)")
-    plt.savefig(fig_name, dpi=2000)
+    plt.savefig('images/' + fig_name, dpi=2000)
     plt.close()
 
 
