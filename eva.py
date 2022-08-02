@@ -15,8 +15,8 @@ eval_functions_name = ["average_clustering", "clustering"]
 
 load_functions_name = [
     "load_cheminformatics",
-    "load_bio",
-    "load_eco",
+    # "load_bio",
+    # "load_eco",
     # "load_soc"
 ]
 
@@ -99,20 +99,23 @@ def draw(lf_n, data):
     import seaborn as sns
     import pandas as pd
 
+    dataset_name, _, method_name = lf_n.partition('_')
+    fig_dir = Path('images') / dataset_name
+    fig_dir.mkdir(parents=True, exist_ok=True)
     csv_file = lf_n + "_cost.csv"
     json2csv(data, csv_file)
     data = pd.read_csv(csv_file)
 
-    fig_name = lf_n + '_compare.png'
+    fig_path = fig_dir / (f'{method_name}.png')
     sns.set_style("whitegrid")
-    sns.set(font="fangsong")
+    sns.set(font="Helvetica")
     ax = sns.barplot(
         x="method", y="cost", hue="tool", data=data, palette=sns.color_palette("hls", 8)
     )
     ax.set_title('comparison of easygraph and networkx in ' + lf_n)
     ax.set_xlabel("method")
     ax.set_ylabel("cost(s)")
-    plt.savefig('images/' + fig_name, dpi=2000)
+    plt.savefig(fig_path, dpi=2000)
     plt.close()
 
 
@@ -174,6 +177,7 @@ if __name__ == "__main__":
         cost_dict = dict()
         # 遍历方法
         for ef_n in eval_functions_name:
+            print('benchmarking method: ' + ef_n)
             cost_dict[lf_n] = dict()
             cost_dict[lf_n][ef_n] = dict()
 
@@ -194,7 +198,7 @@ if __name__ == "__main__":
             start = time.time()
             nx_res = eval("nx." + ef_n)(g, g.nodes)
             cost_dict[lf_n][ef_n]["nx"] = time.time() - start
-            output(nx_res, lf_n + "_" + ef_n + "_nx_res.json")
+            output(nx_res, lf_n.removeprefix('load_') + "_" + ef_n + "_nx_res.json")
 
-        output(cost_dict, lf_n + "_cost.json")
-        draw(lf_n, cost_dict)
+            output(cost_dict, lf_n.removeprefix('load_') + '_' + ef_n + "_cost.json")
+            draw(lf_n.removeprefix('load_') + '_' + ef_n, cost_dict)
