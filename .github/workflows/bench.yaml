@@ -15,7 +15,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           git clone https://github.com/easy-graph/Easy-Graph.git
-          git checkout 6dade6c6 -C Easy-Graph
+          git -C Easy-Graph checkout 6dade6c6
 
       - name: benchmark
         run: |
