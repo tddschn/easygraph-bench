@@ -16,8 +16,7 @@ from dataset_loaders import *
 from utils import eval_method
 
 
-if __name__ == "__main__":
-
+def main():
     # 遍历数据集
     for load_func_name in load_functions_name:
         cost_dict = dict()
@@ -26,3 +25,7 @@ if __name__ == "__main__":
         # 遍历方法
         for method_name in clustering_methods:
             eval_method(cost_dict, g, load_func_name, method_name)
+
+
+if __name__ == "__main__":
+    main()

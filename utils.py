@@ -8,7 +8,8 @@ import easygraph as eg
 import networkx as nx
 import time
 from copy import deepcopy
-from .types import MethodName
+
+# from .types import MethodName
 
 from config import (
     eg_master_dir,

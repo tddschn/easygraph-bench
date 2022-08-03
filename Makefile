@@ -1,5 +1,5 @@
 evaluate: clean
-	./eva.py
+	./bench.py
 
 clean: clean-outputs clean-figs
 
