@@ -227,7 +227,7 @@ def eval_method(
             cost_dict,
             load_func_name + '_' + method_name_eg + "_cost.json",
         )
-        draw(load_func_name + '_' + method_name_eg, cost_dict)
+        draw(load_func_name + '_' + method_name_eg, cost_dict, methods=method_name)
     else:
         raise ValueError('method_name or method_names must be specified')
 

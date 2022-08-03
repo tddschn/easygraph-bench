@@ -22,6 +22,8 @@ connected_components_methods_G_node = [
 #     connected_components_methods_G + connected_components_methods_G_node
 # )
 
+mst_methods = ['minimum_spanning_tree']
+
 load_functions_name = [
     "load_cheminformatics",
     "load_bio",

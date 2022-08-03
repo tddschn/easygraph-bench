@@ -17,6 +17,7 @@ from config import (
     # connected_components_methods,
     connected_components_methods_G,
     connected_components_methods_G_node,
+    mst_methods,
     method_groups,
     dataset_names,
 )
@@ -119,6 +120,12 @@ def main():
                     call_method_args_eg=[first_node_eg],
                     call_method_args_nx=[first_node_nx],
                     **flags,
+                )
+        if method_groups is None or 'mst' in method_groups:
+            # bench: mst
+            for method_name in mst_methods:
+                eval_method(
+                    cost_dict, eg_graph, nx_graph, load_func_name, method_name, **flags
                 )
         print()
 
