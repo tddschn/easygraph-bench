@@ -151,12 +151,15 @@ def eval_method(
     call_method_args_nx: Optional[list] = None,
     call_method_kwargs_eg: Optional[dict] = None,
     call_method_kwargs_nx: Optional[dict] = None,
+    dry_run: bool = False,
 ):
     G_eg = deepcopy(eg_graph)
     G_nx = deepcopy(nx_graph)
     load_func_name = load_func_name.removeprefix('load_')
     if isinstance(method_name, str):
-        print('benchmarking method: ' + method_name)
+        print(f'benchmarking eg.{method_name} and nx.{method_name} on {load_func_name}')
+        if dry_run:
+            return
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name] = dict()
 
@@ -184,7 +187,12 @@ def eval_method(
         draw(load_func_name + '_' + method_name, cost_dict)
     elif isinstance(method_name, tuple):
         method_name_eg, method_name_nx = method_name
-        print('benchmarking method: ' + method_name_eg)
+        # print('benchmarking method: ' + method_name_eg)
+        print(
+            f'benchmarking eg.{method_name_eg} and nx.{method_name_nx} on {load_func_name}'
+        )
+        if dry_run:
+            return
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name_eg] = dict()
 

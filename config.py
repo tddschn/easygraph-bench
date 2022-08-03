@@ -10,11 +10,12 @@ shortest_path_methods = ['Dijkstra']
 
 load_functions_name = [
     "load_cheminformatics",
-    # "load_bio",
-    # "load_eco",
+    "load_bio",
+    "load_eco",
     # "load_soc"
 ]
 
 di_load_functions_name = ["load_soc"]
 
+dataset_names = [x.removeprefix('load_') for x in load_functions_name]
 method_groups = ['clustering', 'shortest-path', 'connected-components', 'MST']
