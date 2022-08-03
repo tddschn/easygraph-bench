@@ -3,7 +3,7 @@
 from pathlib import Path
 import os
 from pathlib import Path
-from typing import Union, Optional
+from typing import Generator, Union, Optional
 import easygraph as eg
 import networkx as nx
 import time
@@ -139,14 +139,18 @@ def json2csv(json_data, filename):
 def call_method(
     module, method, graph, args: Optional[list] = None, kwargs: Optional[dict] = None
 ):
+    m = getattr(module, method)
     if args is None and kwargs is None:
-        return getattr(module, method)(graph)
-    if args is not None and kwargs is None:
-        return getattr(module, method)(graph, *args)
-    if args is None and kwargs is not None:
-        return getattr(module, method)(graph, **kwargs)
-    if args is not None and kwargs is not None:
-        return getattr(module, method)(graph, *args, **kwargs)
+        result = m(graph)
+    elif args is not None and kwargs is None:
+        result = m(graph, *args)
+    elif args is None and kwargs is not None:
+        result = m(graph, **kwargs)
+    else:
+        result = m(graph, *args, **kwargs)
+    if isinstance(result, Generator):
+        result = list(result)
+    return result
 
 
 def eval_method(
