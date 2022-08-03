@@ -4,18 +4,29 @@ jobs:
   benchmark:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - name: checkout Easy-Graph
+        with:
+          repository: easy-graph/Easy-Graph
+          ref: '6dade6c6'
+          path: Easy-Graph
+        
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: '3.9'
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+        with:
+          ## limits ssh access and adds the ssh public key for the user which triggered the workflow
+          limit-access-to-actor: true
+          ## limits ssh access and adds the ssh public keys of the listed GitHub users
+          limit-access-to-users: tddschn
 
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          git clone https://github.com/easy-graph/Easy-Graph.git
-          git -C Easy-Graph checkout 6dade6c6
 
       - name: benchmark
         run: |

@@ -6,7 +6,6 @@ Purpose: EasyGraph & NetworkX side-by-side benchmarking
 """
 
 from hr_tddschn import hr
-import sys
 
 from config import (
     eg_master_dir,
@@ -22,7 +21,10 @@ from config import (
     dataset_names,
 )
 
-sys.path.insert(0, str(eg_master_dir))
+if eg_master_dir.exists():
+    import sys
+
+    sys.path.insert(0, str(eg_master_dir))
 
 import argparse
 
