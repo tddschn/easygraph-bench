@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import easygraph as eg
+from utils import list_allfile
+
 
 def load_cheminformatics():
     G = eg.Graph()
@@ -49,7 +51,7 @@ def load_eco():
 
 
 def load_soc():
-    # gplus为有向图
+    # gplus: digraph
     G = eg.DiGraph()
     files = list_allfile("./dataset/gplus/", ".edges")
     print(files)

@@ -23,7 +23,7 @@ from config import (
 )
 
 
-def draw(lf_n, data):
+def draw(lf_n, data, methods: Optional[tuple[str, str]] = None):
     # import matplotlib
     # from matplotlib import pyplot
     import matplotlib.pyplot as plt
@@ -45,9 +45,12 @@ def draw(lf_n, data):
     ax = sns.barplot(
         x="method", y="cost", hue="tool", data=data, palette=sns.color_palette("hls", 8)
     )
-    ax.set_title(
-        f'EasyGraph vs. Networkx\nDataset: {dataset_name}, Method: {method_name}'
-    )
+    if methods is not None:
+        # diff method names
+        title = f'EasyGraph vs. Networkx\nDataset: {dataset_name}\nMethods: eg.{methods[0]} vs. nx.{methods[1]}'
+    else:
+        title = f'EasyGraph vs. Networkx\nDataset: {dataset_name}\nMethods: eg.{method_name} vs. nx.{method_name}'
+    ax.set_title(title)
     ax.set_xlabel("method")
     ax.set_ylabel("cost(s)")
     plt.savefig(fig_path, dpi=2000)
@@ -75,7 +78,14 @@ def output(data, path):
     """dump data as json to path"""
     import json
 
-    json_str = json.dumps(data, ensure_ascii=False, indent=4)
+    try:
+        json_str = json.dumps(data, ensure_ascii=False, indent=2)
+    except TypeError:
+        json_str = json.dumps(
+            {'error': 'Object cannot be serialized to JSON'},
+            ensure_ascii=False,
+            indent=2,
+        )
     with open(path, "w", encoding="utf-8") as json_file:
         json_file.write(json_str)
 

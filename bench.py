@@ -14,6 +14,9 @@ from config import (
     di_load_functions_name,
     clustering_methods,
     shortest_path_methods,
+    # connected_components_methods,
+    connected_components_methods_G,
+    connected_components_methods_G_node,
     method_groups,
     dataset_names,
 )
@@ -64,7 +67,7 @@ def main():
     # load datasets
     for load_func_name in load_func_names:
         cost_dict = dict()
-        hr()
+        hr('=')
         print(f'loading dataset {load_func_name.removeprefix("load_")} ...')
         if args.dry_run:
             import easygraph as eg
@@ -95,6 +98,28 @@ def main():
                 call_method_args_nx=[first_node_nx],
                 **flags,
             )
+        if method_groups is None or 'connected-components' in method_groups:
+            # bench: connected components
+            for method_name in connected_components_methods_G:
+                eval_method(
+                    cost_dict,
+                    eg_graph,
+                    nx_graph,
+                    load_func_name,
+                    method_name,
+                    **flags,
+                )
+            for method_name in connected_components_methods_G_node:
+                eval_method(
+                    cost_dict,
+                    eg_graph,
+                    nx_graph,
+                    load_func_name,
+                    method_name,
+                    call_method_args_eg=[first_node_eg],
+                    call_method_args_nx=[first_node_nx],
+                    **flags,
+                )
         print()
 
 
