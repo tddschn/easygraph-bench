@@ -113,6 +113,15 @@ def eg2nx(g: Union[Graph, DiGraph]) -> Union[nx.Graph, nx.DiGraph]:
     return G
 
 
+def eg2ceg(g: Union[Graph, DiGraph]) -> Union[Graph, DiGraph]:
+    if isinstance(g, Graph):
+        G = eg.GraphC()
+        [G.add_edge(v1, v2) for v1, v2, _ in g.edges]
+    else:
+        raise NotImplementedError('DiGraphC not implemented')
+    return G
+
+
 def json2csv(json_data, filename):
     fw = open(filename, "w", encoding='utf-8')
     fw.write("method,tool,cost" + "\n")
@@ -139,6 +148,8 @@ def json2csv(json_data, filename):
 def call_method(
     module, method, graph, args: Optional[list] = None, kwargs: Optional[dict] = None
 ):
+    if not hasattr(module, method):
+        raise AttributeError(f'{module} has no attribute {method}')
     m = getattr(module, method)
     if args is None and kwargs is None:
         result = m(graph)
@@ -157,18 +168,24 @@ def eval_method(
     cost_dict: dict,
     eg_graph,
     nx_graph,
+    ceg_graph,
     load_func_name: str,
     method_name: 'Union[str, tuple[str, str]]',
     # method_name: Optional[str] = None,
     # method_names: Optional[tuple[str, str]] = None,
     call_method_args_eg: Optional[list] = None,
+    call_method_args_ceg: Optional[list] = None,
     call_method_args_nx: Optional[list] = None,
     call_method_kwargs_eg: Optional[dict] = None,
+    call_method_kwargs_ceg: Optional[dict] = None,
     call_method_kwargs_nx: Optional[dict] = None,
     dry_run: bool = False,
 ):
     G_eg = deepcopy(eg_graph)
+    # G_ceg = deepcopy(ceg_graph)
+    G_ceg = ceg_graph.copy()
     G_nx = deepcopy(nx_graph)
+
     load_func_name = load_func_name.removeprefix('load_')
     if isinstance(method_name, str):
         print(f'benchmarking eg.{method_name} and nx.{method_name} on {load_func_name}')
@@ -183,6 +200,13 @@ def eval_method(
         )
         cost_dict[load_func_name][method_name]["eg"] = time.time() - start
         output(eg_res, load_func_name + "_" + method_name + "_eg_res.json")
+
+        start = time.time()
+        ceg_res = call_method(
+            eg, method_name, G_ceg, call_method_args_ceg, call_method_kwargs_ceg
+        )
+        cost_dict[load_func_name][method_name]["ceg"] = time.time() - start
+        output(ceg_res, load_func_name + "_" + method_name + "_ceg_res.json")
 
         start = time.time()
         nx_res = call_method(

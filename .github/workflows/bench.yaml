@@ -16,7 +16,7 @@ jobs:
           repository: easy-graph/Easy-Graph
           # ref: '6dade6c6'
           # path: Easy-Graph
-      - name: b
+      - name: build and install easygraph
         env:
           python_version: '3.9'
           boost_version: "1.79.0"
@@ -54,12 +54,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd "{{ github.workspace }}"
+          cd ${{ github.workspace }}
           pip install -r requirements.txt
 
       - name: benchmark
         run: |
-          cd "{{ github.workspace }}"
+          cd ${{ github.workspace }}
           python3 ./bench.py
 
       

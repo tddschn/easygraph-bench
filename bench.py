@@ -57,7 +57,7 @@ def get_args():
 def main():
     args = get_args()
     from dataset_loaders import load_bio, load_cheminformatics, load_eco, load_soc  # type: ignore
-    from utils import eval_method, eg2nx, get_first_node
+    from utils import eval_method, eg2nx, get_first_node, eg2ceg
 
     method_groups = args.method_group
     flags = {}
@@ -79,13 +79,21 @@ def main():
         else:
             eg_graph = eval(load_func_name)()
         nx_graph = eg2nx(eg_graph)
+        ceg_graph = eg2ceg(eg_graph)
         first_node_eg = get_first_node(eg_graph)
         first_node_nx = get_first_node(nx_graph)
+        first_node_ceg = get_first_node(ceg_graph)
         if method_groups is None or 'clustering' in method_groups:
             # bench: clustering
             for method_name in clustering_methods:
                 eval_method(
-                    cost_dict, eg_graph, nx_graph, load_func_name, method_name, **flags
+                    cost_dict,
+                    eg_graph,
+                    nx_graph,
+                    ceg_graph,
+                    load_func_name,
+                    method_name,
+                    **flags,
                 )
 
         if method_groups is None or 'shortest-path' in method_groups:
@@ -95,6 +103,7 @@ def main():
                 cost_dict,
                 eg_graph,
                 nx_graph,
+                ceg_graph,
                 load_func_name,
                 ('Dijkstra', 'single_source_dijkstra_path'),
                 call_method_args_eg=[first_node_eg],
@@ -108,6 +117,7 @@ def main():
                     cost_dict,
                     eg_graph,
                     nx_graph,
+                    ceg_graph,
                     load_func_name,
                     method_name,
                     **flags,
@@ -117,6 +127,7 @@ def main():
                     cost_dict,
                     eg_graph,
                     nx_graph,
+                    ceg_graph,
                     load_func_name,
                     method_name,
                     call_method_args_eg=[first_node_eg],
