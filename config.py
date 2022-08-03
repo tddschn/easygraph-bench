@@ -17,3 +17,4 @@ load_functions_name = [
 
 di_load_functions_name = ["load_soc"]
 
+method_groups = ['clustering', 'shortest-path', 'connected-components', 'MST']
