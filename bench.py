@@ -49,6 +49,14 @@ def get_args():
         '-G', '--method-group', type=str, choices=method_groups, nargs='+'
     )
 
+    parser.add_argument(
+        '-C',
+        '--skip-cpp-easygraph',
+        '--skip-ceg',
+        action='store_true',
+        help='Skip benchmarking cpp_easygraph methods',
+    )
+
     parser.add_argument('-n', '--dry-run', action='store_true', help='Dry run')
 
     return parser.parse_args()

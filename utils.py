@@ -97,9 +97,8 @@ def eg2nx_graph(g: Graph) -> nx.Graph:
         G.add_edge(v1, v2)
         nodes_with_edges.add(v1)
         nodes_with_edges.add(v2)
-    for node in g.nodes:
-        if node not in nodes_with_edges:
-            G.add_node(node)
+    for node in set(g.nodes) - nodes_with_edges:
+        G.add_node(node)
     return G
 
 
@@ -110,9 +109,8 @@ def eg2nx_digraph(g: DiGraph) -> nx.DiGraph:
         G.add_edge(v1, v2)
         nodes_with_edges.add(v1)
         nodes_with_edges.add(v2)
-    for node in g.nodes:
-        if node not in nodes_with_edges:
-            G.add_node(node)
+    for node in set(g.nodes) - nodes_with_edges:
+        G.add_node(node)
     return G
 
 
@@ -128,7 +126,14 @@ def eg2nx(g: Union[Graph, DiGraph]) -> Union[nx.Graph, nx.DiGraph]:
 def eg2ceg(g: Union[Graph, DiGraph]) -> Union[Graph, DiGraph]:
     if isinstance(g, Graph):
         G = eg.GraphC()
-        [G.add_edge(v1, v2) for v1, v2, _ in g.edges]
+        # [G.add_edge(v1, v2) for v1, v2, _ in g.edges]
+        nodes_with_edges = set()
+        for v1, v2, _ in g.edges:
+            G.add_edge(v1, v2)
+            nodes_with_edges.add(v1)
+            nodes_with_edges.add(v2)
+        for node in set(g.nodes) - nodes_with_edges:
+            G.add_node(node)
     else:
         raise NotImplementedError('DiGraphC not implemented')
     return G
@@ -192,6 +197,7 @@ def eval_method(
     call_method_kwargs_ceg: Optional[dict] = None,
     call_method_kwargs_nx: Optional[dict] = None,
     dry_run: bool = False,
+    skip_ceg: bool = False,
 ):
     G_eg = deepcopy(eg_graph)
     # G_ceg = deepcopy(ceg_graph)
@@ -213,12 +219,13 @@ def eval_method(
         cost_dict[load_func_name][method_name]["eg"] = time.time() - start
         output(eg_res, load_func_name + "_" + method_name + "_eg_res.json")
 
-        start = time.time()
-        ceg_res = call_method(
-            eg, method_name, G_ceg, call_method_args_ceg, call_method_kwargs_ceg
-        )
-        cost_dict[load_func_name][method_name]["ceg"] = time.time() - start
-        output(ceg_res, load_func_name + "_" + method_name + "_ceg_res.json")
+        if not skip_ceg:
+            start = time.time()
+            ceg_res = call_method(
+                eg, method_name, G_ceg, call_method_args_ceg, call_method_kwargs_ceg
+            )
+            cost_dict[load_func_name][method_name]["ceg"] = time.time() - start
+            output(ceg_res, load_func_name + "_" + method_name + "_ceg_res.json")
 
         start = time.time()
         nx_res = call_method(
@@ -252,6 +259,14 @@ def eval_method(
         )
         cost_dict[load_func_name][method_name_eg]["eg"] = time.time() - start
         output(eg_res, load_func_name + "_" + method_name_eg + "_eg_res.json")
+
+        if not skip_ceg:
+            start = time.time()
+            ceg_res = call_method(
+                eg, method_name_eg, G_ceg, call_method_args_ceg, call_method_kwargs_ceg
+            )
+            cost_dict[load_func_name][method_name]["ceg"] = time.time() - start
+            output(ceg_res, load_func_name + "_" + method_name_eg + "_ceg_res.json")
 
         start = time.time()
         nx_res = call_method(
