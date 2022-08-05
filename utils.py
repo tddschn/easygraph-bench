@@ -92,15 +92,27 @@ def output(data, path):
 
 def eg2nx_graph(g: Graph) -> nx.Graph:
     G = nx.Graph()
+    nodes_with_edges = set()
     for v1, v2, _ in g.edges:
         G.add_edge(v1, v2)
+        nodes_with_edges.add(v1)
+        nodes_with_edges.add(v2)
+    for node in g.nodes:
+        if node not in nodes_with_edges:
+            G.add_node(node)
     return G
 
 
 def eg2nx_digraph(g: DiGraph) -> nx.DiGraph:
     G = nx.DiGraph()
+    nodes_with_edges = set()
     for v1, v2, _ in g.edges:
         G.add_edge(v1, v2)
+        nodes_with_edges.add(v1)
+        nodes_with_edges.add(v2)
+    for node in g.nodes:
+        if node not in nodes_with_edges:
+            G.add_node(node)
     return G
 
 
