@@ -3,7 +3,7 @@
 from pathlib import Path
 import os
 from pathlib import Path
-from typing import Generator, Union, Optional
+from typing import Generator, Literal, Union, Optional
 import easygraph as eg
 import networkx as nx
 import time
@@ -11,6 +11,7 @@ from copy import deepcopy
 from easygraph import Graph, DiGraph
 import networkx as nx
 from itertools import islice
+from timeit import Timer
 
 # from .types import MethodName
 
@@ -181,6 +182,29 @@ def call_method(
     return result
 
 
+def get_Timer_args(
+    module: Literal['eg', 'nx'],
+    method: str,
+    graph: str,
+    args: list[str] = [],
+    kwargs: dict[str, str] = {},
+) -> tuple[str, str]:
+
+    if module == 'eg':
+        timer_setup = 'import easygraph as eg'
+    elif module == 'nx':
+        timer_setup = 'import networkx as nx'
+    else:
+        raise ValueError(f'{module=} is not supported')
+
+    args_str = ', '.join(args)
+    args_str = ', ' + args_str if args_str else ''
+    kwargs_str = ', '.join(f'{x}={y}' for x, y in kwargs.items())
+    kwargs_str = ', ' + kwargs_str if kwargs_str else ''
+    timer_stmt = f"""{module}.{method}({graph}{args_str}{kwargs_str})"""
+    return timer_stmt, timer_setup
+
+
 def eval_method(
     cost_dict: dict,
     eg_graph,
@@ -188,8 +212,6 @@ def eval_method(
     ceg_graph,
     load_func_name: str,
     method_name: 'Union[str, tuple[str, str]]',
-    # method_name: Optional[str] = None,
-    # method_names: Optional[tuple[str, str]] = None,
     call_method_args_eg: Optional[list] = None,
     call_method_args_ceg: Optional[list] = None,
     call_method_args_nx: Optional[list] = None,

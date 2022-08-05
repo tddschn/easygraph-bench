@@ -49,6 +49,10 @@ def get_args():
         '-G', '--method-group', type=str, choices=method_groups, nargs='+'
     )
 
+    # parser.add_argument(
+    #     '-r', '--repeat', type=int, default=3, help='Times to call Timer.timeit'
+    # )
+
     parser.add_argument(
         '-C',
         '--skip-cpp-easygraph',
@@ -93,6 +97,7 @@ def main():
             import easygraph as eg
 
             ceg_graph = eg.GraphC()
+            ceg_graph.add_edge(0, 1)  # for getting the first node
         first_node_eg = get_first_node(eg_graph)
         first_node_nx = get_first_node(nx_graph)
         first_node_ceg = get_first_node(ceg_graph)
