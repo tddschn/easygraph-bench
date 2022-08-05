@@ -69,7 +69,7 @@ def main():
 
     method_groups = args.method_group
     flags = {}
-    flags |= {'dry_run': args.dry_run}
+    flags |= {'dry_run': args.dry_run, 'skip_ceg': args.skip_cpp_easygraph}
     datasets = args.dataset
     # use_datasets = dataset_names if datasets is None else datasets
     load_func_names = (
@@ -87,7 +87,12 @@ def main():
         else:
             eg_graph = eval(load_func_name)()
         nx_graph = eg2nx(eg_graph)
-        ceg_graph = eg2ceg(eg_graph)
+        if not args.skip_cpp_easygraph:
+            ceg_graph = eg2ceg(eg_graph)
+        else:
+            import easygraph as eg
+
+            ceg_graph = eg.GraphC()
         first_node_eg = get_first_node(eg_graph)
         first_node_nx = get_first_node(nx_graph)
         first_node_ceg = get_first_node(ceg_graph)
@@ -146,7 +151,13 @@ def main():
             # bench: mst
             for method_name in mst_methods:
                 eval_method(
-                    cost_dict, eg_graph, nx_graph, load_func_name, method_name, **flags
+                    cost_dict,
+                    eg_graph,
+                    nx_graph,
+                    ceg_graph,
+                    load_func_name,
+                    method_name,
+                    **flags,
                 )
         print()
 
