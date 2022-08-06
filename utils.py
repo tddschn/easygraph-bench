@@ -45,7 +45,11 @@ def draw(lf_n, data, methods: Optional[tuple[str, str]] = None):
     sns.set_style("whitegrid")
     sns.set(font="Helvetica")
     ax = sns.barplot(
-        x="method", y="cost", hue="tool", data=data, palette=sns.color_palette("hls", 8)
+        x="method",
+        y="avg time",
+        hue="tool",
+        data=data,
+        palette=sns.color_palette("hls", 8),
     )
     if methods is not None:
         # diff method names
@@ -54,7 +58,7 @@ def draw(lf_n, data, methods: Optional[tuple[str, str]] = None):
         title = f'EasyGraph vs. Networkx\nDataset: {dataset_name}\nMethods: eg.{method_name} vs. nx.{method_name}'
     ax.set_title(title)
     ax.set_xlabel("method")
-    ax.set_ylabel("cost(s)")
+    ax.set_ylabel("time(s)")
     plt.savefig(fig_path, dpi=2000)
     plt.close()
 
@@ -143,7 +147,7 @@ def eg2ceg(g: Union[Graph, DiGraph]) -> Union[Graph, DiGraph]:
 
 def json2csv(json_data, filename):
     fw = open(filename, "w", encoding='utf-8')
-    fw.write("method,tool,cost" + "\n")
+    fw.write("method,tool,avg time" + "\n")
 
     for key in json_data:
         for metric, val in json_data[key].items():
@@ -216,6 +220,7 @@ def bench_with_timeit(
     kwargs: dict[str, str] = {},
 ) -> float:
     timer = Timer(*get_Timer_args(module, method, graph, args, kwargs))
+    print(f'{timer.src=}')  # type: ignore
     count, total_time = timer.autorange()
     return total_time / count
 
@@ -246,13 +251,7 @@ def eval_method(
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name] = dict()
 
-        # start = time.time()
-        # eg_res = call_method(
-        #     eg, method_name, G_eg, call_method_args_eg, call_method_kwargs_eg
-        # )
-        # cost_dict[load_func_name][method_name]["eg"] = time.time() - start
-        # output(eg_res, load_func_name + "_" + method_name + "_eg_res.json")
-        # timer_eg = Timer(*get_Timer_args(module='eg', method=method_name, graph='G_eg',)
+        print('easygraph')
         avg_time_eg = bench_with_timeit(
             module='eg',
             method=method_name,
@@ -260,9 +259,10 @@ def eval_method(
             args=call_method_args_eg,
             kwargs=call_method_kwargs_eg,
         )
-        cost_dict[load_func_name][method_name]["eg"] = avg_time_eg
+        cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
 
         if not skip_ceg:
+            print('easygraph with C++ binding')
             avg_time_ceg = bench_with_timeit(
                 module='eg',
                 method=method_name,
@@ -270,8 +270,9 @@ def eval_method(
                 args=call_method_args_ceg,
                 kwargs=call_method_kwargs_ceg,
             )
-            cost_dict[load_func_name][method_name]["ceg"] = avg_time_ceg
+            cost_dict[load_func_name][method_name]["eg w/ C++ binding"] = avg_time_ceg
 
+        print('networkx')
         avg_time_nx = bench_with_timeit(
             module='nx',
             method=method_name,
@@ -279,7 +280,7 @@ def eval_method(
             args=call_method_args_nx,
             kwargs=call_method_kwargs_nx,
         )
-        cost_dict[load_func_name][method_name]["nx"] = avg_time_nx
+        cost_dict[load_func_name][method_name]["networkx"] = avg_time_nx
 
         output(
             cost_dict,
@@ -297,6 +298,7 @@ def eval_method(
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name_eg] = dict()
 
+        print('easygraph')
         avg_time_eg = bench_with_timeit(
             module='eg',
             method=method_name_eg,
@@ -304,9 +306,10 @@ def eval_method(
             args=call_method_args_eg,
             kwargs=call_method_kwargs_eg,
         )
-        cost_dict[load_func_name][method_name_eg]["eg"] = avg_time_eg
+        cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
 
         if not skip_ceg:
+            print('easygraph with C++ binding')
             avg_time_ceg = bench_with_timeit(
                 module='eg',
                 method=method_name_eg,
@@ -314,8 +317,11 @@ def eval_method(
                 args=call_method_args_ceg,
                 kwargs=call_method_kwargs_ceg,
             )
-            cost_dict[load_func_name][method_name_eg]["ceg"] = avg_time_ceg
+            cost_dict[load_func_name][method_name_eg][
+                "eg w/ C++ binding"
+            ] = avg_time_ceg
 
+        print('networkx')
         avg_time_nx = bench_with_timeit(
             module='nx',
             method=method_name_nx,
@@ -323,7 +329,7 @@ def eval_method(
             args=call_method_args_nx,
             kwargs=call_method_kwargs_nx,
         )
-        cost_dict[load_func_name][method_name_eg]["nx"] = avg_time_nx
+        cost_dict[load_func_name][method_name_eg]["networkx"] = avg_time_nx
         output(
             cost_dict,
             load_func_name + '_' + method_name_eg + "_cost.json",

@@ -84,9 +84,9 @@ def main(args):
     flags |= {'skip_ceg': args.skip_cpp_easygraph}
     cost_dict = {}
     first_node_args = {
-        'call_method_args_eg': 'first_node_eg',
-        'call_method_args_nx': 'first_node_nx',
-        'call_method_args_ceg': 'first_node_ceg',
+        'call_method_args_eg': ['first_node_eg'],
+        'call_method_args_nx': ['first_node_nx'],
+        'call_method_args_ceg': ['first_node_ceg'],
     }
     if method_groups is None or 'clustering' in method_groups:
         # bench: clustering
