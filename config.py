@@ -6,14 +6,20 @@ from typing import Union
 
 eg_master_dir = Path('~/testdir/Easy-Graph-master').expanduser()
 
+# (`eg.average_clustering` vs `nx.average_clustering`, ...)
 clustering_methods = ["average_clustering", "clustering"]
+
+# (`eg.Dijkstra` vs `nx.single_source_dijkstra_path`)
 shortest_path_methods = [('Dijkstra', 'single_source_dijkstra_path')]
+
+# methods that only takes G as arg
 connected_components_methods_G = [
     "is_connected",
     "number_connected_components",
     "connected_components",
 ]
 
+# methods takes G and a node as args
 connected_components_methods_G_node = [
     ("connected_component_of_node", 'node_connected_component'),
 ]
