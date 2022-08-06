@@ -14,7 +14,7 @@ Benchmarking code that compares the performance of the 2 graph libraries easygra
 
 If the method returns a Generator, the result will be exhausted.
 
-See [get_Timer_args()](https://github.com/tddschn/easygraph-bench/blob/69cc89889e39386f495b7fa07be3116443cc9356/utils.py#L191)
+See [get_Timer_args()](https://github.com/tddschn/easygraph-bench/blob/69cc89889e39386f495b7fa07be3116443cc9356/utils.py#L191) for more details.
  
 ## Benchmarked methods
 
