@@ -29,6 +29,10 @@ See [config.py](./config.py) for more details.
 - mst_methods: `['minimum_spanning_tree']`
 
 ## Run locally
+- [./bench.py](./bench.py):  
+   Deprecated, modified and parameterized from [@coreturn](https://github.com/coreturn)'s benchmarking script.  
+   Only run the methods once with and record the difference of the result of `time.time()` calls as the time spent.  
+   Use the following scripts instead.
 - [./bench_cheminfo.py](./bench_cheminfo.py): Run benchmarks on the cheminfomatics dataset
 - [./bench_bio.py](./bench_bio.py): Run benchmarks on the bio dataset
 - [./bench_eco.py](./bench_eco.py): Run benchmarks on the eco dataset
