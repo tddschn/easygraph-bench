@@ -14,14 +14,16 @@ shortest_path_methods = [('Dijkstra', 'single_source_dijkstra_path')]
 
 # methods that only takes G as arg
 connected_components_methods_G = [
-    "is_connected",
-    "number_connected_components",
-    "connected_components",
+    # "is_connected",
+    # "number_connected_components",
+    # "connected_components",
+    "is_biconnected",
+    "biconnected_components",
 ]
 
 # methods takes G and a node as args
 connected_components_methods_G_node = [
-    ("connected_component_of_node", 'node_connected_component'),
+    # ("connected_component_of_node", 'node_connected_component'),
 ]
 
 # connected_components_methods: list['Union[str, tuple[str, str]]'] = (
