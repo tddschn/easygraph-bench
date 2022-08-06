@@ -13,6 +13,7 @@ import networkx as nx
 from itertools import islice
 from timeit import Timer
 from inspect import getsource
+from textwrap import dedent
 
 # from .types import MethodName
 
@@ -208,7 +209,13 @@ def get_Timer_args(
     args_str = ', ' + args_str if args_str else ''
     kwargs_str = ', '.join(f'{x}={y}' for x, y in kwargs.items())
     kwargs_str = ', ' + kwargs_str if kwargs_str else ''
-    timer_stmt = f"""{module}.{method}({graph}{args_str}{kwargs_str})"""
+    timer_stmt = f"""
+    result = {module}.{method}({graph}{args_str}{kwargs_str})
+    from typing import Generator
+    if isinstance(result, Generator):
+        list(result)
+    """
+    timer_stmt = dedent(timer_stmt).strip()
     return timer_stmt, timer_setup
 
 

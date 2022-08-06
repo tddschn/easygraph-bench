@@ -131,6 +131,7 @@ def main(args):
             eval_method(
                 cost_dict,
                 load_func_name,
+                method_name,
                 **flags,
             )
     print()

@@ -34,4 +34,4 @@ load_functions_name = [
 di_load_functions_name = ["load_soc"]
 
 dataset_names = [x.removeprefix('load_') for x in load_functions_name]
-method_groups = ['clustering', 'shortest-path', 'connected-components', 'MST']
+method_groups = ['clustering', 'shortest-path', 'connected-components', 'mst']
