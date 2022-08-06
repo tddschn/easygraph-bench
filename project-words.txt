@@ -1,11 +1,14 @@
 AAAI
 aaai
 allfile
+autorange
 barplot
 booktitle
 cheminfo
 cheminfomatics
 cheminformatics
+conda
+coreturn
 easygraph
 fangsong
 gplus
@@ -22,6 +25,7 @@ Rossi
 savefig
 seaborn
 tddschn
+timeit
 whitegrid
 Xinyuan
 xlabel
