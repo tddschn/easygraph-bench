@@ -1,6 +1,7 @@
 # easygraph-bench
 
-Benchmarking code that compares the performance of the 2 graph libraries easygraph (python & C++ binding) and networkx.
+Benchmarking code that compares the performance of the 2 graph libraries [easygraph](https://github.com/easy-graph/Easy-Graph) (python & C++ binding) and [networkx](https://networkx.org).
+
 
 - [easygraph-bench](#easygraph-bench)
   - [Benchmarking method](#benchmarking-method)
@@ -14,6 +15,7 @@ Benchmarking code that compares the performance of the 2 graph libraries easygra
       - [cheminformatics](#cheminformatics)
       - [bio](#bio)
       - [eco](#eco)
+  - [Useful links](#useful-links)
 
 ## Benchmarking method
 
@@ -396,3 +398,11 @@ Make sure you have an empty line after the closing </details> tag if you have mu
 Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
 Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
 </details>
+
+## Useful links
+
+- [EasyGraph](https://github.com/easy-graph/Easy-Graph)
+- [NetworkX](https://networkx.org)
+- [networkx-easygraph-comparison](https://github.com/tddschn/networkx-easygraph-comparison)
+    My opinionated comparison of the 2 projects
+
