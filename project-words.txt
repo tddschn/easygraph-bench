@@ -3,6 +3,8 @@ aaai
 allfile
 barplot
 booktitle
+cheminfo
+cheminfomatics
 cheminformatics
 easygraph
 fangsong
@@ -13,11 +15,14 @@ mahindas
 matplotlib
 MUTAG
 Nesreen
+Networkx
 networkx
 pyplot
 Rossi
 savefig
 seaborn
+tddschn
 whitegrid
+Xinyuan
 xlabel
 ylabel

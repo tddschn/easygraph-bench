@@ -196,7 +196,10 @@ def get_Timer_args(
     kwargs: dict[str, str] = {},
 ) -> tuple[str, str]:
 
-    timer_setup = f'from __main__ import eg, nx, G_eg, G_nx, G_ceg, first_node_eg, first_node_nx, first_node_ceg'
+    timer_setup = f'''
+    from __main__ import eg, nx, G_eg, G_nx, G_ceg, first_node_eg, first_node_nx, first_node_ceg
+    from typing import Generator
+    '''
     # if module == 'eg':
     #     timer_setup = 'import easygraph as eg'
     # elif module == 'nx':
@@ -211,10 +214,10 @@ def get_Timer_args(
     kwargs_str = ', ' + kwargs_str if kwargs_str else ''
     timer_stmt = f"""
     result = {module}.{method}({graph}{args_str}{kwargs_str})
-    from typing import Generator
     if isinstance(result, Generator):
         list(result)
     """
+    timer_setup = dedent(timer_setup).strip()
     timer_stmt = dedent(timer_stmt).strip()
     return timer_stmt, timer_setup
 
