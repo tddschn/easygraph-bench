@@ -12,6 +12,7 @@ from easygraph import Graph, DiGraph
 import networkx as nx
 from itertools import islice
 from timeit import Timer
+from inspect import getsource
 
 # from .types import MethodName
 
@@ -190,11 +191,13 @@ def get_Timer_args(
     kwargs: dict[str, str] = {},
 ) -> tuple[str, str]:
 
-    if module == 'eg':
-        timer_setup = 'import easygraph as eg'
-    elif module == 'nx':
-        timer_setup = 'import networkx as nx'
-    else:
+    timer_setup = f'from __main__ import eg, nx, G_eg, G_nx, G_ceg, first_node_eg, first_node_nx, first_node_ceg'
+    # if module == 'eg':
+    #     timer_setup = 'import easygraph as eg'
+    # elif module == 'nx':
+    #     timer_setup = 'import networkx as nx'
+    # else:
+    if module not in ('eg', 'nx'):
         raise ValueError(f'{module=} is not supported')
 
     args_str = ', '.join(args)
@@ -205,26 +208,35 @@ def get_Timer_args(
     return timer_stmt, timer_setup
 
 
+def bench_with_timeit(
+    module: Literal['eg', 'nx'],
+    method: str,
+    graph: str,
+    args: list[str] = [],
+    kwargs: dict[str, str] = {},
+) -> float:
+    timer = Timer(*get_Timer_args(module, method, graph, args, kwargs))
+    count, total_time = timer.autorange()
+    return total_time / count
+
+
 def eval_method(
     cost_dict: dict,
-    eg_graph,
-    nx_graph,
-    ceg_graph,
+    # eg_graph,
+    # nx_graph,
+    # ceg_graph,
     load_func_name: str,
     method_name: 'Union[str, tuple[str, str]]',
-    call_method_args_eg: Optional[list] = None,
-    call_method_args_ceg: Optional[list] = None,
-    call_method_args_nx: Optional[list] = None,
-    call_method_kwargs_eg: Optional[dict] = None,
-    call_method_kwargs_ceg: Optional[dict] = None,
-    call_method_kwargs_nx: Optional[dict] = None,
+    call_method_args_eg: list[str] = [],
+    call_method_args_ceg: list[str] = [],
+    call_method_args_nx: list[str] = [],
+    call_method_kwargs_eg: dict[str, str] = {},
+    call_method_kwargs_ceg: dict[str, str] = {},
+    call_method_kwargs_nx: dict[str, str] = {},
     dry_run: bool = False,
     skip_ceg: bool = False,
 ):
-    G_eg = deepcopy(eg_graph)
-    # G_ceg = deepcopy(ceg_graph)
-    G_ceg = ceg_graph.copy()
-    G_nx = deepcopy(nx_graph)
+    # raise DeprecationWarning('Deprecated. Use ./bench_*.py instead')
 
     load_func_name = load_func_name.removeprefix('load_')
     if isinstance(method_name, str):
@@ -234,30 +246,40 @@ def eval_method(
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name] = dict()
 
-        start = time.time()
-        eg_res = call_method(
-            eg, method_name, G_eg, call_method_args_eg, call_method_kwargs_eg
+        # start = time.time()
+        # eg_res = call_method(
+        #     eg, method_name, G_eg, call_method_args_eg, call_method_kwargs_eg
+        # )
+        # cost_dict[load_func_name][method_name]["eg"] = time.time() - start
+        # output(eg_res, load_func_name + "_" + method_name + "_eg_res.json")
+        # timer_eg = Timer(*get_Timer_args(module='eg', method=method_name, graph='G_eg',)
+        avg_time_eg = bench_with_timeit(
+            module='eg',
+            method=method_name,
+            graph='G_eg',
+            args=call_method_args_eg,
+            kwargs=call_method_kwargs_eg,
         )
-        cost_dict[load_func_name][method_name]["eg"] = time.time() - start
-        output(eg_res, load_func_name + "_" + method_name + "_eg_res.json")
+        cost_dict[load_func_name][method_name]["eg"] = avg_time_eg
 
         if not skip_ceg:
-            start = time.time()
-            ceg_res = call_method(
-                eg, method_name, G_ceg, call_method_args_ceg, call_method_kwargs_ceg
+            avg_time_ceg = bench_with_timeit(
+                module='eg',
+                method=method_name,
+                graph='G_ceg',
+                args=call_method_args_ceg,
+                kwargs=call_method_kwargs_ceg,
             )
-            cost_dict[load_func_name][method_name]["ceg"] = time.time() - start
-            output(ceg_res, load_func_name + "_" + method_name + "_ceg_res.json")
+            cost_dict[load_func_name][method_name]["ceg"] = avg_time_ceg
 
-        start = time.time()
-        nx_res = call_method(
-            nx, method_name, G_nx, call_method_args_nx, call_method_kwargs_nx
+        avg_time_nx = bench_with_timeit(
+            module='nx',
+            method=method_name,
+            graph='G_nx',
+            args=call_method_args_nx,
+            kwargs=call_method_kwargs_nx,
         )
-        cost_dict[load_func_name][method_name]["nx"] = time.time() - start
-        output(
-            nx_res,
-            load_func_name + "_" + method_name + "_nx_res.json",
-        )
+        cost_dict[load_func_name][method_name]["nx"] = avg_time_nx
 
         output(
             cost_dict,
@@ -275,31 +297,33 @@ def eval_method(
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name_eg] = dict()
 
-        start = time.time()
-        eg_res = call_method(
-            eg, method_name_eg, G_eg, call_method_args_eg, call_method_kwargs_eg
+        avg_time_eg = bench_with_timeit(
+            module='eg',
+            method=method_name_eg,
+            graph='G_eg',
+            args=call_method_args_eg,
+            kwargs=call_method_kwargs_eg,
         )
-        cost_dict[load_func_name][method_name_eg]["eg"] = time.time() - start
-        output(eg_res, load_func_name + "_" + method_name_eg + "_eg_res.json")
+        cost_dict[load_func_name][method_name_eg]["eg"] = avg_time_eg
 
         if not skip_ceg:
-            start = time.time()
-            ceg_res = call_method(
-                eg, method_name_eg, G_ceg, call_method_args_ceg, call_method_kwargs_ceg
+            avg_time_ceg = bench_with_timeit(
+                module='eg',
+                method=method_name_eg,
+                graph='G_ceg',
+                args=call_method_args_ceg,
+                kwargs=call_method_kwargs_ceg,
             )
-            cost_dict[load_func_name][method_name]["ceg"] = time.time() - start
-            output(ceg_res, load_func_name + "_" + method_name_eg + "_ceg_res.json")
+            cost_dict[load_func_name][method_name_eg]["ceg"] = avg_time_ceg
 
-        start = time.time()
-        nx_res = call_method(
-            nx, method_name_nx, G_nx, call_method_args_nx, call_method_kwargs_nx
+        avg_time_nx = bench_with_timeit(
+            module='nx',
+            method=method_name_nx,
+            graph='G_nx',
+            args=call_method_args_nx,
+            kwargs=call_method_kwargs_nx,
         )
-        cost_dict[load_func_name][method_name_eg]["nx"] = time.time() - start
-        output(
-            nx_res,
-            load_func_name + "_" + method_name_eg + "_nx_res.json",
-        )
-
+        cost_dict[load_func_name][method_name_eg]["nx"] = avg_time_nx
         output(
             cost_dict,
             load_func_name + '_' + method_name_eg + "_cost.json",

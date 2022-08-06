@@ -66,8 +66,11 @@ def get_args():
     return parser.parse_args()
 
 
-def main():
-    args = get_args()
+args = get_args()
+
+
+def main(args):
+    raise DeprecationWarning('Deprecated. Use ./bench_*.py instead')
     from dataset_loaders import load_bio, load_cheminformatics, load_eco, load_soc  # type: ignore
     from utils import eval_method, eg2nx, get_first_node, eg2ceg
 
@@ -168,4 +171,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(args)
