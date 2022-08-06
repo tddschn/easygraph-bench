@@ -6,6 +6,7 @@ Benchmarking code that compares the performance of the 2 graph libraries easygra
   - [Benchmarking method](#benchmarking-method)
   - [Benchmarked methods](#benchmarked-methods)
   - [Run locally](#run-locally)
+  - [Result visualization](#result-visualization)
   - [Datasets](#datasets)
 
 ## Benchmarking method
@@ -20,8 +21,10 @@ See [get_Timer_args()](https://github.com/tddschn/easygraph-bench/blob/69cc89889
 
 See [config.py](./config.py) for more details.
 
-- clustering_methods: `["average_clustering", "clustering"]`
-- shortest_path_methods: `[('Dijkstra', 'single_source_dijkstra_path')]`
+- clustering_methods: `["average_clustering", "clustering"]`  
+    (`eg.average_clustering` vs `nx.average_clustering`, ...)
+- shortest_path_methods: `[('Dijkstra', 'single_source_dijkstra_path')]`  
+    (`eg.Dijkstra` vs `nx.single_source_dijkstra_path`)
 - connected_components_methods: `[ "is_connected", "number_connected_components", "connected_components", ("connected_component_of_node", 'node_connected_component'), ]`
 - mst_methods: `['minimum_spanning_tree']`
 
@@ -45,6 +48,14 @@ brew install boost boost-python
 python3 setup.py build_ext -l boost_python39 -L "/usr/local/Cellar/boost-python3/1.79.0/lib" -I "/usr/local/Cellar/boost/1.79.0/include"
 python3 setup.py install
 ```
+
+## Result visualization
+
+`timeit` results are saved in json files, and `seaborn` is used to render and save the figures in the `images/` directory.
+
+The figures look like this:
+![](images-public/cheminfomatics/average_clustering.png)
+
 
 ## Datasets
 
