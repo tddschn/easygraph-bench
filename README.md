@@ -6,6 +6,7 @@ Benchmarking code that compares the performance of the 2 graph libraries easygra
   - [Benchmarking method](#benchmarking-method)
   - [Benchmarked methods](#benchmarked-methods)
   - [Run locally](#run-locally)
+    - [Scripts usage](#scripts-usage)
   - [Result visualization](#result-visualization)
   - [Datasets](#datasets)
   - [Results](#results)
@@ -50,8 +51,29 @@ git clone https://github.com/easy-graph/Easy-Graph && cd Easy-Graph
 brew install boost boost-python
 
 [ -d 'build'] && rm -rf build/
+
+# modify line below based on your machine configuration, don't copy and run verbatim!
+# you may also need to install clang or clang++ if you haven't already.
 python3 setup.py build_ext -l boost_python39 -L "/usr/local/Cellar/boost-python3/1.79.0/lib" -I "/usr/local/Cellar/boost/1.79.0/include"
+
 python3 setup.py install
+```
+
+### Scripts usage
+
+```
+$ ./bench_cheminfo.py --help
+
+ENZYMES_g1: nodes: 37 edges: 84
+usage: bench_cheminfo.py [-h] [-G {clustering,shortest-path,connected-components,mst} [{clustering,shortest-path,connected-components,mst} ...]] [-C]
+
+EasyGraph & NetworkX side-by-side benchmarking
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -G {clustering,shortest-path,connected-components,mst} [{clustering,shortest-path,connected-components,mst} ...], --method-group {clustering,shortest-path,connected-components,mst} [{clustering,shortest-path,connected-components,mst} ...]
+  -C, --skip-cpp-easygraph, --skip-ceg
+                        Skip benchmarking cpp_easygraph methods (default: False)
 ```
 
 ## Result visualization
