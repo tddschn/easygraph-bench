@@ -8,6 +8,7 @@ Benchmarking code that compares the performance of the 2 graph libraries easygra
   - [Run locally](#run-locally)
   - [Result visualization](#result-visualization)
   - [Datasets](#datasets)
+  - [Results](#results)
 
 ## Benchmarking method
 
@@ -64,3 +65,11 @@ The figures look like this:
 ## Datasets
 
 See [dataset_loaders.py](./dataset_loaders.py).
+
+
+## Results
+
+Machine: MacBookPro16,2 (Mid-2020 MacBook Pro, Intel i7-1068NG7 (8) @ 2.30GHz, 16GB RAM)
+OS: macOS Monterey 12.5 21G72 x86_64
+python: Python 3.9.10 | packaged by conda-forge | (main, Feb  1 2022, 21:28:27)
+scripts ran that generated the results: `./bench_*.py`.
