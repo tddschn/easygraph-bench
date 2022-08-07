@@ -33,8 +33,10 @@ See [config.py](./config.py) for more details.
     (`eg.average_clustering` vs `nx.average_clustering`, ...)
 - shortest_path_methods: `[('Dijkstra', 'single_source_dijkstra_path')]`  
     (`eg.Dijkstra` vs `nx.single_source_dijkstra_path`)
-- connected_components_methods: `[ "is_connected", "number_connected_components", "connected_components", ("connected_component_of_node", 'node_connected_component'), ]`
-- mst_methods: `['minimum_spanning_tree']`
+<!-- - connected_components_methods: `[ "is_connected", "number_connected_components", "connected_components", ("connected_component_of_node", 'node_connected_component'), ]` -->
+- connected_components_methods: `["is_biconnected", "biconnected_components"]`
+- mst_methods: `['minimum_spanning_tree']`  
+    C++ binding not supported for this method yet.
 
 ## Run locally
 
