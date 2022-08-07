@@ -411,6 +411,6 @@ Make sure you have an empty line after the closing </details> tag if you have mu
 
 - [EasyGraph](https://github.com/easy-graph/Easy-Graph)
 - [NetworkX](https://networkx.org)
-- [networkx-easygraph-comparison](https://github.com/tddschn/networkx-easygraph-comparison)
+- [networkx-easygraph-comparison](https://github.com/tddschn/networkx-easygraph-comparison)  
     My opinionated comparison of the 2 projects
 
