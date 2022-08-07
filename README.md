@@ -40,14 +40,20 @@ See [config.py](./config.py) for more details.
 
 `python >= 3.9` is required.
 
-- [./bench.py](./bench.py):  
-   Deprecated, modified and parameterized from [@coreturn](https://github.com/coreturn)'s benchmarking script.  
-   Only run the methods once with and record the difference of the result of `time.time()` calls as the time spent.  
-   Use the following scripts instead.
-- [./bench_cheminfo.py](./bench_cheminfo.py): Run benchmarks on the cheminfomatics dataset
-- [./bench_bio.py](./bench_bio.py): Run benchmarks on the bio dataset
-- [./bench_eco.py](./bench_eco.py): Run benchmarks on the eco dataset
-- [./bench_soc.py](./bench_soc.py): Run benchmarks on the soc dataset
+- Run benchmarks on a single dataset  
+    You can choose what method category to benchmark via `-G`. See [Scripts usage](#scripts-usage).
+    - [./bench_cheminfo.py](./bench_cheminfo.py): Run benchmarks on the cheminfomatics dataset
+    - [./bench_bio.py](./bench_bio.py): Run benchmarks on the bio dataset
+    - [./bench_eco.py](./bench_eco.py): Run benchmarks on the eco dataset
+    - [./bench_soc.py](./bench_soc.py): Run benchmarks on the soc dataset (WIP)
+- Run benchmarks on all datasets  
+    - [./bench.py](./bench.py): Run benchmarks on all datasets  
+        You can choose what method category to benchmark via `-G`. See [Scripts usage](#scripts-usage).
+- Deprecated  
+    - [./archive/bench.py](./archive/bench.py):  
+    Deprecated, modified and parameterized from [@coreturn](https://github.com/coreturn)'s benchmarking script.  
+    Only run the methods once with and record the difference of the result of `time.time()` calls as the time spent.  
+    Use the following scripts instead.
 
 To run these scripts, you need to clone the repo and install the dependencies listed in requirements.txt.
 
