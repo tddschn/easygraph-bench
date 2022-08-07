@@ -6,8 +6,11 @@ Benchmarking code that compares the performance of the 2 graph libraries [easygr
 - [easygraph-bench](#easygraph-bench)
   - [Benchmarking method](#benchmarking-method)
   - [Benchmarked methods](#benchmarked-methods)
-  - [Run locally](#run-locally)
-    - [Scripts usage](#scripts-usage)
+  - [Run](#run)
+    - [Run locally](#run-locally)
+      - [Scripts usage](#scripts-usage)
+      - [Run on a custom dataset](#run-on-a-custom-dataset)
+    - [Run on GitHub Actions](#run-on-github-actions)
   - [Result visualization](#result-visualization)
   - [Datasets](#datasets)
   - [Results](#results)
@@ -38,7 +41,9 @@ See [config.py](./config.py) for more details.
 - mst_methods: `['minimum_spanning_tree']`  
     C++ binding not supported for this method yet.
 
-## Run locally
+## Run
+
+### Run locally
 
 `python >= 3.9` is required.
 
@@ -76,7 +81,7 @@ python3 setup.py build_ext -l boost_python39 -L "/usr/local/Cellar/boost-python3
 python3 setup.py install
 ```
 
-### Scripts usage
+#### Scripts usage
 
 ```
 $ ./bench_cheminfo.py --help
@@ -92,6 +97,16 @@ optional arguments:
   -C, --skip-cpp-easygraph, --skip-ceg
                         Skip benchmarking cpp_easygraph methods (default: False)
 ```
+
+#### Run on a custom dataset
+
+See [./bench_cheminfo.py](./bench_cheminfo.py).
+
+Modify the dataset loading function `load_cheminformatics` to load your own dataset.
+
+### Run on GitHub Actions
+
+Fork this repo, go to the Actions tab and click Run Workflow.
 
 ## Result visualization
 
