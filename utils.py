@@ -232,7 +232,9 @@ def bench_with_timeit(
     timer = Timer(*get_Timer_args(module, method, graph, args, kwargs))
     print(f'{timer.src=}')  # type: ignore
     count, total_time = timer.autorange()
-    return total_time / count
+    avg_time = total_time / count
+    print(f'{count=}, {total_time=}, {avg_time=}')
+    return avg_time
 
 
 def eval_method(

@@ -43,3 +43,4 @@ di_load_functions_name = ["load_soc"]
 
 dataset_names = [x.removeprefix('load_') for x in load_functions_name]
 method_groups = ['clustering', 'shortest-path', 'connected-components', 'mst']
+known_individual_bench_scripts = ['bench_cheminfo.py', 'bench_eco.py', 'bench_bio.py']
