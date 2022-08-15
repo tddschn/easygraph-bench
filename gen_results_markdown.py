@@ -17,6 +17,7 @@ from config import (
     connected_components_methods_G,
     connected_components_methods_G_node,
     mst_methods,
+    other_methods,
     method_groups,
     dataset_names,
 )
@@ -31,6 +32,7 @@ methods_list = [
     connected_components_methods_G,
     connected_components_methods_G_node,
     mst_methods,
+    other_methods,
 ]
 method_name_list = []
 for l in methods_list:
