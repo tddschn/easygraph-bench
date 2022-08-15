@@ -18,6 +18,7 @@ from config import (
     connected_components_methods_G_node,
     mst_methods,
     method_groups,
+    other_methods,
     dataset_names,
 )
 from utils import eg2nx, eg2ceg, get_first_node, eval_method
@@ -128,6 +129,16 @@ def main(args):
     if method_groups is None or 'mst' in method_groups:
         # bench: mst
         for method_name in mst_methods:
+            eval_method(
+                cost_dict,
+                load_func_name,
+                method_name,
+                # **flags,
+                **(flags | {'skip_ceg': True}),
+            )
+    if method_groups is None or 'other' in method_groups:
+        # bench: mst
+        for method_name in other_methods:
             eval_method(
                 cost_dict,
                 load_func_name,
