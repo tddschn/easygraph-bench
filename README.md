@@ -13,6 +13,8 @@ Benchmarking code that compares the performance of the 2 graph libraries [easygr
     - [Run on GitHub Actions](#run-on-github-actions)
   - [Result visualization](#result-visualization)
   - [Datasets](#datasets)
+  - [FAQ](#faq)
+    - [Why do you repeat yourself by using `bench_*.py` scripts?](#why-do-you-repeat-yourself-by-using-bench_py-scripts)
   - [Results](#results)
     - [Complete results](#complete-results)
       - [cheminformatics](#cheminformatics)
@@ -122,6 +124,16 @@ See [Complete results](#complete-results).
 
 See [dataset_loaders.py](./dataset_loaders.py) and [dataset](./dataset/).
 
+## FAQ
+
+### Why do you repeat yourself by using `bench_*.py` scripts?
+
+Yeah, I know this is not DRY. But for the `timeit`-based benchmarking code to work,
+`eg`, `nx` and the graph objects must be in the global scope, i.e. `__main__`. 
+
+I don't know how to do that while sticking to the DRY principle. 
+
+But if you know, please tell me. :)
 
 ## Results
 
