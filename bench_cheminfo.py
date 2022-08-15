@@ -22,10 +22,10 @@ from config import (
 )
 from utils import eg2nx, eg2ceg, get_first_node, eval_method
 
-if eg_master_dir.exists():
-    import sys
+# if eg_master_dir.exists():
+#     import sys
 
-    sys.path.insert(0, str(eg_master_dir))
+#     sys.path.insert(0, str(eg_master_dir))
 
 import easygraph as eg
 import networkx as nx
