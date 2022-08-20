@@ -5,21 +5,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          path: easygraph-bench
 
       - name: checkout Easy-Graph
         uses: actions/checkout@v3
         with:
           repository: easy-graph/Easy-Graph
-          # ref: '6dade6c6'
-          # path: Easy-Graph
+          path: Easy-Graph
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
       - name: build and install easygraph
         env:
           python_version: '3.9'
           boost_version: "1.79.0"
+        working-directory: Easy-Graph
         run: |          
           python_version_abbr=${python_version//./}
           boost_version_alias=boost_${boost_version//./_}
@@ -34,6 +38,7 @@ jobs:
           cd ${{ github.workspace }}
           
           sudo ln -s /usr/local/lib/libboost_python${python_version_abbr}.a /usr/local/lib/libboost_python.a
+
           pip install pytest
           pip install Pillow
           pip install kiwisolver
@@ -44,6 +49,7 @@ jobs:
         
 
 
+      # cSpell:disable
       # - name: Setup upterm session
       #   uses: lhotari/action-upterm@v1
       #   with:
@@ -51,21 +57,25 @@ jobs:
       #     limit-access-to-actor: true
       #     ## limits ssh access and adds the ssh public keys of the listed GitHub users
       #     limit-access-to-users: tddschn
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
+      # cSpell:enable
 
       - name: Install dependencies
+        working-directory: easygraph-bench
         run: |
-          # cd ${{ github.workspace }}
           pip install -r requirements.txt
 
       - name: benchmark
+        working-directory: easygraph-bench
         run: |
-          # cd ${{ github.workspace }}
           python3 ./bench.py
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: benchmark-images
-          path: ${{ github.workspace }}/images
+          path: |
+            ${{ github.workspace }}/easygraph-bench/images
+            ${{ github.workspace }}/easygraph-bench/*.csv
