@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 import easygraph as eg
-from utils import list_allfile
+import networkx as nx
+from config import DATASET_DIR
+from utils import list_allfile, load_func_for_nx, directed_dataset
 
 
 def load_cheminformatics():
@@ -50,6 +52,7 @@ def load_eco():
     return G
 
 
+@directed_dataset
 def load_soc():
     # gplus: digraph
     G = eg.DiGraph()
@@ -69,3 +72,20 @@ def load_soc():
         print("finish load " + filename)
     print("gplus: " + "nodes: " + str(len(G.nodes)) + " edges: " + str(len(G.edges)))
     return G
+
+
+@directed_dataset
+@load_func_for_nx
+def load_pgp():
+    PGP_DIR = DATASET_DIR / "pgp"
+    graph_file_path = PGP_DIR / "pgp.xml"
+    g = nx.read_graphml(str(graph_file_path))
+    return g
+
+
+@load_func_for_nx
+def load_pgp_undirected():
+    PGP_DIR = DATASET_DIR / "pgp"
+    graph_file_path = PGP_DIR / "pgp_undirected.xml"
+    g = nx.read_graphml(str(graph_file_path))
+    return g
