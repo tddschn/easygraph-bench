@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from functools import wraps
 from pathlib import Path
 import os
 from pathlib import Path
@@ -378,3 +379,19 @@ def get_first_node(g):
 #     cost_dict[load_func_name]['Dijkstra']['nx'] = time.time() - start
 #     output(nx_res, load_func_name + '_Dijkstra_nx_res.json')
 #     draw(load_func_name + '_Dijkstra', cost_dict)
+
+
+def load_func_for_nx(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        wrapper.load_func_for = 'nx'
+        return f(*args, **kwargs)
+    return wrapper
+
+def directed_dataset(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        wrapper.directed = True
+        return f(*args, **kwargs)
+    return wrapper
+    

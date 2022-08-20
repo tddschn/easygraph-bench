@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 from typing import Union
 
+DATASET_DIR = Path(__file__).parent / "dataset"
 eg_master_dir = Path('~/testdir/Easy-Graph-master').expanduser()
 
 # (`eg.average_clustering` vs `nx.average_clustering`, ...)
