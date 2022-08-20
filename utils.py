@@ -97,36 +97,35 @@ def output(data, path):
         json_file.write(json_str)
 
 
-def eg2nx_graph(g: Graph) -> nx.Graph:
-    G = nx.Graph()
-    nodes_with_edges = set()
-    for v1, v2, _ in g.edges:
-        G.add_edge(v1, v2)
-        nodes_with_edges.add(v1)
-        nodes_with_edges.add(v2)
-    for node in set(g.nodes) - nodes_with_edges:
-        G.add_node(node)
-    return G
-
-
-def eg2nx_digraph(g: DiGraph) -> nx.DiGraph:
-    G = nx.DiGraph()
-    nodes_with_edges = set()
-    for v1, v2, _ in g.edges:
-        G.add_edge(v1, v2)
-        nodes_with_edges.add(v1)
-        nodes_with_edges.add(v2)
-    for node in set(g.nodes) - nodes_with_edges:
-        G.add_node(node)
-    return G
-
-
 def eg2nx(g: Union[Graph, DiGraph]) -> Union[nx.Graph, nx.DiGraph]:
     # if load_func_name in di_load_functions_name:
     if isinstance(g, DiGraph):
-        G = eg2nx_digraph(g)
+        G = nx.DiGraph()
     else:
-        G = eg2nx_graph(g)
+        G = nx.Graph()
+
+    nodes_with_edges = set()
+    for v1, v2, _ in g.edges:
+        G.add_edge(v1, v2)
+        nodes_with_edges.add(v1)
+        nodes_with_edges.add(v2)
+    for node in set(g.nodes) - nodes_with_edges:
+        G.add_node(node)
+    return G
+
+
+def nx2eg(g: Union[nx.Graph, nx.DiGraph]) -> Union[Graph, DiGraph]:
+    if isinstance(g, nx.DiGraph):
+        G = DiGraph()
+    else:
+        G = Graph()
+    nodes_with_edges = set()
+    for v1, v2 in g.edges:
+        G.add_edge(v1, v2)
+        nodes_with_edges.add(v1)
+        nodes_with_edges.add(v2)
+    for node in set(g.nodes) - nodes_with_edges:
+        G.add_node(node)
     return G
 
 
