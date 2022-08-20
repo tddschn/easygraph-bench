@@ -35,9 +35,10 @@ jobs:
           cd ${boost_version_alias}
           ./bootstrap.sh --with-python=python
           sudo ./b2 cxxflags="-fPIC" install --with-python
-          cd ${{ github.workspace }}
           
           sudo ln -s /usr/local/lib/libboost_python${python_version_abbr}.a /usr/local/lib/libboost_python.a
+
+          cd -
 
           pip install pytest
           pip install Pillow
