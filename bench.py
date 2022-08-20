@@ -62,7 +62,7 @@ def main():
     # print(f'{argv=}')
     for script in known_individual_bench_scripts:
         print(f'Running {script}')
-        run([f'./{script}', *argv[1:]])
+        run([f'./{script}', *argv[1:]], check=True)
 
 
 if __name__ == "__main__":
