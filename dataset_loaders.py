@@ -3,7 +3,7 @@
 import easygraph as eg
 import networkx as nx
 from config import DATASET_DIR
-from utils import list_allfile, load_func_for_nx, directed_dataset
+from utils import list_allfile, load_func_for_nx, directed_dataset, print_with_hr
 
 
 def load_cheminformatics():
@@ -79,7 +79,11 @@ def load_soc():
 def load_pgp():
     PGP_DIR = DATASET_DIR / "pgp"
     graph_file_path = PGP_DIR / "pgp.xml"
+    print_with_hr(f'loading graph pgp from {str(graph_file_path)} ...')
     g = nx.read_graphml(str(graph_file_path))
+    print_with_hr(
+        f'finish loading graph pgp.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}'
+    )
     return g
 
 
@@ -87,5 +91,9 @@ def load_pgp():
 def load_pgp_undirected():
     PGP_DIR = DATASET_DIR / "pgp"
     graph_file_path = PGP_DIR / "pgp_undirected.xml"
+    print_with_hr(f'loading graph pgp_undirected from {str(graph_file_path)} ...')
     g = nx.read_graphml(str(graph_file_path))
+    print_with_hr(
+        f'finish loading graph pgp_undirected.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}'
+    )
     return g
