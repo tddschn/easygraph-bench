@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from hr_tddschn import hr
 from functools import wraps
 from pathlib import Path
 import os
@@ -394,4 +395,9 @@ def directed_dataset(f):
         wrapper.directed = True
         return f(*args, **kwargs)
     return wrapper
+
+def print_with_hr(s: str):
+    hr()
+    print(s)
+    hr()
     
