@@ -111,3 +111,16 @@ def load_pgp_undirected():
         f'finish loading graph pgp_undirected.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}'
     )
     return g
+
+
+def load_stub():
+    print_with_hr('loading graph stub ...')
+    G = eg.complete_graph(5)
+    return G
+
+
+@directed_dataset
+def load_stub_directed():
+    print_with_hr('loading graph stub_directed ...')
+    G = eg.complete_graph(5, create_using=eg.DiGraph())
+    return G
