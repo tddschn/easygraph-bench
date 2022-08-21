@@ -136,6 +136,15 @@ def load_stub():
     return G
 
 
+def load_stub_with_underscore():
+    print_with_hr('loading graph stub ...')
+    G: eg.Graph = eg.complete_graph(5)  # type: ignore
+    print_with_hr(
+        f'finished loading graph stub\nnodes: {len(G.nodes)}, edges: {len(G.edges)}, is_directed: {G.is_directed()}'
+    )
+    return G
+
+
 @directed_dataset
 def load_stub_directed():
     print_with_hr('loading graph stub_directed ...')

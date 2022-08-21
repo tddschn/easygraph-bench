@@ -43,6 +43,7 @@ load_functions_name = [
     'load_pgp',
     'load_pgp_undirected',
     'load_stub',
+    'load_stub_with_underscore',
     'load_stub_directed',
     'load_stub_nx',
 ]
@@ -61,6 +62,6 @@ known_individual_bench_scripts = [
 
 known_stub_bench_scripts = [
     'bench_stub.py',
-    'bench_stub_directed.py',
+    'bench_stub_with_underscore.py' 'bench_stub_directed.py',
     'bench_stub_nx.py',
 ]
