@@ -30,7 +30,13 @@ from config import (
 )
 
 
-def draw(lf_n, data, methods: Optional[tuple[str, str]] = None):
+def draw(
+    lf_n: str,
+    dataset_name: str,
+    method_name: str,
+    data,
+    methods: Optional[tuple[str, str]] = None,
+):
     # import matplotlib
     # from matplotlib import pyplot
     import matplotlib.pyplot as plt
@@ -39,7 +45,7 @@ def draw(lf_n, data, methods: Optional[tuple[str, str]] = None):
     import seaborn as sns
     import pandas as pd
 
-    dataset_name, _, method_name = lf_n.partition('_')
+    # dataset_name, _, method_name = lf_n.partition('_')
     fig_dir = Path('images') / dataset_name
     fig_dir.mkdir(parents=True, exist_ok=True)
     csv_file = lf_n + "_cost.csv"
@@ -320,7 +326,12 @@ def eval_method(
             load_func_name + '_' + method_name + "_cost.json",
         )
         if not skip_draw:
-            draw(load_func_name + '_' + method_name, cost_dict)
+            draw(
+                load_func_name + '_' + method_name,
+                load_func_name,
+                method_name,
+                cost_dict,
+            )
         return cost_dict
     elif isinstance(method_name, tuple):
         method_name_eg, method_name_nx = method_name
@@ -373,7 +384,13 @@ def eval_method(
             load_func_name + '_' + method_name_eg + "_cost.json",
         )
         if not skip_draw:
-            draw(load_func_name + '_' + method_name_eg, cost_dict, methods=method_name)
+            draw(
+                load_func_name + '_' + method_name_eg,
+                load_func_name,
+                method_name_eg,
+                cost_dict,
+                methods=method_name,
+            )
         return cost_dict
     else:
         raise ValueError('method_name or method_names must be specified')
