@@ -473,3 +473,10 @@ def tabulate_csv(csv_file: str) -> str:
         table = [row for row in reader]
 
     return tabulate(table, headers='firstrow')
+
+
+def load_large_datasets_with_read_edgelist(file_path: str) -> nx.DiGraph:
+    g = nx.read_edgelist(
+        file_path, delimiter="\t", nodetype=int, create_using=nx.DiGraph()
+    )
+    return g
