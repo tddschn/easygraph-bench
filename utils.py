@@ -253,7 +253,7 @@ def bench_with_timeit(
 
 
 def eval_method(
-    cost_dict: dict,
+    # cost_dict: dict,
     # eg_graph,
     # nx_graph,
     # ceg_graph,
@@ -269,14 +269,15 @@ def eval_method(
     skip_ceg: bool = False,
     skip_draw: bool = False,
     timeit_number: Optional[int] = None,
-):
+) -> dict:
     # raise DeprecationWarning('Deprecated. Use ./bench_*.py instead')
 
     load_func_name = load_func_name.removeprefix('load_')
+    cost_dict = {}
     if isinstance(method_name, str):
         print(f'benchmarking eg.{method_name} and nx.{method_name} on {load_func_name}')
         if dry_run:
-            return
+            return cost_dict
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name] = dict()
 
@@ -320,6 +321,7 @@ def eval_method(
         )
         if not skip_draw:
             draw(load_func_name + '_' + method_name, cost_dict)
+        return cost_dict
     elif isinstance(method_name, tuple):
         method_name_eg, method_name_nx = method_name
         # print('benchmarking method: ' + method_name_eg)
@@ -327,7 +329,7 @@ def eval_method(
             f'benchmarking eg.{method_name_eg} and nx.{method_name_nx} on {load_func_name}'
         )
         if dry_run:
-            return
+            return cost_dict
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name_eg] = dict()
 
@@ -372,6 +374,7 @@ def eval_method(
         )
         if not skip_draw:
             draw(load_func_name + '_' + method_name_eg, cost_dict, methods=method_name)
+        return cost_dict
     else:
         raise ValueError('method_name or method_names must be specified')
 
@@ -428,3 +431,14 @@ def print_with_hr(s: str):
     hr()
     print(s)
     hr()
+
+
+def tabulate_csv(csv_file: str) -> str:
+    from tabulate import tabulate
+    import csv
+
+    with open(csv_file, 'r') as f:
+        reader = csv.reader(f)
+        table = [row for row in reader]
+
+    return tabulate(table, headers='firstrow')
