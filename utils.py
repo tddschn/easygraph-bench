@@ -252,8 +252,13 @@ def bench_with_timeit(
             print(f'Using timeit({timeit_number})')
         avg_time = total_time / count
         print(f'{count=}, {total_time=}, {avg_time=}')
+        print()
         return avg_time
-    except (NetworkXNotImplemented, EasyGraphNotImplemented):
+    except (NetworkXNotImplemented, EasyGraphNotImplemented) as e:
+        # print error
+        print()
+        print(f'skipped. reason: {e}')
+        print()
         return -1.0
     except:
         raise
@@ -282,7 +287,10 @@ def eval_method(
     load_func_name = load_func_name.removeprefix('load_')
     cost_dict = {}
     if isinstance(method_name, str):
-        print(f'benchmarking eg.{method_name} and nx.{method_name} on {load_func_name}')
+        print_with_hr(
+            f'benchmarking eg.{method_name} and nx.{method_name} on {load_func_name}',
+            hr_char='=',
+        )
         if dry_run:
             return cost_dict
         cost_dict[load_func_name] = dict()
@@ -337,8 +345,9 @@ def eval_method(
     elif isinstance(method_name, tuple):
         method_name_eg, method_name_nx = method_name
         # print('benchmarking method: ' + method_name_eg)
-        print(
-            f'benchmarking eg.{method_name_eg} and nx.{method_name_nx} on {load_func_name}'
+        print_with_hr(
+            f'benchmarking eg.{method_name_eg} and nx.{method_name_nx} on {load_func_name}',
+            hr_char='=',
         )
         if dry_run:
             return cost_dict
@@ -449,10 +458,10 @@ def directed_dataset(f):
     return f
 
 
-def print_with_hr(s: str):
-    hr()
+def print_with_hr(s: str, hr_char: str = '#'):
+    hr(hr_char)
     print(s)
-    hr()
+    hr(hr_char)
 
 
 def tabulate_csv(csv_file: str) -> str:

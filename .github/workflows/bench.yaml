@@ -131,4 +131,4 @@ jobs:
         run: |
           make zip-csv
           make zip-figs
-          gh release create v0.1.1 bench-results-csv.zip bench-result-figures.zip
+          gh release create v0.2.2 bench-results-csv.zip bench-result-figures.zip
