@@ -123,3 +123,10 @@ jobs:
           path: |
             ${{ github.workspace }}/easygraph-bench/images
             ${{ github.workspace }}/easygraph-bench/*.csv
+
+      - name: Create release
+        working-directory: easygraph-bench
+        run: |
+          make zip-csv
+          make zip-figs
+          gh release create v0.1.1 bench-results-csv.zip bench-result-figures.zip
