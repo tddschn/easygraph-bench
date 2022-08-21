@@ -72,6 +72,7 @@ for dataset_path, dataset_display_name in datasets.items():
 readme = Path('README.md')
 readme_lines_orig = readme.read_text().splitlines()
 readme_lines = list(takewhile(lambda line: marker not in line, readme_lines_orig))
+readme_lines.append(marker)
 readme_lines.extend(output)
 
 readme.write_text('\n'.join(readme_lines))
