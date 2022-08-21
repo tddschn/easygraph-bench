@@ -72,6 +72,7 @@ def draw(
     ax.set_xlabel("method")
     ax.set_ylabel("time(s)")
     plt.savefig(fig_path, dpi=2000)
+    print(f'{fig_path} saved')
     plt.close()
 
 
