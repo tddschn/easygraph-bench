@@ -55,7 +55,7 @@ def draw(
 
     fig_path = fig_dir / (f'{method_name}.png')
     sns.set_style("whitegrid")
-    sns.set(font="Helvetica")
+    sns.set(font="DejaVu Sans")
     ax = sns.barplot(
         x="method",
         y="avg time",
