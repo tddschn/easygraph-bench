@@ -1,5 +1,7 @@
 # easygraph-bench
 
+[![benchmark](https://github.com/tddschn/easygraph-bench/actions/workflows/bench.yaml/badge.svg?event=workflow_dispatch)](https://github.com/tddschn/easygraph-bench/actions/workflows/bench.yaml)
+
 Benchmarking code that compares the performance of the 2 graph libraries [easygraph](https://github.com/easy-graph/Easy-Graph) (python & C++ binding) and [networkx](https://networkx.org).
 
 
@@ -155,6 +157,7 @@ You can download the benchmarking results on the [Releases](https://github.com/t
 Click on the triangles to see the results.  
 The images may take sometime to load.
 
+avg_time == -1 means method not supported by graph type (`NetworkXNotImplemented` or `EasyGraphNotImplemented` exceptions thrown).
 
 #### cheminformatics
 
