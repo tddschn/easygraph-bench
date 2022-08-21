@@ -53,3 +53,5 @@ known_individual_bench_scripts = [
     'bench_pgp.py',
     'bench_pgp_undirected.py',
 ]
+
+known_stub_bench_scripts = ['bench_stub.py', 'bench_stub_directed.py']
