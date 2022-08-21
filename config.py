@@ -44,6 +44,7 @@ load_functions_name = [
     'load_pgp_undirected',
     'load_stub',
     'load_stub_directed',
+    'load_stub_nx',
 ]
 
 di_load_functions_name = ["load_soc"]
@@ -58,4 +59,8 @@ known_individual_bench_scripts = [
     'bench_pgp_undirected.py',
 ]
 
-known_stub_bench_scripts = ['bench_stub.py', 'bench_stub_directed.py']
+known_stub_bench_scripts = [
+    'bench_stub.py',
+    'bench_stub_directed.py',
+    'bench_stub_nx.py',
+]
