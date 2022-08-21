@@ -30,7 +30,7 @@ from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, t
 
 import easygraph as eg
 import networkx as nx
-from dataset_loaders import load_bio, load_cheminformatics, load_eco, load_soc, load_pgp, load_pgp_undirected, load_stub, load_stub_directed, load_stub_nx  # type: ignore
+from dataset_loaders import *
 
 load_func_name = 'load_bio'
 if hasattr(load_bio, 'load_func_for') and load_bio.load_func_for == 'nx':

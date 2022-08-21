@@ -32,12 +32,12 @@ import easygraph as eg
 import networkx as nx
 from dataset_loaders import *
 
-load_func_name = 'load_stub_directed'
-if hasattr(load_stub_directed, 'load_func_for') and load_stub_directed.load_func_for == 'nx':
-    G_nx = load_stub_directed()
+load_func_name = 'load_stub_with_underscore'
+if hasattr(load_stub_with_underscore, 'load_func_for') and load_stub_with_underscore.load_func_for == 'nx':
+    G_nx = load_stub_with_underscore()
     G_eg = nx2eg(G_nx)
 else:
-    G_eg = load_stub_directed()
+    G_eg = load_stub_with_underscore()
     G_nx = eg2nx(G_eg)
 G_ceg = eg2ceg(G_eg)
 first_node_eg = get_first_node(G_eg)
