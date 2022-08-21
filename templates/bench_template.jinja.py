@@ -35,7 +35,7 @@ from dataset_loaders import load_bio, load_cheminformatics, load_eco, load_soc, 
 load_func_name = '{{ load_func_name }}'
 if hasattr({{ load_func_name }}, 'load_func_for') and {{ load_func_name }}.load_func_for == 'nx':
     G_nx = {{ load_func_name }}()
-    G_eg = nx2eg(G_eg)
+    G_eg = nx2eg(G_nx)
 else:
     G_eg = {{ load_func_name }}()
     G_nx = eg2nx(G_eg)

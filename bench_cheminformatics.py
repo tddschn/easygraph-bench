@@ -35,7 +35,7 @@ from dataset_loaders import load_bio, load_cheminformatics, load_eco, load_soc, 
 load_func_name = 'load_cheminformatics'
 if hasattr(load_cheminformatics, 'load_func_for') and load_cheminformatics.load_func_for == 'nx':
     G_nx = load_cheminformatics()
-    G_eg = nx2eg(G_eg)
+    G_eg = nx2eg(G_nx)
 else:
     G_eg = load_cheminformatics()
     G_nx = eg2nx(G_eg)
