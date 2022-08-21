@@ -144,3 +144,13 @@ def load_stub_directed():
         f'finished loading graph stub_directed\nnodes: {len(G.nodes)}, edges: {len(G.edges)}, is_directed: {G.is_directed()}'
     )
     return G
+
+
+@load_func_for_nx
+def load_stub_nx():
+    print_with_hr('loading graph stub_nx ...')
+    G = nx.complete_graph(5)  # type: ignore
+    print_with_hr(
+        f'finished loading graph stub_nx\nnodes: {len(G.nodes)}, edges: {len(G.edges)}, is_directed: {G.is_directed()}'
+    )
+    return G
