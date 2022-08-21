@@ -51,6 +51,21 @@ def get_args():
 
     # parser.add_argument('-n', '--dry-run', action='store_true', help='Dry run')
 
+    parser.add_argument(
+        '-D',
+        '--skip-draw',
+        action='store_true',
+        help='Skip drawing graphs to speed things up',
+    )
+
+    parser.add_argument(
+        '-p',
+        '--pass',
+        metavar='NUMBER',
+        type=int,
+        help='Number of passes to run in the benchmark, uses Timer.autorange() if not set.',
+    )
+
     return parser.parse_args()
 
 
