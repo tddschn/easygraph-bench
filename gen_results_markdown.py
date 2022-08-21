@@ -24,7 +24,7 @@ from config import (
 
 e = Environment(loader=FileSystemLoader('templates'))
 # Load the Jinja2 template.
-template = e.get_template('result_template.md')
+template = e.get_template('result_template.jinja.md')
 methods_list = [
     clustering_methods,
     shortest_path_methods,
