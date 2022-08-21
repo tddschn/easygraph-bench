@@ -21,7 +21,7 @@ from config import (
     method_groups,
     dataset_names,
 )
-from utils import eg2nx, eg2ceg, get_first_node, eval_method
+from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method
 
 # if eg_master_dir.exists():
 #     import sys
@@ -30,11 +30,15 @@ from utils import eg2nx, eg2ceg, get_first_node, eval_method
 
 import easygraph as eg
 import networkx as nx
-from dataset_loaders import load_bio, load_cheminformatics, load_eco, load_soc  # type: ignore
+from dataset_loaders import load_bio, load_cheminformatics, load_eco, load_soc, load_pgp, load_pgp_undirected, load_stub, load_stub_directed  # type: ignore
 
-load_func_name = 'load_cheminformatics'
-G_eg = load_cheminformatics()
-G_nx = eg2nx(G_eg)
+load_func_name = 'load_stub_directed'
+if hasattr(load_stub_directed, 'load_func_for') and load_stub_directed.load_func_for == 'nx':
+    G_nx = load_stub_directed()
+    G_eg = nx2eg(G_eg)
+else:
+    G_eg = load_stub_directed()
+    G_nx = eg2nx(G_eg)
 G_ceg = eg2ceg(G_eg)
 first_node_eg = get_first_node(G_eg)
 first_node_nx = get_first_node(G_nx)
@@ -73,6 +77,14 @@ def get_args():
 
     # parser.add_argument('-n', '--dry-run', action='store_true', help='Dry run')
 
+    parser.add_argument(
+        '-D', '--skip-draw', action='store_true', help='Skip drawing graphs to speed things up'
+    )
+
+    parser.add_argument(
+        '-p', '--pass', type=int, help='Number of passes to run in the benchmark, uses Timer.autorange() if not set.'
+    )
+
     return parser.parse_args()
 
 
@@ -83,6 +95,8 @@ def main(args):
     method_groups = args.method_group
     flags = {}
     flags |= {'skip_ceg': args.skip_cpp_easygraph}
+    flags |= {'skip_draw': args.skip_draw}
+    flags |= {'timeit_number': getattr(args, 'pass', None)}
     cost_dict = {}
     first_node_args = {
         'call_method_args_eg': ['first_node_eg'],
@@ -148,6 +162,7 @@ def main(args):
             )
 
     print()
+    print(f'{cost_dict=}')
 
 
 if __name__ == "__main__":

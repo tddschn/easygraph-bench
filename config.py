@@ -40,6 +40,10 @@ load_functions_name = [
     "load_bio",
     "load_eco",
     # "load_soc"
+    'load_pgp',
+    'load_pgp_undirected',
+    'load_stub',
+    'load_stub_directed',
 ]
 
 di_load_functions_name = ["load_soc"]
@@ -47,7 +51,7 @@ di_load_functions_name = ["load_soc"]
 dataset_names = [x.removeprefix('load_') for x in load_functions_name]
 method_groups = ['clustering', 'shortest-path', 'connected-components', 'mst', 'other']
 known_individual_bench_scripts = [
-    'bench_cheminfo.py',
+    'bench_cheminformatics.py',
     'bench_eco.py',
     'bench_bio.py',
     'bench_pgp.py',

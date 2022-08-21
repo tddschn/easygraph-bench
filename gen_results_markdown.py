@@ -46,6 +46,8 @@ datasets = {
     'cheminformatics': 'ENZYMES_g1: nodes: 37 edges: 84',
     'bio': 'bio-yeast: nodes: 1458 edges: 1948',
     'eco': 'econ-mahindas: nodes: 1258 edges: 7619',
+    'pgp': 'pgp network of trust: nodes: 39796 edges: 301498',
+    'pgp_undirected': 'pgp network of trust: nodes: 39796 edges: 197150',
 }
 # data = {'method_name': 'Dijkstra', 'dataset_name': 'bio'}
 # rendered = template.render(data)

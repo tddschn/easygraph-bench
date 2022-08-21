@@ -232,11 +232,17 @@ def bench_with_timeit(
     graph: str,
     args: list[str] = [],
     kwargs: dict[str, str] = {},
+    timeit_number: Optional[int] = None,
 ) -> float:
     timer = Timer(*get_Timer_args(module, method, graph, args, kwargs))
     print(f'{timer.src=}')  # type: ignore
     try:
-        count, total_time = timer.autorange()
+        if timeit_number is None:
+            count, total_time = timer.autorange()
+            print('Using Timer.autorange')
+        else:
+            count, total_time = timeit_number, timer.timeit(timeit_number)
+            print(f'Using timeit({timeit_number})')
         avg_time = total_time / count
         print(f'{count=}, {total_time=}, {avg_time=}')
         return avg_time
@@ -261,6 +267,8 @@ def eval_method(
     call_method_kwargs_nx: dict[str, str] = {},
     dry_run: bool = False,
     skip_ceg: bool = False,
+    skip_draw: bool = False,
+    timeit_number: Optional[int] = None,
 ):
     # raise DeprecationWarning('Deprecated. Use ./bench_*.py instead')
 
@@ -279,6 +287,7 @@ def eval_method(
             graph='G_eg',
             args=call_method_args_eg,
             kwargs=call_method_kwargs_eg,
+            timeit_number=timeit_number,
         )
         cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
 
@@ -290,6 +299,7 @@ def eval_method(
                 graph='G_ceg',
                 args=call_method_args_ceg,
                 kwargs=call_method_kwargs_ceg,
+                timeit_number=timeit_number,
             )
             cost_dict[load_func_name][method_name]["eg w/ C++ binding"] = avg_time_ceg
 
@@ -300,6 +310,7 @@ def eval_method(
             graph='G_nx',
             args=call_method_args_nx,
             kwargs=call_method_kwargs_nx,
+            timeit_number=timeit_number,
         )
         cost_dict[load_func_name][method_name]["networkx"] = avg_time_nx
 
@@ -307,7 +318,8 @@ def eval_method(
             cost_dict,
             load_func_name + '_' + method_name + "_cost.json",
         )
-        draw(load_func_name + '_' + method_name, cost_dict)
+        if not skip_draw:
+            draw(load_func_name + '_' + method_name, cost_dict)
     elif isinstance(method_name, tuple):
         method_name_eg, method_name_nx = method_name
         # print('benchmarking method: ' + method_name_eg)
@@ -326,6 +338,7 @@ def eval_method(
             graph='G_eg',
             args=call_method_args_eg,
             kwargs=call_method_kwargs_eg,
+            timeit_number=timeit_number,
         )
         cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
 
@@ -337,6 +350,7 @@ def eval_method(
                 graph='G_ceg',
                 args=call_method_args_ceg,
                 kwargs=call_method_kwargs_ceg,
+                timeit_number=timeit_number,
             )
             cost_dict[load_func_name][method_name_eg][
                 "eg w/ C++ binding"
@@ -349,13 +363,15 @@ def eval_method(
             graph='G_nx',
             args=call_method_args_nx,
             kwargs=call_method_kwargs_nx,
+            timeit_number=timeit_number,
         )
         cost_dict[load_func_name][method_name_eg]["networkx"] = avg_time_nx
         output(
             cost_dict,
             load_func_name + '_' + method_name_eg + "_cost.json",
         )
-        draw(load_func_name + '_' + method_name_eg, cost_dict, methods=method_name)
+        if not skip_draw:
+            draw(load_func_name + '_' + method_name_eg, cost_dict, methods=method_name)
     else:
         raise ValueError('method_name or method_names must be specified')
 
@@ -395,17 +411,20 @@ def load_func_for_nx(f):
     def wrapper(*args, **kwargs):
         wrapper.load_func_for = 'nx'
         return f(*args, **kwargs)
+
     return wrapper
+
 
 def directed_dataset(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         wrapper.directed = True
         return f(*args, **kwargs)
+
     return wrapper
+
 
 def print_with_hr(s: str):
     hr()
     print(s)
     hr()
-    
