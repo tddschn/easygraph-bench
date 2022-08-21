@@ -21,16 +21,24 @@ from config import (
     method_groups,
     dataset_names,
 )
-from utils import nx2eg, eg2ceg, get_first_node, eval_method
+from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method
 
+# if eg_master_dir.exists():
+#     import sys
+
+#     sys.path.insert(0, str(eg_master_dir))
 
 import easygraph as eg
 import networkx as nx
-from dataset_loaders import load_bio, load_cheminformatics, load_eco, load_soc, load_pgp, load_pgp_undirected  # type: ignore
+from dataset_loaders import load_bio, load_cheminformatics, load_eco, load_soc, load_pgp, load_pgp_undirected, load_stub, load_stub_directed  # type: ignore
 
 load_func_name = 'load_pgp'
-G_nx = load_pgp()
-G_eg = nx2eg(G_nx)
+if hasattr(load_pgp, 'load_func_for') and load_pgp.load_func_for == 'nx':
+    G_nx = load_pgp()
+    G_eg = nx2eg(G_eg)
+else:
+    G_eg = load_pgp()
+    G_nx = eg2nx(G_eg)
 G_ceg = eg2ceg(G_eg)
 first_node_eg = get_first_node(G_eg)
 first_node_nx = get_first_node(G_nx)
@@ -69,6 +77,14 @@ def get_args():
 
     # parser.add_argument('-n', '--dry-run', action='store_true', help='Dry run')
 
+    parser.add_argument(
+        '-D', '--skip-draw', action='store_true', help='Skip drawing graphs to speed things up'
+    )
+
+    parser.add_argument(
+        '-p', '--pass', type=int, help='Number of passes to run in the benchmark, uses Timer.autorange() if not set.'
+    )
+
     return parser.parse_args()
 
 
@@ -79,6 +95,8 @@ def main(args):
     method_groups = args.method_group
     flags = {}
     flags |= {'skip_ceg': args.skip_cpp_easygraph}
+    flags |= {'skip_draw': args.skip_draw}
+    flags |= {'timeit_number': getattr(args, 'pass', None)}
     cost_dict = {}
     first_node_args = {
         'call_method_args_eg': ['first_node_eg'],
@@ -129,7 +147,7 @@ def main(args):
                 cost_dict,
                 load_func_name,
                 method_name,
-                # **flags,
+            # **flags,
                 **(flags | {'skip_ceg': True}),
             )
 
@@ -144,6 +162,7 @@ def main(args):
             )
 
     print()
+    print(f'{cost_dict=}')
 
 
 if __name__ == "__main__":

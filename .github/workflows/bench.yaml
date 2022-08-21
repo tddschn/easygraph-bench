@@ -1,3 +1,9 @@
+# Author : Xinyuan Chen <45612704+tddschn@users.noreply.github.com>
+# Date   : 2022-08-21
+# Purpose: benchmark easygraph python & C++ bindings and compare with networkx's baseline performance
+# License: MIT
+# Link   : https://github.com/tddschn/easygraph-bench/blob/master/.github/workflows/bench.yaml
+
 name: benchmark
 on: 
   workflow_dispatch:
