@@ -23,6 +23,8 @@ Benchmarking code that compares the performance of the 2 graph libraries [easygr
       - [cheminformatics](#cheminformatics)
       - [bio](#bio)
       - [eco](#eco)
+      - [pgp](#pgp)
+      - [pgp_undirected](#pgp_undirected)
 
 ## Benchmarking method
 
@@ -157,7 +159,8 @@ You can download the benchmarking results on the [Releases](https://github.com/t
 Click on the triangles to see the results.  
 The images may take sometime to load.
 
-avg_time == -1 means method not supported by graph type (`NetworkXNotImplemented` or `EasyGraphNotImplemented` exceptions thrown).
+`avg_time == -1` means method not supported by graph type (`NetworkXNotImplemented` or `EasyGraphNotImplemented` exceptions thrown).
+
 
 #### cheminformatics
 
@@ -477,6 +480,226 @@ Make sure you have an empty line after the closing </details> tag if you have mu
   <summary>density</summary>
   
   ![](./images-public/eco/density.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+
+#### pgp
+
+pgp network of trust: nodes: 39796 edges: 301498
+
+- <details>
+  <summary>average_clustering</summary>
+  
+  ![](./images-public/pgp/average_clustering.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>clustering</summary>
+  
+  ![](./images-public/pgp/clustering.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>Dijkstra</summary>
+  
+  ![](./images-public/pgp/Dijkstra.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>is_biconnected</summary>
+  
+  ![](./images-public/pgp/is_biconnected.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>biconnected_components</summary>
+  
+  ![](./images-public/pgp/biconnected_components.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>minimum_spanning_tree</summary>
+  
+  ![](./images-public/pgp/minimum_spanning_tree.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>density</summary>
+  
+  ![](./images-public/pgp/density.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+
+#### pgp_undirected
+
+pgp network of trust: nodes: 39796 edges: 197150
+
+- <details>
+  <summary>average_clustering</summary>
+  
+  ![](./images-public/pgp_undirected/average_clustering.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>clustering</summary>
+  
+  ![](./images-public/pgp_undirected/clustering.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>Dijkstra</summary>
+  
+  ![](./images-public/pgp_undirected/Dijkstra.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>is_biconnected</summary>
+  
+  ![](./images-public/pgp_undirected/is_biconnected.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>biconnected_components</summary>
+  
+  ![](./images-public/pgp_undirected/biconnected_components.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>minimum_spanning_tree</summary>
+  
+  ![](./images-public/pgp_undirected/minimum_spanning_tree.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>density</summary>
+  
+  ![](./images-public/pgp_undirected/density.png)
   <!-- ## Heading
   1. A numbered
   2. list
