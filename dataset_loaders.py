@@ -7,18 +7,25 @@ from utils import list_allfile, load_func_for_nx, directed_dataset, print_with_h
 
 
 def load_cheminformatics():
+    print_with_hr(f'loading graph cheminformatics ...')
     G = eg.Graph()
     with open("./dataset/ENZYMES_g1/ENZYMES_g1.edges") as f:
         for l in f.readlines():
             v = l.split()
             G.add_edge(v[0], v[1])
-    print(
-        "ENZYMES_g1: " + "nodes: " + str(len(G.nodes)) + " edges: " + str(len(G.edges))
+    print_with_hr(
+        'finished loading graph cheminformatics\n'
+        + "ENZYMES_g1: "
+        + "nodes: "
+        + str(len(G.nodes))
+        + " edges: "
+        + str(len(G.edges))
     )
     return G
 
 
 def load_bio():
+    print_with_hr('loading graph bio ...')
     G = eg.Graph()
     jump_lines = 2
     with open("./dataset/bio-yeast/bio-yeast.mtx") as f:
@@ -27,13 +34,19 @@ def load_bio():
                 continue
             v = l.split()
             G.add_edge(v[0], v[1])
-    print(
-        "bio-yeast: " + "nodes: " + str(len(G.nodes)) + " edges: " + str(len(G.edges))
+    print_with_hr(
+        'finished loading graph bio\n'
+        + "bio-yeast: "
+        + "nodes: "
+        + str(len(G.nodes))
+        + " edges: "
+        + str(len(G.edges))
     )
     return G
 
 
 def load_eco():
+    print_with_hr('loading graph eco ...')
     G = eg.Graph()
     jump_lines = 14
     with open("./dataset/econ-mahindas/econ-mahindas.mtx") as f:
@@ -42,8 +55,9 @@ def load_eco():
                 continue
             v = l.split()
             G.add_edge(v[0], v[1])
-    print(
-        "econ-mahindas: "
+    print_with_hr(
+        "finished loading graph eco\n"
+        + "econ-mahindas: "
         + "nodes: "
         + str(len(G.nodes))
         + " edges: "
