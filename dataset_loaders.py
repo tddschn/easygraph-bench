@@ -20,6 +20,8 @@ def load_cheminformatics():
         + str(len(G.nodes))
         + " edges: "
         + str(len(G.edges))
+        + "is_directed: "
+        + str(G.is_directed)
     )
     return G
 
@@ -41,6 +43,8 @@ def load_bio():
         + str(len(G.nodes))
         + " edges: "
         + str(len(G.edges))
+        + "is_directed: "
+        + str(G.is_directed)
     )
     return G
 
@@ -62,6 +66,8 @@ def load_eco():
         + str(len(G.nodes))
         + " edges: "
         + str(len(G.edges))
+        + "is_directed: "
+        + str(G.is_directed)
     )
     return G
 
@@ -84,7 +90,15 @@ def load_soc():
                 G.add_edge(name, v[1])
             f.close()
         print("finish load " + filename)
-    print("gplus: " + "nodes: " + str(len(G.nodes)) + " edges: " + str(len(G.edges)))
+    print(
+        "gplus: "
+        + "nodes: "
+        + str(len(G.nodes))
+        + " edges: "
+        + str(len(G.edges))
+        + "is_directed: "
+        + str(G.is_directed)
+    )
     return G
 
 
@@ -96,7 +110,7 @@ def load_pgp():
     print_with_hr(f'loading graph pgp from {str(graph_file_path)} ...')
     g = nx.read_graphml(str(graph_file_path))
     print_with_hr(
-        f'finish loading graph pgp.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}'
+        f'finish loading graph pgp.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}, is_directed: {g.is_directed}'
     )
     return g
 
@@ -108,19 +122,25 @@ def load_pgp_undirected():
     print_with_hr(f'loading graph pgp_undirected from {str(graph_file_path)} ...')
     g = nx.read_graphml(str(graph_file_path))
     print_with_hr(
-        f'finish loading graph pgp_undirected.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}'
+        f'finish loading graph pgp_undirected.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}, is_directed: {g.is_directed}'
     )
     return g
 
 
 def load_stub():
     print_with_hr('loading graph stub ...')
-    G = eg.complete_graph(5)
+    G: eg.Graph = eg.complete_graph(5)  # type: ignore
+    print_with_hr(
+        f'finished loading graph stub\nnodes: {len(G.nodes)}, edges: {len(G.edges)}, is_directed: {G.is_directed}'
+    )
     return G
 
 
 @directed_dataset
 def load_stub_directed():
     print_with_hr('loading graph stub_directed ...')
-    G = eg.complete_graph(5, create_using=eg.DiGraph())
+    G: eg.DiGraph = eg.complete_graph(5, create_using=eg.DiGraph)  # type: ignore
+    print_with_hr(
+        f'finished loading graph stub_directed\nnodes: {len(G.nodes)}, edges: {len(G.edges)}, is_directed: {G.is_directed}'
+    )
     return G
