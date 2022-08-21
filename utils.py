@@ -410,21 +410,25 @@ def get_first_node(g):
 
 
 def load_func_for_nx(f):
-    @wraps(f)
-    def wrapper(*args, **kwargs):
-        wrapper.load_func_for = 'nx'
-        return f(*args, **kwargs)
+    # @wraps(f)
+    # def wrapper(*args, **kwargs):
+    #     wrapper.load_func_for = 'nx'
+    #     return f(*args, **kwargs)
 
-    return wrapper
+    # return wrapper
+    f.load_func_for = 'nx'
+    return f
 
 
 def directed_dataset(f):
-    @wraps(f)
-    def wrapper(*args, **kwargs):
-        wrapper.directed = True
-        return f(*args, **kwargs)
+    # @wraps(f)
+    # def wrapper(*args, **kwargs):
+    #     wrapper.directed = True
+    #     return f(*args, **kwargs)
 
-    return wrapper
+    # return wrapper
+    f.directed = True
+    return f
 
 
 def print_with_hr(s: str):
