@@ -10,10 +10,13 @@ cheminfomatics
 cheminformatics
 conda
 coreturn
+coreturn's
 cxxflags
 easygraph
 easygraph's
+edgelist
 fangsong
+firstrow
 gensim
 gplus
 graphlabel
@@ -24,10 +27,13 @@ libboost
 lxml
 mahindas
 matplotlib
+mergedeep
 MUTAG
 Nesreen
 Networkx
 networkx
+networkx's
+pokec
 pybind
 pyplot
 pytest

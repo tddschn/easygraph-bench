@@ -1,9 +1,21 @@
 #!/usr/bin/env python3
 
+from pathlib import Path
 import easygraph as eg
 import networkx as nx
 from config import DATASET_DIR
-from utils import list_allfile, load_func_for_nx, directed_dataset, print_with_hr
+from utils import (
+    list_allfile,
+    load_func_for_nx,
+    directed_dataset,
+    print_with_hr,
+    load_large_datasets_with_read_edgelist,
+)
+
+
+# --------------------
+# @coreturn's datasets
+# --------------------
 
 
 def load_cheminformatics():
@@ -102,9 +114,14 @@ def load_soc():
     return G
 
 
+# --------------------
+# pgp network of trust
+# --------------------
+
+
 @directed_dataset
 @load_func_for_nx
-def load_pgp():
+def load_pgp() -> nx.DiGraph:
     PGP_DIR = DATASET_DIR / "pgp"
     graph_file_path = PGP_DIR / "pgp.xml"
     print_with_hr(f'loading graph pgp from {str(graph_file_path)} ...')
@@ -116,7 +133,7 @@ def load_pgp():
 
 
 @load_func_for_nx
-def load_pgp_undirected():
+def load_pgp_undirected() -> nx.Graph:
     PGP_DIR = DATASET_DIR / "pgp"
     graph_file_path = PGP_DIR / "pgp_undirected.xml"
     print_with_hr(f'loading graph pgp_undirected from {str(graph_file_path)} ...')
@@ -125,6 +142,74 @@ def load_pgp_undirected():
         f'finish loading graph pgp_undirected.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}, is_directed: {g.is_directed()}'
     )
     return g
+
+
+# --------------------
+# really large datasets
+# --------------------
+@directed_dataset
+@load_func_for_nx
+def load_enron() -> nx.DiGraph:
+    p = Path('enron.txt')
+    print_with_hr(f'loading graph enron from {str(p)} ...')
+    if not p.exists():
+        error_msg = f'enron.txt not found. Download from http://snap.stanford.edu/data/email-Enron.txt.gz .'
+        raise FileNotFoundError(error_msg)
+    g = load_large_datasets_with_read_edgelist(str(p))
+    print_with_hr(
+        f'finish loading graph enron.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}, is_directed: {g.is_directed()}'
+    )
+    return g
+
+
+@directed_dataset
+@load_func_for_nx
+def load_google() -> nx.DiGraph:
+    p = Path('google.txt')
+    print_with_hr(f'loading graph google from {str(p)} ...')
+    if not p.exists():
+        error_msg = f'google.txt not found. Download from http://snap.stanford.edu/data/web-Google.txt.gz .'
+        raise FileNotFoundError(error_msg)
+    g = load_large_datasets_with_read_edgelist(str(p))
+    print_with_hr(
+        f'finish loading graph google.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}, is_directed: {g.is_directed()}'
+    )
+    return g
+
+
+@directed_dataset
+@load_func_for_nx
+def load_amazon() -> nx.DiGraph:
+    p = Path('amazon.txt')
+    print_with_hr(f'loading graph amazon from {str(p)} ...')
+    if not p.exists():
+        error_msg = f'amazon.txt not found. Download from http://snap.stanford.edu/data/amazon0302.txt.gz .'
+        raise FileNotFoundError(error_msg)
+    g = load_large_datasets_with_read_edgelist(str(p))
+    print_with_hr(
+        f'finish loading graph amazon.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}, is_directed: {g.is_directed()}'
+    )
+    return g
+
+
+@directed_dataset
+@load_func_for_nx
+def load_pokec() -> nx.DiGraph:
+    p = Path('pokec.txt')
+    print_with_hr(f'loading graph pokec from {str(p)} ...')
+    if not p.exists():
+        error_msg = f'pokec.txt not found. Download from http://snap.stanford.edu/data/soc-pokec-relationships.txt.gz .'
+        raise FileNotFoundError(error_msg)
+    g = load_large_datasets_with_read_edgelist(str(p))
+    print_with_hr(
+        f'finish loading graph pokec.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}, is_directed: {g.is_directed()}'
+    )
+    return g
+
+
+# --------------------
+# stub loaders
+# --------------------
 
 
 def load_stub():
