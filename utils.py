@@ -16,6 +16,8 @@ from itertools import islice
 from timeit import Timer
 from inspect import getsource
 from textwrap import dedent
+from networkx import NetworkXNotImplemented
+from easygraph import EasyGraphNotImplemented
 
 # from .types import MethodName
 
@@ -43,6 +45,7 @@ def draw(lf_n, data, methods: Optional[tuple[str, str]] = None):
     csv_file = lf_n + "_cost.csv"
     json2csv(data, csv_file)
     data = pd.read_csv(csv_file)
+    data = data[data['avg time'] > 0]
 
     fig_path = fig_dir / (f'{method_name}.png')
     sns.set_style("whitegrid")
@@ -232,10 +235,15 @@ def bench_with_timeit(
 ) -> float:
     timer = Timer(*get_Timer_args(module, method, graph, args, kwargs))
     print(f'{timer.src=}')  # type: ignore
-    count, total_time = timer.autorange()
-    avg_time = total_time / count
-    print(f'{count=}, {total_time=}, {avg_time=}')
-    return avg_time
+    try:
+        count, total_time = timer.autorange()
+        avg_time = total_time / count
+        print(f'{count=}, {total_time=}, {avg_time=}')
+        return avg_time
+    except (NetworkXNotImplemented, EasyGraphNotImplemented):
+        return -1.0
+    except:
+        raise
 
 
 def eval_method(
