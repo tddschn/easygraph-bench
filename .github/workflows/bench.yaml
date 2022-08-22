@@ -32,6 +32,11 @@ on:
         # default: "latest"
         default: "CI"
         type: string
+      uploadResultsAsArtifact:
+        required: false
+        description: "Upload the benchmark results as an artifact"
+        default: false
+        type: boolean
 jobs:
   benchmark:
     runs-on: ubuntu-latest
@@ -160,6 +165,7 @@ jobs:
           python3 ./entrypoint_stub.py -D -p1
 
       - name: Upload artifacts
+        if: inputs.uploadResultsAsArtifact
         uses: actions/upload-artifact@v3
         with:
           name: benchmark-results
