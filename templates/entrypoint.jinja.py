@@ -15,7 +15,7 @@ But if you know, please tell me. :)
 """
 
 from sys import argv
-from config import method_groups, known_individual_bench_scripts
+from config import method_groups, {{ script_set_list }}
 
 import argparse
 from subprocess import run
@@ -75,7 +75,7 @@ args = get_args()
 def main():
     # print(f'{args=}')
     # print(f'{argv=}')
-    for script in known_individual_bench_scripts:
+    for script in {{ script_set_list }}:
         print(f'Running {script}')
         run([f'./{script}', *argv[1:]], check=True)
 
