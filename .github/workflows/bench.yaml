@@ -169,6 +169,7 @@ jobs:
 
       - name: Create release
         working-directory: easygraph-bench
+        shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ inputs.releaseTag }}
@@ -182,7 +183,11 @@ jobs:
           zip -r "${CSV_ZIP_FILENAME}" *.csv
           zip -r "${IMAGES_ZIP_FILENAME}" images
 
+          set +e
+          # don't exit on error
           gh release create "${TAG}" --notes "Release from GitHub Actions"
+          set -e
+
           gh release upload "${TAG}" "${CSV_ZIP_FILENAME}" "${IMAGES_ZIP_FILENAME}"
 
 
