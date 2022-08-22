@@ -24,6 +24,7 @@ on:
         options:
           - "normal"
           - "large"
+          - "stub"
 jobs:
   benchmark:
     runs-on: ubuntu-latest
@@ -122,12 +123,17 @@ jobs:
       - name: benchmark (normal)
         working-directory: easygraph-bench
         run: |
-          python3 ./bench.py
+          python3 ./entrypoint_normal.py
 
       - name: benchmark (large)
         working-directory: easygraph-bench
         run: |
-          python3 ./bench_large.py
+          python3 ./entrypoint_large.py
+
+      - name: benchmark (stub)
+        working-directory: easygraph-bench
+        run: |
+          python3 ./entrypoint_stub.py
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
