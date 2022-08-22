@@ -120,17 +120,27 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: download datasets (large)
+        if: inputs.benchScriptSet == 'large'
+        working-directory: easygraph-bench
+        run: |
+          mv scripts/download_data.sh .
+          bash ./download_data.sh
+
       - name: benchmark (normal)
+        if: inputs.benchScriptSet == 'normal'
         working-directory: easygraph-bench
         run: |
           python3 ./entrypoint_normal.py
 
       - name: benchmark (large)
+        if: inputs.benchScriptSet == 'large'
         working-directory: easygraph-bench
         run: |
           python3 ./entrypoint_large.py
 
       - name: benchmark (stub)
+        if: inputs.benchScriptSet == 'stub'
         working-directory: easygraph-bench
         run: |
           python3 ./entrypoint_stub.py
