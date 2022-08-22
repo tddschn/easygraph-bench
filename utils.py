@@ -242,6 +242,7 @@ def bench_with_timeit(
     timeit_number: Optional[int] = None,
 ) -> float:
     timer = Timer(*get_Timer_args(module, method, graph, args, kwargs))
+    print(f'::group::bench_with_timeit - module: {module}, method: {method}')
     print(f'{timer.src=}')  # type: ignore
     try:
         if timeit_number is None:
@@ -262,6 +263,8 @@ def bench_with_timeit(
         return -1.0
     except:
         raise
+    finally:
+        print(f'::endgroup::')
 
 
 def eval_method(
@@ -286,6 +289,7 @@ def eval_method(
 
     load_func_name = load_func_name.removeprefix('load_')
     cost_dict = {}
+    print(f'::group::eval_method - dataset: {load_func_name}, method: {method_name}')
     if isinstance(method_name, str):
         print_with_hr(
             f'benchmarking eg.{method_name} and nx.{method_name} on {load_func_name}',
@@ -341,6 +345,7 @@ def eval_method(
                 method_name,
                 cost_dict,
             )
+        print(f'::endgroup::')
         return cost_dict
     elif isinstance(method_name, tuple):
         method_name_eg, method_name_nx = method_name
@@ -401,6 +406,7 @@ def eval_method(
                 cost_dict,
                 methods=method_name,
             )
+        print(f'::endgroup::')
         return cost_dict
     else:
         raise ValueError('method_name or method_names must be specified')
