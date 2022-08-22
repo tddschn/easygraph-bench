@@ -26,6 +26,7 @@ on:
           - "large"
           - "stub"
           - "stub-fast"
+          - "coauthorship"
       releaseTag:
         required: false
         description: "Release tag for the benchmark results"
@@ -139,6 +140,13 @@ jobs:
           mv scripts/download_data.sh .
           bash ./download_data.sh
 
+      - name: download datasets (coauthorship)
+        if: inputs.benchScriptSet == 'coauthorship'
+        uses: actions/checkout@v3
+        with:
+          repository: chenyang03/co-authorship-network
+          path: co-authorship-network
+
       - name: benchmark (normal)
         if: inputs.benchScriptSet == 'normal'
         working-directory: easygraph-bench
@@ -150,6 +158,12 @@ jobs:
         working-directory: easygraph-bench
         run: |
           python3 ./entrypoint_large.py
+
+      - name: benchmark (coauthorship)
+        if: inputs.benchScriptSet == 'coauthorship'
+        working-directory: easygraph-bench
+        run: |
+          python3 ./bench_coauthorship.py
 
       - name: benchmark (stub)
         if: inputs.benchScriptSet == 'stub'

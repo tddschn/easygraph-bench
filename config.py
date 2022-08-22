@@ -45,6 +45,7 @@ load_functions_name = [
     'load_enron',
     'load_google',
     'load_amazon',
+    'load_coauthorship',
     'load_pokec',
     'load_stub',
     'load_stub_with_underscore',
@@ -75,6 +76,8 @@ bench_scripts_large = [
     'bench_amazon.py',
     'bench_pokec.py',
 ]
+
+ben_scripts_coauthorship = ['bench_coauthorship.py']
 
 bench_scripts_stub = [
     'bench_stub.py',

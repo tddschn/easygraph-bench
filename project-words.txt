@@ -8,6 +8,9 @@ booktitle
 cheminfo
 cheminfomatics
 cheminformatics
+chenyang
+coauth
+coauthorship
 conda
 coreturn
 coreturn's
@@ -15,6 +18,7 @@ cxxflags
 easygraph
 easygraph's
 edgelist
+endgroup
 fangsong
 firstrow
 gensim
