@@ -74,6 +74,7 @@ def draw(
     plt.savefig(fig_path, dpi=2000)
     print(f'{fig_path} saved')
     plt.close()
+    Path(csv_file).unlink()
 
 
 def list_allfile(path, suffix, all_files=[], all_suffix_files=[]):
