@@ -4,7 +4,7 @@
 # Purpose: benchmark easygraph python & C++ bindings and compare with networkx's baseline performance
 # License: MIT
 
-name: benchmark
+name: Get graph info
 on: 
   workflow_dispatch:
     inputs:
