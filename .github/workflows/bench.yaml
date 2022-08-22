@@ -26,6 +26,12 @@ on:
           - "large"
           - "stub"
           - "stub-fast"
+      releaseTag:
+        required: false
+        description: "Release tag for the benchmark results"
+        # default: "latest"
+        default: "CI"
+        type: string
 jobs:
   benchmark:
     runs-on: ubuntu-latest
@@ -165,7 +171,19 @@ jobs:
         working-directory: easygraph-bench
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ inputs.releaseTag }}
+          SCRIPT_SET: ${{ inputs.benchScriptSet }}
         run: |
-          make zip-csv
-          make zip-figs
-          gh release create v0.2.3 bench-results-csv.zip bench-result-figures.zip
+          DATE_STR="$(date +"%Y-%m-%dT%H:%M:%S:%z")"
+
+          CSV_ZIP_FILENAME="bench-results-csv-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
+          IMAGES_ZIP_FILENAME="bench-results-figures-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
+
+          zip -r "${CSV_ZIP_FILENAME}" *.csv
+          zip -r "${IMAGES_ZIP_FILENAME}" images
+
+          gh release create "${TAG}" --notes "Release from GitHub Actions"
+          gh release upload "${TAG}" "${CSV_ZIP_FILENAME}" "${IMAGES_ZIP_FILENAME}"
+
+
+
