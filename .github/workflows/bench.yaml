@@ -42,15 +42,15 @@ jobs:
   benchmark:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
           python-version: '3.9'
 
-      - name: 'Build and install easygraph - ${{ matrix.cpp-binding-framework }}'
+      - name: 'Build and install easygraph - ${{ inputs.cpp-binding-framework }}'
         uses: tddschn/install-easygraph@master
         with:
-          cpp-binding-framework: '${{ matrix.cpp-binding-framework }}'
+          cpp-binding-framework: '${{ inputs.cpp-binding-framework }}'
 
       # cSpell:disable
       # - name: Setup upterm session

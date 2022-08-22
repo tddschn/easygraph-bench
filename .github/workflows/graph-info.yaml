@@ -1,0 +1,77 @@
+
+# Author : Xinyuan Chen <45612704+tddschn@users.noreply.github.com>
+# Date   : 2022-08-21
+# Purpose: benchmark easygraph python & C++ bindings and compare with networkx's baseline performance
+# License: MIT
+
+name: benchmark
+on: 
+  workflow_dispatch:
+    inputs:
+      cpp-binding-framework:
+        required: false
+        description: "The framework used to build easygraph's C++ binding"
+        default: "pybind11"
+        type: choice
+        options:
+          - "pybind11"
+          - "boost-python"
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: 'Build and install easygraph - ${{ inputs.cpp-binding-framework }}'
+        uses: tddschn/install-easygraph@master
+        with:
+          cpp-binding-framework: '${{ inputs.cpp-binding-framework }}'
+
+      # cSpell:disable
+      # - name: Setup upterm session
+      #   uses: lhotari/action-upterm@v1
+      #   with:
+      #     ## limits ssh access and adds the ssh public key for the user which triggered the workflow
+      #     limit-access-to-actor: true
+      #     ## limits ssh access and adds the ssh public keys of the listed GitHub users
+      #     limit-access-to-users: tddschn
+
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
+      # cSpell:enable
+
+      - uses: actions/checkout@v3
+        name: checkout easygraph-bench
+        with:
+          path: easygraph-bench
+
+      - name: Install benchmarking dependencies
+        working-directory: easygraph-bench
+        run: |
+          pip install -r requirements.txt
+
+      - name: download datasets (large)
+        working-directory: easygraph-bench
+        run: |
+          mv scripts/download_data.sh .
+          bash ./download_data.sh
+
+      - name: download datasets (coauthorship)
+        uses: actions/checkout@v3
+        with:
+          repository: chenyang03/co-authorship-network
+          path: co-authorship-network
+        
+      - name: get graph info
+        working-directory: easygraph-bench
+        run: |
+          python3 ./get_graph_info.py
+      
+      - name: Upload graph info as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: graph-info
+          path: ${{ github.workspace }}/easygraph-bench/graph_info.json
