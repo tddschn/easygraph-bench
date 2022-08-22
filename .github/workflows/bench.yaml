@@ -25,6 +25,7 @@ on:
           - "normal"
           - "large"
           - "stub"
+          - "stub-fast"
 jobs:
   benchmark:
     runs-on: ubuntu-latest
@@ -144,6 +145,13 @@ jobs:
         working-directory: easygraph-bench
         run: |
           python3 ./entrypoint_stub.py
+
+      - name: benchmark (stub-fast)
+        if: inputs.benchScriptSet == 'stub-fast'
+        working-directory: easygraph-bench
+        run: |
+          # no draw(), one pass
+          python3 ./entrypoint_stub.py -D -p1
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
