@@ -25,11 +25,6 @@ Benchmarking code that compares the performance of the 2 graph libraries [easygr
       - [eco](#eco)
       - [pgp](#pgp)
       - [pgp_undirected](#pgp_undirected)
-      - [cheminformatics](#cheminformatics-1)
-      - [bio](#bio-1)
-      - [eco](#eco-1)
-      - [pgp](#pgp-1)
-      - [pgp_undirected](#pgp_undirected-1)
 
 ## Benchmarking method
 
@@ -58,9 +53,12 @@ See [config.py](./config.py) for more details.
 
 `python >= 3.9` is required.
 
-- Run benchmarks on a single dataset  
+You can run benchmarking on a single dataset with the `./bench_*.py` scripts,  
+or run benchmarking on a set of datasets with the `./entrypoint_*.py` scripts.
+
+<!-- - Run benchmarks on a single dataset  
     You can choose what method category to benchmark via `-G`. See [Scripts usage](#scripts-usage).
-    - [./bench_cheminfo.py](./bench_cheminfo.py): Run benchmarks on the cheminfomatics dataset
+    - [./bench_cheminformatics.py](./bench_cheminformatics.py): Run benchmarks on the cheminfomatics dataset
     - [./bench_bio.py](./bench_bio.py): Run benchmarks on the bio dataset
     - [./bench_eco.py](./bench_eco.py): Run benchmarks on the eco dataset
     - [./bench_soc.py](./bench_soc.py): Run benchmarks on the soc dataset (WIP)
@@ -71,7 +69,7 @@ See [config.py](./config.py) for more details.
     - [./archive/bench.py](./archive/bench.py):  
     Deprecated, modified and parameterized from [@coreturn](https://github.com/coreturn)'s benchmarking script.  
     Only run the methods once with and record the difference of the result of `time.time()` calls as the time spent.  
-    Use the following scripts instead.
+    Use the following scripts instead. -->
 
 To run these scripts, you need to clone the repo and install the dependencies listed in requirements.txt.
 

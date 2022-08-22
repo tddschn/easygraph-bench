@@ -8,7 +8,7 @@ name: benchmark
 on: 
   workflow_dispatch:
     inputs:
-      egBindingFramework:
+      cpp-binding-framework:
         required: false
         description: "The framework used to build easygraph's C++ binding"
         default: "pybind11"
@@ -42,74 +42,15 @@ jobs:
   benchmark:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout Easy-Graph master branch
-        if: inputs.egBindingFramework == 'boost-python'
-        uses: actions/checkout@v3
-        with:
-          repository: easy-graph/Easy-Graph
-          path: Easy-Graph
-          ref: 'master'
-
-      - name: checkout Easy-Graph pybind11 branch
-        if: inputs.egBindingFramework == 'pybind11'
-        uses: actions/checkout@v3
-        with:
-          repository: easy-graph/Easy-Graph
-          path: Easy-Graph
-          ref: 'pybind11'
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: '3.9'
 
-      - name: install easygraph common dependencies
-        run: |          
-          pip install pytest
-          pip install Pillow
-          pip install kiwisolver
-          pip install gensim
-          pip install lxml
-
-      - name: build and install easygraph (pybind11)
-        if: inputs.egBindingFramework == 'pybind11'
-        env:
-          python_version: '3.9'
-          boost_version: "1.79.0"
-        working-directory: Easy-Graph
-        run: |          
-          git checkout pybind11
-
-          pip install pybind11
-          python setup.py build_ext
-          python setup.py install
-
-      - name: build and install easygraph (boost-python)
-        if: inputs.egBindingFramework == 'boost-python'
-        env:
-          python_version: '3.9'
-          boost_version: "1.79.0"
-        working-directory: Easy-Graph
-        run: |          
-          python_version_abbr=${python_version//./}
-          boost_version_alias=boost_${boost_version//./_}
-          sudo apt-get update
-          sudo apt-get install gcc -y
-          sudo apt-get install g++ -y
-          wget https://boostorg.jfrog.io/artifactory/main/release/${boost_version}/source/${boost_version_alias}.tar.gz
-          tar -xf ${boost_version_alias}.tar.gz
-          cd ${boost_version_alias}
-          ./bootstrap.sh --with-python=python
-          sudo ./b2 cxxflags="-fPIC" install --with-python
-          
-          sudo ln -s /usr/local/lib/libboost_python${python_version_abbr}.a /usr/local/lib/libboost_python.a
-
-          cd -
-
-          python setup.py build_ext -l boost_python -L "/usr/local/lib" -I "/usr/local/include"
-          python setup.py install
-        
-
+      - name: 'Build and install easygraph - ${{ matrix.cpp-binding-framework }}'
+        uses: tddschn/install-easygraph@master
+        with:
+          cpp-binding-framework: '${{ matrix.cpp-binding-framework }}'
 
       # cSpell:disable
       # - name: Setup upterm session
@@ -125,10 +66,11 @@ jobs:
       # cSpell:enable
 
       - uses: actions/checkout@v3
+        name: checkout easygraph-bench
         with:
           path: easygraph-bench
 
-      - name: Install dependencies
+      - name: Install benchmarking dependencies
         working-directory: easygraph-bench
         run: |
           pip install -r requirements.txt
