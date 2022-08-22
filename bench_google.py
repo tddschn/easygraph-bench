@@ -30,14 +30,14 @@ from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, t
 
 import easygraph as eg
 import networkx as nx
-from dataset_loaders import load_stub
+from dataset_loaders import load_google
 
-load_func_name = 'load_stub'
-if hasattr(load_stub, 'load_func_for') and load_stub.load_func_for == 'nx':
-    G_nx = load_stub()
+load_func_name = 'load_google'
+if hasattr(load_google, 'load_func_for') and load_google.load_func_for == 'nx':
+    G_nx = load_google()
     G_eg = nx2eg(G_nx)
 else:
-    G_eg = load_stub()
+    G_eg = load_google()
     G_nx = eg2nx(G_eg)
 G_ceg = eg2ceg(G_eg)
 first_node_eg = get_first_node(G_eg)

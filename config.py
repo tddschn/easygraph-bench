@@ -42,6 +42,10 @@ load_functions_name = [
     # "load_soc"
     'load_pgp',
     'load_pgp_undirected',
+    'load_enron',
+    'load_google',
+    'load_amazon',
+    'load_pokec',
     'load_stub',
     'load_stub_with_underscore',
     'load_stub_directed',
@@ -52,7 +56,12 @@ di_load_functions_name = ["load_soc"]
 
 dataset_names = [x.removeprefix('load_') for x in load_functions_name]
 method_groups = ['clustering', 'shortest-path', 'connected-components', 'mst', 'other']
-known_individual_bench_scripts = [
+bench_scripts_set = [
+    'bench_scripts_normal',
+    'bench_scripts_large',
+    'bench_scripts_stub',
+]
+bench_scripts_normal = [
     'bench_cheminformatics.py',
     'bench_eco.py',
     'bench_bio.py',
@@ -60,8 +69,16 @@ known_individual_bench_scripts = [
     'bench_pgp_undirected.py',
 ]
 
-known_stub_bench_scripts = [
+bench_scripts_large = [
+    'bench_enron.py',
+    'bench_google.py',
+    'bench_amazon.py',
+    'bench_pokec.py',
+]
+
+bench_scripts_stub = [
     'bench_stub.py',
-    'bench_stub_with_underscore.py' 'bench_stub_directed.py',
+    'bench_stub_with_underscore.py',
+    'bench_stub_directed.py',
     'bench_stub_nx.py',
 ]
