@@ -301,7 +301,7 @@ def eval_method(
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name] = dict()
 
-        print('easygraph')
+        # print('easygraph')
         avg_time_eg = bench_with_timeit(
             module='eg',
             method=method_name,
@@ -313,7 +313,7 @@ def eval_method(
         cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
 
         if not skip_ceg:
-            print('easygraph with C++ binding')
+            # print('easygraph with C++ binding')
             avg_time_ceg = bench_with_timeit(
                 module='eg',
                 method=method_name,
@@ -324,7 +324,7 @@ def eval_method(
             )
             cost_dict[load_func_name][method_name]["eg w/ C++ binding"] = avg_time_ceg
 
-        print('networkx')
+        # print('networkx')
         avg_time_nx = bench_with_timeit(
             module='nx',
             method=method_name,
@@ -360,7 +360,7 @@ def eval_method(
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name_eg] = dict()
 
-        print('easygraph')
+        # print('easygraph')
         avg_time_eg = bench_with_timeit(
             module='eg',
             method=method_name_eg,
@@ -372,7 +372,7 @@ def eval_method(
         cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
 
         if not skip_ceg:
-            print('easygraph with C++ binding')
+            # print('easygraph with C++ binding')
             avg_time_ceg = bench_with_timeit(
                 module='eg',
                 method=method_name_eg,
@@ -385,7 +385,7 @@ def eval_method(
                 "eg w/ C++ binding"
             ] = avg_time_ceg
 
-        print('networkx')
+        # print('networkx')
         avg_time_nx = bench_with_timeit(
             module='nx',
             method=method_name_nx,
