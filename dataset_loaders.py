@@ -210,7 +210,7 @@ def load_pokec() -> nx.DiGraph:
 # --------------------
 # chenyang03/co-authorship-network (very large)
 # --------------------
-@directed_dataset
+# @directed_dataset
 @load_func_for_nx
 def load_coauthorship(
     coauthorship_edges_file: str = '../co-authorship-network/edges.txt',
@@ -218,7 +218,9 @@ def load_coauthorship(
     print_with_hr(f'loading graph coauthorship from {coauthorship_edges_file} ...')
     number_of_nodes = 402392
     g: nx.DiGraph = nx.read_edgelist(
-        coauthorship_edges_file, delimiter=',', nodetype=int, create_using=nx.DiGraph()
+        coauthorship_edges_file,
+        delimiter=',',
+        nodetype=int,  # create_using=nx.DiGraph()
     )
     g.add_nodes_from(range(number_of_nodes))
     print_with_hr(
