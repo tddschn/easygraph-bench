@@ -17,7 +17,8 @@ on:
           - "pybind11"
           - "boost-python"
 jobs:
-  benchmark:
+  get-graph-info:
+    name: Get graph info (size etc)
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python 3.9
