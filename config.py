@@ -72,7 +72,9 @@ bench_scripts_normal = [
 
 bench_scripts_large = [
     'bench_enron.py',
-    'bench_google.py',
+    # eg throws error with this graph
+    # https://github.com/tddschn/easygraph-bench-private/runs/8149890856?check_suite_focus=true
+    # 'bench_google.py',
     'bench_amazon.py',
     'bench_pokec.py',
 ]
