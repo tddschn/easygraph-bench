@@ -130,7 +130,20 @@ See [Complete results](#complete-results).
 
 ## Datasets
 
-See [dataset_loaders.py](./dataset_loaders.py) and [dataset](./dataset/).
+See [dataset_loaders.py](./dataset_loaders.py) and [dataset](./dataset/) for details.
+
+| Dataset Name    | nodes   | edges    | type                             | is_directed |
+| --------------- | ------- | -------- | -------------------------------- | ----------- |
+| cheminformatics | 37      | 84       | easygraph.classes.graph.Graph    | False       |
+| bio             | 1458    | 1948     | easygraph.classes.graph.Graph    | False       |
+| eco             | 1258    | 7619     | easygraph.classes.graph.Graph    | False       |
+| pgp             | 39796   | 301498   | networkx.classes.digraph.DiGraph | True        |
+| pgp_undirected  | 39796   | 197150   | networkx.classes.graph.Graph     | False       |
+| enron           | 36692   | 367662   | networkx.classes.digraph.DiGraph | True        |
+| google          | 875713  | 5105039  | networkx.classes.digraph.DiGraph | True        |
+| amazon          | 262111  | 1234877  | networkx.classes.digraph.DiGraph | True        |
+| pokec           | 1632803 | 30622564 | networkx.classes.digraph.DiGraph | True        |
+| coauthorship    | 402392  | 1234019  | networkx.classes.graph.Graph     | False       |
 
 ## FAQ
 
