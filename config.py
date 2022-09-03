@@ -76,7 +76,9 @@ bench_scripts_large = [
     # https://github.com/tddschn/easygraph-bench-private/runs/8149890856?check_suite_focus=true
     # 'bench_google.py',
     'bench_amazon.py',
-    'bench_pokec.py',
+    # too large, got killed by GHA
+    # https://github.com/tddschn/easygraph-bench/runs/8166648033?check_suite_focus=true#step:9:408
+    # 'bench_pokec.py',
 ]
 
 ben_scripts_coauthorship = ['bench_coauthorship.py']
