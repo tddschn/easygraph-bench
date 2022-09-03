@@ -728,3 +728,223 @@ Make sure you have an empty line after the closing </details> tag if you have mu
 Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
 Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
 </details>
+
+
+#### enron
+
+SNAP email-Enron dataset: nodes: 36692 edges: 367662
+
+- <details>
+  <summary>average_clustering</summary>
+  
+  ![](./images-public/enron/average_clustering.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>clustering</summary>
+  
+  ![](./images-public/enron/clustering.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>Dijkstra</summary>
+  
+  ![](./images-public/enron/Dijkstra.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>is_biconnected</summary>
+  
+  ![](./images-public/enron/is_biconnected.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>biconnected_components</summary>
+  
+  ![](./images-public/enron/biconnected_components.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>minimum_spanning_tree</summary>
+  
+  ![](./images-public/enron/minimum_spanning_tree.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>density</summary>
+  
+  ![](./images-public/enron/density.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+
+#### coauthorship
+
+Yang Chen's co-authorship network on Google Scholar: nodes: 402392 edges: 1234019
+
+- <details>
+  <summary>average_clustering</summary>
+  
+  ![](./images-public/coauthorship/average_clustering.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>clustering</summary>
+  
+  ![](./images-public/coauthorship/clustering.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>Dijkstra</summary>
+  
+  ![](./images-public/coauthorship/Dijkstra.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>is_biconnected</summary>
+  
+  ![](./images-public/coauthorship/is_biconnected.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>biconnected_components</summary>
+  
+  ![](./images-public/coauthorship/biconnected_components.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>minimum_spanning_tree</summary>
+  
+  ![](./images-public/coauthorship/minimum_spanning_tree.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>density</summary>
+  
+  ![](./images-public/coauthorship/density.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>

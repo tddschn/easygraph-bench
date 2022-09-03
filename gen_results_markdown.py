@@ -48,6 +48,8 @@ datasets = {
     'eco': 'econ-mahindas: nodes: 1258 edges: 7619',
     'pgp': 'pgp network of trust: nodes: 39796 edges: 301498',
     'pgp_undirected': 'pgp network of trust: nodes: 39796 edges: 197150',
+    'enron': 'SNAP email-Enron dataset: nodes: 36692 edges: 367662',
+    'coauthorship': 'Yang Chen\'s co-authorship network on Google Scholar: nodes: 402392 edges: 1234019',
 }
 # data = {'method_name': 'Dijkstra', 'dataset_name': 'bio'}
 # rendered = template.render(data)
