@@ -25,6 +25,8 @@ Benchmarking code that compares the performance of the 2 graph libraries [easygr
       - [eco](#eco)
       - [pgp](#pgp)
       - [pgp_undirected](#pgp_undirected)
+      - [enron](#enron)
+      - [coauthorship](#coauthorship)
 
 ## Benchmarking method
 
