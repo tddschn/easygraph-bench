@@ -76,7 +76,7 @@ def main():
     # print(f'{args=}')
     # print(f'{argv=}')
     number_scripts = len({{ script_set_list }})
-    for n, script in enumarate({{ script_set_list }}):
+    for n, script in enumerate({{ script_set_list }}):
         print(f'Running {script} ({n+1}/{number_scripts})')
         run([f'./{script}', *argv[1:]], check=True)
         print(f'Finished running {script} ({n+1}/{number_scripts})')
