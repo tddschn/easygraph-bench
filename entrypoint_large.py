@@ -76,7 +76,7 @@ def main():
     # print(f'{args=}')
     # print(f'{argv=}')
     number_scripts = len(bench_scripts_large)
-    for n, script in enumarate(bench_scripts_large):
+    for n, script in enumerate(bench_scripts_large):
         print(f'Running {script} ({n+1}/{number_scripts})')
         run([f'./{script}', *argv[1:]], check=True)
         print(f'Finished running {script} ({n+1}/{number_scripts})')
