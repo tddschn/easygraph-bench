@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Union
 
 DATASET_DIR = Path(__file__).parent / "dataset"
+BENCH_CSV_DIR = Path('~/Downloads/bench-csv').expanduser()
 eg_master_dir = Path('~/testdir/Easy-Graph-master').expanduser()
 
 # (`eg.average_clustering` vs `nx.average_clustering`, ...)
@@ -31,9 +32,12 @@ connected_components_methods_G_node = [
 #     connected_components_methods_G + connected_components_methods_G_node
 # )
 
+# you can't access kruskal by just importing the top level package
+# i.e. it's not marked to export
 mst_methods = ['minimum_spanning_tree']
+# mst_methods = ['kruskal_mst_edges']
 
-other_methods = ['density']
+other_methods = ['density', 'constraint']
 
 load_functions_name = [
     "load_cheminformatics",
@@ -56,7 +60,13 @@ load_functions_name = [
 di_load_functions_name = ["load_soc"]
 
 dataset_names = [x.removeprefix('load_') for x in load_functions_name]
-method_groups = ['clustering', 'shortest-path', 'connected-components', 'mst', 'other']
+method_groups = [
+    'clustering',
+    'shortest-path',
+    'connected-components',
+    # 'mst',
+    'other',
+]
 bench_scripts_set = [
     'bench_scripts_normal',
     'bench_scripts_large',

@@ -25,4 +25,11 @@ zip-csv:
 zip-figs:
 	zip -r bench-result-figures.zip images
 
+bench-all:
+	gh workflow run bench.yaml -f uploadResultsAsArtifact="false" -f benchScriptSet=stub-fast
+	gh workflow run bench.yaml -f uploadResultsAsArtifact="false" -f benchScriptSet=stub
+	gh workflow run bench.yaml -f uploadResultsAsArtifact="false" -f benchScriptSet=normal
+	gh workflow run bench.yaml -f uploadResultsAsArtifact="false" -f benchScriptSet=large
+	gh workflow run bench.yaml -f uploadResultsAsArtifact="false" -f benchScriptSet=coauthorship
+
 .PHONY: *

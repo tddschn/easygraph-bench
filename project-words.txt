@@ -24,6 +24,7 @@ graphlabel
 graphml
 inproceedings
 klass
+kruskal
 mahindas
 matplotlib
 mergedeep
