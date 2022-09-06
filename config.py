@@ -19,7 +19,7 @@ connected_components_methods_G = [
     # "is_connected",
     # "number_connected_components",
     # "connected_components",
-    "is_biconnected",
+    # "is_biconnected",
     "biconnected_components",
 ]
 
