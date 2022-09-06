@@ -5,6 +5,7 @@ jobs:
     name: Benchmark using all datasets
     # runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         benchScriptSet: ["stub", "stub-fast", "normal", "large", "coauthorship"]
     uses:
