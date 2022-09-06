@@ -6,6 +6,38 @@
 
 name: benchmark
 on: 
+  workflow_call:
+    inputs:
+      cpp-binding-framework:
+        required: false
+        description: "The framework used to build easygraph's C++ binding"
+        default: "pybind11"
+        type: string
+        # options:
+        #   - "pybind11"
+        #   - "boost-python"
+      benchScriptSet:
+        required: false
+        description: "The set of scripts to run to benchmark"
+        default: "normal"
+        type: string
+        # options:
+        #   - "normal"
+        #   - "large"
+        #   - "stub"
+        #   - "stub-fast"
+        #   - "coauthorship"
+      releaseTag:
+        required: false
+        description: "Release tag for the benchmark results"
+        # default: "latest"
+        default: "CI"
+        type: string
+      uploadResultsAsArtifact:
+        required: false
+        description: "Upload the benchmark results as an artifact"
+        default: false
+        type: boolean
   workflow_dispatch:
     inputs:
       cpp-binding-framework:
