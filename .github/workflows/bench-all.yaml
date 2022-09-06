@@ -1,0 +1,13 @@
+name: Benchmark using all datasets
+on: workflow_dispatch
+jobs:
+  bench_all:
+    name: Benchmark using all datasets
+    # runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        benchScriptSet: ["stub", "stub-fast", "normal", "large", "coauthorship"]
+    uses:
+      tddschn/easygraph-bench/.github/workflows/bench.yaml@master
+    with:
+      benchScriptSet: '${{ matrix.benchScriptSet }}'
