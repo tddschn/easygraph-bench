@@ -9,6 +9,7 @@ jobs:
       matrix:
         benchScriptSet: ["stub", "stub-fast", "normal", "large", "coauthorship"]
     uses:
-      tddschn/easygraph-bench/.github/workflows/bench.yaml@master
+      # tddschn/easygraph-bench/.github/workflows/bench.yaml@master
+      tddschn/easygraph-bench/.github/workflows/bench-macos.yaml@master
     with:
       benchScriptSet: '${{ matrix.benchScriptSet }}'

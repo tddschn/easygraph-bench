@@ -1,0 +1,214 @@
+# Author : Xinyuan Chen <45612704+tddschn@users.noreply.github.com>
+# Date   : 2022-08-21
+# Purpose: benchmark easygraph python & C++ bindings and compare with networkx's baseline performance
+# License: MIT
+# Link   : https://github.com/tddschn/easygraph-bench/blob/master/.github/workflows/bench.yaml
+
+name: benchmark
+on: 
+  workflow_call:
+    inputs:
+      cpp-binding-framework:
+        required: false
+        description: "The framework used to build easygraph's C++ binding"
+        default: "pybind11"
+        type: string
+        # options:
+        #   - "pybind11"
+        #   - "boost-python"
+      benchScriptSet:
+        required: false
+        description: "The set of scripts to run to benchmark"
+        default: "normal"
+        type: string
+        # options:
+        #   - "normal"
+        #   - "large"
+        #   - "stub"
+        #   - "stub-fast"
+        #   - "coauthorship"
+      releaseTag:
+        required: false
+        description: "Release tag for the benchmark results"
+        # default: "latest"
+        default: "CI"
+        type: string
+      uploadResultsAsArtifact:
+        required: false
+        description: "Upload the benchmark results as an artifact"
+        default: false
+        type: boolean
+  workflow_dispatch:
+    inputs:
+      cpp-binding-framework:
+        required: false
+        description: "The framework used to build easygraph's C++ binding"
+        default: "pybind11"
+        type: choice
+        options:
+          - "pybind11"
+          - "boost-python"
+      benchScriptSet:
+        required: false
+        description: "The set of scripts to run to benchmark"
+        default: "normal"
+        type: choice
+        options:
+          - "normal"
+          - "large"
+          - "stub"
+          - "stub-fast"
+          - "coauthorship"
+      releaseTag:
+        required: false
+        description: "Release tag for the benchmark results"
+        # default: "latest"
+        default: "CI"
+        type: string
+      uploadResultsAsArtifact:
+        required: false
+        description: "Upload the benchmark results as an artifact"
+        default: false
+        type: boolean
+jobs:
+  benchmark:
+    runs-on: macos-latest
+    steps:
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: 'Build and install easygraph - ${{ inputs.cpp-binding-framework }}'
+        uses: tddschn/install-easygraph@master
+        with:
+          cpp-binding-framework: '${{ inputs.cpp-binding-framework }}'
+
+      # cSpell:disable
+      # - name: Setup upterm session
+      #   uses: lhotari/action-upterm@v1
+      #   with:
+      #     ## limits ssh access and adds the ssh public key for the user which triggered the workflow
+      #     limit-access-to-actor: true
+      #     ## limits ssh access and adds the ssh public keys of the listed GitHub users
+      #     limit-access-to-users: tddschn
+
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
+      # cSpell:enable
+
+      - uses: actions/checkout@v3
+        name: checkout easygraph-bench
+        with:
+          path: easygraph-bench
+
+      - name: Install benchmarking dependencies
+        working-directory: easygraph-bench
+        run: |
+          pip install -r requirements.txt
+
+      - name: download datasets (large)
+        if: inputs.benchScriptSet == 'large'
+        working-directory: easygraph-bench
+        run: |
+          mv scripts/download_data.sh .
+          bash ./download_data.sh
+
+      - name: download datasets (coauthorship)
+        if: inputs.benchScriptSet == 'coauthorship'
+        uses: actions/checkout@v3
+        with:
+          repository: chenyang03/co-authorship-network
+          path: co-authorship-network
+
+      - name: benchmark (normal)
+        if: inputs.benchScriptSet == 'normal'
+        working-directory: easygraph-bench
+        run: |
+          python3 ./entrypoint_normal.py
+
+      - name: benchmark (large)
+        if: inputs.benchScriptSet == 'large'
+        working-directory: easygraph-bench
+        run: |
+          python3 ./entrypoint_large.py
+
+      - name: benchmark (coauthorship)
+        if: inputs.benchScriptSet == 'coauthorship'
+        working-directory: easygraph-bench
+        run: |
+          python3 ./bench_coauthorship.py
+
+      - name: benchmark (stub)
+        if: inputs.benchScriptSet == 'stub'
+        working-directory: easygraph-bench
+        run: |
+          python3 ./entrypoint_stub.py
+
+      - name: benchmark (stub-fast)
+        if: inputs.benchScriptSet == 'stub-fast'
+        working-directory: easygraph-bench
+        run: |
+          # no draw(), one pass
+          python3 ./entrypoint_stub.py -D -p1
+
+      - name: Upload artifacts
+        if: inputs.uploadResultsAsArtifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: benchmark-results
+          path: |
+            ${{ github.workspace }}/easygraph-bench/images
+            ${{ github.workspace }}/easygraph-bench/*.csv
+
+      - name: Create release
+        if: inputs.benchScriptSet != 'stub-fast'
+        working-directory: easygraph-bench
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ inputs.releaseTag }}
+          SCRIPT_SET: ${{ inputs.benchScriptSet }}
+        run: |
+          DATE_STR="$(date +"%Y-%m-%dT%H:%M:%S:%z")"
+
+          CSV_ZIP_FILENAME="bench-results-csv-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
+          IMAGES_ZIP_FILENAME="bench-results-figures-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
+
+          zip -r "${CSV_ZIP_FILENAME}" *.csv
+          zip -r "${IMAGES_ZIP_FILENAME}" images
+
+          set +e
+          # don't exit on error
+          gh release create "${TAG}" --notes "Release from GitHub Actions"
+          set -e
+
+          gh release upload "${TAG}" "${CSV_ZIP_FILENAME}" "${IMAGES_ZIP_FILENAME}"
+
+
+      - name: Create release (stub-fast)
+        if: inputs.benchScriptSet == 'stub-fast'
+        working-directory: easygraph-bench
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ inputs.releaseTag }}
+          SCRIPT_SET: ${{ inputs.benchScriptSet }}
+        run: |
+          DATE_STR="$(date +"%Y-%m-%dT%H:%M:%S:%z")"
+
+          CSV_ZIP_FILENAME="bench-results-csv-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
+          IMAGES_ZIP_FILENAME="bench-results-figures-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
+
+          zip -r "${CSV_ZIP_FILENAME}" *.csv
+          # zip -r "${IMAGES_ZIP_FILENAME}" images
+
+          set +e
+          # don't exit on error
+          gh release create "${TAG}" --notes "Release from GitHub Actions"
+          set -e
+
+          gh release upload "${TAG}" "${CSV_ZIP_FILENAME}" # "${IMAGES_ZIP_FILENAME}"
+
+
+
