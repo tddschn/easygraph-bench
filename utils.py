@@ -10,10 +10,11 @@ from textwrap import dedent
 from timeit import Timer
 from typing import Generator, Literal, Optional, Union
 
+from hr_tddschn import hr
+
 import easygraph as eg
 import networkx as nx
 from easygraph import DiGraph, EasyGraphNotImplemented, Graph
-from hr_tddschn import hr
 from networkx import NetworkXNotImplemented
 
 from config import (
@@ -544,8 +545,3 @@ def load_large_datasets_with_read_edgelist(file_path: str) -> nx.DiGraph:
     )
     return g
 
-
-@cache
-def get_dataset_list_sorted_by_nodes() -> list[str]:
-    gi_d = json.loads(graph_info_json_path.read_text())
-    return sorted(gi_d, key=lambda x: gi_d[x]['nodes'])

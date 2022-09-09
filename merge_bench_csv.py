@@ -8,13 +8,8 @@ Purpose: Why not?
 import argparse
 from pathlib import Path
 from typing import Iterator, KeysView
-from config import (
-    BENCH_CSV_DIR,
-    tool_name_mapping,
-    dataset_name_mapping,
-    graph_info_json_path,
-)
-from utils import get_dataset_list_sorted_by_nodes
+from config import BENCH_CSV_DIR, tool_name_mapping, dataset_name_mapping, drop_methods
+from utils_other import get_dataset_list_sorted_by_nodes
 import csv
 from io import StringIO
 
@@ -57,7 +52,9 @@ def add_dataset_name_column_to_csv(
     h = rows_with_dataset_name[0].keys()
     w = csv.DictWriter(s, rows_with_dataset_name[0].keys())
     # w.writeheader()
-    w.writerows(rows_with_dataset_name)
+    w.writerows(
+        filter(lambda x: x['method'] not in drop_methods, rows_with_dataset_name)
+    )
     return s.getvalue(), h
 
 
@@ -74,6 +71,15 @@ def get_args():
         help='Path to the bench result csv dir',
         type=Path,
         default=BENCH_CSV_DIR,
+    )
+
+    parser.add_argument(
+        '-M',
+        '--drop-method',
+        help='Do not write lines with this method',
+        nargs='*',
+        # default=[],
+        default=drop_methods,
     )
 
     parser.add_argument(

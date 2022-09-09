@@ -40,6 +40,8 @@ mst_methods = ['minimum_spanning_tree']
 
 other_methods = ['density', 'constraint']
 
+drop_methods = ['minimum_spanning_tree']
+
 load_functions_name = [
     "load_cheminformatics",
     "load_bio",
