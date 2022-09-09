@@ -145,6 +145,13 @@ def load_pgp_undirected() -> nx.Graph:
 
 
 # --------------------
+# other datasets used in the paper
+# --------------------
+# @load_func_for_nx
+# def load_food() -> nx.
+
+
+# --------------------
 # really large datasets
 # --------------------
 @directed_dataset

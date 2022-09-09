@@ -99,3 +99,9 @@ bench_scripts_stub = [
     'bench_stub_directed.py',
     'bench_stub_nx.py',
 ]
+
+tool_name_mapping = {
+    'networkx': 'nx',
+    'eg w/ C++ binding': 'eg (C++)',
+    'easygraph': 'eg'
+}
