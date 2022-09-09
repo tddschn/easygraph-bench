@@ -8,7 +8,13 @@ Purpose: Why not?
 import argparse
 from pathlib import Path
 from typing import Iterator, KeysView
-from config import BENCH_CSV_DIR, tool_name_mapping, dataset_name_mapping
+from config import (
+    BENCH_CSV_DIR,
+    tool_name_mapping,
+    dataset_name_mapping,
+    graph_info_json_path,
+)
+from utils import get_dataset_list_sorted_by_nodes
 import csv
 from io import StringIO
 
@@ -22,9 +28,25 @@ def get_dataset_name_to_path_mapping_from_csv_dir(
         yield dataset_name, csv_path
 
 
+def get_dataset_name_to_path_mapping_from_csv_dir_sorted_by_nodes(
+    csv_dir: Path,
+) -> list[tuple[str, Path]]:
+    def get_index(dataset_name: str) -> int:
+        return (
+            get_dataset_list_sorted_by_nodes().index(dataset_name)
+            if dataset_name in get_dataset_list_sorted_by_nodes()
+            else 1000000
+        )
+
+    return sorted(
+        get_dataset_name_to_path_mapping_from_csv_dir(csv_dir),
+        key=lambda x: get_index(x[0]),
+    )
+
+
 def add_dataset_name_column_to_csv(
     dataset_name: str, csv_path: Path
-) -> tuple[str, KeysView]:
+) -> tuple[str, KeysView[str]]:
     r = csv.DictReader(csv_path.read_text().splitlines())
     rows_with_dataset_name = [{'dataset': dataset_name} | x for x in r]
     for row in rows_with_dataset_name:
@@ -67,7 +89,7 @@ def main():
     args = get_args()
     csv_s_l = []
     for n, (d, p) in enumerate(
-        get_dataset_name_to_path_mapping_from_csv_dir(args.csv_dir)
+        get_dataset_name_to_path_mapping_from_csv_dir_sorted_by_nodes(args.csv_dir)
     ):
         csv_s, h = add_dataset_name_column_to_csv(d, p)
         if n == 0:

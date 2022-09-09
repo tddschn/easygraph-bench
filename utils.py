@@ -1,29 +1,31 @@
 #!/usr/bin/env python3
 
-from hr_tddschn import hr
-from pathlib import Path
+import asyncio
+import json
 import os
+from functools import cache
+from itertools import islice
 from pathlib import Path
-from typing import Generator, Literal, Union, Optional
+from textwrap import dedent
+from timeit import Timer
+from typing import Generator, Literal, Optional, Union
+
 import easygraph as eg
 import networkx as nx
-from easygraph import Graph, DiGraph
-import networkx as nx
-from itertools import islice
-from timeit import Timer
-from textwrap import dedent
+from easygraph import DiGraph, EasyGraphNotImplemented, Graph
+from hr_tddschn import hr
 from networkx import NetworkXNotImplemented
-from easygraph import EasyGraphNotImplemented
-
-# from .types import MethodName
 
 from config import (
-    eg_master_dir,
-    load_functions_name,
-    di_load_functions_name,
     clustering_methods,
+    di_load_functions_name,
+    eg_master_dir,
+    graph_info_json_path,
+    load_functions_name,
     shortest_path_methods,
 )
+
+# from .types import MethodName
 
 
 def draw(
@@ -36,10 +38,10 @@ def draw(
     # import matplotlib
     # from matplotlib import pyplot
     import matplotlib.pyplot as plt
+    import pandas as pd
 
     # matplotlib.rc("font",family='fangsong')
     import seaborn as sns
-    import pandas as pd
 
     # dataset_name, _, method_name = lf_n.partition('_')
     fig_dir = Path('images') / dataset_name
@@ -196,6 +198,18 @@ def call_method(
     return result
 
 
+# async def call_method_async(
+#     module, method, graph, args: Optional[list] = None, kwargs: Optional[dict] = None
+# ):
+#     try:
+#         await asyncio.wait_for(
+#             call_method(module, method, graph, args, kwargs), timeout=60
+#         )
+#     except asyncio.TimeoutError as e:
+#         print(f'{method} timed out')
+#         print(e)
+
+
 def get_Timer_args(
     module: Literal['eg', 'nx'],
     method: str,
@@ -264,6 +278,39 @@ def bench_with_timeit(
         print(f'::endgroup::')
 
 
+async def bench_with_timeit_async_wrapper(
+    module: Literal['eg', 'nx'],
+    method: str,
+    graph: str,
+    args: list[str] = [],
+    kwargs: dict[str, str] = {},
+    timeit_number: Optional[int] = None,
+) -> float:
+    return bench_with_timeit(module, method, graph, args, kwargs, timeit_number)
+
+
+async def bench_with_timeit_async(
+    module: Literal['eg', 'nx'],
+    method: str,
+    graph: str,
+    args: list[str] = [],
+    kwargs: dict[str, str] = {},
+    timeit_number: Optional[int] = None,
+    timeout: Union[float, int] = 60
+) -> float:
+    try:
+        return await asyncio.wait_for(
+            bench_with_timeit_async_wrapper(
+                module, method, graph, args, kwargs, timeit_number
+            ),
+            timeout=timeout,
+        )
+    except asyncio.TimeoutError as e:
+        print(f'{method} timed out')
+        print(e)
+        return -10.0
+
+
 def eval_method(
     # cost_dict: dict,
     # eg_graph,
@@ -298,36 +345,42 @@ def eval_method(
         cost_dict[load_func_name][method_name] = dict()
 
         # print('easygraph')
-        avg_time_eg = bench_with_timeit(
-            module='eg',
-            method=method_name,
-            graph='G_eg',
-            args=call_method_args_eg,
-            kwargs=call_method_kwargs_eg,
-            timeit_number=timeit_number,
+        avg_time_eg = asyncio.run(
+            bench_with_timeit_async(
+                module='eg',
+                method=method_name,
+                graph='G_eg',
+                args=call_method_args_eg,
+                kwargs=call_method_kwargs_eg,
+                timeit_number=timeit_number,
+            )
         )
         cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
 
         if not skip_ceg:
             # print('easygraph with C++ binding')
-            avg_time_ceg = bench_with_timeit(
-                module='eg',
-                method=method_name,
-                graph='G_ceg',
-                args=call_method_args_ceg,
-                kwargs=call_method_kwargs_ceg,
-                timeit_number=timeit_number,
+            avg_time_ceg = asyncio.run(
+                bench_with_timeit_async(
+                    module='eg',
+                    method=method_name,
+                    graph='G_ceg',
+                    args=call_method_args_ceg,
+                    kwargs=call_method_kwargs_ceg,
+                    timeit_number=timeit_number,
+                )
             )
             cost_dict[load_func_name][method_name]["eg w/ C++ binding"] = avg_time_ceg
 
         # print('networkx')
-        avg_time_nx = bench_with_timeit(
-            module='nx',
-            method=method_name,
-            graph='G_nx',
-            args=call_method_args_nx,
-            kwargs=call_method_kwargs_nx,
-            timeit_number=timeit_number,
+        avg_time_nx = asyncio.run(
+            bench_with_timeit_async(
+                module='nx',
+                method=method_name,
+                graph='G_nx',
+                args=call_method_args_nx,
+                kwargs=call_method_kwargs_nx,
+                timeit_number=timeit_number,
+            )
         )
         cost_dict[load_func_name][method_name]["networkx"] = avg_time_nx
 
@@ -357,38 +410,44 @@ def eval_method(
         cost_dict[load_func_name][method_name_eg] = dict()
 
         # print('easygraph')
-        avg_time_eg = bench_with_timeit(
-            module='eg',
-            method=method_name_eg,
-            graph='G_eg',
-            args=call_method_args_eg,
-            kwargs=call_method_kwargs_eg,
-            timeit_number=timeit_number,
+        avg_time_eg = asyncio.run(
+            bench_with_timeit_async(
+                module='eg',
+                method=method_name_eg,
+                graph='G_eg',
+                args=call_method_args_eg,
+                kwargs=call_method_kwargs_eg,
+                timeit_number=timeit_number,
+            )
         )
         cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
 
         if not skip_ceg:
             # print('easygraph with C++ binding')
-            avg_time_ceg = bench_with_timeit(
-                module='eg',
-                method=method_name_eg,
-                graph='G_ceg',
-                args=call_method_args_ceg,
-                kwargs=call_method_kwargs_ceg,
-                timeit_number=timeit_number,
+            avg_time_ceg = asyncio.run(
+                bench_with_timeit_async(
+                    module='eg',
+                    method=method_name_eg,
+                    graph='G_ceg',
+                    args=call_method_args_ceg,
+                    kwargs=call_method_kwargs_ceg,
+                    timeit_number=timeit_number,
+                )
             )
             cost_dict[load_func_name][method_name_eg][
                 "eg w/ C++ binding"
             ] = avg_time_ceg
 
         # print('networkx')
-        avg_time_nx = bench_with_timeit(
-            module='nx',
-            method=method_name_nx,
-            graph='G_nx',
-            args=call_method_args_nx,
-            kwargs=call_method_kwargs_nx,
-            timeit_number=timeit_number,
+        avg_time_nx = asyncio.run(
+            bench_with_timeit_async(
+                module='nx',
+                method=method_name_nx,
+                graph='G_nx',
+                args=call_method_args_nx,
+                kwargs=call_method_kwargs_nx,
+                timeit_number=timeit_number,
+            )
         )
         cost_dict[load_func_name][method_name_eg]["networkx"] = avg_time_nx
         output(
@@ -468,8 +527,9 @@ def print_with_hr(s: str, hr_char: str = '#'):
 
 
 def tabulate_csv(csv_file: str) -> str:
-    from tabulate import tabulate
     import csv
+
+    from tabulate import tabulate
 
     with open(csv_file, 'r') as f:
         reader = csv.reader(f)
@@ -483,3 +543,9 @@ def load_large_datasets_with_read_edgelist(file_path: str) -> nx.DiGraph:
         file_path, delimiter="\t", nodetype=int, create_using=nx.DiGraph()
     )
     return g
+
+
+@cache
+def get_dataset_list_sorted_by_nodes() -> list[str]:
+    gi_d = json.loads(graph_info_json_path.read_text())
+    return sorted(gi_d, key=lambda x: gi_d[x]['nodes'])
