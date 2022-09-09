@@ -103,5 +103,11 @@ bench_scripts_stub = [
 tool_name_mapping = {
     'networkx': 'nx',
     'eg w/ C++ binding': 'eg (C++)',
-    'easygraph': 'eg'
+    'easygraph': 'eg',
+}
+
+dataset_name_mapping = {
+    'cheminformatics': 'chem',
+    'pgp_undirected': 'pgp (u)',
+    'coauthorship': 'coauth',
 }

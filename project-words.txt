@@ -9,6 +9,7 @@ cheminfo
 cheminfomatics
 cheminformatics
 chenyang
+coauth
 coauthorship
 conda
 coreturn

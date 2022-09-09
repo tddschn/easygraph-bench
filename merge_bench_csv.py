@@ -8,7 +8,7 @@ Purpose: Why not?
 import argparse
 from pathlib import Path
 from typing import Iterator, KeysView
-from config import BENCH_CSV_DIR, tool_name_mapping
+from config import BENCH_CSV_DIR, tool_name_mapping, dataset_name_mapping
 import csv
 from io import StringIO
 
@@ -29,6 +29,8 @@ def add_dataset_name_column_to_csv(
     rows_with_dataset_name = [{'dataset': dataset_name} | x for x in r]
     for row in rows_with_dataset_name:
         row['tool'] = tool_name_mapping[row['tool']]
+        if row['dataset'] in dataset_name_mapping:
+            row['dataset'] = dataset_name_mapping[row['dataset']]
     s = StringIO()
     h = rows_with_dataset_name[0].keys()
     w = csv.DictWriter(s, rows_with_dataset_name[0].keys())
@@ -69,6 +71,7 @@ def main():
     ):
         csv_s, h = add_dataset_name_column_to_csv(d, p)
         if n == 0:
+            # write csv header
             csv_s_l.append(','.join(h) + '\n')
         csv_s_l.append(csv_s)
     if args.outfile is not None:
