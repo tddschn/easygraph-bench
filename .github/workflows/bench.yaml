@@ -125,25 +125,25 @@ jobs:
         if: inputs.benchScriptSet == 'normal'
         working-directory: easygraph-bench
         run: |
-          python3 ./entrypoint_normal.py
+          python3 ./entrypoint_normal.py -D
 
       - name: benchmark (large)
         if: inputs.benchScriptSet == 'large'
         working-directory: easygraph-bench
         run: |
-          python3 ./entrypoint_large.py
+          python3 ./entrypoint_large.py -D
 
       - name: benchmark (coauthorship)
         if: inputs.benchScriptSet == 'coauthorship'
         working-directory: easygraph-bench
         run: |
-          python3 ./bench_coauthorship.py
+          python3 ./bench_coauthorship.py -D
 
       - name: benchmark (stub)
         if: inputs.benchScriptSet == 'stub'
         working-directory: easygraph-bench
         run: |
-          python3 ./entrypoint_stub.py
+          python3 ./entrypoint_stub.py -D
 
       - name: benchmark (stub-fast)
         if: inputs.benchScriptSet == 'stub-fast'
