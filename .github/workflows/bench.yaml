@@ -161,33 +161,33 @@ jobs:
             ${{ github.workspace }}/easygraph-bench/images
             ${{ github.workspace }}/easygraph-bench/*.csv
 
-      - name: Create release
-        if: inputs.benchScriptSet != 'stub-fast'
-        working-directory: easygraph-bench
-        shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: ${{ inputs.releaseTag }}
-          SCRIPT_SET: ${{ inputs.benchScriptSet }}
-        run: |
-          DATE_STR="$(date +"%Y-%m-%dT%H:%M:%S:%z")"
+      # - name: Create release (with figures)
+      #   if: inputs.benchScriptSet != 'stub-fast'
+      #   working-directory: easygraph-bench
+      #   shell: bash
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     TAG: ${{ inputs.releaseTag }}
+      #     SCRIPT_SET: ${{ inputs.benchScriptSet }}
+      #   run: |
+      #     DATE_STR="$(date +"%Y-%m-%dT%H:%M:%S:%z")"
 
-          CSV_ZIP_FILENAME="bench-results-csv-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
-          IMAGES_ZIP_FILENAME="bench-results-figures-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
+      #     CSV_ZIP_FILENAME="bench-results-csv-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
+      #     IMAGES_ZIP_FILENAME="bench-results-figures-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
 
-          zip -r "${CSV_ZIP_FILENAME}" *.csv
-          zip -r "${IMAGES_ZIP_FILENAME}" images
+      #     zip -r "${CSV_ZIP_FILENAME}" *.csv
+      #     zip -r "${IMAGES_ZIP_FILENAME}" images
 
-          set +e
-          # don't exit on error
-          gh release create "${TAG}" --notes "Release from GitHub Actions"
-          set -e
+      #     set +e
+      #     # don't exit on error
+      #     gh release create "${TAG}" --notes "Release from GitHub Actions"
+      #     set -e
 
-          gh release upload "${TAG}" "${CSV_ZIP_FILENAME}" "${IMAGES_ZIP_FILENAME}"
+      #     gh release upload "${TAG}" "${CSV_ZIP_FILENAME}" "${IMAGES_ZIP_FILENAME}"
 
 
-      - name: Create release (stub-fast)
-        if: inputs.benchScriptSet == 'stub-fast'
+      - name: Create release (no figures)
+        # if: inputs.benchScriptSet == 'stub-fast'
         working-directory: easygraph-bench
         shell: bash
         env:
