@@ -235,21 +235,6 @@ Make sure you have an empty line after the closing </details> tag if you have mu
 </details>
 
 - <details>
-  <summary>is_biconnected</summary>
-  
-  ![](./images-public/cheminformatics/is_biconnected.png)
-  <!-- ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets -->
-<!-- Two important rules:
-
-Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
-Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
-</details>
-
-- <details>
   <summary>biconnected_components</summary>
   
   ![](./images-public/cheminformatics/biconnected_components.png)
@@ -283,6 +268,21 @@ Make sure you have an empty line after the closing </details> tag if you have mu
   <summary>density</summary>
   
   ![](./images-public/cheminformatics/density.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>constraint</summary>
+  
+  ![](./images-public/cheminformatics/constraint.png)
   <!-- ## Heading
   1. A numbered
   2. list
@@ -345,21 +345,6 @@ Make sure you have an empty line after the closing </details> tag if you have mu
 </details>
 
 - <details>
-  <summary>is_biconnected</summary>
-  
-  ![](./images-public/bio/is_biconnected.png)
-  <!-- ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets -->
-<!-- Two important rules:
-
-Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
-Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
-</details>
-
-- <details>
   <summary>biconnected_components</summary>
   
   ![](./images-public/bio/biconnected_components.png)
@@ -393,6 +378,21 @@ Make sure you have an empty line after the closing </details> tag if you have mu
   <summary>density</summary>
   
   ![](./images-public/bio/density.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>constraint</summary>
+  
+  ![](./images-public/bio/constraint.png)
   <!-- ## Heading
   1. A numbered
   2. list
@@ -455,21 +455,6 @@ Make sure you have an empty line after the closing </details> tag if you have mu
 </details>
 
 - <details>
-  <summary>is_biconnected</summary>
-  
-  ![](./images-public/eco/is_biconnected.png)
-  <!-- ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets -->
-<!-- Two important rules:
-
-Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
-Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
-</details>
-
-- <details>
   <summary>biconnected_components</summary>
   
   ![](./images-public/eco/biconnected_components.png)
@@ -503,6 +488,21 @@ Make sure you have an empty line after the closing </details> tag if you have mu
   <summary>density</summary>
   
   ![](./images-public/eco/density.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>constraint</summary>
+  
+  ![](./images-public/eco/constraint.png)
   <!-- ## Heading
   1. A numbered
   2. list
@@ -565,21 +565,6 @@ Make sure you have an empty line after the closing </details> tag if you have mu
 </details>
 
 - <details>
-  <summary>is_biconnected</summary>
-  
-  ![](./images-public/pgp/is_biconnected.png)
-  <!-- ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets -->
-<!-- Two important rules:
-
-Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
-Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
-</details>
-
-- <details>
   <summary>biconnected_components</summary>
   
   ![](./images-public/pgp/biconnected_components.png)
@@ -613,6 +598,21 @@ Make sure you have an empty line after the closing </details> tag if you have mu
   <summary>density</summary>
   
   ![](./images-public/pgp/density.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>constraint</summary>
+  
+  ![](./images-public/pgp/constraint.png)
   <!-- ## Heading
   1. A numbered
   2. list
@@ -675,21 +675,6 @@ Make sure you have an empty line after the closing </details> tag if you have mu
 </details>
 
 - <details>
-  <summary>is_biconnected</summary>
-  
-  ![](./images-public/pgp_undirected/is_biconnected.png)
-  <!-- ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets -->
-<!-- Two important rules:
-
-Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
-Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
-</details>
-
-- <details>
   <summary>biconnected_components</summary>
   
   ![](./images-public/pgp_undirected/biconnected_components.png)
@@ -723,6 +708,21 @@ Make sure you have an empty line after the closing </details> tag if you have mu
   <summary>density</summary>
   
   ![](./images-public/pgp_undirected/density.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>constraint</summary>
+  
+  ![](./images-public/pgp_undirected/constraint.png)
   <!-- ## Heading
   1. A numbered
   2. list
@@ -785,21 +785,6 @@ Make sure you have an empty line after the closing </details> tag if you have mu
 </details>
 
 - <details>
-  <summary>is_biconnected</summary>
-  
-  ![](./images-public/enron/is_biconnected.png)
-  <!-- ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets -->
-<!-- Two important rules:
-
-Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
-Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
-</details>
-
-- <details>
   <summary>biconnected_components</summary>
   
   ![](./images-public/enron/biconnected_components.png)
@@ -833,6 +818,21 @@ Make sure you have an empty line after the closing </details> tag if you have mu
   <summary>density</summary>
   
   ![](./images-public/enron/density.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>constraint</summary>
+  
+  ![](./images-public/enron/constraint.png)
   <!-- ## Heading
   1. A numbered
   2. list
@@ -895,21 +895,6 @@ Make sure you have an empty line after the closing </details> tag if you have mu
 </details>
 
 - <details>
-  <summary>is_biconnected</summary>
-  
-  ![](./images-public/coauthorship/is_biconnected.png)
-  <!-- ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets -->
-<!-- Two important rules:
-
-Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
-Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
-</details>
-
-- <details>
   <summary>biconnected_components</summary>
   
   ![](./images-public/coauthorship/biconnected_components.png)
@@ -943,6 +928,21 @@ Make sure you have an empty line after the closing </details> tag if you have mu
   <summary>density</summary>
   
   ![](./images-public/coauthorship/density.png)
+  <!-- ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets -->
+<!-- Two important rules:
+
+Make sure you have an empty line after the closing </summary> tag, otherwise the markdown/code blocks won't show correctly.
+Make sure you have an empty line after the closing </details> tag if you have multiple collapsible sections. -->
+</details>
+
+- <details>
+  <summary>constraint</summary>
+  
+  ![](./images-public/coauthorship/constraint.png)
   <!-- ## Heading
   1. A numbered
   2. list
