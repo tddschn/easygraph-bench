@@ -118,8 +118,12 @@ dataset_name_mapping = {
 dataset_homepage_mapping = {
     'cheminformatics': 'https://networkrepository.com/ENZYMES-g1.php',
     'bio': 'https://networkrepository.com/bio-yeast.php',
-
-    'amazon': 'https://snap.stanford.edu/data/amazon0302.html' ,
+    'eco': 'https://networkrepository.com/econ-mahindas.php',
+    'pgp': 'https://github.com/tddschn/easygraph-bench/blob/master/dataset/pgp/pgp.xml',
+    'pgp_undirected': 'https://github.com/tddschn/easygraph-bench/blob/master/dataset/pgp/pgp_undirected.xml',
+    'enron': 'https://snap.stanford.edu/data/email-Enron.html',
+    'amazon': 'https://snap.stanford.edu/data/amazon0302.html',
+    'google': 'https://snap.stanford.edu/data/web-Google.html',
+    'pokec': 'https://snap.stanford.edu/data/soc-Pokec.html',
     'coauthorship': 'https://github.com/chenyang03/co-authorship-network',
-
 }

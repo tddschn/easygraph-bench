@@ -166,6 +166,9 @@ def load_pgp_undirected() -> nx.Graph:
 @directed_dataset
 @load_func_for_nx
 def load_enron() -> nx.DiGraph:
+    """
+    https://snap.stanford.edu/data/email-Enron.html
+    """
     p = Path('enron.txt')
     print_with_hr(f'loading graph enron from {str(p)} ...')
     if not p.exists():
@@ -181,6 +184,9 @@ def load_enron() -> nx.DiGraph:
 @directed_dataset
 @load_func_for_nx
 def load_google() -> nx.DiGraph:
+    """
+    https://snap.stanford.edu/data/web-Google.html
+    """
     p = Path('google.txt')
     print_with_hr(f'loading graph google from {str(p)} ...')
     if not p.exists():
@@ -214,6 +220,9 @@ def load_amazon() -> nx.DiGraph:
 @directed_dataset
 @load_func_for_nx
 def load_pokec() -> nx.DiGraph:
+    """
+    https://snap.stanford.edu/data/soc-Pokec.html
+    """
     p = Path('pokec.txt')
     print_with_hr(f'loading graph pokec from {str(p)} ...')
     if not p.exists():

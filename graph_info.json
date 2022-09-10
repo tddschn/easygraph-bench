@@ -58,11 +58,5 @@
         "edges": 30622564,
         "type": "networkx.classes.digraph.DiGraph",
         "is_directed": true
-    },
-    "stub": {
-        "nodes": 5,
-        "edges": 10,
-        "type": "easygraph.classes.graph.Graph",
-        "is_directed": false
     }
 }
