@@ -49,6 +49,7 @@ load_functions_name = [
     # "load_soc"
     'load_pgp',
     'load_pgp_undirected',
+    'load_road',
     'load_enron',
     'load_google',
     'load_amazon',
@@ -81,6 +82,7 @@ bench_scripts_normal = [
     'bench_bio.py',
     'bench_pgp.py',
     'bench_pgp_undirected.py',
+    'bench_road.py',
 ]
 
 bench_scripts_large = [
@@ -126,4 +128,5 @@ dataset_homepage_mapping = {
     'google': 'https://snap.stanford.edu/data/web-Google.html',
     'pokec': 'https://snap.stanford.edu/data/soc-Pokec.html',
     'coauthorship': 'https://github.com/chenyang03/co-authorship-network',
+    'road': 'https://networkrepository.com/road-usa.php'
 }

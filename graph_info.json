@@ -1,62 +1,68 @@
 {
-    "cheminformatics": {
-        "nodes": 37,
-        "edges": 84,
-        "type": "easygraph.classes.graph.Graph",
-        "is_directed": false
-    },
-    "bio": {
-        "nodes": 1458,
-        "edges": 1948,
-        "type": "easygraph.classes.graph.Graph",
-        "is_directed": false
-    },
-    "eco": {
-        "nodes": 1258,
-        "edges": 7619,
-        "type": "easygraph.classes.graph.Graph",
-        "is_directed": false
-    },
-    "pgp": {
-        "nodes": 39796,
-        "edges": 301498,
-        "type": "networkx.classes.digraph.DiGraph",
-        "is_directed": true
-    },
-    "pgp_undirected": {
-        "nodes": 39796,
-        "edges": 197150,
-        "type": "networkx.classes.graph.Graph",
-        "is_directed": false
-    },
-    "enron": {
-        "nodes": 36692,
-        "edges": 367662,
-        "type": "networkx.classes.digraph.DiGraph",
-        "is_directed": true
-    },
-    "google": {
-        "nodes": 875713,
-        "edges": 5105039,
-        "type": "networkx.classes.digraph.DiGraph",
-        "is_directed": true
-    },
-    "amazon": {
-        "nodes": 262111,
-        "edges": 1234877,
-        "type": "networkx.classes.digraph.DiGraph",
-        "is_directed": true
-    },
-    "coauthorship": {
-        "nodes": 402392,
-        "edges": 1234019,
-        "type": "networkx.classes.graph.Graph",
-        "is_directed": false
-    },
-    "pokec": {
-        "nodes": 1632803,
-        "edges": 30622564,
-        "type": "networkx.classes.digraph.DiGraph",
-        "is_directed": true
-    }
+  "cheminformatics": {
+    "nodes": 37,
+    "edges": 84,
+    "type": "easygraph.classes.graph.Graph",
+    "is_directed": false
+  },
+  "bio": {
+    "nodes": 1458,
+    "edges": 1948,
+    "type": "easygraph.classes.graph.Graph",
+    "is_directed": false
+  },
+  "eco": {
+    "nodes": 1258,
+    "edges": 7619,
+    "type": "easygraph.classes.graph.Graph",
+    "is_directed": false
+  },
+  "pgp": {
+    "nodes": 39796,
+    "edges": 301498,
+    "type": "networkx.classes.digraph.DiGraph",
+    "is_directed": true
+  },
+  "pgp_undirected": {
+    "nodes": 39796,
+    "edges": 197150,
+    "type": "networkx.classes.graph.Graph",
+    "is_directed": false
+  },
+  "enron": {
+    "nodes": 36692,
+    "edges": 367662,
+    "type": "networkx.classes.digraph.DiGraph",
+    "is_directed": true
+  },
+  "google": {
+    "nodes": 875713,
+    "edges": 5105039,
+    "type": "networkx.classes.digraph.DiGraph",
+    "is_directed": true
+  },
+  "amazon": {
+    "nodes": 262111,
+    "edges": 1234877,
+    "type": "networkx.classes.digraph.DiGraph",
+    "is_directed": true
+  },
+  "coauthorship": {
+    "nodes": 402392,
+    "edges": 1234019,
+    "type": "networkx.classes.graph.Graph",
+    "is_directed": false
+  },
+  "pokec": {
+    "nodes": 1632803,
+    "edges": 30622564,
+    "type": "networkx.classes.digraph.DiGraph",
+    "is_directed": true
+  },
+  "road": {
+    "nodes": 129164,
+    "edges": 165435,
+    "type": "easygraph.classes.graph.Graph",
+    "is_directed": false
+  }
 }

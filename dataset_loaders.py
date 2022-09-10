@@ -124,6 +124,25 @@ def load_soc():
 
 
 # --------------------
+# road-usa
+# --------------------
+def load_road() -> eg.Graph:
+    """
+    partial dataset from
+    https://networkrepository.com/road-usa.php
+    """
+    ROAD_DIR = DATASET_DIR / 'road'
+    road_file_path = ROAD_DIR / 'road.txt'
+    print_with_hr(f'loading graph road-usa from {str(road_file_path)} ...')
+    G = eg.Graph()
+    G.add_edges_from_file(str(road_file_path))
+    print_with_hr(
+        f'finished loading graph road-usa\nnodes: {len(G.nodes)}, edges: {len(G.edges)}, is_directed: {G.is_directed()}'
+    )
+    return G
+
+
+# --------------------
 # pgp network of trust
 # --------------------
 
