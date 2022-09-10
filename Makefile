@@ -5,7 +5,7 @@ sanity-check: gen-scripts
 	# ./bench_stub_nx.py -D -p 1
 	# ./bench_stub_with_underscore.py -D -p 1
 	# ./bench_stub_with_underscore.py -p 1
-	./bench_pgp.py -D -p 1 -t 1 -G other
+	./bench_pgp.py -D -p 1 -t 10 -G other
 
 gen-scripts:
 	./gen_bench_script.py
