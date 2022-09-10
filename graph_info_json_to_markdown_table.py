@@ -15,5 +15,5 @@ for graph_name, graph_info in graph_info_d.items():
     else:
         data.append({'Dataset Name': graph_name, **graph_info})
 
-markdown = Tomark.table(data)  # type: ignore
+markdown = Tomark.table(sorted(data, key=lambda x: x['nodes']))  # type: ignore
 print(markdown)

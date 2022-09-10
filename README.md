@@ -137,15 +137,17 @@ See [dataset_loaders.py](./dataset_loaders.py) and [dataset](./dataset/) for det
 | Dataset Name                                                                                            | nodes   | edges    | type                             | is_directed |
 | ------------------------------------------------------------------------------------------------------- | ------- | -------- | -------------------------------- | ----------- |
 | [cheminformatics](https://networkrepository.com/ENZYMES-g1.php)                                         | 37      | 84       | easygraph.classes.graph.Graph    | False       |
-| [bio](https://networkrepository.com/bio-yeast.php)                                                      | 1458    | 1948     | easygraph.classes.graph.Graph    | False       |
 | [eco](https://networkrepository.com/econ-mahindas.php)                                                  | 1258    | 7619     | easygraph.classes.graph.Graph    | False       |
+| [bio](https://networkrepository.com/bio-yeast.php)                                                      | 1458    | 1948     | easygraph.classes.graph.Graph    | False       |
+| [enron](https://snap.stanford.edu/data/email-Enron.html)                                                | 36692   | 367662   | networkx.classes.digraph.DiGraph | True        |
 | [pgp](https://github.com/tddschn/easygraph-bench/blob/master/dataset/pgp/pgp.xml)                       | 39796   | 301498   | networkx.classes.digraph.DiGraph | True        |
 | [pgp_undirected](https://github.com/tddschn/easygraph-bench/blob/master/dataset/pgp/pgp_undirected.xml) | 39796   | 197150   | networkx.classes.graph.Graph     | False       |
-| [enron](https://snap.stanford.edu/data/email-Enron.html)                                                | 36692   | 367662   | networkx.classes.digraph.DiGraph | True        |
-| [google](https://snap.stanford.edu/data/web-Google.html)                                                | 875713  | 5105039  | networkx.classes.digraph.DiGraph | True        |
+| [road](https://networkrepository.com/road-usa.php)                                                      | 129164  | 165435   | easygraph.classes.graph.Graph    | False       |
 | [amazon](https://snap.stanford.edu/data/amazon0302.html)                                                | 262111  | 1234877  | networkx.classes.digraph.DiGraph | True        |
 | [coauthorship](https://github.com/chenyang03/co-authorship-network)                                     | 402392  | 1234019  | networkx.classes.graph.Graph     | False       |
+| [google](https://snap.stanford.edu/data/web-Google.html)                                                | 875713  | 5105039  | networkx.classes.digraph.DiGraph | True        |
 | [pokec](https://snap.stanford.edu/data/soc-Pokec.html)                                                  | 1632803 | 30622564 | networkx.classes.digraph.DiGraph | True        |
+
 
 
 ## FAQ
