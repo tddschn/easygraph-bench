@@ -114,3 +114,12 @@ dataset_name_mapping = {
     'pgp_undirected': 'pgp (u)',
     'coauthorship': 'coauth',
 }
+
+dataset_homepage_mapping = {
+    'cheminformatics': 'https://networkrepository.com/ENZYMES-g1.php',
+    'bio': 'https://networkrepository.com/bio-yeast.php',
+
+    'amazon': 'https://snap.stanford.edu/data/amazon0302.html' ,
+    'coauthorship': 'https://github.com/chenyang03/co-authorship-network',
+
+}

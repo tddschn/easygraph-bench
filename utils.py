@@ -3,7 +3,7 @@
 import asyncio
 import json
 import os
-from functools import cache
+from functools import cache, partial
 from itertools import islice
 from pathlib import Path
 from textwrap import dedent
@@ -287,7 +287,9 @@ async def bench_with_timeit_async_wrapper(
     kwargs: dict[str, str] = {},
     timeit_number: Optional[int] = None,
 ) -> float:
-    return bench_with_timeit(module, method, graph, args, kwargs, timeit_number)
+    return await asyncio.to_thread(
+        partial(bench_with_timeit, module, method, graph, args, kwargs, timeit_number)
+    )
 
 
 async def bench_with_timeit_async(
@@ -297,7 +299,7 @@ async def bench_with_timeit_async(
     args: list[str] = [],
     kwargs: dict[str, str] = {},
     timeit_number: Optional[int] = None,
-    timeout: Union[float, int] = 60
+    timeout: Union[float, int] = 60,
 ) -> float:
     try:
         return await asyncio.wait_for(
@@ -329,6 +331,7 @@ def eval_method(
     skip_ceg: bool = False,
     skip_draw: bool = False,
     timeit_number: Optional[int] = None,
+    timeout: Union[float, int] = 60,
 ) -> dict:
     # raise DeprecationWarning('Deprecated. Use ./bench_*.py instead')
 
@@ -354,6 +357,7 @@ def eval_method(
                 args=call_method_args_eg,
                 kwargs=call_method_kwargs_eg,
                 timeit_number=timeit_number,
+                timeout=timeout,
             )
         )
         cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
@@ -368,6 +372,7 @@ def eval_method(
                     args=call_method_args_ceg,
                     kwargs=call_method_kwargs_ceg,
                     timeit_number=timeit_number,
+                    timeout=timeout,
                 )
             )
             cost_dict[load_func_name][method_name]["eg w/ C++ binding"] = avg_time_ceg
@@ -381,6 +386,7 @@ def eval_method(
                 args=call_method_args_nx,
                 kwargs=call_method_kwargs_nx,
                 timeit_number=timeit_number,
+                timeout=timeout,
             )
         )
         cost_dict[load_func_name][method_name]["networkx"] = avg_time_nx
@@ -419,6 +425,7 @@ def eval_method(
                 args=call_method_args_eg,
                 kwargs=call_method_kwargs_eg,
                 timeit_number=timeit_number,
+                timeout=timeout,
             )
         )
         cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
@@ -433,6 +440,7 @@ def eval_method(
                     args=call_method_args_ceg,
                     kwargs=call_method_kwargs_ceg,
                     timeit_number=timeit_number,
+                    timeout=timeout,
                 )
             )
             cost_dict[load_func_name][method_name_eg][
@@ -448,6 +456,7 @@ def eval_method(
                 args=call_method_args_nx,
                 kwargs=call_method_kwargs_nx,
                 timeit_number=timeit_number,
+                timeout=timeout,
             )
         )
         cost_dict[load_func_name][method_name_eg]["networkx"] = avg_time_nx
@@ -544,4 +553,3 @@ def load_large_datasets_with_read_edgelist(file_path: str) -> nx.DiGraph:
         file_path, delimiter="\t", nodetype=int, create_using=nx.DiGraph()
     )
     return g
-

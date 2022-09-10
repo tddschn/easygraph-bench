@@ -85,6 +85,10 @@ def get_args():
         '-p', '--pass', type=int, help='Number of passes to run in the benchmark, uses Timer.autorange() if not set.'
     )
 
+    parser.add_argument(
+        '-t', '--timeout', type=int, help='Timeout for benchmarking one method in seconds.', default=60
+    )
+
     return parser.parse_args()
 
 
@@ -97,6 +101,7 @@ def main(args):
     flags |= {'skip_ceg': args.skip_cpp_easygraph}
     flags |= {'skip_draw': args.skip_draw}
     flags |= {'timeit_number': getattr(args, 'pass', None)}
+    flags |= {'timeout': args.timeout}
     result_dicts: list[dict] = []
     first_node_args = {
         'call_method_args_eg': ['first_node_eg'],

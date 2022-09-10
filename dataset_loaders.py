@@ -19,6 +19,9 @@ from utils import (
 
 
 def load_cheminformatics():
+    """
+    https://networkrepository.com/ENZYMES-g1.php
+    """
     print_with_hr(f'loading graph cheminformatics ...')
     G = eg.Graph()
     with open("./dataset/ENZYMES_g1/ENZYMES_g1.edges") as f:
@@ -39,6 +42,9 @@ def load_cheminformatics():
 
 
 def load_bio():
+    """
+    https://networkrepository.com/bio-yeast.php
+    """
     print_with_hr('loading graph bio ...')
     G = eg.Graph()
     jump_lines = 2
@@ -62,6 +68,9 @@ def load_bio():
 
 
 def load_eco():
+    """
+    https://networkrepository.com/econ-mahindas.php
+    """
     print_with_hr('loading graph eco ...')
     G = eg.Graph()
     jump_lines = 14
@@ -187,6 +196,9 @@ def load_google() -> nx.DiGraph:
 @directed_dataset
 @load_func_for_nx
 def load_amazon() -> nx.DiGraph:
+    """
+    https://snap.stanford.edu/data/amazon0302.html
+    """
     p = Path('amazon.txt')
     print_with_hr(f'loading graph amazon from {str(p)} ...')
     if not p.exists():
@@ -222,6 +234,9 @@ def load_pokec() -> nx.DiGraph:
 def load_coauthorship(
     coauthorship_edges_file: str = '../co-authorship-network/edges.txt',
 ) -> nx.DiGraph:
+    """
+    https://github.com/chenyang03/co-authorship-network
+    """
     print_with_hr(f'loading graph coauthorship from {coauthorship_edges_file} ...')
     number_of_nodes = 402392
     g: nx.DiGraph = nx.read_edgelist(
