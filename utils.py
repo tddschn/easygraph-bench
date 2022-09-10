@@ -11,6 +11,8 @@ from timeit import Timer
 from typing import Generator, Literal, Optional, Union
 
 from hr_tddschn import hr
+from pebble import concurrent
+from concurrent.futures import TimeoutError
 
 import easygraph as eg
 import networkx as nx
@@ -199,18 +201,6 @@ def call_method(
     return result
 
 
-# async def call_method_async(
-#     module, method, graph, args: Optional[list] = None, kwargs: Optional[dict] = None
-# ):
-#     try:
-#         await asyncio.wait_for(
-#             call_method(module, method, graph, args, kwargs), timeout=60
-#         )
-#     except asyncio.TimeoutError as e:
-#         print(f'{method} timed out')
-#         print(e)
-
-
 def get_Timer_args(
     module: Literal['eg', 'nx'],
     method: str,
@@ -279,39 +269,65 @@ def bench_with_timeit(
         print(f'::endgroup::')
 
 
-async def bench_with_timeit_async_wrapper(
+def bench_with_timeit_pebble_timeout(
     module: Literal['eg', 'nx'],
     method: str,
     graph: str,
     args: list[str] = [],
     kwargs: dict[str, str] = {},
     timeit_number: Optional[int] = None,
+    timeout: Optional[Union[float, int]] = None,
 ) -> float:
-    return await asyncio.to_thread(
-        partial(bench_with_timeit, module, method, graph, args, kwargs, timeit_number)
-    )
+    if timeout is not None:
+        f = concurrent.process(timeout=timeout)(bench_with_timeit)
+        future = f(module, method, graph, args, kwargs, timeit_number)  # type: ignore
+        try:
+            return future.result()
+        except TimeoutError as error:
+            print(f'method {method} used more than {timeout} seconds and timed out')
+            return -10.0
+    else:
+        return bench_with_timeit(module, method, graph, args, kwargs, timeit_number)
 
 
-async def bench_with_timeit_async(
-    module: Literal['eg', 'nx'],
-    method: str,
-    graph: str,
-    args: list[str] = [],
-    kwargs: dict[str, str] = {},
-    timeit_number: Optional[int] = None,
-    timeout: Union[float, int] = 60,
-) -> float:
-    try:
-        return await asyncio.wait_for(
-            bench_with_timeit_async_wrapper(
-                module, method, graph, args, kwargs, timeit_number
-            ),
-            timeout=timeout,
-        )
-    except asyncio.TimeoutError as e:
-        print(f'{method} timed out')
-        print(e)
-        return -10.0
+# async def bench_with_timeit_async_wrapper(
+#     module: Literal['eg', 'nx'],
+#     method: str,
+#     graph: str,
+#     args: list[str] = [],
+#     kwargs: dict[str, str] = {},
+#     timeit_number: Optional[int] = None,
+# ) -> float:
+#     return await asyncio.to_thread(
+#         partial(bench_with_timeit, module, method, graph, args, kwargs, timeit_number)
+#     )
+
+
+# async def bench_with_timeit_async(
+#     module: Literal['eg', 'nx'],
+#     method: str,
+#     graph: str,
+#     args: list[str] = [],
+#     kwargs: dict[str, str] = {},
+#     timeit_number: Optional[int] = None,
+#     timeout: Optional[Union[float, int]] = None,
+# ) -> float:
+#     if timeout is not None:
+#         try:
+#             return await asyncio.wait_for(
+#                 bench_with_timeit_async_wrapper(
+#                     module, method, graph, args, kwargs, timeit_number
+#                 ),
+#                 timeout=timeout,
+#             )
+#         except asyncio.TimeoutError as e:
+#             print(f'{method} timed out')
+#             print(e)
+#             return -10.0
+#     else:
+#         return await bench_with_timeit_async_wrapper(
+#             module, method, graph, args, kwargs, timeit_number
+#         )
 
 
 def eval_method(
@@ -331,7 +347,7 @@ def eval_method(
     skip_ceg: bool = False,
     skip_draw: bool = False,
     timeit_number: Optional[int] = None,
-    timeout: Union[float, int] = 60,
+    timeout: Optional[Union[float, int]] = None,
 ) -> dict:
     # raise DeprecationWarning('Deprecated. Use ./bench_*.py instead')
 
@@ -349,45 +365,39 @@ def eval_method(
         cost_dict[load_func_name][method_name] = dict()
 
         # print('easygraph')
-        avg_time_eg = asyncio.run(
-            bench_with_timeit_async(
-                module='eg',
-                method=method_name,
-                graph='G_eg',
-                args=call_method_args_eg,
-                kwargs=call_method_kwargs_eg,
-                timeit_number=timeit_number,
-                timeout=timeout,
-            )
+        avg_time_eg = bench_with_timeit_pebble_timeout(
+            module='eg',
+            method=method_name,
+            graph='G_eg',
+            args=call_method_args_eg,
+            kwargs=call_method_kwargs_eg,
+            timeit_number=timeit_number,
+            timeout=timeout,
         )
         cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
 
         if not skip_ceg:
             # print('easygraph with C++ binding')
-            avg_time_ceg = asyncio.run(
-                bench_with_timeit_async(
-                    module='eg',
-                    method=method_name,
-                    graph='G_ceg',
-                    args=call_method_args_ceg,
-                    kwargs=call_method_kwargs_ceg,
-                    timeit_number=timeit_number,
-                    timeout=timeout,
-                )
+            avg_time_ceg = bench_with_timeit_pebble_timeout(
+                module='eg',
+                method=method_name,
+                graph='G_ceg',
+                args=call_method_args_ceg,
+                kwargs=call_method_kwargs_ceg,
+                timeit_number=timeit_number,
+                timeout=timeout,
             )
             cost_dict[load_func_name][method_name]["eg w/ C++ binding"] = avg_time_ceg
 
         # print('networkx')
-        avg_time_nx = asyncio.run(
-            bench_with_timeit_async(
-                module='nx',
-                method=method_name,
-                graph='G_nx',
-                args=call_method_args_nx,
-                kwargs=call_method_kwargs_nx,
-                timeit_number=timeit_number,
-                timeout=timeout,
-            )
+        avg_time_nx = bench_with_timeit_pebble_timeout(
+            module='nx',
+            method=method_name,
+            graph='G_nx',
+            args=call_method_args_nx,
+            kwargs=call_method_kwargs_nx,
+            timeit_number=timeit_number,
+            timeout=timeout,
         )
         cost_dict[load_func_name][method_name]["networkx"] = avg_time_nx
 
@@ -417,47 +427,41 @@ def eval_method(
         cost_dict[load_func_name][method_name_eg] = dict()
 
         # print('easygraph')
-        avg_time_eg = asyncio.run(
-            bench_with_timeit_async(
-                module='eg',
-                method=method_name_eg,
-                graph='G_eg',
-                args=call_method_args_eg,
-                kwargs=call_method_kwargs_eg,
-                timeit_number=timeit_number,
-                timeout=timeout,
-            )
+        avg_time_eg = bench_with_timeit_pebble_timeout(
+            module='eg',
+            method=method_name_eg,
+            graph='G_eg',
+            args=call_method_args_eg,
+            kwargs=call_method_kwargs_eg,
+            timeit_number=timeit_number,
+            timeout=timeout,
         )
         cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
 
         if not skip_ceg:
             # print('easygraph with C++ binding')
-            avg_time_ceg = asyncio.run(
-                bench_with_timeit_async(
-                    module='eg',
-                    method=method_name_eg,
-                    graph='G_ceg',
-                    args=call_method_args_ceg,
-                    kwargs=call_method_kwargs_ceg,
-                    timeit_number=timeit_number,
-                    timeout=timeout,
-                )
+            avg_time_ceg = bench_with_timeit_pebble_timeout(
+                module='eg',
+                method=method_name_eg,
+                graph='G_ceg',
+                args=call_method_args_ceg,
+                kwargs=call_method_kwargs_ceg,
+                timeit_number=timeit_number,
+                timeout=timeout,
             )
             cost_dict[load_func_name][method_name_eg][
                 "eg w/ C++ binding"
             ] = avg_time_ceg
 
         # print('networkx')
-        avg_time_nx = asyncio.run(
-            bench_with_timeit_async(
-                module='nx',
-                method=method_name_nx,
-                graph='G_nx',
-                args=call_method_args_nx,
-                kwargs=call_method_kwargs_nx,
-                timeit_number=timeit_number,
-                timeout=timeout,
-            )
+        avg_time_nx = bench_with_timeit_pebble_timeout(
+            module='nx',
+            method=method_name_nx,
+            graph='G_nx',
+            args=call_method_args_nx,
+            kwargs=call_method_kwargs_nx,
+            timeit_number=timeit_number,
+            timeout=timeout,
         )
         cost_dict[load_func_name][method_name_eg]["networkx"] = avg_time_nx
         output(
