@@ -66,6 +66,11 @@ def get_args():
         help='Number of passes to run in the benchmark, uses Timer.autorange() if not set.',
     )
 
+    parser.add_argument(
+        '-t', '--timeout', type=int, help='Timeout for benchmarking one method in seconds, 0 for no timeout', default=60
+    )
+
+
     return parser.parse_args()
 
 
