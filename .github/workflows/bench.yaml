@@ -5,9 +5,24 @@
 # Link   : https://github.com/tddschn/easygraph-bench/blob/master/.github/workflows/bench.yaml
 
 name: benchmark
-on: 
+on:
   workflow_call:
     inputs:
+      runs-on:
+        description: "The OS to run the benchmark on"
+        required: false
+        type: string
+        default: "macos-latest"
+      python-version:
+        description: "The python version to run the benchmark with"
+        required: false
+        type: string
+        default: "3.10"
+      timeout:
+        description: "Timeout for Timer.autorange()"
+        required: false
+        default: 300
+        type: number
       cpp-binding-framework:
         required: false
         description: "The framework used to build easygraph's C++ binding"
@@ -38,8 +53,34 @@ on:
         description: "Upload the benchmark results as an artifact"
         default: false
         type: boolean
+      releaseResults:
+        required: false
+        description: "Release the benchmark results"
+        default: true
+        type: boolean
   workflow_dispatch:
     inputs:
+      runs-on:
+        description: "The OS to run the benchmark on"
+        required: false
+        type: choice
+        default: "macos-latest"
+        options:
+          - "macos-latest"
+          - "ubuntu-latest"
+      python-version:
+        description: "The python version to run the benchmark with"
+        required: false
+        type: choice
+        default: "3.10"
+        options:
+          - "3.10"
+          - "3.9"
+      timeout:
+        description: "Timeout for Timer.autorange()"
+        required: false
+        default: "300"
+        type: string
       cpp-binding-framework:
         required: false
         description: "The framework used to build easygraph's C++ binding"
@@ -70,19 +111,24 @@ on:
         description: "Upload the benchmark results as an artifact"
         default: false
         type: boolean
+      releaseResults:
+        required: false
+        description: "Release the benchmark results"
+        default: true
+        type: boolean
 jobs:
   benchmark:
-    runs-on: ubuntu-latest
+    runs-on: "${{ inputs.runs-on }}"
     steps:
-      - name: Set up Python 3.9
+      - name: "Set up Python ${{ inputs.python-version }}"
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: "${{ inputs.python-version }}"
 
-      - name: 'Build and install easygraph - ${{ inputs.cpp-binding-framework }}'
+      - name: "Build and install easygraph - ${{ inputs.cpp-binding-framework }}"
         uses: tddschn/install-easygraph@master
         with:
-          cpp-binding-framework: '${{ inputs.cpp-binding-framework }}'
+          cpp-binding-framework: "${{ inputs.cpp-binding-framework }}"
 
       # cSpell:disable
       # - name: Setup upterm session
@@ -125,25 +171,25 @@ jobs:
         if: inputs.benchScriptSet == 'normal'
         working-directory: easygraph-bench
         run: |
-          python3 ./entrypoint_normal.py -D --timeout 300
+          python3 ./entrypoint_normal.py -D --timeout '${{ inputs.timeout }}'
 
       - name: benchmark (large)
         if: inputs.benchScriptSet == 'large'
         working-directory: easygraph-bench
         run: |
-          python3 ./entrypoint_large.py -D --timeout 300
+          python3 ./entrypoint_large.py -D --timeout '${{ inputs.timeout }}'
 
       - name: benchmark (coauthorship)
         if: inputs.benchScriptSet == 'coauthorship'
         working-directory: easygraph-bench
         run: |
-          python3 ./bench_coauthorship.py -D --timeout 300
+          python3 ./bench_coauthorship.py -D --timeout '${{ inputs.timeout }}'
 
       - name: benchmark (stub)
         if: inputs.benchScriptSet == 'stub'
         working-directory: easygraph-bench
         run: |
-          python3 ./entrypoint_stub.py -D --timeout 300
+          python3 ./entrypoint_stub.py -D --timeout '${{ inputs.timeout }}'
 
       - name: benchmark (stub-fast)
         if: inputs.benchScriptSet == 'stub-fast'
@@ -158,8 +204,9 @@ jobs:
         with:
           name: benchmark-results
           path: |
-            ${{ github.workspace }}/easygraph-bench/images
             ${{ github.workspace }}/easygraph-bench/*.csv
+
+        # ${{ github.workspace }}/easygraph-bench/images
 
       # - name: Create release (with figures)
       #   if: inputs.benchScriptSet != 'stub-fast'
@@ -185,9 +232,9 @@ jobs:
 
       #     gh release upload "${TAG}" "${CSV_ZIP_FILENAME}" "${IMAGES_ZIP_FILENAME}"
 
-
       - name: Create release (no figures)
         # if: inputs.benchScriptSet == 'stub-fast'
+        if: inputs.releaseResults
         working-directory: easygraph-bench
         shell: bash
         env:
@@ -209,6 +256,3 @@ jobs:
           set -e
 
           gh release upload "${TAG}" "${CSV_ZIP_FILENAME}" # "${IMAGES_ZIP_FILENAME}"
-
-
-
