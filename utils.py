@@ -144,19 +144,20 @@ def nx2eg(g: Union[nx.Graph, nx.DiGraph]) -> Union[Graph, DiGraph]:
 
 
 def eg2ceg(g: Union[Graph, DiGraph]) -> Union[Graph, DiGraph]:
-    if isinstance(g, Graph):
-        G = eg.GraphC()
-        # [G.add_edge(v1, v2) for v1, v2, _ in g.edges]
-        nodes_with_edges = set()
-        for v1, v2, _ in g.edges:
-            G.add_edge(v1, v2)
-            nodes_with_edges.add(v1)
-            nodes_with_edges.add(v2)
-        for node in set(g.nodes) - nodes_with_edges:
-            G.add_node(node)
-    else:
-        raise NotImplementedError('DiGraphC not implemented')
-    return G
+    return g.cpp()
+    # if isinstance(g, Graph):
+    #     G = eg.GraphC()
+    #     # [G.add_edge(v1, v2) for v1, v2, _ in g.edges]
+    #     nodes_with_edges = set()
+    #     for v1, v2, _ in g.edges:
+    #         G.add_edge(v1, v2)
+    #         nodes_with_edges.add(v1)
+    #         nodes_with_edges.add(v2)
+    #     for node in set(g.nodes) - nodes_with_edges:
+    #         G.add_node(node)
+    # else:
+    #     raise NotImplementedError('DiGraphC not implemented')
+    # return G
 
 
 def json2csv(json_data, filename):
