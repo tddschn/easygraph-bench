@@ -23,7 +23,7 @@ jobs:
       # timeout
       # cpp-binding-framework
       # releaseTag
-      uploadResultsAsArtifact: false
+      uploadResultsAsArtifact: true
 
   merge_and_release:
     name: Merge bench results and create release
