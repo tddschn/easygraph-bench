@@ -1,12 +1,13 @@
 name: Benchmark using all datasets
 on:
   workflow_dispatch:
-    releaseTag:
-      required: false
-      description: "Release tag for the benchmark results"
-      # default: "latest"
-      default: "CI"
-      type: string
+    inputs:
+      releaseTag:
+        required: false
+        description: "Release tag for the benchmark results"
+        # default: "latest"
+        default: "CI"
+        type: string
 jobs:
   bench_all:
     name: Benchmark using all datasets
