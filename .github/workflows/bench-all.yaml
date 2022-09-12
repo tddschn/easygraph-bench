@@ -14,8 +14,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # benchScriptSet: ["stub", "stub-fast", "normal", "large", "coauthorship"]
-        benchScriptSet: ["stub", "stub-fast"]
+        benchScriptSet: ["stub", "stub-fast", "normal", "large", "coauthorship"]
+        # benchScriptSet: ["stub", "stub-fast"]
     uses: tddschn/easygraph-bench/.github/workflows/bench.yaml@master
     with:
       benchScriptSet: "${{ matrix.benchScriptSet }}"
