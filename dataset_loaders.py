@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from functools import cache
 from pathlib import Path
 import easygraph as eg
 import networkx as nx
@@ -18,6 +19,7 @@ from utils import (
 # --------------------
 
 
+@cache
 def load_cheminformatics():
     """
     https://networkrepository.com/ENZYMES-g1.php
@@ -41,6 +43,7 @@ def load_cheminformatics():
     return G
 
 
+@cache
 def load_bio():
     """
     https://networkrepository.com/bio-yeast.php
@@ -67,6 +70,7 @@ def load_bio():
     return G
 
 
+@cache
 def load_eco():
     """
     https://networkrepository.com/econ-mahindas.php
@@ -93,6 +97,7 @@ def load_eco():
     return G
 
 
+@cache
 @directed_dataset
 def load_soc():
     # gplus: digraph
@@ -126,6 +131,7 @@ def load_soc():
 # --------------------
 # road-usa
 # --------------------
+@cache
 def load_road() -> eg.Graph:
     """
     partial dataset from
@@ -147,6 +153,7 @@ def load_road() -> eg.Graph:
 # --------------------
 
 
+@cache
 @directed_dataset
 @load_func_for_nx
 def load_pgp() -> nx.DiGraph:
@@ -160,6 +167,7 @@ def load_pgp() -> nx.DiGraph:
     return g
 
 
+@cache
 @load_func_for_nx
 def load_pgp_undirected() -> nx.Graph:
     PGP_DIR = DATASET_DIR / "pgp"
@@ -182,6 +190,7 @@ def load_pgp_undirected() -> nx.Graph:
 # --------------------
 # really large datasets
 # --------------------
+@cache
 @directed_dataset
 @load_func_for_nx
 def load_enron() -> nx.DiGraph:
@@ -200,6 +209,7 @@ def load_enron() -> nx.DiGraph:
     return g
 
 
+@cache
 @directed_dataset
 @load_func_for_nx
 def load_google() -> nx.DiGraph:
@@ -218,6 +228,7 @@ def load_google() -> nx.DiGraph:
     return g
 
 
+@cache
 @directed_dataset
 @load_func_for_nx
 def load_amazon() -> nx.DiGraph:
@@ -236,6 +247,7 @@ def load_amazon() -> nx.DiGraph:
     return g
 
 
+@cache
 @directed_dataset
 @load_func_for_nx
 def load_pokec() -> nx.DiGraph:
@@ -258,6 +270,7 @@ def load_pokec() -> nx.DiGraph:
 # chenyang03/co-authorship-network (very large)
 # --------------------
 # @directed_dataset
+@cache
 @load_func_for_nx
 def load_coauthorship(
     coauthorship_edges_file: str = '../co-authorship-network/edges.txt',
@@ -284,6 +297,7 @@ def load_coauthorship(
 # --------------------
 
 
+@cache
 def load_stub():
     print_with_hr('loading graph stub ...')
     G: eg.Graph = eg.complete_graph(5)  # type: ignore
@@ -293,6 +307,7 @@ def load_stub():
     return G
 
 
+@cache
 def load_stub_with_underscore():
     print_with_hr('loading graph stub ...')
     G: eg.Graph = eg.complete_graph(5)  # type: ignore
@@ -302,6 +317,7 @@ def load_stub_with_underscore():
     return G
 
 
+@cache
 @directed_dataset
 def load_stub_directed():
     print_with_hr('loading graph stub_directed ...')
@@ -312,6 +328,7 @@ def load_stub_directed():
     return G
 
 
+@cache
 @load_func_for_nx
 def load_stub_nx():
     print_with_hr('loading graph stub_nx ...')
