@@ -94,7 +94,7 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: ${{ inputs.releaseTag }}
+          TAG: "${{ inputs.releaseTag }}"
         run: |
           DATE_STR="$(date +"%Y-%m-%dT%H:%M:%S:%z")"
 
