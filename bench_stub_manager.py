@@ -5,6 +5,7 @@ Date   : 2022-08-03
 Purpose: EasyGraph & NetworkX side-by-side benchmarking
 """
 
+from multiprocessing import Manager
 from hr_tddschn import hr
 
 from config import (
@@ -21,28 +22,50 @@ from config import (
     method_groups,
     dataset_names,
 )
-from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, tabulate_csv
+from utils import (
+    eg2nx,
+    eg2ceg,
+    nx2eg,
+    get_first_node,
+    eval_method,
+    json2csv,
+    tabulate_csv,
+)
 
 # if eg_master_dir.exists():
 #     import sys
 
 #     sys.path.insert(0, str(eg_master_dir))
 
-import easygraph as eg
-import networkx as nx
-from dataset_loaders import load_google
+m = Manager()
+ns = m.Namespace()
 
-load_func_name = 'load_google'
-if hasattr(load_google, 'load_func_for') and load_google.load_func_for == 'nx':
-    G_nx = load_google()
-    G_eg = nx2eg(G_nx)
-else:
-    G_eg = load_google()
-    G_nx = eg2nx(G_eg)
-G_ceg = eg2ceg(G_eg)
-first_node_eg = get_first_node(G_eg)
-first_node_nx = get_first_node(G_nx)
-first_node_ceg = get_first_node(G_ceg)
+if __name__ == '__main__':
+    import easygraph as eg
+    import networkx as nx
+    from dataset_loaders import load_stub
+
+    load_func_name = 'load_stub'
+    if hasattr(load_stub, 'load_func_for') and load_stub.load_func_for == 'nx':
+        G_nx = load_stub()
+        G_eg = nx2eg(G_nx)
+    else:
+        G_eg = load_stub()
+        G_nx = eg2nx(G_eg)
+    G_ceg = eg2ceg(G_eg)
+    first_node_eg = get_first_node(G_eg)
+    first_node_nx = get_first_node(G_nx)
+    first_node_ceg = get_first_node(G_ceg)
+
+    ns.eg = eg
+    ns.nx = nx
+    ns.G_eg = G_eg
+    ns.G_nx = G_nx
+    ns.G_ceg = G_ceg
+    ns.first_node_eg = first_node_eg
+    ns.first_node_nx = first_node_nx
+    ns.first_node_ceg = first_node_ceg
+
 
 import argparse
 
@@ -78,20 +101,28 @@ def get_args():
     # parser.add_argument('-n', '--dry-run', action='store_true', help='Dry run')
 
     parser.add_argument(
-        '-D', '--skip-draw', action='store_true', help='Skip drawing graphs to speed things up'
+        '-D',
+        '--skip-draw',
+        action='store_true',
+        help='Skip drawing graphs to speed things up',
     )
 
     parser.add_argument(
-        '-p', '--pass', type=int, help='Number of passes to run in the benchmark, uses Timer.autorange() if not set.'
+        '-p',
+        '--pass',
+        type=int,
+        help='Number of passes to run in the benchmark, uses Timer.autorange() if not set.',
     )
 
     parser.add_argument(
-        '-t', '--timeout', type=int, help='Timeout for benchmarking one method in seconds, 0 for no timeout', default=60
+        '-t',
+        '--timeout',
+        type=int,
+        help='Timeout for benchmarking one method in seconds, 0 for no timeout',
+        default=60,
     )
 
     return parser.parse_args()
-
-
 
 
 def main():
@@ -151,7 +182,7 @@ def main():
             _ = eval_method(
                 load_func_name,
                 method_name,
-            # **flags,
+                # **flags,
                 **(flags | {'skip_ceg': True}),
             )
             result_dicts.append(_)
@@ -166,23 +197,18 @@ def main():
             )
             result_dicts.append(_)
 
-
     print()
     from mergedeep import merge
-    
+
     result = merge(*result_dicts)
-    
 
     csv_file = f'{load_func_name.removeprefix("load_")}.csv'
     json2csv(result, csv_file)
     print(f'Result saved to {csv_file} .')
-    
+
     # print csv_file with tabulate
-    
-    
+
     print(tabulate_csv(csv_file))
-
-
 
 
 if __name__ == "__main__":

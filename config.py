@@ -19,7 +19,7 @@ shortest_path_methods = [('Dijkstra', 'single_source_dijkstra_path')]
 connected_components_methods_G = [
     # "is_connected",
     # "number_connected_components",
-    # "connected_components",
+    "connected_components",
     # "is_biconnected",
     "biconnected_components",
 ]
@@ -128,5 +128,5 @@ dataset_homepage_mapping = {
     'google': 'https://snap.stanford.edu/data/web-Google.html',
     'pokec': 'https://snap.stanford.edu/data/soc-Pokec.html',
     'coauthorship': 'https://github.com/chenyang03/co-authorship-network',
-    'road': 'https://networkrepository.com/road-usa.php'
+    'road': 'https://networkrepository.com/road-usa.php',
 }

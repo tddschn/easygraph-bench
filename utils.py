@@ -8,7 +8,7 @@ from itertools import islice
 from pathlib import Path
 from textwrap import dedent
 from timeit import Timer
-from typing import Generator, Literal, Optional, Union
+from typing import Callable, Generator, Literal, Optional, Union
 
 from hr_tddschn import hr
 from pebble import concurrent
@@ -202,6 +202,35 @@ def call_method(
     return result
 
 
+def get_Timer_args_manager(
+    module: Literal['eg', 'nx'],
+    method: str,
+    graph: str,
+    args: list[str] = [],
+    kwargs: dict[str, str] = {},
+) -> tuple[str, str]:
+
+    timer_setup = f'''
+    from __main__ import ns
+    from typing import Generator
+    '''
+    if module not in ('eg', 'nx'):
+        raise ValueError(f'{module=} is not supported')
+
+    args_str = ', '.join(args)
+    args_str = ', ' + args_str if args_str else ''
+    kwargs_str = ', '.join(f'{x}={y}' for x, y in kwargs.items())
+    kwargs_str = ', ' + kwargs_str if kwargs_str else ''
+    timer_stmt = f"""
+    result = ns.{module}.{method}(ns.{graph}{args_str}{kwargs_str})
+    if isinstance(result, Generator):
+        list(result)
+    """
+    timer_setup = dedent(timer_setup).strip()
+    timer_stmt = dedent(timer_stmt).strip()
+    return timer_stmt, timer_setup
+
+
 def get_Timer_args(
     module: Literal['eg', 'nx'],
     method: str,
@@ -243,6 +272,8 @@ def bench_with_timeit(
     args: list[str] = [],
     kwargs: dict[str, str] = {},
     timeit_number: Optional[int] = None,
+    # get_Timer_args: Callable = get_Timer_args_manager,
+    get_Timer_args: Callable = get_Timer_args,
 ) -> float:
     timer = Timer(*get_Timer_args(module, method, graph, args, kwargs))
     print(f'::group::bench_with_timeit - module: {module}, method: {method}')

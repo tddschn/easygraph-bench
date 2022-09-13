@@ -92,10 +92,10 @@ def get_args():
     return parser.parse_args()
 
 
-args = get_args()
 
 
-def main(args):
+def main():
+    args = get_args()
     method_groups = args.method_group
     flags = {}
     flags |= {'skip_ceg': args.skip_cpp_easygraph}
@@ -186,4 +186,4 @@ def main(args):
 
 
 if __name__ == "__main__":
-    main(args)
+    main()
