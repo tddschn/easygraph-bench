@@ -1,5 +1,8 @@
 name: Benchmark using all datasets
 on:
+  schedule:
+    - cron: "0 */6 * * *"
+
   workflow_dispatch:
     inputs:
       releaseTag:
