@@ -25,6 +25,7 @@ jobs:
       # cpp-binding-framework
       # releaseTag
       uploadResultsAsArtifact: true
+      releaseResults: false
 
   merge_and_release:
     name: Merge bench results and create release
