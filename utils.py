@@ -280,7 +280,7 @@ def bench_with_timeit_pebble_timeout(
     timeout: Optional[Union[float, int]] = None,
 ) -> float:
     if timeout is not None:
-        f = concurrent.thread(timeout=timeout)(bench_with_timeit)
+        f = concurrent.process(timeout=timeout)(bench_with_timeit)
         future = f(module, method, graph, args, kwargs, timeit_number)  # type: ignore
         try:
             return future.result()
