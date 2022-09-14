@@ -1,0 +1,8 @@
+name: Triggers bench-all.yaml every 6 hours
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+jobs:
+  trigger:
+    name: Trigger bench-all.yaml
+    uses: tddschn/easygraph-bench/.github/workflows/bench-all.yaml@master

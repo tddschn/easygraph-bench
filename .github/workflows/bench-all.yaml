@@ -1,7 +1,13 @@
 name: Benchmark using all datasets
 on:
-  schedule:
-    - cron: "0 */6 * * *"
+  workflow_call:
+    inputs:
+      releaseTag:
+        required: false
+        description: "Release tag for the benchmark results"
+        # default: "latest"
+        default: "CI"
+        type: string
 
   workflow_dispatch:
     inputs:
