@@ -147,6 +147,7 @@ jobs:
         name: checkout easygraph-bench
         with:
           path: easygraph-bench
+          repository: tddschn/easygraph-bench
 
       - name: Install benchmarking dependencies
         working-directory: easygraph-bench
