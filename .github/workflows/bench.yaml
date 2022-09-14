@@ -21,7 +21,7 @@ on:
       timeout:
         description: "Timeout for Timer.autorange()"
         required: false
-        default: 300
+        default: 1800
         type: number
       cpp-binding-framework:
         required: false
@@ -79,7 +79,7 @@ on:
       timeout:
         description: "Timeout for Timer.autorange()"
         required: false
-        default: "300"
+        default: "1800"
         type: string
       cpp-binding-framework:
         required: false
