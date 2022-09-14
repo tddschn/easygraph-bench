@@ -21,7 +21,8 @@ jobs:
   bench_all:
     name: Benchmark using all datasets
     strategy:
-      fail-fast: false
+      # fail-fast: false
+      fail-fast: true
       matrix:
         benchScriptSet: ["stub", "stub-fast", "normal", "large", "coauthorship"]
         # benchScriptSet: ["stub", "stub-fast"]
