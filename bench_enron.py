@@ -151,8 +151,7 @@ def main():
             _ = eval_method(
                 load_func_name,
                 method_name,
-            # **flags,
-                **(flags | {'skip_ceg': True}),
+                **flags,
             )
             result_dicts.append(_)
 
