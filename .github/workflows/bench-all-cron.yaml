@@ -6,5 +6,7 @@ jobs:
   trigger:
     name: Trigger bench-all.yaml
     uses: tddschn/easygraph-bench/.github/workflows/bench-all.yaml@master
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     with:
       releaseTag: "CI-cron"

@@ -7,6 +7,8 @@
 name: benchmark
 on:
   workflow_call:
+    secrets:
+      GH_TOKEN:
     inputs:
       runs-on:
         description: "The OS to run the benchmark on"
@@ -118,6 +120,7 @@ on:
         type: boolean
 jobs:
   benchmark:
+    permissions: write-all
     runs-on: "${{ inputs.runs-on }}"
     steps:
       - name: "Set up Python ${{ inputs.python-version }}"
@@ -239,16 +242,16 @@ jobs:
         working-directory: easygraph-bench
         shell: bash
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           TAG: ${{ inputs.releaseTag }}
           SCRIPT_SET: ${{ inputs.benchScriptSet }}
         run: |
           DATE_STR="$(date +"%Y-%m-%dT%H:%M:%S:%z")"
 
           CSV_ZIP_FILENAME="bench-results-csv-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
-          IMAGES_ZIP_FILENAME="bench-results-figures-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
+          # IMAGES_ZIP_FILENAME="bench-results-figures-${SCRIPT_SET}-${TAG}-${DATE_STR}.zip"
 
-          zip -r "${CSV_ZIP_FILENAME}" *.csv
+          zip -r "${CSV_ZIP_FILENAME}" ./*.csv
           # zip -r "${IMAGES_ZIP_FILENAME}" images
 
           set +e

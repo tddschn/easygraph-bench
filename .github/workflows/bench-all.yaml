@@ -1,6 +1,8 @@
 name: Benchmark using all datasets
 on:
   workflow_call:
+    secrets:
+      GH_TOKEN:
     inputs:
       releaseTag:
         required: false
@@ -67,8 +69,8 @@ jobs:
         shell: bash
         run: |
           pwd
-          ls -lh **/*.csv
-          tail -n +1 **/*.csv
+          ls -lh ./**/*.csv
+          tail -n +1 ./**/*.csv
 
       - name: Setup tmate session
         # https://github.com/mxschmitt/action-tmate
@@ -103,8 +105,11 @@ jobs:
       - name: Create release
         shell: bash
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GH_TOKEN: "${{ github.token }}"
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           TAG: "${{ inputs.releaseTag }}"
+          REPO: ${{ github.repository }}
         run: |
           DATE_STR="$(date +"%Y-%m-%dT%H:%M:%S:%z")"
 
@@ -116,7 +121,7 @@ jobs:
 
           set +e
           # don't exit on error
-          gh release create "${TAG}" --notes "Release from GitHub Actions"
+          gh release -R "${REPO}" create "${TAG}" --notes "Release from GitHub Actions"
           set -e
 
-          gh release upload "${TAG}" "${CSV_ZIP_FILENAME}"
+          gh release -R "${REPO}" upload "${TAG}" "${CSV_ZIP_FILENAME}"
