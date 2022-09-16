@@ -10,10 +10,14 @@ from io import StringIO
 from pathlib import Path
 import json
 import csv
+from typing import Iterable, TypeVar
 from config import get_method_order, tool_order, dataset_name_mapping
 
 
-def f7(seq):
+T = TypeVar('T')
+
+def ordered_dedupe(seq: Iterable[T]) -> list[T]:
+    # https://stackoverflow.com/questions/480214/how-do-i-remove-duplicates-from-a-list-while-preserving-order
     seen = set()
     seen_add = seen.add
     return [x for x in seq if not (x in seen or seen_add(x))]
@@ -43,7 +47,7 @@ def add_graph_info_and_order_tool_to_csv(
 
     method_order = get_method_order()
 
-    dataset_order = f7([x['dataset'] for x in rows])
+    dataset_order = ordered_dedupe([x['dataset'] for x in rows])
     rows_sorted = sorted(
         filter(lambda x: not x['dataset'].startswith('stub'), rows),
         key=(

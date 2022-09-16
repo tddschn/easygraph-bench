@@ -98,9 +98,11 @@ jobs:
           # Continue a workflow
           # If you want to continue a workflow and you are inside a tmate session, just create a empty file with the name continue either in the root directory or in the project directory by running touch continue or sudo touch /continue.
 
-      - name: Merge results
+      - name: Process individual benchmarking result csv files
         run: |
-          python3 ./merge_bench_csv.py -c bench-results > all.csv
+          python3 ./merge_bench_csv.py -c bench-results > merged.csv
+          python3 add_graph_info_and_order_tool_to_csv.py merged.csv -A > all-bench-results.csv
+          python3 add_graph_info_and_order_tool_to_csv.py merged.csv > all-bench-results-with-graph-info.csv
 
       - name: Create release
         shell: bash
