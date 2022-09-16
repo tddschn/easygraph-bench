@@ -1,6 +1,6 @@
 # easygraph-bench
 
-[![benchmark](https://github.com/tddschn/easygraph-bench/actions/workflows/bench.yaml/badge.svg?event=workflow_dispatch)](https://github.com/tddschn/easygraph-bench/actions/workflows/bench.yaml)
+[![Benchmark using all datasets](https://github.com/tddschn/easygraph-bench/actions/workflows/bench-all.yaml/badge.svg)](https://github.com/tddschn/easygraph-bench/actions/workflows/bench-all.yaml)
 
 Benchmarking code that compares the performance of the 2 graph libraries [easygraph](https://github.com/easy-graph/Easy-Graph) (python & C++ binding) and [networkx](https://networkx.org).
 
