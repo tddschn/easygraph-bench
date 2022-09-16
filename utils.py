@@ -591,3 +591,21 @@ def load_large_datasets_with_read_edgelist(file_path: str) -> nx.DiGraph:
     )
     return g
 
+
+def is_too_large_to_run_constraint(
+    dataset_name: str,
+    g: Optional[
+        Union[eg.Graph, eg.GraphC, nx.Graph, eg.DiGraph, eg.DiGraphC, nx.DiGraph]
+    ] = None,
+) -> bool:
+    gi = Path(__file__).parent / 'graph_info.json'
+    gi_d = json.loads(gi.read_text())
+    if dataset_name in gi_d:
+        num_nodes = gi_d[dataset_name]['nodes']
+    else:
+        if g is None:
+            raise ValueError(
+                'if dataset_name is not in graph_info.json, g must be provided'
+            )
+        num_nodes = g.number_of_nodes()
+    return num_nodes > 10_0000
