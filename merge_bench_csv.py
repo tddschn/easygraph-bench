@@ -9,7 +9,7 @@ import argparse
 from pathlib import Path
 from typing import Iterator, KeysView
 from config import BENCH_CSV_DIR, tool_name_mapping, dataset_name_mapping, drop_methods
-from utils_other import get_dataset_list_sorted_by_nodes
+from utils_other import get_dataset_list_sorted_by_nodes_and_edges
 import csv
 from io import StringIO
 
@@ -23,13 +23,13 @@ def get_dataset_name_to_path_mapping_from_csv_dir(
         yield dataset_name, csv_path
 
 
-def get_dataset_name_to_path_mapping_from_csv_dir_sorted_by_nodes(
+def get_dataset_name_to_path_mapping_from_csv_dir_sorted_by_nodes_and_edges(
     csv_dir: Path,
 ) -> list[tuple[str, Path]]:
     def get_index(dataset_name: str) -> int:
         return (
-            get_dataset_list_sorted_by_nodes().index(dataset_name)
-            if dataset_name in get_dataset_list_sorted_by_nodes()
+            get_dataset_list_sorted_by_nodes_and_edges().index(dataset_name)
+            if dataset_name in get_dataset_list_sorted_by_nodes_and_edges()
             else 1000000
         )
 
@@ -95,7 +95,9 @@ def main():
     args = get_args()
     csv_s_l = []
     for n, (d, p) in enumerate(
-        get_dataset_name_to_path_mapping_from_csv_dir_sorted_by_nodes(args.csv_dir)
+        get_dataset_name_to_path_mapping_from_csv_dir_sorted_by_nodes_and_edges(
+            args.csv_dir
+        )
     ):
         csv_s, h = add_dataset_name_column_to_csv(d, p)
         if n == 0:

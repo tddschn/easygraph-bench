@@ -9,6 +9,8 @@ graph_info_json_path = Path(__file__).parent / 'graph_info.json'
 BENCH_CSV_DIR = Path('~/Downloads/bench-csv').expanduser()
 eg_master_dir = Path('~/testdir/Easy-Graph-master').expanduser()
 
+tool_order = ['nx', 'eg', 'eg (C++)']
+
 # (`eg.average_clustering` vs `nx.average_clustering`, ...)
 clustering_methods = ["average_clustering", "clustering"]
 
@@ -130,3 +132,22 @@ dataset_homepage_mapping = {
     'coauthorship': 'https://github.com/chenyang03/co-authorship-network',
     'road': 'https://networkrepository.com/road-usa.php',
 }
+
+def get_method_order() -> list[str]:
+    methods_list = [
+        clustering_methods,
+        shortest_path_methods,
+        # connected_components_methods,
+        connected_components_methods_G,
+        connected_components_methods_G_node,
+        mst_methods,
+        other_methods,
+    ]
+    method_name_list = []
+    for l in methods_list:
+        for method_name in l:
+            if isinstance(method_name, tuple):
+                method_name_list.append(method_name[0])
+            else:
+                method_name_list.append(method_name)
+    return method_name_list

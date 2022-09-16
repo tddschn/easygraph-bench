@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import asyncio
+import csv
 import json
 import os
 from functools import cache, partial
@@ -590,3 +590,4 @@ def load_large_datasets_with_read_edgelist(file_path: str) -> nx.DiGraph:
         file_path, delimiter="\t", nodetype=int, create_using=nx.DiGraph()
     )
     return g
+
