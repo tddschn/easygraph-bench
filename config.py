@@ -68,7 +68,7 @@ method_groups = [
     'clustering',
     'shortest-path',
     'connected-components',
-    # 'mst',
+    'mst',
     'other',
 ]
 bench_scripts_set = [
