@@ -425,7 +425,7 @@ def eval_method(
         cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
 
         if not skip_ceg:
-            if (not method_name in slow_methods) and (not too_large_to_run_constraint):
+            if (not method_name in slow_methods) or (not too_large_to_run_constraint):
                 # print('easygraph with C++ binding')
                 avg_time_ceg = bench_with_timeit(
                     module='eg',
@@ -489,7 +489,7 @@ def eval_method(
         cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
 
         if not skip_ceg:
-            if (not method_name_eg in slow_methods) and (
+            if (not method_name_eg in slow_methods) or (
                 not too_large_to_run_constraint
             ):
                 # print('easygraph with C++ binding')
@@ -608,7 +608,7 @@ def is_too_large_to_run_constraint(
     g: Optional[
         Union[eg.Graph, eg.GraphC, nx.Graph, eg.DiGraph, eg.DiGraphC, nx.DiGraph]
     ] = None,
-    max_num_nodes: int = 10_000
+    max_num_nodes: int = 10_000,
 ) -> bool:
     if dataset_name.startswith('stub'):
         return False
