@@ -20,11 +20,11 @@ on:
         required: false
         type: string
         default: "3.10"
-      timeout:
-        description: "Timeout for Timer.autorange()"
-        required: false
-        default: 1800
-        type: number
+      # timeout:
+      #   description: "Timeout for Timer.autorange()"
+      #   required: false
+      #   default: 1800
+      #   type: number
       cpp-binding-framework:
         required: false
         description: "The framework used to build easygraph's C++ binding"
@@ -78,11 +78,11 @@ on:
         options:
           - "3.10"
           - "3.9"
-      timeout:
-        description: "Timeout for Timer.autorange()"
-        required: false
-        default: "1800"
-        type: string
+      # timeout:
+      #   description: "Timeout for Timer.autorange()"
+      #   required: false
+      #   default: "1800"
+      #   type: string
       cpp-binding-framework:
         required: false
         description: "The framework used to build easygraph's C++ binding"
@@ -175,25 +175,25 @@ jobs:
         if: inputs.benchScriptSet == 'normal'
         working-directory: easygraph-bench
         run: |
-          python3 ./entrypoint_normal.py -D --timeout '${{ inputs.timeout }}'
+          python3 ./entrypoint_normal.py -D
 
       - name: benchmark (large)
         if: inputs.benchScriptSet == 'large'
         working-directory: easygraph-bench
         run: |
-          python3 ./entrypoint_large.py -D --timeout '${{ inputs.timeout }}'
+          python3 ./entrypoint_large.py -D
 
       - name: benchmark (coauthorship)
         if: inputs.benchScriptSet == 'coauthorship'
         working-directory: easygraph-bench
         run: |
-          python3 ./bench_coauthorship.py -D --timeout '${{ inputs.timeout }}'
+          python3 ./bench_coauthorship.py -D
 
       - name: benchmark (stub)
         if: inputs.benchScriptSet == 'stub'
         working-directory: easygraph-bench
         run: |
-          python3 ./entrypoint_stub.py -D --timeout '${{ inputs.timeout }}'
+          python3 ./entrypoint_stub.py -D
 
       - name: benchmark (stub-fast)
         if: inputs.benchScriptSet == 'stub-fast'
