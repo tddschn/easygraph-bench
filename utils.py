@@ -608,6 +608,7 @@ def is_too_large_to_run_constraint(
     g: Optional[
         Union[eg.Graph, eg.GraphC, nx.Graph, eg.DiGraph, eg.DiGraphC, nx.DiGraph]
     ] = None,
+    max_num_nodes: int = 10_000
 ) -> bool:
     if dataset_name.startswith('stub'):
         return False
@@ -621,4 +622,4 @@ def is_too_large_to_run_constraint(
                 'if dataset_name is not in graph_info.json, g must be provided'
             )
         num_nodes = g.number_of_nodes()
-    return num_nodes > 10_0000
+    return num_nodes > max_num_nodes
