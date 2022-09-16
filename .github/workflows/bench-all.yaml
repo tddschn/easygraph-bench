@@ -101,8 +101,10 @@ jobs:
       - name: Process individual benchmarking result csv files
         run: |
           python3 ./merge_bench_csv.py -c bench-results > merged.csv
-          python3 add_graph_info_and_order_tool_to_csv.py merged.csv -A > all-bench-results.csv
-          python3 add_graph_info_and_order_tool_to_csv.py merged.csv > all-bench-results-with-graph-info.csv
+          python3 add_graph_info_and_order_tool_to_csv.py merged.csv -A > all.csv
+          python3 add_graph_info_and_order_tool_to_csv.py merged.csv > all-with-graph-info.csv
+          python3 add_graph_info_and_order_tool_to_csv.py merged.csv -A -a > all-abbr.csv
+          python3 add_graph_info_and_order_tool_to_csv.py merged.csv -a > all-abbr-with-graph-info.csv
 
       - name: Create release
         shell: bash
@@ -117,7 +119,7 @@ jobs:
 
           CSV_ZIP_FILENAME="bench-results-csv-${DATE_STR}.zip"
 
-          mv all.csv bench-results
+          mv ./all*.csv bench-results
 
           zip -r "${CSV_ZIP_FILENAME}" bench-results
 

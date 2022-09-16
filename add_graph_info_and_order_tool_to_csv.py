@@ -6,6 +6,7 @@ Purpose: Add graph info and order tool for an all.csv file
 """
 
 import argparse
+from cmath import exp
 from io import StringIO
 from pathlib import Path
 import json
@@ -15,6 +16,7 @@ from config import get_method_order, tool_order, dataset_name_mapping
 
 
 T = TypeVar('T')
+
 
 def ordered_dedupe(seq: Iterable[T]) -> list[T]:
     # https://stackoverflow.com/questions/480214/how-do-i-remove-duplicates-from-a-list-while-preserving-order
@@ -87,6 +89,13 @@ def get_args():
         action='store_false',
     )
 
+    parser.add_argument(
+        '-a',
+        '--abbreviated-dataset-names',
+        help='Use abbreviated dataset names',
+        action='store_true',
+    )
+
     return parser.parse_args()
 
 
@@ -96,7 +105,9 @@ def main():
     args = get_args()
     all_csv_path = args.all_csv_path
     new_rows = add_graph_info_and_order_tool_to_csv(
-        all_csv_path, add_graph_info=args.no_add_graph_info
+        all_csv_path,
+        add_graph_info=args.no_add_graph_info,
+        expand_dataset_name=not args.abbreviated_dataset_names,
     )
     header = new_rows[0].keys()
     s = StringIO()
