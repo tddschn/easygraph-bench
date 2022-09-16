@@ -20,6 +20,7 @@ from easygraph import DiGraph, EasyGraphNotImplemented, Graph
 from networkx import NetworkXNotImplemented
 
 from config import (
+    slow_methods,
     clustering_methods,
     di_load_functions_name,
     eg_master_dir,
@@ -379,11 +380,12 @@ def eval_method(
     skip_ceg: bool = False,
     skip_draw: bool = False,
     timeit_number: Optional[int] = None,
-    timeout: Optional[Union[float, int]] = None,
+    # timeout: Optional[Union[float, int]] = None,
 ) -> dict:
     # raise DeprecationWarning('Deprecated. Use ./bench_*.py instead')
 
     load_func_name = load_func_name.removeprefix('load_')
+    too_large_to_run_constraint = is_too_large_to_run_constraint(load_func_name)
     cost_dict = {}
     print(f'::group::eval_method - dataset: {load_func_name}, method: {method_name}')
     if isinstance(method_name, str):
@@ -391,47 +393,51 @@ def eval_method(
             f'benchmarking eg.{method_name} and nx.{method_name} on {load_func_name}',
             hr_char='=',
         )
+
         if dry_run:
             return cost_dict
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name] = dict()
 
-        # print('easygraph')
-        avg_time_eg = bench_with_timeit_pebble_timeout(
-            module='eg',
-            method=method_name,
-            graph='G_eg',
-            args=call_method_args_eg,
-            kwargs=call_method_kwargs_eg,
-            timeit_number=timeit_number,
-            timeout=timeout,
-        )
+        if method_name in slow_methods and too_large_to_run_constraint:
+            avg_time_eg, avg_time_ceg, avg_time_nx = [-10.0] * 3
+        else:
+
+            # print('easygraph')
+            avg_time_eg = bench_with_timeit(
+                module='eg',
+                method=method_name,
+                graph='G_eg',
+                args=call_method_args_eg,
+                kwargs=call_method_kwargs_eg,
+                timeit_number=timeit_number,
+            )
+            # print('networkx')
+            avg_time_nx = bench_with_timeit(
+                module='nx',
+                method=method_name,
+                graph='G_nx',
+                args=call_method_args_nx,
+                kwargs=call_method_kwargs_nx,
+                timeit_number=timeit_number,
+            )
+        cost_dict[load_func_name][method_name]["networkx"] = avg_time_nx
         cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
 
         if not skip_ceg:
-            # print('easygraph with C++ binding')
-            avg_time_ceg = bench_with_timeit_pebble_timeout(
-                module='eg',
-                method=method_name,
-                graph='G_ceg',
-                args=call_method_args_ceg,
-                kwargs=call_method_kwargs_ceg,
-                timeit_number=timeit_number,
-                timeout=timeout,
-            )
+            if (not method_name in slow_methods) and (not too_large_to_run_constraint):
+                # print('easygraph with C++ binding')
+                avg_time_ceg = bench_with_timeit(
+                    module='eg',
+                    method=method_name,
+                    graph='G_ceg',
+                    args=call_method_args_ceg,
+                    kwargs=call_method_kwargs_ceg,
+                    timeit_number=timeit_number,
+                )
+            else:
+                avg_time_ceg = -10.0
             cost_dict[load_func_name][method_name]["eg w/ C++ binding"] = avg_time_ceg
-
-        # print('networkx')
-        avg_time_nx = bench_with_timeit_pebble_timeout(
-            module='nx',
-            method=method_name,
-            graph='G_nx',
-            args=call_method_args_nx,
-            kwargs=call_method_kwargs_nx,
-            timeit_number=timeit_number,
-            timeout=timeout,
-        )
-        cost_dict[load_func_name][method_name]["networkx"] = avg_time_nx
 
         output(
             cost_dict,
@@ -458,44 +464,49 @@ def eval_method(
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name_eg] = dict()
 
-        # print('easygraph')
-        avg_time_eg = bench_with_timeit_pebble_timeout(
-            module='eg',
-            method=method_name_eg,
-            graph='G_eg',
-            args=call_method_args_eg,
-            kwargs=call_method_kwargs_eg,
-            timeit_number=timeit_number,
-            timeout=timeout,
-        )
+        if method_name_eg in slow_methods and too_large_to_run_constraint:
+            avg_time_eg, avg_time_ceg, avg_time_nx = [-10.0] * 3
+        else:
+            # print('easygraph')
+            avg_time_eg = bench_with_timeit(
+                module='eg',
+                method=method_name_eg,
+                graph='G_eg',
+                args=call_method_args_eg,
+                kwargs=call_method_kwargs_eg,
+                timeit_number=timeit_number,
+            )
+            # print('networkx')
+            avg_time_nx = bench_with_timeit(
+                module='nx',
+                method=method_name_nx,
+                graph='G_nx',
+                args=call_method_args_nx,
+                kwargs=call_method_kwargs_nx,
+                timeit_number=timeit_number,
+            )
+        cost_dict[load_func_name][method_name_eg]["networkx"] = avg_time_nx
         cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
 
         if not skip_ceg:
-            # print('easygraph with C++ binding')
-            avg_time_ceg = bench_with_timeit_pebble_timeout(
-                module='eg',
-                method=method_name_eg,
-                graph='G_ceg',
-                args=call_method_args_ceg,
-                kwargs=call_method_kwargs_ceg,
-                timeit_number=timeit_number,
-                timeout=timeout,
-            )
+            if (not method_name_eg in slow_methods) and (
+                not too_large_to_run_constraint
+            ):
+                # print('easygraph with C++ binding')
+                avg_time_ceg = bench_with_timeit(
+                    module='eg',
+                    method=method_name_eg,
+                    graph='G_ceg',
+                    args=call_method_args_ceg,
+                    kwargs=call_method_kwargs_ceg,
+                    timeit_number=timeit_number,
+                )
+            else:
+                avg_time_ceg = -10.0
             cost_dict[load_func_name][method_name_eg][
                 "eg w/ C++ binding"
             ] = avg_time_ceg
 
-        # print('networkx')
-        avg_time_nx = bench_with_timeit_pebble_timeout(
-            module='nx',
-            method=method_name_nx,
-            graph='G_nx',
-            args=call_method_args_nx,
-            kwargs=call_method_kwargs_nx,
-            timeit_number=timeit_number,
-            timeout=timeout,
-        )
-        cost_dict[load_func_name][method_name_eg]["networkx"] = avg_time_nx
         output(
             cost_dict,
             load_func_name + '_' + method_name_eg + "_cost.json",
@@ -598,6 +609,8 @@ def is_too_large_to_run_constraint(
         Union[eg.Graph, eg.GraphC, nx.Graph, eg.DiGraph, eg.DiGraphC, nx.DiGraph]
     ] = None,
 ) -> bool:
+    if dataset_name.startswith('stub'):
+        return False
     gi = Path(__file__).parent / 'graph_info.json'
     gi_d = json.loads(gi.read_text())
     if dataset_name in gi_d:

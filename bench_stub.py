@@ -21,7 +21,15 @@ from config import (
     method_groups,
     dataset_names,
 )
-from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, tabulate_csv
+from utils import (
+    eg2nx,
+    eg2ceg,
+    nx2eg,
+    get_first_node,
+    eval_method,
+    json2csv,
+    tabulate_csv,
+)
 
 # if eg_master_dir.exists():
 #     import sys
@@ -78,20 +86,28 @@ def get_args():
     # parser.add_argument('-n', '--dry-run', action='store_true', help='Dry run')
 
     parser.add_argument(
-        '-D', '--skip-draw', action='store_true', help='Skip drawing graphs to speed things up'
+        '-D',
+        '--skip-draw',
+        action='store_true',
+        help='Skip drawing graphs to speed things up',
     )
 
     parser.add_argument(
-        '-p', '--pass', type=int, help='Number of passes to run in the benchmark, uses Timer.autorange() if not set.'
+        '-p',
+        '--pass',
+        type=int,
+        help='Number of passes to run in the benchmark, uses Timer.autorange() if not set.',
     )
 
     parser.add_argument(
-        '-t', '--timeout', type=int, help='Timeout for benchmarking one method in seconds, 0 for no timeout', default=60
+        '-t',
+        '--timeout',
+        type=int,
+        help='Timeout for benchmarking one method in seconds, 0 for no timeout',
+        default=60,
     )
 
     return parser.parse_args()
-
-
 
 
 def main():
@@ -165,23 +181,21 @@ def main():
             )
             result_dicts.append(_)
 
+    from icecream import ic
 
+    ic(result_dicts)
     print()
     from mergedeep import merge
-    
+
     result = merge(*result_dicts)
-    
 
     csv_file = f'{load_func_name.removeprefix("load_")}.csv'
     json2csv(result, csv_file)
     print(f'Result saved to {csv_file} .')
-    
+
     # print csv_file with tabulate
-    
-    
+
     print(tabulate_csv(csv_file))
-
-
 
 
 if __name__ == "__main__":

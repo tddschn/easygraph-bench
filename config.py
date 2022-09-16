@@ -119,6 +119,9 @@ dataset_name_mapping = {
     'coauthorship': 'coauth',
 }
 
+
+slow_methods = {'constraint'}
+
 dataset_homepage_mapping = {
     'cheminformatics': 'https://networkrepository.com/ENZYMES-g1.php',
     'bio': 'https://networkrepository.com/bio-yeast.php',
@@ -132,6 +135,7 @@ dataset_homepage_mapping = {
     'coauthorship': 'https://github.com/chenyang03/co-authorship-network',
     'road': 'https://networkrepository.com/road-usa.php',
 }
+
 
 def get_method_order() -> list[str]:
     methods_list = [
