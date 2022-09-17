@@ -12,7 +12,12 @@ from pathlib import Path
 import json
 import csv
 from typing import Iterable, TypeVar
-from config import get_method_order, tool_order, dataset_name_mapping
+from config import (
+    get_method_order,
+    tool_order,
+    dataset_name_mapping,
+    dataset_homepage_mapping,
+)
 
 
 T = TypeVar('T')
@@ -46,6 +51,8 @@ def add_graph_info_and_order_tool_to_csv(
         for row in rows:
             if row['dataset'] in gi_d:
                 row |= gi_d[row['dataset']]
+            if row['dataset'] in dataset_homepage_mapping:
+                row['dataset_homepage'] = dataset_homepage_mapping[row['dataset']]
 
     method_order = get_method_order()
 
