@@ -6,7 +6,8 @@ from typing import Union
 
 DATASET_DIR = Path(__file__).parent / "dataset"
 graph_info_json_path = Path(__file__).parent / 'graph_info.json'
-BENCH_CSV_DIR = Path('~/Downloads/bench-csv').expanduser()
+# BENCH_CSV_DIR = Path('~/Downloads/bench-csv').expanduser()
+BENCH_CSV_DIR = Path(__file__).parent / 'output'
 eg_master_dir = Path('~/testdir/Easy-Graph-master').expanduser()
 
 tool_order = ['nx', 'eg', 'eg (C++)']

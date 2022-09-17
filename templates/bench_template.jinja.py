@@ -6,6 +6,7 @@ Purpose: EasyGraph & NetworkX side-by-side benchmarking
 """
 
 from hr_tddschn import hr
+from pathlib import Path
 
 from config import (
     eg_master_dir,
@@ -20,6 +21,7 @@ from config import (
     other_methods,
     method_groups,
     dataset_names,
+    BENCH_CSV_DIR,
 )
 from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, tabulate_csv
 
@@ -88,6 +90,9 @@ def get_args():
     # parser.add_argument(
     #     '-t', '--timeout', type=int, help='Timeout for benchmarking one method in seconds, 0 for no timeout', default=60
     # )
+    parser.add_argument(
+        '-o', '--output-dir', type=Path, help='Output directory', default=BENCH_CSV_DIR,
+    )
 
     return parser.parse_args()
 
@@ -173,13 +178,16 @@ def main():
     {# print(f'{result=}') #}
 
     csv_file = f'{load_func_name.removeprefix("load_")}.csv'
-    json2csv(result, csv_file)
-    print(f'Result saved to {csv_file} .')
+    csv_file_path = args.output_dir / csv_file
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    csv_file_path_s = str(csv_file_path)
+    json2csv(result, csv_file_path_s)
+    print(f'Result saved to {csv_file_path_s} .')
     {# print(tabulate) #}
     # print csv_file with tabulate
     {# print(tabulate(result[load_func_name.removeprefix("load_")], headers='keys')) #}
     {# print(result) #}
-    print(tabulate_csv(csv_file))
+    print(tabulate_csv(csv_file_path_s))
 
 
 
