@@ -21,6 +21,7 @@ from config import (
     other_methods,
     method_groups,
     dataset_names,
+    BENCH_CSV_DIR,
 )
 from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, tabulate_csv
 
@@ -90,7 +91,7 @@ def get_args():
     #     '-t', '--timeout', type=int, help='Timeout for benchmarking one method in seconds, 0 for no timeout', default=60
     # )
     parser.add_argument(
-        '-o', '--output-dir', type=Path, help='Output directory', default=Path(__file__).parent / 'output'
+        '-o', '--output-dir', type=Path, help='Output directory', default=BENCH_CSV_DIR,
     )
 
     return parser.parse_args()
