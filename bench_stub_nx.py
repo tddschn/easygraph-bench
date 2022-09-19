@@ -19,6 +19,7 @@ from config import (
     connected_components_methods_G_node,
     mst_methods,
     other_methods,
+    new_methods,
     method_groups,
     dataset_names,
     BENCH_CSV_DIR,
@@ -92,6 +93,10 @@ def get_args():
     # )
     parser.add_argument(
         '-o', '--output-dir', type=Path, help='Output directory', default=BENCH_CSV_DIR,
+    )
+
+    parser.add_argument(
+        '-a', '--append-results', action='store_true', help='Append results to existing csv files. Overwrites by default.'
     )
 
     return parser.parse_args()
@@ -170,6 +175,15 @@ def main():
             )
             result_dicts.append(_)
 
+    if method_groups is None or 'new' in method_groups:
+        # bench: other
+        for method_name in new_methods:
+            _ = eval_method(
+                load_func_name,
+                method_name,
+                **flags,
+            )
+            result_dicts.append(_)
 
     print()
     from mergedeep import merge
@@ -181,7 +195,7 @@ def main():
     csv_file_path = args.output_dir / csv_file
     args.output_dir.mkdir(parents=True, exist_ok=True)
     csv_file_path_s = str(csv_file_path)
-    json2csv(result, csv_file_path_s)
+    json2csv(result, csv_file_path_s, append=args.append_results)
     print(f'Result saved to {csv_file_path_s} .')
     
     # print csv_file with tabulate

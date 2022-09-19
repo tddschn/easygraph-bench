@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import csv
+from io import SEEK_END
 import json
 import os
 from functools import cache, partial
@@ -161,16 +162,33 @@ def eg2ceg(g: Union[Graph, DiGraph]) -> Union[Graph, DiGraph]:
     # return G
 
 
-def json2csv(json_data, filename):
-    fw = open(filename, "w", encoding='utf-8')
-    fw.write("method,tool,avg time" + "\n")
+def json2csv(json_data, filename, append: bool = False):
+    try:
+        if not append:
+            fw = open(filename, "w", encoding='utf-8')
+            fw.write("method,tool,avg time" + "\n")
+        else:
+            fw = open(filename, 'a+', encoding='utf-8')
+            # fw.seek(0)
+            # l1 = next(fw)
+            # if not l1.startswith('method,tool,avg time'):
+            #     fw.seek(0)
+            #     fw.write("method,tool,avg time" + "\n")
+            #     fw.seek(0, SEEK_END)
 
-    for key in json_data:
-        for metric, val in json_data[key].items():
-            for k, v in val.items():
-                fw.write(metric + "," + k + "," + str(v) + "\n")
+        for key in json_data:
+            for metric, val in json_data[key].items():
+                for k, v in val.items():
+                    fw.write(metric + "," + k + "," + str(v) + "\n")
 
-    fw.close()
+    finally:
+        if 'fw' in globals():
+            globals()['fw'].close()
+
+    if Path(filename).exists() and not (
+        content := Path(filename).read_text()
+    ).startswith('method,tool,avg time'):
+        Path(filename).write_text('method,tool,avg time\n' + content)
 
 
 # class MethodCaller:

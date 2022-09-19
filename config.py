@@ -43,7 +43,10 @@ mst_methods = ['minimum_spanning_tree']
 
 other_methods = ['density', 'constraint']
 
+new_methods = ['strongly_connected_components']
+
 drop_methods = ['minimum_spanning_tree']
+
 
 load_functions_name = [
     "load_cheminformatics",
@@ -73,6 +76,7 @@ method_groups = [
     'connected-components',
     'mst',
     'other',
+    'new',
 ]
 bench_scripts_set = [
     'bench_scripts_normal',
