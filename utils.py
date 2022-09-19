@@ -9,7 +9,8 @@ from itertools import islice
 from pathlib import Path
 from textwrap import dedent
 from timeit import Timer
-from typing import Callable, Generator, Literal, Optional, Union
+from typing import Literal, Optional, Union
+from collections.abc import Callable, Generator
 
 from hr_tddschn import hr
 from pebble import concurrent
@@ -38,7 +39,7 @@ def draw(
     dataset_name: str,
     method_name: str,
     data,
-    methods: Optional[tuple[str, str]] = None,
+    methods: tuple[str, str] | None = None,
 ):
     # import matplotlib
     # from matplotlib import pyplot
@@ -113,7 +114,7 @@ def output(data, path):
         json_file.write(json_str)
 
 
-def eg2nx(g: Union[Graph, DiGraph]) -> Union[nx.Graph, nx.DiGraph]:
+def eg2nx(g: Graph | DiGraph) -> nx.Graph | nx.DiGraph:
     # if load_func_name in di_load_functions_name:
     if isinstance(g, DiGraph):
         G = nx.DiGraph()
@@ -130,7 +131,7 @@ def eg2nx(g: Union[Graph, DiGraph]) -> Union[nx.Graph, nx.DiGraph]:
     return G
 
 
-def nx2eg(g: Union[nx.Graph, nx.DiGraph]) -> Union[Graph, DiGraph]:
+def nx2eg(g: nx.Graph | nx.DiGraph) -> Graph | DiGraph:
     if isinstance(g, nx.DiGraph):
         G = DiGraph()
     else:
@@ -145,7 +146,7 @@ def nx2eg(g: Union[nx.Graph, nx.DiGraph]) -> Union[Graph, DiGraph]:
     return G
 
 
-def eg2ceg(g: Union[Graph, DiGraph]) -> Union[Graph, DiGraph]:
+def eg2ceg(g: Graph | DiGraph) -> Graph | DiGraph:
     return g.cpp()
     # if isinstance(g, Graph):
     #     G = eg.GraphC()
@@ -203,7 +204,7 @@ def json2csv(json_data, filename, append: bool = False):
 
 
 def call_method(
-    module, method, graph, args: Optional[list] = None, kwargs: Optional[dict] = None
+    module, method, graph, args: list | None = None, kwargs: dict | None = None
 ):
     if not hasattr(module, method):
         raise AttributeError(f'{module} has no attribute {method}')
@@ -290,7 +291,7 @@ def bench_with_timeit(
     graph: str,
     args: list[str] = [],
     kwargs: dict[str, str] = {},
-    timeit_number: Optional[int] = None,
+    timeit_number: int | None = None,
     # get_Timer_args: Callable = get_Timer_args_manager,
     get_Timer_args: Callable = get_Timer_args,
 ) -> float:
@@ -326,8 +327,8 @@ def bench_with_timeit_pebble_timeout(
     graph: str,
     args: list[str] = [],
     kwargs: dict[str, str] = {},
-    timeit_number: Optional[int] = None,
-    timeout: Optional[Union[float, int]] = None,
+    timeit_number: int | None = None,
+    timeout: float | int | None = None,
 ) -> float:
     if timeout is not None:
         f = concurrent.process(timeout=timeout)(bench_with_timeit)
@@ -397,7 +398,7 @@ def eval_method(
     dry_run: bool = False,
     skip_ceg: bool = False,
     skip_draw: bool = False,
-    timeit_number: Optional[int] = None,
+    timeit_number: int | None = None,
     # timeout: Optional[Union[float, int]] = None,
 ) -> dict:
     # raise DeprecationWarning('Deprecated. Use ./bench_*.py instead')
@@ -607,7 +608,7 @@ def tabulate_csv(csv_file: str) -> str:
 
     from tabulate import tabulate
 
-    with open(csv_file, 'r') as f:
+    with open(csv_file) as f:
         reader = csv.reader(f)
         table = [row for row in reader]
 
@@ -623,9 +624,9 @@ def load_large_datasets_with_read_edgelist(file_path: str) -> nx.DiGraph:
 
 def is_too_large_to_run_constraint(
     dataset_name: str,
-    g: Optional[
-        Union[eg.Graph, eg.GraphC, nx.Graph, eg.DiGraph, eg.DiGraphC, nx.DiGraph]
-    ] = None,
+    g: None | (
+        eg.Graph | eg.GraphC | nx.Graph | eg.DiGraph | eg.DiGraphC | nx.DiGraph
+    ) = None,
     max_num_nodes: int = 10_000,
 ) -> bool:
     if dataset_name.startswith('stub'):

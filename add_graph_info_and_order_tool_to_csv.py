@@ -11,7 +11,8 @@ from io import StringIO
 from pathlib import Path
 import json
 import csv
-from typing import Iterable, TypeVar
+from typing import TypeVar
+from collections.abc import Iterable
 from config import (
     get_method_order,
     tool_order,

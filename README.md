@@ -41,7 +41,7 @@ See [config.py](./config.py) for more details.
 
 ### Run locally
 
-`python >= 3.9` is required.
+`python >= 3.10` is required.
 
 First, you need to download datasets manually or with a script like [this one](./scripts/download_data.sh).
 

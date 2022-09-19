@@ -7,7 +7,7 @@ Purpose: Why not?
 
 import argparse
 from pathlib import Path
-from typing import Iterator, KeysView
+from collections.abc import Iterator, KeysView
 from config import BENCH_CSV_DIR, tool_name_mapping, dataset_name_mapping, drop_methods
 from utils_other import get_dataset_list_sorted_by_nodes_and_edges
 import csv
