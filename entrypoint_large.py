@@ -70,6 +70,10 @@ def get_args():
         '-t', '--timeout', type=int, help='Timeout for benchmarking one method in seconds, 0 for no timeout', default=60
     )
 
+    parser.add_argument(
+        '-a', '--append-results', action='store_true', help='Append results to existing csv files. Overwrites by default.'
+    )
+
 
     return parser.parse_args()
 
