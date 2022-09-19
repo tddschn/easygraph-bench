@@ -99,6 +99,10 @@ def get_args():
         '-a', '--append-results', action='store_true', help='Append results to existing csv files. Overwrites by default.'
     )
 
+    parser.add_argument(
+        '--graph-type', type=str, choices=['directed', 'undirected', 'all'], help='Only run bench if graph is of specified graph type', default='all',
+    )
+
     return parser.parse_args()
 
 

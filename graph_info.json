@@ -64,5 +64,29 @@
     "edges": 165435,
     "type": "easygraph.classes.graph.Graph",
     "is_directed": false
+  },
+  "stub": {
+    "nodes": 5,
+    "edges": 10,
+    "type": "easygraph.classes.graph.Graph",
+    "is_directed": false
+  },
+  "stub_with_underscore": {
+    "nodes": 5,
+    "edges": 10,
+    "type": "easygraph.classes.graph.Graph",
+    "is_directed": false
+  },
+  "stub_directed": {
+    "nodes": 5,
+    "edges": 20,
+    "type": "easygraph.classes.directed_graph.DiGraph",
+    "is_directed": true
+  },
+  "stub_nx": {
+    "nodes": 5,
+    "edges": 10,
+    "type": "networkx.classes.graph.Graph",
+    "is_directed": false
   }
 }

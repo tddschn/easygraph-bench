@@ -24,7 +24,7 @@ from config import (
     dataset_names,
     BENCH_CSV_DIR,
 )
-from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, tabulate_csv, test_if_graph_type_supported_by_nx
+from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, tabulate_csv
 
 # if eg_master_dir.exists():
 #     import sys
@@ -99,9 +99,9 @@ def get_args():
         '-a', '--append-results', action='store_true', help='Append results to existing csv files. Overwrites by default.'
     )
 
-    # parser.add_argument(
-    #     '--graph-type', type=str, choices=['directed', 'undirected', 'all'], help='Only run bench if graph is of specified graph type', default='all',
-    # )
+    parser.add_argument(
+        '--graph-type', type=str, choices=['directed', 'undirected', 'all'], help='Only run bench if graph is of specified graph type', default='all',
+    )
 
     return parser.parse_args()
 

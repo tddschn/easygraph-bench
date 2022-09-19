@@ -43,6 +43,10 @@ def get_args():
         help='Do a test run, only get graph info of the stub datasets',
     )
 
+    parser.add_argument(
+        '--stdout', action='store_true', help='Print the graph info to stdout'
+    )
+
     return parser.parse_args()
 
 
@@ -50,9 +54,9 @@ def main() -> None:
     args = get_args()
     info_dict = {}
     for dataset_name in dataset_names:
-        if not args.test and dataset_name.startswith('stub_'):
+        if not args.test and dataset_name.startswith('stub'):
             continue
-        if args.test and not dataset_name.startswith('stub_'):
+        if args.test and not dataset_name.startswith('stub'):
             continue
         load_func_name = f'load_{dataset_name}'
         load_func = getattr(dataset_loaders, load_func_name)
@@ -60,8 +64,12 @@ def main() -> None:
         info = get_graph_info(g)
         info_dict[dataset_name] = info
 
+    content = json.dumps(info_dict, indent=4)
+    if args.stdout:
+        print(content)
+        return
     graph_info_path = Path(__file__).parent / "graph_info.json"
-    graph_info_path.write_text(json.dumps(info_dict, indent=4))
+    graph_info_path.write_text(content)
 
 
 if __name__ == '__main__':

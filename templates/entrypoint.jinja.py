@@ -16,6 +16,8 @@ But if you know, please tell me. :)
 
 from sys import argv
 from config import method_groups, {{ script_set_list }}
+from utils_other import is_dataset_directed
+from utils import test_if_graph_type_supported_by_nx
 
 import argparse
 from subprocess import run
@@ -74,6 +76,9 @@ def get_args():
         '-a', '--append-results', action='store_true', help='Append results to existing csv files. Overwrites by default.'
     )
 
+    parser.add_argument(
+        '--graph-type', type=str, choices=['directed', 'undirected', 'all'], help='Only run bench if graph is of specified graph type', default='all',
+    )
 
     return parser.parse_args()
 
@@ -84,9 +89,25 @@ args = get_args()
 def main():
     # print(f'{args=}')
     # print(f'{argv=}')
+    graph_type = args.graph_type
     number_scripts = len({{ script_set_list }})
     for n, script in enumerate({{ script_set_list }}):
         print(f'Running {script} ({n+1}/{number_scripts})')
+        # dataset_name = script.split('_')[1].removesuffix('.py')
+        # if args.graph_type != 'all' and args.method_group is not None and not all(test_if_graph_type_supported_by_nx(dataset_name, None, method) for method in get_nx_methods_for_method_group(args.method_group[0])):
+        #     print(f'Graph type of {dataset_name} is not {args.graph_type}, skipping...')
+        #     continue
+
+        if graph_type != 'all':
+            dataset_name = script.split('_')[1].removesuffix('.py')
+            if not is_dataset_directed(dataset_name) and graph_type == 'directed':
+                print(f'Graph type of {dataset_name} is not {graph_type}, skipping...')
+                continue
+            if is_dataset_directed(dataset_name) and graph_type == 'undirected':
+                print(f'Graph type of {dataset_name} is not {graph_type}, skipping...')
+                continue
+
+
         run([f'./{script}', *argv[1:]], check=True)
         print(f'Finished running {script} ({n+1}/{number_scripts})')
 

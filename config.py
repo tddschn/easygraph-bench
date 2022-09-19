@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from functools import cache
 import sys
 from pathlib import Path
 from typing import Union
@@ -163,3 +164,16 @@ def get_method_order() -> list[str]:
             else:
                 method_name_list.append(method_name)
     return method_name_list
+
+
+def get_nx_methods_for_method_group(method_group: str) -> list[str]:
+    if not method_group in method_groups:
+        raise ValueError(f'no method group {method_group}')
+    method_group = globals()[f'{method_group}_methods']
+    nx_methods = []
+    for method_name in method_group:
+        if isinstance(method_name, tuple):
+            nx_methods.append(method_name[1])
+        else:
+            nx_methods.append(method_name)
+    return nx_methods
