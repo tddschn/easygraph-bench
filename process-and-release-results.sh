@@ -22,3 +22,5 @@ gh release -R "${REPO}" create "${TAG}" --notes "Release from GitHub Actions"
 set -e
 
 gh release -R "${REPO}" upload "${TAG}" "${CSV_ZIP_FILENAME}"
+
+echo "https://github.com/tddschn/easygraph-bench/releases/tag/${TAG}"

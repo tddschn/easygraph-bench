@@ -63,7 +63,9 @@ def add_graph_info_and_order_tool_to_csv(
         key=(
             lambda row: (
                 dataset_order.index(row['dataset']),
-                method_order.index(row['method']),
+                method_order.index(row['method'])
+                if row['method'] in method_order
+                else 999,
                 tool_order.index(row['tool']),
             )
         ),
