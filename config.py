@@ -81,7 +81,9 @@ method_groups = [
 bench_scripts_set = [
     'bench_scripts_normal',
     'bench_scripts_large',
+    'bench_scripts_other',
     'bench_scripts_stub',
+    'bench_scripts_all',
 ]
 bench_scripts_normal = [
     'bench_cheminformatics.py',
@@ -103,7 +105,8 @@ bench_scripts_large = [
     # 'bench_pokec.py',
 ]
 
-ben_scripts_coauthorship = ['bench_coauthorship.py']
+bench_scripts_other = ['bench_coauthorship.py']
+bench_scripts_all = bench_scripts_normal + bench_scripts_large + bench_scripts_other
 
 bench_scripts_stub = [
     'bench_stub.py',

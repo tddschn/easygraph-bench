@@ -641,3 +641,36 @@ def is_too_large_to_run_constraint(
             )
         num_nodes = g.number_of_nodes()
     return num_nodes > max_num_nodes
+
+
+def test_if_graph_type_supported_by_nx(
+    dataset_name: str | None, is_directed: bool | None, method_name: str
+) -> bool:
+    import networkx as nx
+
+    g = nx.complete_graph(3)
+    if is_directed is not None and is_directed:
+        g = g.to_directed()
+    if is_directed is None and dataset_name is not None:
+        gi = Path(__file__).parent / 'graph_info.json'
+        gi_d = json.loads(gi.read_text())
+        if dataset_name in gi_d:
+            if is_directed := gi_d[dataset_name]['is_directed']:
+                g = g.to_directed()
+        else:
+            return True
+    if dataset_name is None and is_directed is None:
+        raise ValueError('dataset_name or is_directed must be provided')
+
+    # first test if the function require 2 args
+    try:
+        getattr(nx, method_name)(g)
+        return True
+    except TypeError:
+        try:
+            getattr(nx, method_name)(g, get_first_node(g))
+            return True
+        except NetworkXNotImplemented:
+            return False
+    except NetworkXNotImplemented:
+        return False
