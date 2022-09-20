@@ -37,7 +37,7 @@ def update_content_between_markers_for_file(
 ) -> None:
     with open(file_path) as f:
         lines_before = list(takewhile(lambda line: begin_marker not in line, f))
-        takewhile(lambda line: end_marker not in line, f)
+        list(takewhile(lambda line: end_marker not in line, f))
         next(f)
         lines_after = f
         with open(new_file, 'w') as f_new:

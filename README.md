@@ -125,6 +125,7 @@ See [Complete results](#complete-results).
 
 See [dataset_loaders.py](./dataset_loaders.py) and [dataset](./dataset/) for details.
 
+
 <!-- BEGIN DATASET TABLE -->
 
 | Dataset Name                                                                                            | nodes   | edges    | is_directed | average_degree     | density                | type                             |
@@ -141,8 +142,8 @@ See [dataset_loaders.py](./dataset_loaders.py) and [dataset](./dataset/) for det
 | [google](https://snap.stanford.edu/data/web-Google.html)                                                | 875713  | 5105039  | True        | 5.829580010802626  | 6.656960291514363e-06  | networkx.classes.digraph.DiGraph |
 | [pokec](https://snap.stanford.edu/data/soc-Pokec.html)                                                  | 1632803 | 30622564 | True        | 18.754598074599325 | 1.148614349725155e-05  | networkx.classes.digraph.DiGraph |
 
-<!-- END DATASET TABLE -->
 
+<!-- END DATASET TABLE -->
 ## FAQ
 
 ### Why do you repeat yourself by using `bench_*.py` scripts?
