@@ -125,6 +125,8 @@ See [Complete results](#complete-results).
 
 See [dataset_loaders.py](./dataset_loaders.py) and [dataset](./dataset/) for details.
 
+<!-- BEGIN DATASET TABLE -->
+
 | Dataset Name                                                                                            | nodes   | edges    | is_directed | average_degree     | density                | type                             |
 | ------------------------------------------------------------------------------------------------------- | ------- | -------- | ----------- | ------------------ | ---------------------- | -------------------------------- |
 | [cheminformatics](https://networkrepository.com/ENZYMES-g1.php)                                         | 37      | 84       | False       | 2.27027027027027   | 0.12612612612612611    | easygraph.classes.graph.Graph    |
@@ -139,8 +141,7 @@ See [dataset_loaders.py](./dataset_loaders.py) and [dataset](./dataset/) for det
 | [google](https://snap.stanford.edu/data/web-Google.html)                                                | 875713  | 5105039  | True        | 5.829580010802626  | 6.656960291514363e-06  | networkx.classes.digraph.DiGraph |
 | [pokec](https://snap.stanford.edu/data/soc-Pokec.html)                                                  | 1632803 | 30622564 | True        | 18.754598074599325 | 1.148614349725155e-05  | networkx.classes.digraph.DiGraph |
 
-
-
+<!-- END DATASET TABLE -->
 
 ## FAQ
 
