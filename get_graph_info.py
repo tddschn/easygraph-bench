@@ -21,11 +21,19 @@ def get_fully_qualified_type_name(o) -> str:
 
 
 def get_graph_info(g):
+    import easygraph as eg
+    import networkx as nx
+
     d = {}
     d['nodes'] = len(g.nodes)
     d['edges'] = len(g.edges)
-    d['type'] = get_fully_qualified_type_name(g)
     d['is_directed'] = g.is_directed()
+    type_name = get_fully_qualified_type_name(g)
+    d['average_degree'] = d['edges'] / d['nodes']
+    d['density'] = (
+        eg.density(g) if type_name.startswith('easygraph.') else nx.density(g)
+    )
+    d['type'] = type_name
     return d
 
 
