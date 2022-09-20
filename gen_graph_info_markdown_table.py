@@ -40,7 +40,7 @@ def update_content_between_markers_for_file(
         takewhile(lambda line: end_marker not in line, f)
         next(f)
         lines_after = f
-        with open(new_file) as f_new:
+        with open(new_file, 'w') as f_new:
             f_new.writelines(lines_before)
             f_new.write(begin_marker)
             f_new.write(f'\n\n{new_content}\n\n')
@@ -83,10 +83,9 @@ def main():
     if args.update_readme:
         temp_file = Path(mkstemp()[1])
         readme = Path(__file__).parent / 'README.md'
-        if args.update_markdown:
-            update_content_between_markers_for_file(
-                readme, BEGIN_MARKER, END_MARKER, markdown_content, temp_file
-            )
+        update_content_between_markers_for_file(
+            readme, BEGIN_MARKER, END_MARKER, markdown_content, temp_file
+        )
 
         temp_file.rename(readme)
 
