@@ -21,7 +21,7 @@
         "is_directed": false,
         "average_degree": 6.056438791732909,
         "density": 0.009636338570776308,
-        "type": "easygraph.classes.graph.Graph"
+        "type": "networkx.classes.graph.Graph"
     },
     "pgp": {
         "nodes": 39796,

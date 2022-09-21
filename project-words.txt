@@ -14,6 +14,7 @@ coauthorship
 conda
 coreturn
 coreturn's
+dedupe
 easygraph
 easygraph's
 edgelist
@@ -29,7 +30,9 @@ kruskal
 mahindas
 matplotlib
 mergedeep
+mmread
 MUTAG
+mxschmitt
 Nesreen
 Networkx
 networkx
@@ -40,6 +43,7 @@ pyplot
 qualname
 Rossi
 savefig
+scipy
 seaborn
 tddschn
 timeit

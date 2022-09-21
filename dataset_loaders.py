@@ -72,19 +72,16 @@ def load_bio():
 
 
 @cache
+@load_func_for_nx
 def load_eco():
     """
     https://networkrepository.com/econ-mahindas.php
     """
     print_with_hr('loading graph eco ...')
-    G = eg.Graph()
-    jump_lines = 14
-    with open("./dataset/econ-mahindas/econ-mahindas.mtx") as f:
-        for i, l in enumerate(f):
-            if i < jump_lines:
-                continue
-            v = l.split()
-            G.add_edge(v[0], v[1])
+    from scipy.io import mmread
+
+    # G = nx.from_numpy_array(mmread("./dataset/econ-mahindas/econ-mahindas.mtx"))
+    G = nx.from_scipy_sparse_matrix(mmread("./dataset/econ-mahindas/econ-mahindas.mtx"))
     print_with_hr(
         "finished loading graph eco\n"
         + "econ-mahindas: "
