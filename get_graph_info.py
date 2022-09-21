@@ -2,12 +2,11 @@
 """
 Author : Xinyuan Chen <45612704+tddschn@users.noreply.github.com>
 Date   : 2022-08-23
-Purpose: Why not?
+Purpose: Get graph info
 """
 
 import argparse
 from config import dataset_names
-import dataset_loaders
 from pathlib import Path
 import json
 
@@ -41,7 +40,8 @@ def get_args():
     """Get command-line arguments"""
 
     parser = argparse.ArgumentParser(
-        description='Why not?', formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        description='Get graph info',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
     parser.add_argument(
@@ -55,29 +55,65 @@ def get_args():
         '--stdout', action='store_true', help='Print the graph info to stdout'
     )
 
+    # parser.add_argument(
+    #     '-u', '--update', action='store_true', help='Update the graph info for specified dataset only'
+    # )
+
+    parser.add_argument(
+        '-d',
+        '--dataset',
+        nargs='+',
+        help='Specify the dataset to update',
+        type=str,
+        choices=dataset_names,
+    )
+
     return parser.parse_args()
 
 
 def main() -> None:
     args = get_args()
-    info_dict = {}
-    for dataset_name in dataset_names:
-        if not args.test and dataset_name.startswith('stub'):
-            continue
-        if args.test and not dataset_name.startswith('stub'):
-            continue
-        load_func_name = f'load_{dataset_name}'
-        load_func = getattr(dataset_loaders, load_func_name)
-        g = load_func()
-        info = get_graph_info(g)
-        info_dict[dataset_name] = info
+    import dataset_loaders
 
-    content = json.dumps(info_dict, indent=4)
-    if args.stdout:
-        print(content)
-        return
-    graph_info_path = Path(__file__).parent / "graph_info.json"
-    graph_info_path.write_text(content)
+    if (datasets_to_update := args.dataset) is None:
+        info_dict = {}
+        for dataset_name in dataset_names:
+            if not args.test and dataset_name.startswith('stub'):
+                continue
+            if args.test and not dataset_name.startswith('stub'):
+                continue
+            load_func_name = f'load_{dataset_name}'
+            load_func = getattr(dataset_loaders, load_func_name)
+            g = load_func()
+            info = get_graph_info(g)
+            info_dict[dataset_name] = info
+
+        content = json.dumps(info_dict, indent=4)
+        if args.stdout:
+            print(content)
+            return
+        graph_info_path = Path(__file__).parent / "graph_info.json"
+        graph_info_path.write_text(content)
+    else:
+        gi = Path(__file__).parent / "graph_info.json"
+        info_dict = json.loads(gi.read_text())
+        for dataset_name in datasets_to_update:
+            if not args.test and dataset_name.startswith('stub'):
+                continue
+            if args.test and not dataset_name.startswith('stub'):
+                continue
+            load_func_name = f'load_{dataset_name}'
+            load_func = getattr(dataset_loaders, load_func_name)
+            g = load_func()
+            info = get_graph_info(g)
+            info_dict[dataset_name] = info
+
+        content = json.dumps(info_dict, indent=4)
+        if args.stdout:
+            print(content)
+            return
+        graph_info_path = Path(__file__).parent / "graph_info.json"
+        graph_info_path.write_text(content)
 
 
 if __name__ == '__main__':

@@ -1,11 +1,11 @@
 {
     "cheminformatics": {
         "nodes": 37,
-        "edges": 84,
-        "is_directed": false,
-        "average_degree": 2.27027027027027,
+        "edges": 168,
+        "is_directed": true,
+        "average_degree": 4.54054054054054,
         "density": 0.12612612612612611,
-        "type": "easygraph.classes.graph.Graph"
+        "type": "easygraph.classes.directed_graph.DiGraph"
     },
     "bio": {
         "nodes": 1458,

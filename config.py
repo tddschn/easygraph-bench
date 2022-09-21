@@ -61,7 +61,7 @@ load_functions_name = [
     'load_google',
     'load_amazon',
     'load_coauthorship',
-    'load_pokec',
+    # 'load_pokec',
     'load_stub',
     'load_stub_with_underscore',
     'load_stub_directed',
