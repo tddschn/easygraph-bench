@@ -127,12 +127,13 @@ See [dataset_loaders.py](./dataset_loaders.py) and [dataset](./dataset/) for det
 
 
 
+
 <!-- BEGIN DATASET TABLE -->
 
 | Dataset Name | nodes | edges | is_directed | average_degree | density | type |
 |-----|-----|-----|-----|-----|-----|-----|
 | [cheminformatics](https://networkrepository.com/ENZYMES-g1.php) | 37 | 168 | True | 4.54054054054054 | 0.12612612612612611 | easygraph.classes.directed_graph.DiGraph |
-| [eco](https://networkrepository.com/econ-mahindas.php) | 1258 | 7619 | False | 6.056438791732909 | 0.009636338570776308 | easygraph.classes.graph.Graph |
+| [eco](https://networkrepository.com/econ-mahindas.php) | 1258 | 7619 | False | 6.056438791732909 | 0.009636338570776308 | networkx.classes.graph.Graph |
 | [bio](https://networkrepository.com/bio-yeast.php) | 1458 | 1948 | False | 1.336076817558299 | 0.0018340107310340413 | easygraph.classes.graph.Graph |
 | [enron](https://snap.stanford.edu/data/email-Enron.html) | 36692 | 367662 | True | 10.020222391802028 | 0.00027309755503535 | networkx.classes.digraph.DiGraph |
 | [pgp](https://github.com/tddschn/easygraph-bench/blob/master/dataset/pgp/pgp.xml) | 39796 | 301498 | True | 7.576088049050155 | 0.00019037788790175037 | networkx.classes.digraph.DiGraph |
@@ -145,7 +146,6 @@ See [dataset_loaders.py](./dataset_loaders.py) and [dataset](./dataset/) for det
 
 
 <!-- END DATASET TABLE -->
-
 ### Why do you repeat yourself by using `bench_*.py` scripts?
 
 Yeah, I know this is not DRY. But for the `timeit`-based benchmarking code to work,
