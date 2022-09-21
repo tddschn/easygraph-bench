@@ -20,12 +20,13 @@ from utils import (
 
 
 @cache
+@directed_dataset
 def load_cheminformatics():
     """
     https://networkrepository.com/ENZYMES-g1.php
     """
     print_with_hr(f'loading graph cheminformatics ...')
-    G = eg.Graph()
+    G = eg.DiGraph()
     with open("./dataset/ENZYMES_g1/ENZYMES_g1.edges") as f:
         for l in f.readlines():
             v = l.split()
@@ -37,7 +38,7 @@ def load_cheminformatics():
         + str(len(G.nodes))
         + " edges: "
         + str(len(G.edges))
-        + "is_directed: "
+        + " is_directed: "
         + str(G.is_directed())
     )
     return G
@@ -64,7 +65,7 @@ def load_bio():
         + str(len(G.nodes))
         + " edges: "
         + str(len(G.edges))
-        + "is_directed: "
+        + " is_directed: "
         + str(G.is_directed())
     )
     return G
@@ -91,7 +92,7 @@ def load_eco():
         + str(len(G.nodes))
         + " edges: "
         + str(len(G.edges))
-        + "is_directed: "
+        + " is_directed: "
         + str(G.is_directed())
     )
     return G
@@ -122,7 +123,7 @@ def load_soc():
         + str(len(G.nodes))
         + " edges: "
         + str(len(G.edges))
-        + "is_directed: "
+        + " is_directed: "
         + str(G.is_directed())
     )
     return G
