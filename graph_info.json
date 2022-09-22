@@ -1,98 +1,98 @@
 {
-    "cheminformatics": {
-        "nodes": 37,
-        "edges": 168,
-        "is_directed": true,
-        "average_degree": 4.54054054054054,
-        "density": 0.12612612612612611,
-        "type": "easygraph.classes.directed_graph.DiGraph"
-    },
-    "bio": {
-        "nodes": 1458,
-        "edges": 1948,
-        "is_directed": false,
-        "average_degree": 1.336076817558299,
-        "density": 0.0018340107310340413,
-        "type": "easygraph.classes.graph.Graph"
-    },
-    "eco": {
-        "nodes": 1258,
-        "edges": 7619,
-        "is_directed": false,
-        "average_degree": 6.056438791732909,
-        "density": 0.009636338570776308,
-        "type": "networkx.classes.graph.Graph"
-    },
-    "pgp": {
-        "nodes": 39796,
-        "edges": 301498,
-        "is_directed": true,
-        "average_degree": 7.576088049050155,
-        "density": 0.00019037788790175037,
-        "type": "networkx.classes.digraph.DiGraph"
-    },
-    "pgp_undirected": {
-        "nodes": 39796,
-        "edges": 197150,
-        "is_directed": false,
-        "average_degree": 4.954015478942607,
-        "density": 0.00024897677994434515,
-        "type": "networkx.classes.graph.Graph"
-    },
-    "road": {
-        "nodes": 129164,
-        "edges": 165435,
-        "is_directed": false,
-        "average_degree": 1.2808135393762967,
-        "density": 1.9832514564949666e-05,
-        "type": "easygraph.classes.graph.Graph"
-    },
-    "enron": {
-        "nodes": 36692,
-        "edges": 367662,
-        "is_directed": true,
-        "average_degree": 10.020222391802028,
-        "density": 0.00027309755503535,
-        "type": "networkx.classes.digraph.DiGraph"
-    },
-    "google": {
-        "nodes": 875713,
-        "edges": 5105039,
-        "is_directed": true,
-        "average_degree": 5.829580010802626,
-        "density": 6.656960291514363e-06,
-        "type": "networkx.classes.digraph.DiGraph"
-    },
-    "amazon": {
-        "nodes": 262111,
-        "edges": 1234877,
-        "is_directed": true,
-        "average_degree": 4.711274994181855,
-        "density": 1.7974419114806206e-05,
-        "type": "networkx.classes.digraph.DiGraph"
-    },
-    "coauthorship": {
-        "nodes": 402392,
-        "edges": 1234019,
-        "is_directed": false,
-        "average_degree": 3.0667085826756,
-        "density": 1.5242431280399412e-05,
-        "type": "networkx.classes.graph.Graph"
-    },
-    "pokec": {
-        "nodes": 1632803,
-        "edges": 30622564,
-        "is_directed": true,
-        "average_degree": 18.754598074599325,
-        "density": 1.148614349725155e-05,
-        "type": "networkx.classes.digraph.DiGraph"
-    },
-    "uspowergrid": {
-        "nodes": 4941,
-        "edges": 6594,
-        "is_directed": false,
-        "average_degree": 1.334547662416515,
-        "density": 0.0005403026973346214,
-        "type": "networkx.classes.graph.Graph"
-    }
+  "cheminformatics": {
+    "nodes": 37,
+    "edges": 168,
+    "is_directed": true,
+    "average_degree": 9.08108108108108,
+    "density": 0.12612612612612611,
+    "type": "easygraph.classes.directed_graph.DiGraph"
+  },
+  "bio": {
+    "nodes": 1458,
+    "edges": 1948,
+    "is_directed": false,
+    "average_degree": 2.672153635116598,
+    "density": 0.0018340107310340413,
+    "type": "easygraph.classes.graph.Graph"
+  },
+  "eco": {
+    "nodes": 1258,
+    "edges": 7619,
+    "is_directed": false,
+    "average_degree": 12.112877583465819,
+    "density": 0.009636338570776308,
+    "type": "networkx.classes.graph.Graph"
+  },
+  "pgp": {
+    "nodes": 39796,
+    "edges": 301498,
+    "is_directed": true,
+    "average_degree": 15.15217609810031,
+    "density": 0.00019037788790175037,
+    "type": "networkx.classes.digraph.DiGraph"
+  },
+  "pgp_undirected": {
+    "nodes": 39796,
+    "edges": 197150,
+    "is_directed": false,
+    "average_degree": 9.908030957885215,
+    "density": 0.00024897677994434515,
+    "type": "networkx.classes.graph.Graph"
+  },
+  "road": {
+    "nodes": 129164,
+    "edges": 165435,
+    "is_directed": false,
+    "average_degree": 2.5616270787525934,
+    "density": 1.9832514564949666e-5,
+    "type": "easygraph.classes.graph.Graph"
+  },
+  "enron": {
+    "nodes": 36692,
+    "edges": 367662,
+    "is_directed": true,
+    "average_degree": 20.040444783604055,
+    "density": 0.00027309755503535,
+    "type": "networkx.classes.digraph.DiGraph"
+  },
+  "google": {
+    "nodes": 875713,
+    "edges": 5105039,
+    "is_directed": true,
+    "average_degree": 11.659160021605253,
+    "density": 6.656960291514363e-6,
+    "type": "networkx.classes.digraph.DiGraph"
+  },
+  "amazon": {
+    "nodes": 262111,
+    "edges": 1234877,
+    "is_directed": true,
+    "average_degree": 9.42254998836371,
+    "density": 1.7974419114806206e-5,
+    "type": "networkx.classes.digraph.DiGraph"
+  },
+  "coauthorship": {
+    "nodes": 402392,
+    "edges": 1234019,
+    "is_directed": false,
+    "average_degree": 6.1334171653512,
+    "density": 1.5242431280399412e-5,
+    "type": "networkx.classes.graph.Graph"
+  },
+  "pokec": {
+    "nodes": 1632803,
+    "edges": 30622564,
+    "is_directed": true,
+    "average_degree": 37.50919614919865,
+    "density": 1.148614349725155e-5,
+    "type": "networkx.classes.digraph.DiGraph"
+  },
+  "uspowergrid": {
+    "nodes": 4941,
+    "edges": 6594,
+    "is_directed": false,
+    "average_degree": 2.66909532483303,
+    "density": 0.0005403026973346214,
+    "type": "networkx.classes.graph.Graph"
+  }
 }

@@ -28,7 +28,7 @@ def get_graph_info(g):
     d['edges'] = len(g.edges)
     d['is_directed'] = g.is_directed()
     type_name = get_fully_qualified_type_name(g)
-    d['average_degree'] = d['edges'] / d['nodes']
+    d['average_degree'] = d['edges'] / d['nodes'] * 2
     d['density'] = (
         eg.density(g) if type_name.startswith('easygraph.') else nx.density(g)
     )
