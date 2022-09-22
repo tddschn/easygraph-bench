@@ -86,5 +86,13 @@
         "average_degree": 18.754598074599325,
         "density": 1.148614349725155e-05,
         "type": "networkx.classes.digraph.DiGraph"
+    },
+    "uspowergrid": {
+        "nodes": 4941,
+        "edges": 6594,
+        "is_directed": false,
+        "average_degree": 1.334547662416515,
+        "density": 0.0005403026973346214,
+        "type": "networkx.classes.graph.Graph"
     }
 }

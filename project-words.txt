@@ -38,6 +38,7 @@ Networkx
 networkx
 networkx's
 pokec
+powergrid
 pybind
 pyplot
 qualname
@@ -49,6 +50,7 @@ tddschn
 timeit
 Tomark
 tomark
+uspowergrid
 whitegrid
 Xinyuan
 xlabel

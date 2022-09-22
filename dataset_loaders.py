@@ -130,18 +130,37 @@ def load_soc():
 # road-usa
 # --------------------
 @cache
+@load_func_for_nx
 def load_road() -> eg.Graph:
     """
     partial dataset from
     https://networkrepository.com/road-usa.php
     """
     ROAD_DIR = DATASET_DIR / 'road'
-    road_file_path = ROAD_DIR / 'road.txt'
+    road_file_path = ROAD_DIR / 'road.edges'
     print_with_hr(f'loading graph road-usa from {str(road_file_path)} ...')
-    G = eg.Graph()
-    G.add_edges_from_file(str(road_file_path))
+    G = nx.read_edgelist(str(road_file_path))
     print_with_hr(
         f'finished loading graph road-usa\nnodes: {len(G.nodes)}, edges: {len(G.edges)}, is_directed: {G.is_directed()}'
+    )
+    return G
+
+
+# --------------------
+# uspowergrid
+# --------------------
+@cache
+@load_func_for_nx
+def load_uspowergrid() -> nx.Graph:
+    """
+    https://toreopsahl.com/datasets/#uspowergrid
+    """
+    UPG_DIR = DATASET_DIR / 'uspowergrid'
+    upg_file_path = UPG_DIR / 'us_powergrid.edges'
+    print_with_hr(f'loading graph uspowergrid from {str(upg_file_path)} ...')
+    G = nx.read_edgelist(str(upg_file_path))
+    print_with_hr(
+        f'finished loading graph uspowergrid\nnodes: {len(G.nodes)}, edges: {len(G.edges)}, is_directed: {G.is_directed()}'
     )
     return G
 
