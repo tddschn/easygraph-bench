@@ -18,6 +18,7 @@ zip -r "${CSV_ZIP_FILENAME}" output
 
 set +e
 # don't exit on error
+gh release -R "${REPO}" delete "${TAG}" --yes
 gh release -R "${REPO}" create "${TAG}" --notes "Release from GitHub Actions"
 set -e
 
