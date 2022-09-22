@@ -6,13 +6,13 @@ Purpose: Add graph info and order tool for an all.csv file
 """
 
 import argparse
-from cmath import exp
 from io import StringIO
 from pathlib import Path
 import json
 import csv
 from typing import TypeVar
 from collections.abc import Iterable
+from utils_other import get_autorange_count
 from config import (
     get_method_order,
     tool_order,
@@ -36,15 +36,19 @@ def add_graph_info_and_order_tool_to_csv(
     tool_order: list[str] = tool_order,
     add_graph_info: bool = True,
     expand_dataset_name: bool = False,
+    add_autorange_iteration_count: bool = False,
 ) -> list[dict]:
     r = csv.DictReader(csv_path.read_text().splitlines())
 
     rows = list(r)
+
+    # expand dataset names
     dataset_name_mapping_reversed = {v: k for k, v in dataset_name_mapping.items()}
     for row in rows:
         if row['dataset'] in dataset_name_mapping_reversed:
             row['dataset'] = dataset_name_mapping_reversed[row['dataset']]
 
+    # add graph info
     if add_graph_info:
         gi = Path(__file__).parent / 'graph_info.json'
         gi_d = json.loads(gi.read_text())
@@ -55,9 +59,15 @@ def add_graph_info_and_order_tool_to_csv(
             if row['dataset'] in dataset_homepage_mapping:
                 row['dataset_homepage'] = dataset_homepage_mapping[row['dataset']]
 
-    method_order = get_method_order()
+    # add autorange iteration count
+    if add_autorange_iteration_count:
+        for row in rows:
+            row['iteration count'] = get_autorange_count(float(row['avg time']))
 
+    # order the records
+    method_order = get_method_order()
     dataset_order = ordered_dedupe([x['dataset'] for x in rows])
+
     rows_sorted = sorted(
         filter(lambda x: not x['dataset'].startswith('stub'), rows),
         key=(
@@ -70,6 +80,7 @@ def add_graph_info_and_order_tool_to_csv(
             )
         ),
     )
+    # revert to abbreviated dataset names
     if not expand_dataset_name:
         for row in rows_sorted:
             if row['dataset'] in dataset_name_mapping:
@@ -106,6 +117,13 @@ def get_args():
         action='store_true',
     )
 
+    parser.add_argument(
+        '-c',
+        '--autorange-iteration-count',
+        help='Add autorange iteration count',
+        action='store_true',
+    )
+
     return parser.parse_args()
 
 
@@ -118,6 +136,7 @@ def main():
         all_csv_path,
         add_graph_info=args.no_add_graph_info,
         expand_dataset_name=not args.abbreviated_dataset_names,
+        add_autorange_iteration_count=args.autorange_iteration_count,
     )
     header = new_rows[0].keys()
     s = StringIO()

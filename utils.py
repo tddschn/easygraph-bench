@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 
-import csv
-from io import SEEK_END
 import json
 import os
-from functools import cache, partial
-from itertools import islice
+from itertools import count, islice
 from pathlib import Path
 from textwrap import dedent
 from timeit import Timer
-from typing import Literal, Optional, Union
+from typing import Iterator, Literal
 from collections.abc import Callable, Generator
 
 from hr_tddschn import hr
@@ -23,12 +20,6 @@ from networkx import NetworkXNotImplemented
 
 from config import (
     slow_methods,
-    clustering_methods,
-    di_load_functions_name,
-    eg_master_dir,
-    graph_info_json_path,
-    load_functions_name,
-    shortest_path_methods,
 )
 
 # from .types import MethodName
@@ -388,7 +379,7 @@ def eval_method(
     # nx_graph,
     # ceg_graph,
     load_func_name: str,
-    method_name: 'Union[str, tuple[str, str]]',
+    method_name: str | tuple[str, str],
     call_method_args_eg: list[str] = [],
     call_method_args_ceg: list[str] = [],
     call_method_args_nx: list[str] = [],
@@ -624,9 +615,8 @@ def load_large_datasets_with_read_edgelist(file_path: str) -> nx.DiGraph:
 
 def is_too_large_to_run_constraint(
     dataset_name: str,
-    g: None | (
-        eg.Graph | eg.GraphC | nx.Graph | eg.DiGraph | eg.DiGraphC | nx.DiGraph
-    ) = None,
+    g: None
+    | (eg.Graph | eg.GraphC | nx.Graph | eg.DiGraph | eg.DiGraphC | nx.DiGraph) = None,
     max_num_nodes: int = 10_000,
 ) -> bool:
     if dataset_name.startswith('stub'):
@@ -675,3 +665,4 @@ def test_if_graph_type_supported_by_nx(
             return False
     except NetworkXNotImplemented:
         return False
+

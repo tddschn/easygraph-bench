@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
+ADD_GRAPH_INFO_SCRIPT_COMMON_FLAGS="--autorange-iteration-count"
+
 find output -name 'all*.csv' -delete
-python3 ./merge_bench_csv.py -c output >merged.csv
-python3 add_graph_info_and_order_tool_to_csv.py merged.csv -A >all.csv
-python3 add_graph_info_and_order_tool_to_csv.py merged.csv >all-with-graph-info.csv
-python3 add_graph_info_and_order_tool_to_csv.py merged.csv -A -a >all-abbr.csv
-python3 add_graph_info_and_order_tool_to_csv.py merged.csv -a >all-abbr-with-graph-info.csv
+python3 ./merge_bench_csv.py --remove-records-with-negative-avg-time -c output >merged.csv
+eval python3 add_graph_info_and_order_tool_to_csv.py merged.csv "${ADD_GRAPH_INFO_SCRIPT_COMMON_FLAGS}" -A >all.csv
+eval python3 add_graph_info_and_order_tool_to_csv.py merged.csv "${ADD_GRAPH_INFO_SCRIPT_COMMON_FLAGS}" >all-with-graph-info.csv
+eval python3 add_graph_info_and_order_tool_to_csv.py merged.csv "${ADD_GRAPH_INFO_SCRIPT_COMMON_FLAGS}" -A -a >all-abbr.csv
+eval python3 add_graph_info_and_order_tool_to_csv.py merged.csv "${ADD_GRAPH_INFO_SCRIPT_COMMON_FLAGS}" -a >all-abbr-with-graph-info.csv
 
 mv ./all*.csv output -v
 

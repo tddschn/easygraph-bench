@@ -1,5 +1,6 @@
 *.zip
 *.txt
+*.db
 
 # outputs
 *.json

@@ -40,7 +40,9 @@ def get_dataset_name_to_path_mapping_from_csv_dir_sorted_by_nodes_and_edges(
 
 
 def add_dataset_name_column_to_csv(
-    dataset_name: str, csv_path: Path
+    dataset_name: str,
+    csv_path: Path,
+    remove_records_with_negative_avg_time: bool = True,
 ) -> tuple[str, KeysView[str]]:
     r = csv.DictReader(csv_path.read_text().splitlines())
     rows_with_dataset_name = [{'dataset': dataset_name} | x for x in r]
@@ -51,10 +53,12 @@ def add_dataset_name_column_to_csv(
     s = StringIO()
     h = rows_with_dataset_name[0].keys()
     w = csv.DictWriter(s, rows_with_dataset_name[0].keys())
-    # w.writeheader()
-    w.writerows(
-        filter(lambda x: x['method'] not in drop_methods, rows_with_dataset_name)
+    rows_to_write = filter(
+        lambda x: x['method'] not in drop_methods, rows_with_dataset_name
     )
+    if remove_records_with_negative_avg_time:
+        rows_to_write = filter(lambda x: float(x['avg time']) > 0, rows_to_write)
+    w.writerows(rows_to_write)
     return s.getvalue(), h
 
 
@@ -83,6 +87,13 @@ def get_args():
     )
 
     parser.add_argument(
+        '-N',
+        '--remove-records-with-negative-avg-time',
+        help='Remove records with negative avg time',
+        action='store_true',
+    )
+
+    parser.add_argument(
         '-o' '--outfile', type=Path, dest='outfile', help='Path to the output file'
     )
 
@@ -96,18 +107,23 @@ def main():
     csv_s_l = []
     for n, (d, p) in enumerate(
         get_dataset_name_to_path_mapping_from_csv_dir_sorted_by_nodes_and_edges(
-            args.csv_dir
+            csv_dir=args.csv_dir
         )
     ):
-        csv_s, h = add_dataset_name_column_to_csv(d, p)
+        csv_s, h = add_dataset_name_column_to_csv(
+            d,
+            p,
+            remove_records_with_negative_avg_time=args.remove_records_with_negative_avg_time,
+        )
         if n == 0:
             # write csv header
             csv_s_l.append(','.join(h) + '\n')
         csv_s_l.append(csv_s)
+    csv_content = ''.join(csv_s_l).strip()
     if args.outfile is not None:
-        args.outfile.read_text(''.join(csv_s_l))
+        args.outfile.write_text(csv_content)
     else:
-        print(''.join(csv_s_l))
+        print(csv_content)
 
 
 if __name__ == '__main__':
