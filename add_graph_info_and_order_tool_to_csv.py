@@ -143,7 +143,7 @@ def main():
     w = csv.DictWriter(s, header)
     w.writeheader()
     w.writerows(new_rows)
-    print(s.getvalue())
+    print(s.getvalue().strip())
 
 
 if __name__ == '__main__':

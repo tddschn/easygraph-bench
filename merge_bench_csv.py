@@ -9,7 +9,7 @@ import argparse
 from pathlib import Path
 from collections.abc import Iterator, KeysView
 from config import BENCH_CSV_DIR, tool_name_mapping, dataset_name_mapping, drop_methods
-from utils_other import get_dataset_list_sorted_by_nodes_and_edges
+from utils_other import get_dataset_list_sorted_by_nodes_and_edges, strip_file_content
 import csv
 from io import StringIO
 
@@ -122,6 +122,7 @@ def main():
     csv_content = ''.join(csv_s_l).strip()
     if args.outfile is not None:
         args.outfile.write_text(csv_content)
+        strip_file_content(args.outfile)
     else:
         print(csv_content)
 

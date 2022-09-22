@@ -21,6 +21,7 @@ from networkx import NetworkXNotImplemented
 from config import (
     slow_methods,
 )
+from utils_other import strip_file_content
 
 # from .types import MethodName
 
@@ -177,10 +178,15 @@ def json2csv(json_data, filename, append: bool = False):
         if 'fw' in globals():
             globals()['fw'].close()
 
+    # write the header if the existing csv file does not have one
     if Path(filename).exists() and not (
         content := Path(filename).read_text()
     ).startswith('method,tool,avg time'):
+        # prepend the header to content
         Path(filename).write_text('method,tool,avg time\n' + content)
+
+    # remove trailing empty lines
+    strip_file_content(filename)
 
 
 # class MethodCaller:
@@ -665,4 +671,3 @@ def test_if_graph_type_supported_by_nx(
             return False
     except NetworkXNotImplemented:
         return False
-

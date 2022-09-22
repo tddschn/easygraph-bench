@@ -1,3 +1,4 @@
+from pathlib import Path
 from itertools import count
 import json
 from functools import cache
@@ -30,3 +31,7 @@ def get_autorange_count(average_time: float) -> int:  # type: ignore
     for cnt in autorange_count_generator():
         if average_time * cnt >= 0.2:
             return cnt
+
+def strip_file_content(filename: Path) -> None:
+    content = Path(filename).read_text()
+    Path(filename).write_text(content.strip())
