@@ -9,7 +9,10 @@ eval python3 add_graph_info_and_order_tool_to_csv.py merged.csv "${ADD_GRAPH_INF
 eval python3 add_graph_info_and_order_tool_to_csv.py merged.csv "${ADD_GRAPH_INFO_SCRIPT_COMMON_FLAGS}" -A -a >all-abbr.csv
 eval python3 add_graph_info_and_order_tool_to_csv.py merged.csv "${ADD_GRAPH_INFO_SCRIPT_COMMON_FLAGS}" -a >all-abbr-with-graph-info.csv
 
-mv ./all*.csv output -v
+cp ./all*.csv output -v
+
+[[ -f bench-results.db ]] && rm -v bench-results.db
+sqlite3 bench-results.db '.import all.csv bench-results --csv'
 
 REPO='tddschn/easygraph-bench'
 TAG='local'

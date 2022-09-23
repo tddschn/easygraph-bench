@@ -46,7 +46,8 @@ other_methods = ['density', 'constraint']
 
 new_methods = ['strongly_connected_components']
 
-drop_methods = ['minimum_spanning_tree']
+# drop_methods = ['minimum_spanning_tree']
+drop_methods = []
 
 
 load_functions_name = [

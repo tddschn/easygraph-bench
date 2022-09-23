@@ -37,6 +37,7 @@ Nesreen
 Networkx
 networkx
 networkx's
+openpyxl
 pokec
 powergrid
 pybind
@@ -50,6 +51,7 @@ tddschn
 timeit
 Tomark
 tomark
+tscp
 uspowergrid
 whitegrid
 Xinyuan
