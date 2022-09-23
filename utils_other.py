@@ -1,3 +1,4 @@
+from difflib import SequenceMatcher
 from pathlib import Path
 from itertools import count
 import json
@@ -32,6 +33,11 @@ def get_autorange_count(average_time: float) -> int:  # type: ignore
         if average_time * cnt >= 0.2:
             return cnt
 
-def strip_file_content(filename: Path) -> None:
+
+def strip_file_content(filename: Path, append: str = '\n') -> None:
     content = Path(filename).read_text()
-    Path(filename).write_text(content.strip())
+    Path(filename).write_text(content.strip() + append)
+
+
+def similar(a: str, b: str) -> float:
+    return SequenceMatcher(None, a, b).ratio()

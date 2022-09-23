@@ -2,11 +2,12 @@
 
 import json
 import os
-from itertools import count, islice
+from itertools import islice
+from functools import cache
 from pathlib import Path
 from textwrap import dedent
 from timeit import Timer
-from typing import Iterator, Literal
+from typing import Literal
 from collections.abc import Callable, Generator
 
 from hr_tddschn import hr
