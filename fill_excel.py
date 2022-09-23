@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
+"""
+Author : Xinyuan Chen <45612704+tddschn@users.noreply.github.com>
+Date   : 2022-09-23
+Purpose: Fill Min Gao's bench results template Excel file
+"""
 
-
+import argparse
+from pathlib import Path
+from pathlib import Path
+from config import tool_name_mapping
 import openpyxl
 from openpyxl.cell.cell import Cell, MergedCell
 from openpyxl.worksheet.worksheet import Worksheet
-from pathlib import Path
-from config import tool_name_mapping
 import sqlite3
-
 
 bench_results_sqlite_db_path = Path(__file__).parent / 'bench-results.db'
 template_workbook_path = (
@@ -20,6 +25,35 @@ tool_col = 'A'
 # cSpell:disable
 avg_time_cols = list('BCDEF')
 # cSpell:enable
+
+
+def get_args():
+    """Get command-line arguments"""
+
+    parser = argparse.ArgumentParser(
+        description='Fill Min Gao\'s bench results template Excel file',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+
+    parser.add_argument(
+        '-t',
+        '--template-file',
+        help='Template Excel file',
+        metavar='PATH',
+        type=str,
+        default=template_workbook_path,
+    )
+
+    parser.add_argument(
+        '-o',
+        '--output-file',
+        help='Output Excel file',
+        metavar='PATH',
+        type=str,
+        default=new_workbook_path,
+    )
+
+    return parser.parse_args()
 
 
 def get_dataset_name_to_row_number_mapping(worksheet: Worksheet) -> dict[str, int]:
@@ -49,7 +83,9 @@ def query_avg_time(
 
 
 def main() -> None:
-    workbook = openpyxl.load_workbook(template_workbook_path)
+    args = get_args()
+    workbook = openpyxl.load_workbook(args.template_file)
+    print(f'Loaded template file: {args.template_file}')
     worksheet = workbook.active
     dataset_name_to_row_number_mapping = get_dataset_name_to_row_number_mapping(
         worksheet=worksheet
@@ -67,7 +103,8 @@ def main() -> None:
                     tool_abbr = tool_name_mapping[tool]
                     method = worksheet[f'{cn}{str(row_number)}'].value
                     cell.value = query_avg_time(cursor, dataset_name, tool_abbr, method)
-    workbook.save(new_workbook_path)
+    workbook.save(args.output_file)
+    print(f'Saved new file: {args.output_file}')
 
 
 if __name__ == '__main__':

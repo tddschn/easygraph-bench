@@ -14,6 +14,9 @@ cp ./all*.csv output -v
 [[ -f bench-results.db ]] && rm -v bench-results.db
 sqlite3 bench-results.db '.import all.csv bench-results --csv'
 
+python3 ./fill_excel.py
+cp '/Users/tscp/Downloads/easygraph-benchmark-results.xlsx' output -v
+
 REPO='tddschn/easygraph-bench'
 TAG='local'
 DATE_STR="$(date +"%Y-%m-%dT%H:%M:%S:%z")"
