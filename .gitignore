@@ -2,6 +2,7 @@
 *.txt
 *.db
 output*
+out.*
 
 # outputs
 *.json
