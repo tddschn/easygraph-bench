@@ -6,9 +6,9 @@ Purpose: Fill Min Gao's bench results template Excel file
 """
 
 import argparse
+import json
 from pathlib import Path
-from pathlib import Path
-from config import tool_name_mapping
+from config import tool_name_mapping, dataset_homepage_mapping
 import openpyxl
 from openpyxl.cell.cell import Cell, MergedCell
 from openpyxl.worksheet.worksheet import Worksheet
@@ -93,6 +93,13 @@ def main() -> None:
     with sqlite3.connect(bench_results_sqlite_db_path) as conn:
         cursor = conn.cursor()
         for dataset_name, row_number in dataset_name_to_row_number_mapping.items():
+            if dataset_name in dataset_homepage_mapping:
+                # add hyperlinks to the dataset name cells
+                dataset_homepage = dataset_homepage_mapping[dataset_name]
+                cell = worksheet[f'{dataset_name_col}{str(row_number)}']
+                cell.hyperlink = dataset_homepage
+                cell.value = dataset_name
+                cell.style = 'Hyperlink'
             for rn in range(row_number + 1, row_number + 4):
                 for cn in avg_time_cols:
                     cell = worksheet[f'{cn}{str(rn)}']

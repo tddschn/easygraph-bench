@@ -7,6 +7,9 @@ from typing import Union
 
 DATASET_DIR = Path(__file__).parent / "dataset"
 graph_info_json_path = Path(__file__).parent / 'graph_info.json'
+graph_info_table_name = 'graph_info'
+bench_results_table_name = 'bench_results'
+bench_results_db_path = Path(__file__).parent / 'bench-results.db'
 # BENCH_CSV_DIR = Path('~/Downloads/bench-csv').expanduser()
 BENCH_CSV_DIR = Path(__file__).parent / 'output'
 eg_master_dir = Path('~/testdir/Easy-Graph-master').expanduser()
