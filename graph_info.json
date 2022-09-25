@@ -94,5 +94,37 @@
     "average_degree": 2.66909532483303,
     "density": 0.0005403026973346214,
     "type": "networkx.classes.graph.Graph"
+  },
+  "stub": {
+    "nodes": 5,
+    "edges": 10,
+    "is_directed": false,
+    "average_degree": 4.0,
+    "density": 1.0,
+    "type": "easygraph.classes.graph.Graph"
+  },
+  "stub_with_underscore": {
+    "nodes": 5,
+    "edges": 10,
+    "is_directed": false,
+    "average_degree": 4.0,
+    "density": 1.0,
+    "type": "easygraph.classes.graph.Graph"
+  },
+  "stub_directed": {
+    "nodes": 5,
+    "edges": 20,
+    "is_directed": true,
+    "average_degree": 8.0,
+    "density": 1.0,
+    "type": "easygraph.classes.directed_graph.DiGraph"
+  },
+  "stub_nx": {
+    "nodes": 5,
+    "edges": 10,
+    "is_directed": false,
+    "average_degree": 4.0,
+    "density": 1.0,
+    "type": "networkx.classes.graph.Graph"
   }
 }

@@ -8,6 +8,8 @@ Purpose: EasyGraph & NetworkX side-by-side benchmarking
 from hr_tddschn import hr
 from pathlib import Path
 from tempfile import mkstemp
+import sqlite3
+from utils_db import insert_bench_results
 
 from config import (
     eg_master_dir,
@@ -24,6 +26,8 @@ from config import (
     method_groups,
     dataset_names,
     BENCH_CSV_DIR,
+    tool_name_mapping_for_DTForTools,
+    bench_results_db_path,
 )
 from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, tabulate_csv
 from eg_bench_types import DTForTools
@@ -38,9 +42,9 @@ import networkx as nx
 from dataset_loaders import load_amazon
 
 load_func_name = 'load_amazon'
-if hasattr(load_amazon, 'load_func_for') and load_amazon.load_func_for == 'nx':
+if hasattr(load_amazon, 'load_func_for') and load_amazon.load_func_for == 'nx':  # type: ignore
     G_nx = load_amazon()
-    G_eg = nx2eg(G_nx)
+    G_eg = nx2eg(G_nx)  # type: ignore
 else:
     G_eg = load_amazon()
     G_nx = eg2nx(G_eg)
@@ -50,7 +54,6 @@ first_node_nx = get_first_node(G_nx)
 first_node_ceg = get_first_node(G_ceg)
 
 import argparse
-
 
 def get_args():
     """Get command-line arguments"""
@@ -107,6 +110,18 @@ def get_args():
 
     parser.add_argument(
         '--graph-type', type=str, choices=['directed', 'undirected', 'all'], help='Only run bench if graph is of specified graph type', default='all',
+    )
+
+    parser.add_argument(
+        '--db-path',
+        metavar='PATH',
+        type=Path,
+        help='Path to the sqlite3 database',
+        default=bench_results_db_path,
+    )
+
+    parser.add_argument(
+        '--no-update-db', action='store_true', help='Do not update the sqlite3 database with the new results.'
     )
 
     return parser.parse_args()
@@ -209,10 +224,11 @@ def main():
     from mergedeep import merge
     
     result = merge(*result_dicts)
-    print(f'{result_dicts=}')
-    print(f'{result=}')
+    # print(f'{result_dicts=}')
+    # print(f'{result=}')
 
-    csv_file = f'{load_func_name.removeprefix("load_")}.csv'
+    dataset_name = load_func_name.removeprefix("load_")
+    csv_file = f'{dataset_name}.csv'
     csv_file_path = args.output_dir / csv_file
     if args.no_save:
         _, csv_file_path_s = mkstemp(suffix='.csv')
@@ -227,6 +243,32 @@ def main():
         csv_file_path.unlink()
         print(f'Removed temporary csv file at {csv_file_path_s} .')
     
+    if args.no_update_db:
+        return
+
+    with sqlite3.connect(args.db_path) as conn:
+        print(f'Writing new results to database at {args.db_path} .')
+        for i, (dataset_name, data) in enumerate(result.items()):
+            dt_for_tools = bench_timestamps[i]
+            # result is like
+            # {'stub': {'average_clustering': {'easygraph': 0.00047430999984499067,
+            #                                  'eg w/ C++ binding': 7.46910081943497e-05,
+            #                                  'networkx': 0.00028450800164137036},
+            #           'clustering': {'easygraph': 0.00010412100527901202,
+            #                          'eg w/ C++ binding': 4.4621992856264114e-05,
+            #                          'networkx': 0.00013218499952927232}}}
+            for method, tool_time_mapping in data.items():
+                for tool, avg_time in tool_time_mapping.items():
+                    insert_bench_results(
+                        conn,
+                        dataset=dataset_name,
+                        method=method,
+                        tool=tool,
+                        average_time=avg_time,
+                        timestamp=getattr(dt_for_tools, tool_name_mapping_for_DTForTools[tool]),
+                    )
+    print(f'Finished writing new results to database at {args.db_path} .')
+
 
 
 

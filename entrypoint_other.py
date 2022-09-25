@@ -14,8 +14,9 @@ I don't know how to do that while sticking to the DRY principle.
 But if you know, please tell me. :)
 """
 
+from pathlib import Path
 from sys import argv
-from config import method_groups, bench_scripts_other
+from config import method_groups, bench_scripts_other, bench_results_db_path
 from utils_other import is_dataset_directed
 from utils import test_if_graph_type_supported_by_nx
 
@@ -78,6 +79,18 @@ def get_args():
 
     parser.add_argument(
         '--graph-type', type=str, choices=['directed', 'undirected', 'all'], help='Only run bench if graph is of specified graph type', default='all',
+    )
+
+    parser.add_argument(
+        '--db-path',
+        metavar='PATH',
+        type=Path,
+        help='Path to the sqlite3 database',
+        default=bench_results_db_path,
+    )
+
+    parser.add_argument(
+        '--no-update-db', action='store_true', help='Do not update the sqlite3 database with the new results.'
     )
 
     return parser.parse_args()

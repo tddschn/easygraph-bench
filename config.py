@@ -128,6 +128,12 @@ tool_name_mapping = {
     'easygraph': 'eg',
 }
 
+tool_name_mapping_for_DTForTools = {
+    'networkx': 'nx',
+    'eg w/ C++ binding': 'ceg',
+    'easygraph': 'eg',
+}
+
 dataset_name_mapping = {
     'cheminformatics': 'chem',
     'pgp_undirected': 'pgp (u)',
@@ -150,6 +156,12 @@ dataset_homepage_mapping = {
     'coauthorship': 'https://github.com/chenyang03/co-authorship-network',
     'road': 'https://networkrepository.com/road-usa.php',
     'uspowergrid': 'https://toreopsahl.com/datasets/#uspowergrid',
+    **{
+        bench_script_name.removeprefix('bench_').removesuffix(
+            '.py'
+        ): 'https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py'
+        for bench_script_name in bench_scripts_stub
+    },
 }
 
 

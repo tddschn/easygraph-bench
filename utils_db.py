@@ -64,7 +64,10 @@ def insert_bench_results(
     conn.set_trace_callback(print)
     c = conn.cursor()
     if iteration_count is None:
-        iteration_count = get_autorange_count(average_time)
+        try:
+            iteration_count = get_autorange_count(average_time)
+        except ValueError:
+            iteration_count = 0
     c.execute(
         f'INSERT INTO {bench_results_table_name} (dataset, method, tool, average_time, iteration_count, timestamp) VALUES (?, ?, ?, ?, ?, ?)',
         (dataset, method, tool, average_time, iteration_count, timestamp),

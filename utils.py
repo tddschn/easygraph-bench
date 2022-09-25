@@ -94,7 +94,7 @@ def list_allfile(path, suffix, all_files=[], all_suffix_files=[]):
 
 
 def output(data, path):
-    """dump data as json to path"""
+    """Deprecated. dump data as json to path"""
     import json
 
     try:
@@ -462,10 +462,10 @@ def eval_method(
             dt_ceg = datetime.now()
             cost_dict[load_func_name][method_name]["eg w/ C++ binding"] = avg_time_ceg
 
-        output(
-            cost_dict,
-            load_func_name + '_' + method_name + "_cost.json",
-        )
+        # output(
+        #     cost_dict,
+        #     load_func_name + '_' + method_name + "_cost.json",
+        # )
         if not skip_draw:
             draw(
                 load_func_name + '_' + method_name,
@@ -533,10 +533,10 @@ def eval_method(
                 "eg w/ C++ binding"
             ] = avg_time_ceg
 
-        output(
-            cost_dict,
-            load_func_name + '_' + method_name_eg + "_cost.json",
-        )
+        # output(
+        #     cost_dict,
+        #     load_func_name + '_' + method_name_eg + "_cost.json",
+        # )
         if not skip_draw:
             draw(
                 load_func_name + '_' + method_name_eg,
