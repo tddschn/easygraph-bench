@@ -70,7 +70,7 @@ def query_average_time(
     cursor: sqlite3.Cursor, database_name: str, tool_abbr: str, method: str
 ) -> float:
     query = f"""
-    SELECT "average_time" FROM "{bench_results_table_name}" WHERE "dataset" = :dataset AND "tool" = :tool_abbr and "method" = :method ORDER BY "id" DESC LIMIT 1
+    SELECT "average_time" FROM "{bench_results_table_name}" WHERE "dataset" = :dataset AND "tool" = :tool_abbr and "method" = :method ORDER BY "iteration_count", "id" DESC LIMIT 1
     """
     cursor.execute(
         query, {'dataset': database_name, 'tool_abbr': tool_abbr, 'method': method}
