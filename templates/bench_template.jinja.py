@@ -51,7 +51,6 @@ first_node_ceg = get_first_node(G_ceg)
 
 import argparse
 
-
 def get_args():
     """Get command-line arguments"""
 
@@ -209,7 +208,8 @@ def main():
     from mergedeep import merge
     {# from tabulate import tabulate #}
     result = merge(*result_dicts)
-    print(f'{result=}')
+    # print(f'{result_dicts=}')
+    # print(f'{result=}')
 
     csv_file = f'{load_func_name.removeprefix("load_")}.csv'
     csv_file_path = args.output_dir / csv_file

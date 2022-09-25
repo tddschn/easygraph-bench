@@ -209,6 +209,7 @@ def main():
     from mergedeep import merge
     
     result = merge(*result_dicts)
+    print(f'{result_dicts=}')
     print(f'{result=}')
 
     csv_file = f'{load_func_name.removeprefix("load_")}.csv'

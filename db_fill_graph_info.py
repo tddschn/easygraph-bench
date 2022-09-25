@@ -2,21 +2,21 @@
 """
 Author : Xinyuan Chen <45612704+tddschn@users.noreply.github.com>
 Date   : 2022-09-25
-Purpose: Create sqlite3 db and tables
+Purpose: Fill graph info to the sqlite3 db
 """
 
 import argparse
 from pathlib import Path
-import sqlite3
-from utils_db import init_db
-from config import bench_results_db_path
+from utils_db import insert_graph_info
+from config import bench_results_db_path, graph_info_json_path
+import sqlite3, json
 
 
 def get_args():
     """Get command-line arguments"""
 
     parser = argparse.ArgumentParser(
-        description='Create sqlite3 db and tables',
+        description='Fill graph info to the sqlite3 db',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
@@ -28,22 +28,17 @@ def get_args():
         default=bench_results_db_path,
     )
 
-    parser.add_argument(
-        '-f',
-        '--force',
-        help='Force overwrite existing db',
-        action='store_true',
-    )
-
     return parser.parse_args()
 
 
-def main() -> None:
+def main():
+    """Make a jazz noise here"""
+
     args = get_args()
-    if args.force:
-        args.db_path.unlink(missing_ok=True)
-    with sqlite3.connect(args.db_path) as conn:
-        init_db(conn)
+    db_path = args.db_path
+    with sqlite3.connect(db_path) as conn:
+        gi_d = json.loads(graph_info_json_path.read_text())
+        insert_graph_info(conn, gi_d)
 
 
 if __name__ == '__main__':
