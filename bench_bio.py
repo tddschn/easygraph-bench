@@ -266,6 +266,7 @@ def main():
                         tool=tool,
                         average_time=avg_time,
                         timestamp=getattr(dt_for_tools, tool_name_mapping_for_DTForTools[tool]),
+                        iteration_count=getattr(args, 'pass', None),
                     )
     print(f'Finished writing new results to database at {args.db_path} .')
 
