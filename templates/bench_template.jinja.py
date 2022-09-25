@@ -7,6 +7,7 @@ Purpose: EasyGraph & NetworkX side-by-side benchmarking
 
 from hr_tddschn import hr
 from pathlib import Path
+from tempfile import mkstemp
 
 from config import (
     eg_master_dir,
@@ -25,6 +26,7 @@ from config import (
     BENCH_CSV_DIR,
 )
 from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, tabulate_csv
+from eg_bench_types import DTForTools
 
 # if eg_master_dir.exists():
 #     import sys
@@ -100,6 +102,10 @@ def get_args():
     )
 
     parser.add_argument(
+        '-S', '--no-save', action='store_true', help='Do not save results to csv files or the database.'
+    )
+
+    parser.add_argument(
         '--graph-type', type=str, choices=['directed', 'undirected', 'all'], help='Only run bench if graph is of specified graph type', default='all',
     )
 
@@ -117,6 +123,7 @@ def main():
     flags |= {'timeit_number': getattr(args, 'pass', None)}
     # flags |= {'timeout': args.timeout if args.timeout > 0 else None}
     result_dicts: list[dict] = []
+    bench_timestamps: list[DTForTools] = []
     first_node_args = {
         'call_method_args_eg': ['first_node_eg'],
         'call_method_args_nx': ['first_node_nx'],
@@ -125,87 +132,100 @@ def main():
     if method_groups is None or 'clustering' in method_groups:
         # bench: clustering
         for method_name in clustering_methods:
-            _ = eval_method(
+            _, __ = eval_method(
                 load_func_name,
                 method_name,
                 **flags,
             )
             result_dicts.append(_)
+            bench_timestamps.append(__)
 
     if method_groups is None or 'shortest-path' in method_groups:
         # bench: shortest path
         # bench_shortest_path(cost_dict, g, load_func_name)
-        _ = eval_method(
+        _, __ = eval_method(
             load_func_name,
             ('Dijkstra', 'single_source_dijkstra_path'),
             **first_node_args,
             **flags,
         )
         result_dicts.append(_)
+        bench_timestamps.append(__)
     if method_groups is None or 'connected-components' in method_groups:
         # bench: connected components
         for method_name in connected_components_methods_G:
-            _ = eval_method(
+            _, __ = eval_method(
                 load_func_name,
                 method_name,
                 **flags,
             )
             result_dicts.append(_)
+            bench_timestamps.append(__)
         for method_name in connected_components_methods_G_node:
-            _ = eval_method(
+            _, __ = eval_method(
                 load_func_name,
                 method_name,
                 **first_node_args,
                 **flags,
             )
             result_dicts.append(_)
+            bench_timestamps.append(__)
     if method_groups is None or 'mst' in method_groups:
         # bench: mst
         for method_name in mst_methods:
-            _ = eval_method(
+            _, __ = eval_method(
                 load_func_name,
                 method_name,
                 **flags,
             )
             result_dicts.append(_)
+            bench_timestamps.append(__)
 
     if method_groups is None or 'other' in method_groups:
         # bench: other
         for method_name in other_methods:
-            _ = eval_method(
+            _, __ = eval_method(
                 load_func_name,
                 method_name,
                 **flags,
             )
             result_dicts.append(_)
+            bench_timestamps.append(__)
+
 
     if method_groups is None or 'new' in method_groups:
         # bench: other
         for method_name in new_methods:
-            _ = eval_method(
+            _, __ = eval_method(
                 load_func_name,
                 method_name,
                 **flags,
             )
             result_dicts.append(_)
+            bench_timestamps.append(__)
+
 
     print()
     from mergedeep import merge
     {# from tabulate import tabulate #}
     result = merge(*result_dicts)
-    {# print(f'{result=}') #}
+    print(f'{result=}')
 
     csv_file = f'{load_func_name.removeprefix("load_")}.csv'
     csv_file_path = args.output_dir / csv_file
+    if args.no_save:
+        _, csv_file_path_s = mkstemp(suffix='.csv')
+        csv_file_path = Path(csv_file_path_s)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     csv_file_path_s = str(csv_file_path)
     json2csv(result, csv_file_path_s, append=args.append_results)
     print(f'Result saved to {csv_file_path_s} .')
-    {# print(tabulate) #}
     # print csv_file with tabulate
-    {# print(tabulate(result[load_func_name.removeprefix("load_")], headers='keys')) #}
-    {# print(result) #}
     print(tabulate_csv(csv_file_path_s))
+    if args.no_save:
+        csv_file_path.unlink()
+        print(f'Removed temporary csv file at {csv_file_path_s} .')
+    
 
 
 

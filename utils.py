@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from datetime import datetime
 import json
 import os
 from itertools import islice
@@ -22,6 +23,7 @@ from networkx import NetworkXNotImplemented
 from config import (
     slow_methods,
 )
+from eg_bench_types import DTForTools, MethodName
 from utils_other import strip_file_content
 
 # from .types import MethodName
@@ -386,7 +388,7 @@ def eval_method(
     # nx_graph,
     # ceg_graph,
     load_func_name: str,
-    method_name: str | tuple[str, str],
+    method_name: MethodName,
     call_method_args_eg: list[str] = [],
     call_method_args_ceg: list[str] = [],
     call_method_args_nx: list[str] = [],
@@ -398,13 +400,14 @@ def eval_method(
     skip_draw: bool = False,
     timeit_number: int | None = None,
     # timeout: Optional[Union[float, int]] = None,
-) -> dict:
+) -> tuple[dict, DTForTools]:
     # raise DeprecationWarning('Deprecated. Use ./bench_*.py instead')
 
     load_func_name = load_func_name.removeprefix('load_')
     too_large_to_run_constraint = is_too_large_to_run_constraint(load_func_name)
     cost_dict = {}
     print(f'::group::eval_method - dataset: {load_func_name}, method: {method_name}')
+    dt_nx, dt_eg, dt_ceg = [datetime.now()] * 3
     if isinstance(method_name, str):
         print_with_hr(
             f'benchmarking eg.{method_name} and nx.{method_name} on {load_func_name}',
@@ -412,7 +415,7 @@ def eval_method(
         )
 
         if dry_run:
-            return cost_dict
+            return cost_dict, DTForTools(dt_eg, dt_nx, dt_ceg)
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name] = dict()
 
@@ -429,6 +432,7 @@ def eval_method(
                 kwargs=call_method_kwargs_eg,
                 timeit_number=timeit_number,
             )
+            dt_eg = datetime.now()
             # print('networkx')
             avg_time_nx = bench_with_timeit(
                 module='nx',
@@ -438,6 +442,7 @@ def eval_method(
                 kwargs=call_method_kwargs_nx,
                 timeit_number=timeit_number,
             )
+            dt_nx = datetime.now()
         cost_dict[load_func_name][method_name]["networkx"] = avg_time_nx
         cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
 
@@ -454,6 +459,7 @@ def eval_method(
                 )
             else:
                 avg_time_ceg = -10.0
+            dt_ceg = datetime.now()
             cost_dict[load_func_name][method_name]["eg w/ C++ binding"] = avg_time_ceg
 
         output(
@@ -468,7 +474,7 @@ def eval_method(
                 cost_dict,
             )
         print(f'::endgroup::')
-        return cost_dict
+        return cost_dict, DTForTools(dt_eg, dt_nx, dt_ceg)
     elif isinstance(method_name, tuple):
         method_name_eg, method_name_nx = method_name
         # print('benchmarking method: ' + method_name_eg)
@@ -477,7 +483,7 @@ def eval_method(
             hr_char='=',
         )
         if dry_run:
-            return cost_dict
+            return cost_dict, DTForTools(dt_eg, dt_nx, dt_ceg)
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name_eg] = dict()
 
@@ -493,6 +499,7 @@ def eval_method(
                 kwargs=call_method_kwargs_eg,
                 timeit_number=timeit_number,
             )
+            dt_eg = datetime.now()
             # print('networkx')
             avg_time_nx = bench_with_timeit(
                 module='nx',
@@ -502,6 +509,7 @@ def eval_method(
                 kwargs=call_method_kwargs_nx,
                 timeit_number=timeit_number,
             )
+            dt_nx = datetime.now()
         cost_dict[load_func_name][method_name_eg]["networkx"] = avg_time_nx
         cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
 
@@ -520,6 +528,7 @@ def eval_method(
                 )
             else:
                 avg_time_ceg = -10.0
+            dt_ceg = datetime.now()
             cost_dict[load_func_name][method_name_eg][
                 "eg w/ C++ binding"
             ] = avg_time_ceg
@@ -537,7 +546,7 @@ def eval_method(
                 methods=method_name,
             )
         print(f'::endgroup::')
-        return cost_dict
+        return cost_dict, DTForTools(dt_eg, dt_nx, dt_ceg)
     else:
         raise ValueError('method_name or method_names must be specified')
 
