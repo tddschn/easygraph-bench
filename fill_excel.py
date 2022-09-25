@@ -6,9 +6,8 @@ Purpose: Fill Min Gao's bench results template Excel file
 """
 
 import argparse
-import json
 from pathlib import Path
-from config import tool_name_mapping, dataset_homepage_mapping
+from config import tool_name_mapping, dataset_homepage_mapping, bench_results_table_name
 import openpyxl
 from openpyxl.cell.cell import Cell, MergedCell
 from openpyxl.worksheet.worksheet import Worksheet
@@ -67,11 +66,11 @@ def get_dataset_name_to_row_number_mapping(worksheet: Worksheet) -> dict[str, in
     return dataset_name_to_row_number_mapping
 
 
-def query_avg_time(
+def query_average_time(
     cursor: sqlite3.Cursor, database_name: str, tool_abbr: str, method: str
 ) -> float:
-    query = """
-    select "avg time" from "bench-results" where "dataset" = :dataset and "tool" = :tool_abbr and "method" = :method
+    query = f"""
+    SELECT "average_time" FROM "{bench_results_table_name}" WHERE "dataset" = :dataset AND "tool" = :tool_abbr and "method" = :method ORDER BY "id" DESC LIMIT 1
     """
     cursor.execute(
         query, {'dataset': database_name, 'tool_abbr': tool_abbr, 'method': method}
@@ -79,6 +78,10 @@ def query_avg_time(
     try:
         return float(cursor.fetchone()[0])
     except:
+        print(
+            f'No result for {database_name}, {tool_abbr}, {method}, filled with -100.0 .'
+        )
+        # raise
         return -100.0
 
 
@@ -109,7 +112,9 @@ def main() -> None:
                     tool = worksheet[f'{tool_col}{str(rn)}'].value
                     tool_abbr = tool_name_mapping[tool]
                     method = worksheet[f'{cn}{str(row_number)}'].value
-                    cell.value = query_avg_time(cursor, dataset_name, tool_abbr, method)
+                    cell.value = query_average_time(
+                        cursor, dataset_name, tool_abbr, method
+                    )
     workbook.save(args.output_file)
     print(f'Saved new file: {args.output_file}')
 

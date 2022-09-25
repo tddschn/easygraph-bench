@@ -11,8 +11,8 @@ eval python3 add_graph_info_and_order_tool_to_csv.py merged.csv "${ADD_GRAPH_INF
 
 cp ./all*.csv output -v
 
-[[ -f bench-results.db ]] && rm -v bench-results.db
-sqlite3 bench-results.db '.import all.csv bench-results --csv'
+# [[ -f bench-results.db ]] && rm -v bench-results.db
+# sqlite3 bench-results.db '.import all.csv bench-results --csv'
 
 python3 ./fill_excel.py
 cp '/Users/tscp/Downloads/easygraph-benchmark-results.xlsx' output -v
