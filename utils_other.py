@@ -3,8 +3,10 @@ from pathlib import Path
 from itertools import count
 import json
 from functools import cache
-from typing import Iterator
+from typing import Any, Callable, Iterable, Iterator, TypeVar
 from config import graph_info_json_path
+
+T = TypeVar('T')
 
 
 @cache
@@ -41,3 +43,20 @@ def strip_file_content(filename: Path, append: str = '\n') -> None:
 
 def similar(a: str, b: str) -> float:
     return SequenceMatcher(None, a, b).ratio()
+
+
+def f7(
+    seq: Iterable[T], key: Callable[[T], Any] | None, keep_last: bool = False
+) -> Iterable[T]:
+    # https://stackoverflow.com/questions/480214/how-do-i-remove-duplicates-from-a-list-while-preserving-order
+    seen = set()
+    seen_add = seen.add
+    if keep_last:
+        seq = reversed(seq)  # type: ignore
+    if key is None:
+        result = iter(x for x in seq if not (x in seen or seen_add(x)))
+    else:
+        result = iter(x for x in seq if not (key(x) in seen or seen_add(key(x))))
+    if keep_last:
+        return reversed(list(result))
+    return result

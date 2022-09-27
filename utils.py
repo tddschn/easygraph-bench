@@ -24,7 +24,7 @@ from config import (
     slow_methods,
 )
 from eg_bench_types import DTForTools, MethodName
-from utils_other import strip_file_content
+from utils_other import strip_file_content, f7
 
 # from .types import MethodName
 

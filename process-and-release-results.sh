@@ -3,6 +3,7 @@
 ADD_GRAPH_INFO_SCRIPT_COMMON_FLAGS="--autorange-iteration-count"
 
 find output -name 'all*.csv' -delete
+python3 ./uniqify_csv_entries.py -c output
 python3 ./merge_bench_csv.py --remove-records-with-negative-avg-time -c output >merged.csv
 eval python3 add_graph_info_and_order_tool_to_csv.py merged.csv "${ADD_GRAPH_INFO_SCRIPT_COMMON_FLAGS}" -A >all.csv
 eval python3 add_graph_info_and_order_tool_to_csv.py merged.csv "${ADD_GRAPH_INFO_SCRIPT_COMMON_FLAGS}" >all-with-graph-info.csv
