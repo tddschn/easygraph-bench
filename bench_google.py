@@ -28,6 +28,7 @@ from config import (
     BENCH_CSV_DIR,
     tool_name_mapping_for_DTForTools,
     bench_results_db_path,
+    tool_name_mapping,
 )
 from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, tabulate_csv
 from eg_bench_types import DTForTools
@@ -263,7 +264,7 @@ def main():
                         conn,
                         dataset=dataset_name,
                         method=method,
-                        tool=tool,
+                        tool=tool_name_mapping[tool],
                         average_time=avg_time,
                         timestamp=getattr(dt_for_tools, tool_name_mapping_for_DTForTools[tool]),
                         iteration_count=getattr(args, 'pass', None),

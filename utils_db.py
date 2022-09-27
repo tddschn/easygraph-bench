@@ -6,6 +6,7 @@ from config import (
     graph_info_table_name,
     graph_info_json_path,
     dataset_homepage_mapping,
+    graph_property_to_excel_field_mapping,
 )
 from utils_other import get_autorange_count
 import json
@@ -32,6 +33,16 @@ def get_graph_info_field_types() -> dict[str, str]:
         property_name: python_type_to_sqlite_type[property_type]
         for property_name, property_type in graph_property_types.items()
     }
+
+
+def get_graph_property_to_excel_field_mapping() -> dict[str, str]:
+    d = {}
+    for property in get_graph_info_field_types():
+        if property not in graph_property_to_excel_field_mapping:
+            d[property] = property.replace('_', ' ')
+        else:
+            d[property] = graph_property_to_excel_field_mapping[property]
+    return d
 
 
 def get_bench_results_field_types() -> dict[str, str]:
