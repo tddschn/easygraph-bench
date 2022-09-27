@@ -23,7 +23,7 @@ from networkx import NetworkXNotImplemented
 from config import (
     slow_methods,
 )
-from eg_bench_types import DTForTools, MethodName
+from eg_bench_types import DTForTools, MethodName, GraphType
 from utils_other import strip_file_content, f7
 
 # from .types import MethodName
@@ -622,9 +622,11 @@ def tabulate_csv(csv_file: str) -> str:
     return tabulate(table, headers='firstrow')
 
 
-def load_large_datasets_with_read_edgelist(file_path: str) -> nx.DiGraph:
+def load_large_datasets_with_read_edgelist(
+    file_path: str, create_using: GraphType = nx.DiGraph()
+) -> GraphType:
     g = nx.read_edgelist(
-        file_path, delimiter="\t", nodetype=int, create_using=nx.DiGraph()
+        file_path, delimiter="\t", nodetype=int, create_using=create_using
     )
     return g
 

@@ -3,7 +3,7 @@
 # from typing import Union
 # MethodName = 'Union[str, tuple[str, str]]'
 
-from typing import NamedTuple
+from typing import NamedTuple, TypeVar
 from datetime import datetime
 
 
@@ -13,3 +13,5 @@ MethodName = str | tuple[str, str]
 DTForTools = NamedTuple(
     'DTForTools', [('eg', datetime), ('nx', datetime), ('ceg', datetime)]
 )
+
+GraphType = TypeVar('GraphType')

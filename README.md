@@ -130,15 +130,20 @@ See [dataset_loaders.py](./dataset_loaders.py) and [dataset](./dataset/) for det
 
 
 
+
 <!-- BEGIN DATASET TABLE -->
 
 | Dataset Name | nodes | edges | is_directed | average_degree | density | type |
 |-----|-----|-----|-----|-----|-----|-----|
+| [stub](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py) | 5 | 10 | False | 4.0 | 1.0 | easygraph.classes.graph.Graph |
+| [stub_with_underscore](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py) | 5 | 10 | False | 4.0 | 1.0 | easygraph.classes.graph.Graph |
+| [stub_directed](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py) | 5 | 20 | True | 8.0 | 1.0 | easygraph.classes.directed_graph.DiGraph |
+| [stub_nx](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py) | 5 | 10 | False | 4.0 | 1.0 | networkx.classes.graph.Graph |
 | [cheminformatics](https://networkrepository.com/ENZYMES-g1.php) | 37 | 168 | True | 9.08108108108108 | 0.12612612612612611 | easygraph.classes.directed_graph.DiGraph |
 | [eco](https://networkrepository.com/econ-mahindas.php) | 1258 | 7619 | False | 12.112877583465819 | 0.009636338570776308 | networkx.classes.graph.Graph |
 | [bio](https://networkrepository.com/bio-yeast.php) | 1458 | 1948 | False | 2.672153635116598 | 0.0018340107310340413 | easygraph.classes.graph.Graph |
 | [uspowergrid](https://toreopsahl.com/datasets/#uspowergrid) | 4941 | 6594 | False | 2.66909532483303 | 0.0005403026973346214 | networkx.classes.graph.Graph |
-| [enron](https://snap.stanford.edu/data/email-Enron.html) | 36692 | 367662 | True | 20.040444783604055 | 0.00027309755503535 | networkx.classes.digraph.DiGraph |
+| [enron](https://snap.stanford.edu/data/email-Enron.html) | 36692 | 183831 | False | 10.020222391802028 | 0.00027309755503535 | networkx.classes.graph.Graph |
 | [pgp](https://github.com/tddschn/easygraph-bench/blob/master/dataset/pgp/pgp.xml) | 39796 | 301498 | True | 15.15217609810031 | 0.00019037788790175037 | networkx.classes.digraph.DiGraph |
 | [pgp_undirected](https://github.com/tddschn/easygraph-bench/blob/master/dataset/pgp/pgp_undirected.xml) | 39796 | 197150 | False | 9.908030957885215 | 0.00024897677994434515 | networkx.classes.graph.Graph |
 | [road](https://networkrepository.com/road-usa.php) | 129164 | 165435 | False | 2.5616270787525934 | 1.9832514564949666e-05 | easygraph.classes.graph.Graph |
@@ -149,7 +154,6 @@ See [dataset_loaders.py](./dataset_loaders.py) and [dataset](./dataset/) for det
 
 
 <!-- END DATASET TABLE -->
-Yeah, I know this is not DRY. But for the `timeit`-based benchmarking code to work,
 `eg`, `nx` and the graph objects must be in the global scope, i.e. `__main__`. 
 
 I don't know how to do that while sticking to the DRY principle. 

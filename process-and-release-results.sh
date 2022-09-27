@@ -21,7 +21,7 @@ cp '/Users/tscp/Downloads/easygraph-benchmark-results.xlsx' output -v
 REPO='tddschn/easygraph-bench'
 TAG='local'
 DATE_STR="$(date +"%Y-%m-%dT%H:%M:%S:%z")"
-CSV_ZIP_FILENAME="bench-results-csv-${DATE_STR}.zip"
+CSV_ZIP_FILENAME="$(echo "bench-results-csv-${DATE_STR}.zip" | tr ':' '-')"
 
 zip -r "${CSV_ZIP_FILENAME}" output
 
@@ -36,3 +36,13 @@ set -e
 gh release -R "${REPO}" upload "${TAG}" "${CSV_ZIP_FILENAME}"
 
 echo "https://github.com/tddschn/easygraph-bench/releases/tag/${TAG}"
+
+# file-to-clipboard() {
+#     osascript \
+#         -e 'on run args' \
+#         -e 'set the clipboard to POSIX file (first item of args)' \
+#         -e end \
+#         "$@"
+# }
+
+echo "https://github.com/tddschn/easygraph-bench/releases/download/${TAG}/${CSV_ZIP_FILENAME}" | tee /dev/tty | pbcopy

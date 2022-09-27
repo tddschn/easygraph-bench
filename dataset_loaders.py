@@ -208,9 +208,8 @@ def load_pgp_undirected() -> nx.Graph:
 # really large datasets
 # --------------------
 @cache
-@directed_dataset
 @load_func_for_nx
-def load_enron() -> nx.DiGraph:
+def load_enron() -> nx.Graph:
     """
     https://snap.stanford.edu/data/email-Enron.html
     """
@@ -219,7 +218,7 @@ def load_enron() -> nx.DiGraph:
     if not p.exists():
         error_msg = f'enron.txt not found. Download from http://snap.stanford.edu/data/email-Enron.txt.gz .'
         raise FileNotFoundError(error_msg)
-    g = load_large_datasets_with_read_edgelist(str(p))
+    g = load_large_datasets_with_read_edgelist(str(p), create_using=nx.Graph())
     print_with_hr(
         f'finish loading graph enron.\nnodes: {len(g.nodes)}, edges: {len(g.edges)}, is_directed: {g.is_directed()}'
     )
