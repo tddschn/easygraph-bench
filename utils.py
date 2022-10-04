@@ -396,7 +396,9 @@ def eval_method(
     call_method_kwargs_ceg: dict[str, str] = {},
     call_method_kwargs_nx: dict[str, str] = {},
     dry_run: bool = False,
+    skip_eg: bool = False,
     skip_ceg: bool = False,
+    skip_networkx: bool = False,
     skip_draw: bool = False,
     timeit_number: int | None = None,
     # timeout: Optional[Union[float, int]] = None,
@@ -419,35 +421,66 @@ def eval_method(
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name] = dict()
 
-        if method_name in slow_methods and too_large_to_run_constraint:
-            avg_time_eg, avg_time_ceg, avg_time_nx = [-10.0] * 3
-        else:
+        do_run = (not method_name in slow_methods) or (not too_large_to_run_constraint)
+        # if method_name in slow_methods and too_large_to_run_constraint:
+        #     avg_time_eg, avg_time_ceg, avg_time_nx = [-10.0] * 3
+        # else:
 
-            # print('easygraph')
-            avg_time_eg = bench_with_timeit(
-                module='eg',
-                method=method_name,
-                graph='G_eg',
-                args=call_method_args_eg,
-                kwargs=call_method_kwargs_eg,
-                timeit_number=timeit_number,
-            )
+        #     # print('easygraph')
+        #     avg_time_eg = bench_with_timeit(
+        #         module='eg',
+        #         method=method_name,
+        #         graph='G_eg',
+        #         args=call_method_args_eg,
+        #         kwargs=call_method_kwargs_eg,
+        #         timeit_number=timeit_number,
+        #     )
+        #     dt_eg = datetime.now()
+        #     # print('networkx')
+        #     avg_time_nx = bench_with_timeit(
+        #         module='nx',
+        #         method=method_name,
+        #         graph='G_nx',
+        #         args=call_method_args_nx,
+        #         kwargs=call_method_kwargs_nx,
+        #         timeit_number=timeit_number,
+        #     )
+        #     dt_nx = datetime.now()
+        # cost_dict[load_func_name][method_name]["networkx"] = avg_time_nx
+        # cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
+
+        if not skip_eg:
+            if do_run:
+                avg_time_eg = bench_with_timeit(
+                    module='eg',
+                    method=method_name,
+                    graph='G_eg',
+                    args=call_method_args_eg,
+                    kwargs=call_method_kwargs_eg,
+                    timeit_number=timeit_number,
+                )
+            else:
+                avg_time_eg = -10.0
             dt_eg = datetime.now()
-            # print('networkx')
-            avg_time_nx = bench_with_timeit(
-                module='nx',
-                method=method_name,
-                graph='G_nx',
-                args=call_method_args_nx,
-                kwargs=call_method_kwargs_nx,
-                timeit_number=timeit_number,
-            )
+            cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
+
+        if not skip_networkx:
+            if do_run:
+                avg_time_nx = bench_with_timeit(
+                    module='nx',
+                    method=method_name,
+                    graph='G_nx',
+                    args=call_method_args_nx,
+                    kwargs=call_method_kwargs_nx,
+                    timeit_number=timeit_number,
+                )
+            else:
+                avg_time_nx = -10.0
             dt_nx = datetime.now()
-        cost_dict[load_func_name][method_name]["networkx"] = avg_time_nx
-        cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
+            cost_dict[load_func_name][method_name]["networkx"] = avg_time_nx
 
         if not skip_ceg:
-            if (not method_name in slow_methods) or (not too_large_to_run_constraint):
+            if do_run:
                 # print('easygraph with C++ binding')
                 avg_time_ceg = bench_with_timeit(
                     module='eg',
@@ -487,36 +520,68 @@ def eval_method(
         cost_dict[load_func_name] = dict()
         cost_dict[load_func_name][method_name_eg] = dict()
 
-        if method_name_eg in slow_methods and too_large_to_run_constraint:
-            avg_time_eg, avg_time_ceg, avg_time_nx = [-10.0] * 3
-        else:
-            # print('easygraph')
-            avg_time_eg = bench_with_timeit(
-                module='eg',
-                method=method_name_eg,
-                graph='G_eg',
-                args=call_method_args_eg,
-                kwargs=call_method_kwargs_eg,
-                timeit_number=timeit_number,
-            )
+        do_run = (not method_name_eg in slow_methods) or (
+            not too_large_to_run_constraint
+        )
+
+        # if method_name_eg in slow_methods and too_large_to_run_constraint:
+        #     avg_time_eg, avg_time_ceg, avg_time_nx = [-10.0] * 3
+        # else:
+        #     # print('easygraph')
+        #     avg_time_eg = bench_with_timeit(
+        #         module='eg',
+        #         method=method_name_eg,
+        #         graph='G_eg',
+        #         args=call_method_args_eg,
+        #         kwargs=call_method_kwargs_eg,
+        #         timeit_number=timeit_number,
+        #     )
+        #     dt_eg = datetime.now()
+        #     # print('networkx')
+        #     avg_time_nx = bench_with_timeit(
+        #         module='nx',
+        #         method=method_name_nx,
+        #         graph='G_nx',
+        #         args=call_method_args_nx,
+        #         kwargs=call_method_kwargs_nx,
+        #         timeit_number=timeit_number,
+        #     )
+        #     dt_nx = datetime.now()
+        # cost_dict[load_func_name][method_name_eg]["networkx"] = avg_time_nx
+        # cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
+
+        if not skip_eg:
+            if do_run:
+                avg_time_eg = bench_with_timeit(
+                    module='eg',
+                    method=method_name_eg,
+                    graph='G_eg',
+                    args=call_method_args_eg,
+                    kwargs=call_method_kwargs_eg,
+                    timeit_number=timeit_number,
+                )
+            else:
+                avg_time_eg = -10.0
             dt_eg = datetime.now()
-            # print('networkx')
-            avg_time_nx = bench_with_timeit(
-                module='nx',
-                method=method_name_nx,
-                graph='G_nx',
-                args=call_method_args_nx,
-                kwargs=call_method_kwargs_nx,
-                timeit_number=timeit_number,
-            )
+            cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
+
+        if not skip_networkx:
+            if do_run:
+                avg_time_nx = bench_with_timeit(
+                    module='nx',
+                    method=method_name_nx,
+                    graph='G_nx',
+                    args=call_method_args_nx,
+                    kwargs=call_method_kwargs_nx,
+                    timeit_number=timeit_number,
+                )
+            else:
+                avg_time_nx = -10.0
             dt_nx = datetime.now()
-        cost_dict[load_func_name][method_name_eg]["networkx"] = avg_time_nx
-        cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
+            cost_dict[load_func_name][method_name_eg]["networkx"] = avg_time_nx
 
         if not skip_ceg:
-            if (not method_name_eg in slow_methods) or (
-                not too_large_to_run_constraint
-            ):
+            if do_run:
                 # print('easygraph with C++ binding')
                 avg_time_ceg = bench_with_timeit(
                     module='eg',

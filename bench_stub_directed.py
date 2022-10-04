@@ -77,11 +77,19 @@ def get_args():
     )
 
     parser.add_argument(
+        '-E', '--skip-easygraph', action='store_true', help='Skip benchmarking easygraph (python) method',
+    )
+
+    parser.add_argument(
         '-C',
         '--skip-cpp-easygraph',
         '--skip-ceg',
         action='store_true',
         help='Skip benchmarking cpp_easygraph methods',
+    )
+
+    parser.add_argument(
+        '-N', '--skip-networkx', action='store_true', help='Skip benchmarking networkx method',
     )
 
     # parser.add_argument('-n', '--dry-run', action='store_true', help='Dry run')
@@ -134,7 +142,9 @@ def main():
     args = get_args()
     method_groups = args.method_group
     flags = {}
+    flags |= {'skip_eg': args.skip_easygraph}
     flags |= {'skip_ceg': args.skip_cpp_easygraph}
+    flags |= {'skip_networkx': args.skip_networkx}
     flags |= {'skip_draw': args.skip_draw}
     flags |= {'timeit_number': getattr(args, 'pass', None)}
     # flags |= {'timeout': args.timeout if args.timeout > 0 else None}

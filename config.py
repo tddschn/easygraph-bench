@@ -29,6 +29,7 @@ connected_components_methods_G = [
     "connected_components",
     # "is_biconnected",
     "biconnected_components",
+    'strongly_connected_components',
 ]
 
 # methods takes G and a node as args
@@ -47,7 +48,9 @@ mst_methods = ['minimum_spanning_tree']
 
 other_methods = ['density', 'constraint']
 
-new_methods = ['strongly_connected_components']
+# new_methods = ['effective_size', ('hierarchy', 'flow_hierarchy'), 'efficiency']
+# new_methods = ['effective_size', 'efficiency']
+new_methods = ['effective_size']
 
 # drop_methods = ['minimum_spanning_tree']
 drop_methods = []

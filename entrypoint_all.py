@@ -52,6 +52,10 @@ def get_args():
         help='Skip benchmarking cpp_easygraph methods',
     )
 
+    parser.add_argument(
+        '-N', '--skip-networkx', action='store_true', help='Skip benchmarking networkx method',
+    )
+
     # parser.add_argument('-n', '--dry-run', action='store_true', help='Dry run')
 
     parser.add_argument(
