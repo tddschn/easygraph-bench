@@ -204,3 +204,4 @@ def get_nx_methods_for_method_group(method_group: str) -> list[str]:
 graph_property_to_excel_field_mapping = {
     'is_directed': 'directed?',
 }
+
