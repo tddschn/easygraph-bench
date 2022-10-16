@@ -1,0 +1,19 @@
+rules:
+- id: benchmark
+  message: "uses of benchmark()"
+  languages: [python]
+  severity: INFO
+  # metadata:
+    # category: security
+    # references: |
+    #   - https://semgrep.dev
+    # cwe:
+    #   - "CWE-00: VALUE"
+    # owasp:
+    #   - "A00:2021 - VALUE"
+    #   - "A00:2017 - VALUE"
+  patterns:
+  - pattern: |
+      benchmark(...)
+  # - pattern-inside: |
+  #     pattern_goes_here
