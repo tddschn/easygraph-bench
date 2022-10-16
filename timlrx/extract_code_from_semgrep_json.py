@@ -41,4 +41,4 @@ for k, v in calls.items():
         for i, m in enumerate(methods6):
             c[k][m] = v[i]
 
-Path('timlrx-graph-benchmark-code.json').write_text(json.dumps(c))
+Path('graph-benchmark-code.json').write_text(json.dumps(c))
