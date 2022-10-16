@@ -1,46 +1,51 @@
 {
   "graphtool": {
-    "loading": "'''load_graph_from_csv(filename, directed=True, csv_options={'delimiter': '\\t', 'quotechar': '\"'})''',",
-    "2-hops": "\"shortest_distance(g, g.vertex(0), max_dist=2).a\",",
-    "shortest path": "\"shortest_distance(g, g.vertex(0)).a\",",
-    "page rank": "'pagerank(g, damping=0.85, epsilon=1e-3, max_iter=10000000).a',",
-    "k-core": "'kcore_decomposition(g).a',",
-    "strongly connected components": "'cc, _ = label_components(g, vprop=None, directed=True, attractors=False); cc.a',"
+    "loading": "'''load_graph_from_csv(filename, directed=True, csv_options={'delimiter': '\\t', 'quotechar': '\"'})'''",
+    "loading_undirected": "'''load_graph_from_csv(filename, directed=False, csv_options={'delimiter': '\\t', 'quotechar': '\"'})'''",
+    "2-hops": "\"shortest_distance(g, g.vertex(0), max_dist=2).a\"",
+    "shortest path": "\"shortest_distance(g, g.vertex(0)).a\"",
+    "page rank": "'pagerank(g, damping=0.85, epsilon=1e-3, max_iter=10000000).a'",
+    "k-core": "'kcore_decomposition(g).a'",
+    "strongly connected components": "'cc, _ = label_components(g, vprop=None, directed=True, attractors=False); cc.a'"
   },
   "igraph": {
-    "loading": "\"Graph.Read(filename, format='edges')\",",
-    "shortest path": "\"g.shortest_paths([g.vs[0]])\",",
-    "page rank": "\"g.pagerank(damping=0.85, eps=1e-3)\",",
-    "k-core": "\"g.coreness(mode='all')\",",
-    "strongly connected components": "\"[i for i in g.components(mode=STRONG)]\","
+    "loading": "\"Graph.Read(filename, format='edges')\"",
+    "loading_undirected": "\"Graph.Read(filename, format='edges', directed=False)\"",
+    "shortest path": "\"g.shortest_paths([g.vs[0]])\"",
+    "page rank": "\"g.pagerank(damping=0.85, eps=1e-3)\"",
+    "k-core": "\"g.coreness(mode='all')\"",
+    "strongly connected components": "\"[i for i in g.components(mode=STRONG)]\""
   },
   "networkit": {
-    "loading": "\"nk.graphio.EdgeListReader(separator='\\t', firstNode=0, continuous=True, directed =True).read(filename)\",",
-    "shortest path": "\"nk.distance.BFS(g, 0, storePaths=False).run().getDistances(False)\",",
-    "page rank": "\"nk.centrality.PageRank(g, damp=0.85, tol=1e-3).run().scores()\",",
-    "k-core": "\"nk.centrality.CoreDecomposition(g).run().scores()\",",
-    "strongly connected components": "\"nk.components.StronglyConnectedComponents(g).run().getPartition().getVector()\","
+    "loading": "\"nk.graphio.EdgeListReader(separator='\\t', firstNode=0, continuous=True, directed =True).read(filename)\"",
+    "loading_undirected": "\"nk.graphio.EdgeListReader(separator='\\t', firstNode=0, continuous=True).read(filename)\"",
+    "shortest path": "\"nk.distance.BFS(g, 0, storePaths=False).run().getDistances(False)\"",
+    "page rank": "\"nk.centrality.PageRank(g, damp=0.85, tol=1e-3).run().scores()\"",
+    "k-core": "\"nk.centrality.CoreDecomposition(g).run().scores()\"",
+    "strongly connected components": "\"nk.components.StronglyConnectedComponents(g).run().getPartition().getVector()\""
   },
   "networkx": {
-    "loading": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=nx.DiGraph())',\n    globals=globals(),\n    n=n,",
-    "2-hops": "f'single_source_shortest_path_length(g, {nodeid}, cutoff=2)', globals=globals(), n=n",
-    "shortest path": "f'shortest_path_length(g, {nodeid})',",
-    "page rank": "'pagerank(g, alpha=0.85, tol=1e-3, max_iter=10000000)', globals=globals(), n=n",
-    "k-core": "'core.core_number(g)',",
-    "strongly connected components": "'[i for i in strongly_connected_components(g)]',"
+    "loading": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=nx.DiGraph())'",
+    "loading_undirected": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=nx.Graph())'",
+    "2-hops": "f'single_source_shortest_path_length(g, {nodeid}, cutoff=2)'",
+    "shortest path": "f'shortest_path_length(g, {nodeid})'",
+    "page rank": "'pagerank(g, alpha=0.85, tol=1e-3, max_iter=10000000)'",
+    "k-core": "'core.core_number(g)'",
+    "strongly connected components": "'[i for i in strongly_connected_components(g)]'"
   },
   "snap": {
-    "loading": "\"snap.LoadEdgeListStr(snap.PNGraph, filename, 0, 1)\",",
-    "2-hops": "\"snap.GetNodesAtHop(g, 0, 2, NodeVec, True)\",",
-    "shortest path": "\"snap.GetShortPath(g, 0, NIdToDistH, True)\",",
-    "page rank": "\"snap.GetPageRank(g, PRankH, 0.85, 1e-3, 10000000)\",",
-    "k-core": "\"snap.GetKCoreNodes(g, CoreIDSzV)\",",
-    "strongly connected components": "\"snap.GetSccs(g, Components)\","
+    "loading": "\"snap.LoadEdgeListStr(snap.PNGraph, filename, 0, 1)\"",
+    "2-hops": "\"snap.GetNodesAtHop(g, 0, 2, NodeVec, True)\"",
+    "shortest path": "\"snap.GetShortPath(g, 0, NIdToDistH, True)\"",
+    "page rank": "\"snap.GetPageRank(g, PRankH, 0.85, 1e-3, 10000000)\"",
+    "k-core": "\"snap.GetKCoreNodes(g, CoreIDSzV)\"",
+    "strongly connected components": "\"snap.GetSccs(g, Components)\""
   },
   "easygraph": {
-    "loading": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=nx.DiGraph())',\n    globals=globals(),\n    n=n,",
-    "shortest path": "f'Dijkstra(g, {nodeid})',",
-    "page rank": "'pagerank(g)', globals=globals(), n=n",
-    "strongly connected components": "'[i for i in strongly_connected_components(g)]',"
+    "loading": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=nx.DiGraph())'",
+    "loading_undirected": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=nx.Graph())'",
+    "shortest path": "f'Dijkstra(g, {nodeid})'",
+    "page rank": "'pagerank(g)'",
+    "strongly connected components": "'[i for i in strongly_connected_components(g)]'"
   }
 }
