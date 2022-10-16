@@ -1,0 +1,14 @@
+easygraph: |
+  import easygraph as eg
+  from easygraph import *  # type: ignore
+networkx: |
+  import networkx as nx
+  from networkx import *  # type: ignore
+networkit: |
+  import networkit as nk
+graphtool: |
+  from graph_tool.all import *  # type: ignore
+igraph: |
+  from igraph import *  # type: ignore
+snap: |
+  import snap  # type: ignore
