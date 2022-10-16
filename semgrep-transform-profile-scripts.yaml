@@ -1,0 +1,23 @@
+rules:
+  - id: new-rule
+    message: "message_goes_here"
+    languages: [generic]
+    severity: INFO
+    # metadata:
+    # category: security
+    # references: |
+    #   - https://semgrep.dev
+    # cwe:
+    #   - "CWE-00: VALUE"
+    # owasp:
+    #   - "A00:2021 - VALUE"
+    #   - "A00:2017 - VALUE"
+    patterns:
+      - pattern: |
+          
+      - pattern-not: |
+          pattern_goes_here
+      - metavariable-pattern:
+        metavariable: $STRING
+        patterns:
+          - pattern: value

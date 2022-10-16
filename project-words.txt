@@ -1,10 +1,13 @@
 AAAI
 aaai
+acbe
+afdffab
 allfile
 autorange
 barplot
 biconnected
 booktitle
+cdfb
 cheminfo
 cheminfomatics
 cheminformatics
@@ -20,8 +23,13 @@ dedupe
 easygraph
 easygraph's
 edgelist
+efacb
+effa
 endgroup
 fangsong
+fcbc
+fdcf
+ffae
 firstrow
 gplus
 graphio
@@ -36,6 +44,8 @@ kruskal
 mahindas
 matplotlib
 mergedeep
+metavariable
+metavars
 mmread
 MUTAG
 mxschmitt
@@ -46,7 +56,9 @@ networkx
 networkx's
 nodeid
 nodetype
+openmp
 openpyxl
+owasp
 pagerank
 pokec
 powergrid
@@ -59,8 +71,10 @@ savefig
 Sccs
 scipy
 seaborn
+semgrep
 tddschn
 timeit
+timlrx
 Tomark
 tomark
 tscp

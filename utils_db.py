@@ -7,10 +7,15 @@ from config import (
     graph_info_json_path,
     dataset_homepage_mapping,
     graph_property_to_excel_field_mapping,
+    bench_results_db_path,
+    methods_timlrx,
+    methods6_timlrx,
 )
 from utils_other import get_autorange_count
 import json
 import sqlite3
+from pathlib import Path
+
 
 python_type_to_sqlite_type = {
     int: 'INTEGER',
@@ -118,3 +123,28 @@ def init_db(conn: sqlite3.Connection):
     bench_results_table_creation_sql = f'CREATE TABLE IF NOT EXISTS "{bench_results_table_name}"({bench_results_field_str}, FOREIGN KEY("dataset") REFERENCES {graph_info_table_name}("dataset"));'
     cursor.execute(graph_info_table_creation_sql)
     cursor.execute(bench_results_table_creation_sql)
+
+
+def profile_script_insert_results(
+    script: str,
+    dataset_filename: str,
+    avg_times: list[float],
+    iteration_count: int | None = None,
+) -> None:
+    with sqlite3.connect(bench_results_db_path) as conn:
+        now = datetime.now()
+        num_method = len(avg_times)
+        if num_method == 6:
+            methods = methods6_timlrx
+        else:
+            methods = methods_timlrx
+        for i, avg_time in enumerate(avg_times):
+            insert_bench_results(
+                conn,
+                dataset=Path(dataset_filename).stem,
+                method=methods[i],
+                tool=Path(script).stem.removesuffix('_profile'),
+                average_time=avg_time,
+                timestamp=now,
+                iteration_count=iteration_count,
+            )

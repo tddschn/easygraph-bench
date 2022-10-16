@@ -205,3 +205,26 @@ graph_property_to_excel_field_mapping = {
     'is_directed': 'directed?',
 }
 
+
+methods_timlrx = [
+    'loading',
+    'shortest path',
+    'page rank',
+    'k-core',
+    'strongly connected components',
+]
+methods6_timlrx = methods_timlrx.copy()
+methods6_timlrx.insert(1, '2-hops')
+
+dataset_edgelist_filenames = [
+    'bio',
+    'eco',
+    'pgp',
+    'pgp_undirected',
+    'road',
+    'uspowergrid',
+]
+edgelist_filenames = [f'dataset/{x}.edgelist' for x in dataset_edgelist_filenames] + [
+    'enron.txt',
+    'amazon.txt',
+]
