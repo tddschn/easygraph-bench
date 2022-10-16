@@ -228,3 +228,9 @@ edgelist_filenames = [f'dataset/{x}.edgelist' for x in dataset_edgelist_filename
     'enron.txt',
     'amazon.txt',
 ]
+
+
+def read_profile_preparation_code() -> dict[str, str]:
+    import yaml
+
+    return yaml.safe_load(profile_preparation_yaml_path.read_text())
