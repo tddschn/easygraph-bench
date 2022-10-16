@@ -17,6 +17,7 @@ from config import (
     read_profile_preparation_code,
     graph_benchmark_code_json_path,
     edgelist_filenames,
+    profile_tools_to_drop,
 )
 from stat import S_IEXEC
 
@@ -169,12 +170,17 @@ def main():
         for edgelist_path in edgelist_filenames:
             p = Path(edgelist_path)
             dataset_name = p.stem
+            script_lines += ['', f'# dataset: {dataset_name}', '']
             # print(dataset_name)
             for tool in gbc:
+                # if tool in profile_tool_to_drop:
+                #     continue
                 is_directed = gi[dataset_name]['is_directed']
                 script_name_suffix = '_undirected' if not is_directed else ''
                 script_filename = f'profile_{tool}{script_name_suffix}.py'
-                script_lines.append(f'./{script_filename} {edgelist_path} "$@"')
+                script_lines.append(
+                    f'{"# " if tool in profile_tools_to_drop else ""}./{script_filename} {edgelist_path} "$@"'
+                )
         output_path.write_text('\n'.join(script_lines))
         output_path.chmod(output_path.stat().st_mode | S_IEXEC)
         print(f'Profile entrypoint script generated at {output_path}')

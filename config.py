@@ -239,3 +239,7 @@ def read_profile_preparation_code() -> dict[str, str]:
     import yaml
 
     return yaml.safe_load(profile_preparation_yaml_path.read_text())
+
+
+# snap doesn't support python 3.10 and it sucks, so
+profile_tools_to_drop = {'snap'}
