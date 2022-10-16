@@ -274,7 +274,7 @@ def main():
                         conn,
                         dataset=dataset_name,
                         method=method,
-                        tool=tool_name_mapping[tool],
+                        tool=tool_name_mapping[tool] if tool in tool_name_mapping else tool,
                         average_time=avg_time,
                         timestamp=getattr(dt_for_tools, tool_name_mapping_for_DTForTools[tool]),
                         iteration_count=getattr(args, 'pass', None),
