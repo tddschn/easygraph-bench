@@ -42,8 +42,8 @@
     "strongly connected components": "\"snap.GetSccs(g, Components)\""
   },
   "easygraph": {
-    "loading": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=nx.DiGraph())'",
-    "loading_undirected": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=nx.Graph())'",
+    "loading": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=eg.DiGraph())'",
+    "loading_undirected": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=eg.Graph())'",
     "shortest path": "f'Dijkstra(g, {nodeid})'",
     "page rank": "'pagerank(g)'",
     "strongly connected components": "'[i for i in strongly_connected_components(g)]'"

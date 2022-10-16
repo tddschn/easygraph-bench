@@ -128,21 +128,22 @@ def init_db(conn: sqlite3.Connection):
 def profile_script_insert_results(
     script: str,
     dataset_filename: str,
-    avg_times: list[float],
+    avg_times: dict[str, float],
     iteration_count: int | None = None,
 ) -> None:
     with sqlite3.connect(bench_results_db_path) as conn:
         now = datetime.now()
-        num_method = len(avg_times)
-        if num_method == 6:
-            methods = methods6_timlrx
-        else:
-            methods = methods_timlrx
-        for i, avg_time in enumerate(avg_times):
+        # num_method = len(avg_times)
+        # if num_method == 6:
+        #     methods = methods6_timlrx
+        # else:
+        #     methods = methods_timlrx
+        # for i, avg_time in enumerate(avg_times):
+        for method, avg_time in avg_times.items():
             insert_bench_results(
                 conn,
                 dataset=Path(dataset_filename).stem,
-                method=methods[i],
+                method=method,
                 tool=Path(script).stem.removesuffix('_profile'),
                 average_time=avg_time,
                 timestamp=now,

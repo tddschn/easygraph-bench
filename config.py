@@ -13,6 +13,9 @@ bench_results_db_path = Path(__file__).parent / 'bench-results.db'
 # BENCH_CSV_DIR = Path('~/Downloads/bench-csv').expanduser()
 BENCH_CSV_DIR = Path(__file__).parent / 'output'
 eg_master_dir = Path('~/testdir/Easy-Graph-master').expanduser()
+TIMLRX_DIR = Path(__file__).parent / 'timlrx'
+profile_preparation_yaml_path = TIMLRX_DIR / 'profile-preparation-code.yaml'
+graph_benchmark_code_json_path = TIMLRX_DIR / 'graph-benchmark-code.json'
 
 tool_order = ['nx', 'eg', 'eg (C++)']
 
@@ -217,6 +220,7 @@ methods6_timlrx = methods_timlrx.copy()
 methods6_timlrx.insert(1, '2-hops')
 
 dataset_edgelist_filenames = [
+    'cheminformatics',
     'bio',
     'eco',
     'pgp',
@@ -230,6 +234,7 @@ edgelist_filenames = [f'dataset/{x}.edgelist' for x in dataset_edgelist_filename
 ]
 
 
+@cache
 def read_profile_preparation_code() -> dict[str, str]:
     import yaml
 

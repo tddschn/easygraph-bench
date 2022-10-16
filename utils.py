@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from copy import deepcopy
 from datetime import datetime
 import json
 import os
@@ -616,8 +617,8 @@ def eval_method(
         raise ValueError('method_name or method_names must be specified')
 
 
-@cache
-def get_first_node(g):
+def get_first_node(G):
+    g = deepcopy(G)
     nodes = g.nodes
     if isinstance(nodes, dict):
         nodes_iter = nodes.keys()

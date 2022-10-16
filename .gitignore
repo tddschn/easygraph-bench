@@ -8,7 +8,7 @@ out.*
 *.json
 !graph_info.json
 !timlrx
-!timlrx/timlrx-graph-benchmark-code.json
+!timlrx/graph-benchmark-code.json
 *.csv
 
 # images
