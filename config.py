@@ -16,6 +16,8 @@ eg_master_dir = Path('~/testdir/Easy-Graph-master').expanduser()
 TIMLRX_DIR = Path(__file__).parent / 'timlrx'
 profile_preparation_yaml_path = TIMLRX_DIR / 'profile-preparation-code.yaml'
 graph_benchmark_code_json_path = TIMLRX_DIR / 'graph-benchmark-code.json'
+graph_benchmark_code_yaml_path = TIMLRX_DIR / 'graph-benchmark-code.yaml'
+graph_benchmark_code_ordereddict_yaml_path = TIMLRX_DIR / 'graph-benchmark-code-ordereddict.yaml'
 
 tool_order = ['nx', 'eg', 'eg (C++)']
 

@@ -36,15 +36,21 @@ n = args.iteration
 
 avg_times: dict[str, float] = {}
 
-print(f"Profiling dataset {filename}")
+print(f"""Profiling dataset \033[34m{filename}\033[0m""")
+
+
 
 
 # ===========================
-print("Profiling loading_undirected")
+print(f"""Profiling \033[92mloading_undirected\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+
+
+# 'read_edgelist(filename, delimiter="\t", nodetype=int, create_using=nx.Graph())' contains quotes
 avg_times |= {'loading_undirected': benchmark_autorange('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=nx.Graph())', globals=globals(), n=n) }
 
 
@@ -61,37 +67,79 @@ first_node = get_first_node(g)
 
 
 
+
 # ===========================
-print("Profiling 2-hops")
+print(f"""Profiling \033[92m2-hops\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+
+
+# f'single_source_shortest_path_length(g, {nodeid}, cutoff=2)' contains quotes
 avg_times |= {'2-hops': benchmark_autorange(f'single_source_shortest_path_length(g, {nodeid}, cutoff=2)', globals=globals(), n=n) }
 
 
 
 
 
+
 # ===========================
-print("Profiling shortest path")
+print(f"""Profiling \033[92mshortest path\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+
+
+# f'shortest_path_length(g, {nodeid})' contains quotes
 avg_times |= {'shortest path': benchmark_autorange(f'shortest_path_length(g, {nodeid})', globals=globals(), n=n) }
 
 
 
 
 
+
 # ===========================
-print("Profiling k-core")
+print(f"""Profiling \033[92mpage rank\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+
+
+# 'pagerank(g, alpha=0.85, tol=1e-3, max_iter=10000000)' contains quotes
+avg_times |= {'page rank': benchmark_autorange('pagerank(g, alpha=0.85, tol=1e-3, max_iter=10000000)', globals=globals(), n=n) }
+
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mk-core\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+
+
+# remove self loop from graph g before doing k-core
+
+g.remove_edges_from(nx.selfloop_edges(g))
+
+
+
+
+
+
+
+# 'core.core_number(g)' contains quotes
 avg_times |= {'k-core': benchmark_autorange('core.core_number(g)', globals=globals(), n=n) }
+
 
 
 

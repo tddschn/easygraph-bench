@@ -35,15 +35,21 @@ n = args.iteration
 
 avg_times: dict[str, float] = {}
 
-print(f"Profiling dataset {filename}")
+print(f"""Profiling dataset \033[34m{filename}\033[0m""")
+
+
 
 
 # ===========================
-print("Profiling loading_undirected")
+print(f"""Profiling \033[92mloading_undirected\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+
+
+# "nk.graphio.EdgeListReader(separator='\t', firstNode=0, continuous=True).read(filename)" contains quotes
 avg_times |= {'loading_undirected': benchmark_autorange("nk.graphio.EdgeListReader(separator='\t', firstNode=0, continuous=True).read(filename)", globals=globals(), n=n) }
 
 
@@ -55,25 +61,62 @@ g = eval("nk.graphio.EdgeListReader(separator='\t', firstNode=0, continuous=True
 
 
 
+
 # ===========================
-print("Profiling shortest path")
+print(f"""Profiling \033[92mshortest path\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+
+
+# "nk.distance.BFS(g, 0, storePaths=False).run().getDistances(False)" contains quotes
 avg_times |= {'shortest path': benchmark_autorange("nk.distance.BFS(g, 0, storePaths=False).run().getDistances(False)", globals=globals(), n=n) }
 
 
 
 
 
+
 # ===========================
-print("Profiling k-core")
+print(f"""Profiling \033[92mpage rank\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+
+
+# "nk.centrality.PageRank(g, damp=0.85, tol=1e-3).run().scores()" contains quotes
+avg_times |= {'page rank': benchmark_autorange("nk.centrality.PageRank(g, damp=0.85, tol=1e-3).run().scores()", globals=globals(), n=n) }
+
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mk-core\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+
+
+# remove self loop from graph g before doing k-core
+
+
+
+g.removeSelfLoops()
+
+
+
+
+
+# "nk.centrality.CoreDecomposition(g).run().scores()" contains quotes
 avg_times |= {'k-core': benchmark_autorange("nk.centrality.CoreDecomposition(g).run().scores()", globals=globals(), n=n) }
+
 
 
 

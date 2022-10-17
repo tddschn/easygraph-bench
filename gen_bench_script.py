@@ -15,7 +15,7 @@ from config import (
     dataset_names,
     bench_scripts_set,
     read_profile_preparation_code,
-    graph_benchmark_code_json_path,
+    graph_benchmark_code_ordereddict_yaml_path,
     edgelist_filenames,
     profile_tools_to_drop,
 )
@@ -141,8 +141,16 @@ def main():
         return
 
     loading_methods = {'loading': '', 'loading_undirected': '_undirected'}
+    import yaml
+
+    try:
+        from yaml import CLoader as Loader, CDumper as Dumper
+    except ImportError:
+        from yaml import Loader, Dumper
     if args.profile:
-        gbc = json.loads(graph_benchmark_code_json_path.read_text())
+        gbc = yaml.load(
+            graph_benchmark_code_ordereddict_yaml_path.read_text(), Loader=Loader
+        )
         for tool, method_to_code_mapping in gbc.items():
             for loading_method, script_name_suffix in loading_methods.items():
                 m = method_to_code_mapping.copy()
@@ -153,7 +161,8 @@ def main():
                     methods_to_pop.append('loading_undirected')
                 if loading_method == 'loading_undirected':
                     methods_to_pop.append('loading')
-                    methods_to_pop += ['page rank', 'strongly connected components']
+                    # methods_to_pop += ['page rank', 'strongly connected components']
+                    methods_to_pop += ['strongly connected components']
                 [m.pop(method_to_pop, None) for method_to_pop in methods_to_pop]
                 script_content = gen_profile_script(tool, m, template_profile_script)
                 output_path = Path(f'profile_{tool}{script_name_suffix}.py')
@@ -166,11 +175,20 @@ def main():
         output_path = Path('profile_entrypoint.sh')
         script_lines = ['#!/usr/bin/env bash', '']
         gi = json.loads(graph_info_json_path.read_text())
-        gbc = json.loads(graph_benchmark_code_json_path.read_text())
+        gbc = yaml.load(
+            graph_benchmark_code_ordereddict_yaml_path.read_text(), Loader=Loader
+        )
         for edgelist_path in edgelist_filenames:
             p = Path(edgelist_path)
             dataset_name = p.stem
-            script_lines += ['', f'# dataset: {dataset_name}', '']
+            script_lines += [
+                '',
+                f'# dataset: {dataset_name}',
+                '''echo "\033[35m============================================\033[0m"''',
+                f'''echo "dataset: \033[34m{dataset_name}\033[0m"''',
+                '''echo "\033[35m============================================\033[0m"''',
+                '',
+            ]
             # print(dataset_name)
             for tool in gbc:
                 # if tool in profile_tool_to_drop:
@@ -179,7 +197,7 @@ def main():
                 script_name_suffix = '_undirected' if not is_directed else ''
                 script_filename = f'profile_{tool}{script_name_suffix}.py'
                 script_lines.append(
-                    f'{"# " if tool in profile_tools_to_drop else ""}./{script_filename} {edgelist_path} "$@"'
+                    f'{"# " if tool in profile_tools_to_drop else ""}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'
                 )
         output_path.write_text('\n'.join(script_lines))
         output_path.chmod(output_path.stat().st_mode | S_IEXEC)

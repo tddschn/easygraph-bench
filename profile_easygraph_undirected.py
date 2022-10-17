@@ -36,20 +36,24 @@ n = args.iteration
 
 avg_times: dict[str, float] = {}
 
-print(f"Profiling dataset {filename}")
+print(f"""Profiling dataset \033[34m{filename}\033[0m""")
+
+
 
 
 # ===========================
-print("Profiling loading_undirected")
+print(f"""Profiling \033[92mloading_undirected\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
-avg_times |= {'loading_undirected': benchmark_autorange('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph())', globals=globals(), n=n) }
+
+
+# 'read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph()).cpp()' contains quotes
+avg_times |= {'loading_undirected': benchmark_autorange('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph()).cpp()', globals=globals(), n=n) }
 
 
 # loading* only
-g = eval('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph())')
+g = eval('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph()).cpp()')
 
 
 
@@ -61,13 +65,17 @@ first_node = get_first_node(g)
 
 
 
+
 # ===========================
-print("Profiling shortest path")
+print(f"""Profiling \033[92mshortest path\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# f'Dijkstra(g, {nodeid})' contains quotes
 avg_times |= {'shortest path': benchmark_autorange(f'Dijkstra(g, {nodeid})', globals=globals(), n=n) }
+
 
 
 

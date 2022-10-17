@@ -35,15 +35,19 @@ n = args.iteration
 
 avg_times: dict[str, float] = {}
 
-print(f"Profiling dataset {filename}")
+print(f"""Profiling dataset \033[34m{filename}\033[0m""")
+
+
 
 
 # ===========================
-print("Profiling loading")
+print(f"""Profiling \033[92mloading\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# "snap.LoadEdgeListStr(snap.PNGraph, filename, 0, 1)" contains quotes
 avg_times |= {'loading': benchmark_autorange("snap.LoadEdgeListStr(snap.PNGraph, filename, 0, 1)", globals=globals(), n=n) }
 
 
@@ -55,61 +59,77 @@ g = eval("snap.LoadEdgeListStr(snap.PNGraph, filename, 0, 1)")
 
 
 
+
 # ===========================
-print("Profiling 2-hops")
+print(f"""Profiling \033[92m2-hops\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# "snap.GetNodesAtHop(g, 0, 2, NodeVec, True)" contains quotes
 avg_times |= {'2-hops': benchmark_autorange("snap.GetNodesAtHop(g, 0, 2, NodeVec, True)", globals=globals(), n=n) }
 
 
 
 
 
+
 # ===========================
-print("Profiling shortest path")
+print(f"""Profiling \033[92mshortest path\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# "snap.GetShortPath(g, 0, NIdToDistH, True)" contains quotes
 avg_times |= {'shortest path': benchmark_autorange("snap.GetShortPath(g, 0, NIdToDistH, True)", globals=globals(), n=n) }
 
 
 
 
 
+
 # ===========================
-print("Profiling page rank")
+print(f"""Profiling \033[92mpage rank\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# "snap.GetPageRank(g, PRankH, 0.85, 1e-3, 10000000)" contains quotes
 avg_times |= {'page rank': benchmark_autorange("snap.GetPageRank(g, PRankH, 0.85, 1e-3, 10000000)", globals=globals(), n=n) }
 
 
 
 
 
+
 # ===========================
-print("Profiling k-core")
+print(f"""Profiling \033[92mk-core\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# "snap.GetKCoreNodes(g, CoreIDSzV)" contains quotes
 avg_times |= {'k-core': benchmark_autorange("snap.GetKCoreNodes(g, CoreIDSzV)", globals=globals(), n=n) }
 
 
 
 
 
+
 # ===========================
-print("Profiling strongly connected components")
+print(f"""Profiling \033[92mstrongly connected components\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# "snap.GetSccs(g, Components)" contains quotes
 avg_times |= {'strongly connected components': benchmark_autorange("snap.GetSccs(g, Components)", globals=globals(), n=n) }
+
 
 
 

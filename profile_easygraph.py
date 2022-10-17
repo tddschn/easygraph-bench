@@ -36,20 +36,24 @@ n = args.iteration
 
 avg_times: dict[str, float] = {}
 
-print(f"Profiling dataset {filename}")
+print(f"""Profiling dataset \033[34m{filename}\033[0m""")
+
+
 
 
 # ===========================
-print("Profiling loading")
+print(f"""Profiling \033[92mloading\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
-avg_times |= {'loading': benchmark_autorange('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.DiGraph())', globals=globals(), n=n) }
+
+
+# 'read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.DiGraph()).cpp()' contains quotes
+avg_times |= {'loading': benchmark_autorange('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.DiGraph()).cpp()', globals=globals(), n=n) }
 
 
 # loading* only
-g = eval('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.DiGraph())')
+g = eval('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.DiGraph()).cpp()')
 
 
 
@@ -61,37 +65,32 @@ first_node = get_first_node(g)
 
 
 
+
 # ===========================
-print("Profiling shortest path")
+print(f"""Profiling \033[92mshortest path\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# f'Dijkstra(g, {nodeid})' contains quotes
 avg_times |= {'shortest path': benchmark_autorange(f'Dijkstra(g, {nodeid})', globals=globals(), n=n) }
 
 
 
 
 
+
 # ===========================
-print("Profiling page rank")
+print(f"""Profiling \033[92mstrongly connected components\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
-avg_times |= {'page rank': benchmark_autorange('pagerank(g)', globals=globals(), n=n) }
 
 
-
-
-
-# ===========================
-print("Profiling strongly connected components")
-print("=================")
-print()
-
-#  contains quotes
+# '[i for i in strongly_connected_components(g)]' contains quotes
 avg_times |= {'strongly connected components': benchmark_autorange('[i for i in strongly_connected_components(g)]', globals=globals(), n=n) }
+
 
 
 

@@ -35,15 +35,19 @@ n = args.iteration
 
 avg_times: dict[str, float] = {}
 
-print(f"Profiling dataset {filename}")
+print(f"""Profiling dataset \033[34m{filename}\033[0m""")
+
+
 
 
 # ===========================
-print("Profiling loading_undirected")
+print(f"""Profiling \033[92mloading_undirected\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# '''load_graph_from_csv(filename, directed=False, csv_options={'delimiter': '\t', 'quotechar': '"'})''' contains quotes
 avg_times |= {'loading_undirected': benchmark_autorange('''load_graph_from_csv(filename, directed=False, csv_options={'delimiter': '\t', 'quotechar': '"'})''', globals=globals(), n=n) }
 
 
@@ -55,37 +59,62 @@ g = eval('''load_graph_from_csv(filename, directed=False, csv_options={'delimite
 
 
 
+
 # ===========================
-print("Profiling 2-hops")
+print(f"""Profiling \033[92m2-hops\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# "shortest_distance(g, g.vertex(0), max_dist=2).a" contains quotes
 avg_times |= {'2-hops': benchmark_autorange("shortest_distance(g, g.vertex(0), max_dist=2).a", globals=globals(), n=n) }
 
 
 
 
 
+
 # ===========================
-print("Profiling shortest path")
+print(f"""Profiling \033[92mshortest path\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# "shortest_distance(g, g.vertex(0)).a" contains quotes
 avg_times |= {'shortest path': benchmark_autorange("shortest_distance(g, g.vertex(0)).a", globals=globals(), n=n) }
 
 
 
 
 
+
 # ===========================
-print("Profiling k-core")
+print(f"""Profiling \033[92mpage rank\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# 'pagerank(g, damping=0.85, epsilon=1e-3, max_iter=10000000).a' contains quotes
+avg_times |= {'page rank': benchmark_autorange('pagerank(g, damping=0.85, epsilon=1e-3, max_iter=10000000).a', globals=globals(), n=n) }
+
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mk-core\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+
+# 'kcore_decomposition(g).a' contains quotes
 avg_times |= {'k-core': benchmark_autorange('kcore_decomposition(g).a', globals=globals(), n=n) }
+
 
 
 

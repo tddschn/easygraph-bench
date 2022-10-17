@@ -35,15 +35,19 @@ n = args.iteration
 
 avg_times: dict[str, float] = {}
 
-print(f"Profiling dataset {filename}")
+print(f"""Profiling dataset \033[34m{filename}\033[0m""")
+
+
 
 
 # ===========================
-print("Profiling loading")
+print(f"""Profiling \033[92mloading\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# "Graph.Read(filename, format='edges')" contains quotes
 avg_times |= {'loading': benchmark_autorange("Graph.Read(filename, format='edges')", globals=globals(), n=n) }
 
 
@@ -55,49 +59,62 @@ g = eval("Graph.Read(filename, format='edges')")
 
 
 
+
 # ===========================
-print("Profiling shortest path")
+print(f"""Profiling \033[92mshortest path\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# "g.shortest_paths([g.vs[0]])" contains quotes
 avg_times |= {'shortest path': benchmark_autorange("g.shortest_paths([g.vs[0]])", globals=globals(), n=n) }
 
 
 
 
 
+
 # ===========================
-print("Profiling page rank")
+print(f"""Profiling \033[92mpage rank\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
-avg_times |= {'page rank': benchmark_autorange("g.pagerank(damping=0.85, eps=1e-3)", globals=globals(), n=n) }
+
+
+# "g.pagerank(damping=0.85)" contains quotes
+avg_times |= {'page rank': benchmark_autorange("g.pagerank(damping=0.85)", globals=globals(), n=n) }
+
 
 
 
 
 
 # ===========================
-print("Profiling k-core")
+print(f"""Profiling \033[92mk-core\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# "g.coreness(mode='all')" contains quotes
 avg_times |= {'k-core': benchmark_autorange("g.coreness(mode='all')", globals=globals(), n=n) }
 
 
 
 
 
+
 # ===========================
-print("Profiling strongly connected components")
+print(f"""Profiling \033[92mstrongly connected components\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-#  contains quotes
+
+
+# "[i for i in g.components(mode=STRONG)]" contains quotes
 avg_times |= {'strongly connected components': benchmark_autorange("[i for i in g.components(mode=STRONG)]", globals=globals(), n=n) }
+
 
 
 

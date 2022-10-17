@@ -34,15 +34,32 @@ n = args.iteration
 
 avg_times: dict[str, float] = {}
 
-print(f"Profiling dataset {filename}")
+print(f"""Profiling dataset \033[34m{filename}\033[0m""")
+
+{{ profile_code }}
 
 {% for method, code in graph_benchmark_code.items() %}
 # ===========================
-print("Profiling {{ method }}")
+print(f"""Profiling \033[92m{{ method }}\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
 
-# {{ codd }} contains quotes
+{% if tool in ('networkx', 'networkit') %}
+{% if method == 'k-core' %}
+
+# remove self loop from graph g before doing k-core
+{% if tool == 'networkx' %}
+g.remove_edges_from(nx.selfloop_edges(g))
+{% endif %}
+
+{% if tool == 'networkit' %}
+g.removeSelfLoops()
+{% endif %}
+
+{% endif %}
+{% endif %}
+
+# {{ code }} contains quotes
 avg_times |= {'{{ method }}': benchmark_autorange({{ code }}, globals=globals(), n=n) }
 
 {% if method in ('loading', 'loading_undirected') %}
@@ -58,6 +75,7 @@ nodeid = 'first_node'
 first_node = get_first_node(g)
 {% endif %}
 {% endif %}
+
 {% endfor %}
 
 profile_script_insert_results(__file__, filename, avg_times, args.iteration)

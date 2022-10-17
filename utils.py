@@ -618,7 +618,10 @@ def eval_method(
 
 
 def get_first_node(G):
-    g = deepcopy(G)
+    # do not do this!
+    # TypeError: cannot pickle 'DiGraphC' object
+    # g = deepcopy(G)
+    g = G
     nodes = g.nodes
     if isinstance(nodes, dict):
         nodes_iter = nodes.keys()
