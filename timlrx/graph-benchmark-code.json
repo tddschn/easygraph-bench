@@ -12,7 +12,7 @@
     "loading": "\"Graph.Read(filename, format='edges')\"",
     "loading_undirected": "\"Graph.Read(filename, format='edges', directed=False)\"",
     "shortest path": "\"g.shortest_paths([g.vs[0]])\"",
-    "page rank": "\"g.pagerank(damping=0.85, eps=1e-3)\"",
+    "page rank": "\"g.pagerank(damping=0.85)\"",
     "k-core": "\"g.coreness(mode='all')\"",
     "strongly connected components": "\"[i for i in g.components(mode=STRONG)]\""
   },
@@ -21,8 +21,8 @@
     "loading_undirected": "\"nk.graphio.EdgeListReader(separator='\\t', firstNode=0, continuous=True).read(filename)\"",
     "shortest path": "\"nk.distance.BFS(g, 0, storePaths=False).run().getDistances(False)\"",
     "page rank": "\"nk.centrality.PageRank(g, damp=0.85, tol=1e-3).run().scores()\"",
-    "k-core": "\"nk.centrality.CoreDecomposition(g).run().scores()\"",
-    "strongly connected components": "\"nk.components.StronglyConnectedComponents(g).run().getPartition().getVector()\""
+    "strongly connected components": "\"nk.components.StronglyConnectedComponents(g).run().getPartition().getVector()\"",
+    "k-core": "\"nk.centrality.CoreDecomposition(g).run().scores()\""
   },
   "networkx": {
     "loading": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=nx.DiGraph())'",
@@ -30,8 +30,8 @@
     "2-hops": "f'single_source_shortest_path_length(g, {nodeid}, cutoff=2)'",
     "shortest path": "f'shortest_path_length(g, {nodeid})'",
     "page rank": "'pagerank(g, alpha=0.85, tol=1e-3, max_iter=10000000)'",
-    "k-core": "'core.core_number(g)'",
-    "strongly connected components": "'[i for i in strongly_connected_components(g)]'"
+    "strongly connected components": "'[i for i in strongly_connected_components(g)]'",
+    "k-core": "'core.core_number(g)'"
   },
   "snap": {
     "loading": "\"snap.LoadEdgeListStr(snap.PNGraph, filename, 0, 1)\"",
@@ -42,8 +42,8 @@
     "strongly connected components": "\"snap.GetSccs(g, Components)\""
   },
   "easygraph": {
-    "loading": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=eg.DiGraph())'",
-    "loading_undirected": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=eg.Graph())'",
+    "loading": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=eg.DiGraph()).cpp()'",
+    "loading_undirected": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=eg.Graph()).cpp()'",
     "shortest path": "f'Dijkstra(g, {nodeid})'",
     "page rank": "'pagerank(g)'",
     "strongly connected components": "'[i for i in strongly_connected_components(g)]'"
