@@ -19,6 +19,8 @@ python3 ./fill_excel.py
 # cp '/Users/tscp/Downloads/easygraph-benchmark-results.xlsx' output -v
 # cp '/Users/tscp/Downloads/easygraph-benchmark-results-template.xlsx' output -v
 
+cp profile_results.csv output/profile_results.csv -v
+
 REPO='tddschn/easygraph-bench'
 TAG='local'
 DATE_STR="$(date +"%Y-%m-%dT%H:%M:%S:%z")"
@@ -30,7 +32,7 @@ set +e
 # don't exit on error
 gh release -R "${REPO}" delete "${TAG}" --yes
 # gh release -R "${REPO}" create "${TAG}" --notes "Released from GitHub Actions"
-gh release -R "${REPO}" create "${TAG}" --notes-file ./release-note-local
+gh release -R "${REPO}" create "${TAG}" --notes-file output/README.md
 
 set -e
 
