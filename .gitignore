@@ -2,6 +2,9 @@
 *.txt
 *.db
 output*
+!output
+output/*
+!output/easygraph-benchmark-results-template.xlsx
 out.*
 
 # outputs

@@ -130,6 +130,8 @@ def profile_script_insert_results(
     dataset_filename: str,
     avg_times: dict[str, float],
     iteration_count: int | None = None,
+    write_csv: bool = True,
+    csv_file: Path = Path(__file__).parent / 'profile_results.csv',
 ) -> None:
     with sqlite3.connect(bench_results_db_path) as conn:
         now = datetime.now()
@@ -152,3 +154,26 @@ def profile_script_insert_results(
                 timestamp=now,
                 iteration_count=iteration_count,
             )
+
+    if write_csv:
+        import csv
+
+        with open(csv_file, 'a') as f:
+            writer = csv.writer(f)
+            # write header if file is empty
+            if csv_file.stat().st_size == 0:
+                writer.writerow(list(get_bench_results_field_types())[1:])
+            for method, avg_time in avg_times.items():
+                writer.writerow(
+                    [
+                        Path(dataset_filename).stem,
+                        method if method != 'loading_undirected' else 'loading',
+                        Path(script)
+                        .stem.removesuffix('_profile')
+                        .removeprefix('profile_')
+                        .removesuffix('_undirected'),
+                        avg_time,
+                        now,
+                        iteration_count,
+                    ]
+                )

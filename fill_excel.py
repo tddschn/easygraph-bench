@@ -21,10 +21,8 @@ import sqlite3
 from copy import copy
 
 bench_results_sqlite_db_path = Path(__file__).parent / 'bench-results.db'
-template_workbook_path = (
-    '/Users/tscp/Downloads/easygraph-benchmark-results-template.xlsx'
-)
-new_workbook_path = '/Users/tscp/Downloads/easygraph-benchmark-results.xlsx'
+template_workbook_path = 'output/easygraph-benchmark-results-template.xlsx'
+new_workbook_path = 'output/easygraph-benchmark-results.xlsx'
 
 dataset_name_col = 'A'
 tool_col = 'A'
