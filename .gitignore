@@ -16,7 +16,9 @@ out.*
 *.csv
 
 # images
-images/
+# images/*
+# !images
+
 
 
 # Byte-compiled / optimized / DLL files
