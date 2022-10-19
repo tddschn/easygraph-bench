@@ -143,8 +143,11 @@ def profile_script_insert_results(
             insert_bench_results(
                 conn,
                 dataset=Path(dataset_filename).stem,
-                method=method,
-                tool=Path(script).stem.removesuffix('_profile'),
+                method=method if method != 'loading_undirected' else 'loading',
+                tool=Path(script)
+                .stem.removesuffix('_profile')
+                .removeprefix('profile_')
+                .removesuffix('_undirected'),
                 average_time=avg_time,
                 timestamp=now,
                 iteration_count=iteration_count,

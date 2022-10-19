@@ -35,7 +35,9 @@ n = args.iteration
 
 avg_times: dict[str, float] = {}
 
-print(f"""Profiling dataset \033[34m{filename}\033[0m""")
+print('''\033[91m=================================\033[0m''')
+print(f"""Profiling \033[96mnetworkit\033[0m on dataset \033[34m{filename}\033[0m""")
+print('''\033[91m=================================\033[0m''')
 
 
 
