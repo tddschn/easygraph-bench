@@ -14,13 +14,13 @@ def get_args():
     '''Get command-line arguments'''
 
     parser = argparse.ArgumentParser(
-        description='benchmark', formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        description='Benchmark easygraph', formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    parser.add_argument('dataset', help='dataset file', metavar='PATH', type=str)
+    parser.add_argument('dataset', help='path to the dataset file in tab-separated edgelist format', metavar='PATH', type=str)
     parser.add_argument(
         '-n',
         '--iteration',
-        help='iteration count when benchmarking',
+        help='iteration count when benchmarking, auto-determined if unspecified',
         metavar='INT',
         type=int,
     )
