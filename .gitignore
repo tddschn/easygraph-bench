@@ -5,6 +5,7 @@ output*
 !output
 output/*
 !output/easygraph-benchmark-results-template.xlsx
+!output/README.md
 out.*
 
 # outputs
