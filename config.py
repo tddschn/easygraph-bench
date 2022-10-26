@@ -151,7 +151,7 @@ dataset_name_mapping = {
 }
 
 
-slow_methods = {'constraint'}
+slow_methods = {'constraint', 'effective_size'}
 
 dataset_homepage_mapping = {
     'cheminformatics': 'https://networkrepository.com/ENZYMES-g1.php',

@@ -57,7 +57,9 @@ def add_dataset_name_column_to_csv(
         lambda x: x['method'] not in drop_methods, rows_with_dataset_name
     )
     if remove_records_with_negative_avg_time:
-        rows_to_write = filter(lambda x: float(x['avg time']) > 0, rows_to_write)
+        rows_to_write = filter(
+            lambda x: 'avg time' in x and float(x['avg time']) > 0, rows_to_write
+        )
     w.writerows(rows_to_write)
     return s.getvalue(), h
 
