@@ -28,7 +28,7 @@ def get_markdown_content() -> str:
         else:
             data.append({'Dataset Name': graph_name, **graph_info})
 
-    markdown = Tomark.table(sorted(data, key=lambda x: x['nodes']))  # type: ignore
+    markdown = Tomark.table(sorted(data, key=lambda x: ((n := x['Dataset Name']).startswith('er_'), x['nodes'], n.endswith('_directed'))))  # type: ignore
     return markdown
 
 
