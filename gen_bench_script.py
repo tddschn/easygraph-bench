@@ -6,7 +6,6 @@ Purpose: generate bench scripts from jinja template
 """
 
 import argparse
-from io import StringIO
 import json
 from jinja2 import FileSystemLoader, Environment, Template
 from pathlib import Path
@@ -18,10 +17,12 @@ from config import (
     graph_benchmark_code_ordereddict_yaml_path,
     edgelist_filenames,
     profile_tools_to_drop,
+    random_erdos_renyi_dataset_names,
 )
 from stat import S_IEXEC
 
 ENTRYPOINT_SH_PATH = Path(__file__).parent / 'entrypoint.sh'
+ENTRYPOINT_SH_ER_PATH = Path(__file__).parent / 'entrypoint_er.sh'
 
 
 def gen_bench_script(dataset_name: str, template: Template) -> str:
@@ -64,9 +65,9 @@ def get_args():
         '-d',
         '--dataset',
         type=str,
-        choices=dataset_names,
+        choices=dataset_names + random_erdos_renyi_dataset_names,
         nargs='+',
-        default=dataset_names,
+        default=dataset_names + random_erdos_renyi_dataset_names,
     )
 
     parser.add_argument(
@@ -86,6 +87,19 @@ def get_args():
     parser.add_argument(
         '--bash-arg',
         help='command line args for entrypoint.sh',
+        type=str,
+        default='"$@"',
+    )
+
+    parser.add_argument(
+        '--entrypoint-bash-er',
+        help='generate entry point scripts in bash (erdos-renyi)',
+        action='store_true',
+    )
+
+    parser.add_argument(
+        '--bash-arg-er',
+        help='command line args for entrypoint_er.sh (erdos-renyi)',
         type=str,
         default='"$@"',
     )
@@ -138,6 +152,17 @@ def main():
         ENTRYPOINT_SH_PATH.write_text(script_content)
         ENTRYPOINT_SH_PATH.chmod(ENTRYPOINT_SH_PATH.stat().st_mode | S_IEXEC)
         print(f'Benchmark entrypoint shell script generated at {ENTRYPOINT_SH_PATH}')
+        return
+
+    if args.entrypoint_bash_er:
+        script_content = gen_bench_script_entrypoint_bash(
+            datasets=random_erdos_renyi_dataset_names,
+            bash_arg=args.bash_arg_er,
+            template=template_entrypoint_bash,
+        )
+        ENTRYPOINT_SH_ER_PATH.write_text(script_content)
+        ENTRYPOINT_SH_ER_PATH.chmod(ENTRYPOINT_SH_ER_PATH.stat().st_mode | S_IEXEC)
+        print(f'Benchmark entrypoint shell script generated at {ENTRYPOINT_SH_ER_PATH}')
         return
 
     loading_methods = {'loading': '', 'loading_undirected': '_undirected'}

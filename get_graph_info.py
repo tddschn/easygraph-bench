@@ -6,7 +6,7 @@ Purpose: Get graph info
 """
 
 import argparse
-from config import dataset_names
+from config import dataset_names, random_erdos_renyi_dataset_names
 from pathlib import Path
 import json
 
@@ -65,7 +65,13 @@ def get_args():
         nargs='+',
         help='Specify the dataset to update',
         type=str,
-        choices=dataset_names,
+        choices=dataset_names + random_erdos_renyi_dataset_names,
+    )
+
+    parser.add_argument(
+        '--all-er',
+        help='Update all random erdos renyi datasets, overrides --dataset',
+        action='store_true',
     )
 
     return parser.parse_args()
@@ -75,9 +81,9 @@ def main() -> None:
     args = get_args()
     import dataset_loaders
 
-    if (datasets_to_update := args.dataset) is None:
+    if ((datasets_to_update := args.dataset) is None) and (not args.all_er):
         info_dict = {}
-        for dataset_name in dataset_names:
+        for dataset_name in dataset_names + random_erdos_renyi_dataset_names:
             if not args.test and dataset_name.startswith('stub'):
                 continue
             if args.test and not dataset_name.startswith('stub'):
@@ -97,6 +103,8 @@ def main() -> None:
     else:
         gi = Path(__file__).parent / "graph_info.json"
         info_dict = json.loads(gi.read_text())
+        if args.all_er:
+            datasets_to_update = random_erdos_renyi_dataset_names
         for dataset_name in datasets_to_update:
             if not args.test and dataset_name.startswith('stub'):
                 continue

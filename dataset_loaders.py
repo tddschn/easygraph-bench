@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 
-from functools import cache
+from functools import cache, partial
 from pathlib import Path
 import easygraph as eg
 import networkx as nx
-from config import DATASET_DIR
+from config import (
+    DATASET_DIR,
+    random_erdos_renyi_graphs_dir,
+    random_erdos_renyi_graphs_paths,
+)
 from utils import (
     list_allfile,
     load_func_for_nx,
@@ -353,3 +357,32 @@ def load_stub_nx():
         f'finished loading graph stub_nx\nnodes: {len(G.nodes)}, edges: {len(G.edges)}, is_directed: {G.is_directed()}'
     )
     return G
+
+
+# --------------------
+# random-erdos-renyi
+# --------------------
+def load_random_erdos_renyi(
+    filepath: Path | None = None,
+    node_number: int | None = None,
+    directed: bool | None = False,
+) -> eg.Graph | eg.DiGraph:
+    dataset_dir = random_erdos_renyi_graphs_dir
+    if filepath is None:
+        filepath = (
+            dataset_dir / f'{node_number}{"_directed" if directed else ""}.edgelist'
+        )
+    if not filepath.exists():
+        raise FileNotFoundError(f'{filepath} not found.')
+    filepath_s = str(filepath)
+    print_with_hr(f'loading graph random_erdos_renyi from {filepath} ...')
+    G = eg.read_edgelist(filepath_s, nodetype=int, create_using=eg.DiGraph() if directed or filepath.stem.endswith('_directed') else eg.Graph())  # type: ignore
+    print_with_hr(
+        f'finished loading graph random_erdos_renyi\nnodes: {len(G.nodes)}, edges: {len(G.edges)}, is_directed: {G.is_directed()}'  # type: ignore
+    )
+    return G  # type: ignore
+
+
+for p in random_erdos_renyi_graphs_paths:
+    g = globals()
+    g[f'load_er_{p.stem}'] = partial(load_random_erdos_renyi, filepath=p)

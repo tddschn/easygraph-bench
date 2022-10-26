@@ -1,6 +1,11 @@
+# large random datasets
+dataset/random*
+
 *.zip
 *.txt
 *.db
+*.tar
+*.tar.*
 output*
 !output
 output/*

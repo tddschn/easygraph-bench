@@ -11,6 +11,7 @@ gen-scripts:
 	./gen_bench_script.py
 	./gen_bench_script.py -e
 	./gen_bench_script.py -E
+	./gen_bench_script.py --entrypoint-bash-er
 	./gen_bench_script.py -P
 	./gen_bench_script.py -Z
 

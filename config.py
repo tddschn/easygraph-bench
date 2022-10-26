@@ -17,7 +17,9 @@ TIMLRX_DIR = Path(__file__).parent / 'timlrx'
 profile_preparation_yaml_path = TIMLRX_DIR / 'profile-preparation-code.yaml'
 graph_benchmark_code_json_path = TIMLRX_DIR / 'graph-benchmark-code.json'
 graph_benchmark_code_yaml_path = TIMLRX_DIR / 'graph-benchmark-code.yaml'
-graph_benchmark_code_ordereddict_yaml_path = TIMLRX_DIR / 'graph-benchmark-code-ordereddict.yaml'
+graph_benchmark_code_ordereddict_yaml_path = (
+    TIMLRX_DIR / 'graph-benchmark-code-ordereddict.yaml'
+)
 
 tool_order = ['nx', 'eg', 'eg (C++)']
 
@@ -245,3 +247,18 @@ def read_profile_preparation_code() -> dict[str, str]:
 
 # snap doesn't support python 3.10 and it sucks, so
 profile_tools_to_drop = {'snap'}
+
+
+random_erdos_renyi_graphs_dir = Path(__file__).parent / 'dataset' / 'random-erdos-renyi'
+random_erdos_renyi_graphs_paths = sorted(
+    random_erdos_renyi_graphs_dir.glob('*.edgelist'),
+    key=lambda p: int(p.stem.removesuffix('_directed')),
+)
+random_erdos_renyi_graphs_load_function_names = [
+    f'load_er_{p.stem}' for p in random_erdos_renyi_graphs_paths
+]
+
+# dataset_names = [x.removeprefix('load_') for x in load_functions_name]
+random_erdos_renyi_dataset_names = [
+    x.removeprefix('load_') for x in random_erdos_renyi_graphs_load_function_names
+]
