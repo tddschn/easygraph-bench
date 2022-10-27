@@ -5,6 +5,7 @@ afdffab
 allfile
 autorange
 barplot
+betweenness
 biconnected
 booktitle
 cdfb
@@ -26,6 +27,7 @@ edgelist
 efacb
 effa
 endgroup
+Erdos
 erdos
 fangsong
 fcbc
@@ -58,6 +60,7 @@ mpage
 mshortest
 msnap
 mstrongly
+multipcoessing
 MUTAG
 mxschmitt
 Nesreen
@@ -76,6 +79,7 @@ pybind
 pyplot
 qualname
 quotechar
+Renyi
 renyi
 Rossi
 savefig

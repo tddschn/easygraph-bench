@@ -59,6 +59,8 @@ def get_bench_results_field_types() -> dict[str, str]:
         'average_time': 'REAL',
         'iteration_count': 'INTEGER',
         'timestamp': 'TEXT',
+        'multiprocessing': 'BOOLEAN DEFAULT 0',
+        'n_workers': 'INTEGER DEFAULT 1',
     }
 
 
@@ -76,6 +78,8 @@ def insert_bench_results(
     average_time: float,
     timestamp: datetime,
     iteration_count: int | None = None,
+    multiprocessing: bool = False,
+    n_workers: int = 1,
 ):
     conn.set_trace_callback(print)
     c = conn.cursor()
@@ -84,9 +88,20 @@ def insert_bench_results(
             iteration_count = get_autorange_count(average_time)
         except ValueError:
             iteration_count = 0
+    if n_workers > 1:
+        multiprocessing = True
     c.execute(
-        f'INSERT INTO {bench_results_table_name} (dataset, method, tool, average_time, iteration_count, timestamp) VALUES (?, ?, ?, ?, ?, ?)',
-        (dataset, method, tool, average_time, iteration_count, timestamp),
+        f'INSERT INTO {bench_results_table_name} (dataset, method, tool, average_time, iteration_count, timestamp, multiprocessing, n_workers) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        (
+            dataset,
+            method,
+            tool,
+            average_time,
+            iteration_count,
+            timestamp,
+            multiprocessing,
+            n_workers,
+        ),
     )
     conn.commit()
 

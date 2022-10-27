@@ -297,7 +297,9 @@ def bench_with_timeit(
     get_Timer_args: Callable = get_Timer_args,
 ) -> float:
     timer = Timer(*get_Timer_args(module, method, graph, args, kwargs))
-    print(f'::group::bench_with_timeit - module: {module}, method: {method}')
+    print(
+        f'''::group::bench_with_timeit - module: \033[35m{module}\033[0m, method: {method}'''
+    )
     print(f'{timer.src=}')  # type: ignore
     try:
         if timeit_number is None:
@@ -402,6 +404,7 @@ def eval_method(
     skip_networkx: bool = False,
     skip_draw: bool = False,
     timeit_number: int | None = None,
+    n_workers: list[int] | None = None,
     # timeout: Optional[Union[float, int]] = None,
 ) -> tuple[dict, DTForTools]:
     # raise DeprecationWarning('Deprecated. Use ./bench_*.py instead')
@@ -409,7 +412,9 @@ def eval_method(
     load_func_name = load_func_name.removeprefix('load_')
     too_large_to_run_constraint = is_too_large_to_run_constraint(load_func_name)
     cost_dict = {}
-    print(f'::group::eval_method - dataset: {load_func_name}, method: {method_name}')
+    print(
+        f'''::group::eval_method - dataset: \033[36m{load_func_name}\033[0m, method: \033[33m{method_name}\033[0m'''
+    )
     dt_nx, dt_eg, dt_ceg = [datetime.now()] * 3
     if isinstance(method_name, str):
         print_with_hr(
@@ -464,6 +469,25 @@ def eval_method(
                 avg_time_eg = -10.0
             dt_eg = datetime.now()
             cost_dict[load_func_name][method_name]["easygraph"] = avg_time_eg
+
+            if n_workers:
+                for n in n_workers:
+                    print(f'\033[32m{method_name} with n_workers={n}\033[0m')
+                    if do_run:
+                        avg_time_eg = bench_with_timeit(
+                            module='eg',
+                            method=method_name,
+                            graph='G_eg',
+                            args=call_method_args_eg,
+                            kwargs=call_method_kwargs_eg | {'n_workers': str(n)},
+                            timeit_number=timeit_number,
+                        )
+                    else:
+                        avg_time_eg = -10.0
+                    dt_eg = datetime.now()
+                    cost_dict[load_func_name][method_name][
+                        f"easygraph n_workers={n}"
+                    ] = avg_time_eg
 
         if not skip_networkx:
             if do_run:
@@ -565,6 +589,25 @@ def eval_method(
                 avg_time_eg = -10.0
             dt_eg = datetime.now()
             cost_dict[load_func_name][method_name_eg]["easygraph"] = avg_time_eg
+
+            if n_workers:
+                for n in n_workers:
+                    print(f'\033[32m{method_name_eg} with n_workers={n}\033[0m')
+                    if do_run:
+                        avg_time_eg = bench_with_timeit(
+                            module='eg',
+                            method=method_name_eg,
+                            graph='G_eg',
+                            args=call_method_args_eg,
+                            kwargs=call_method_kwargs_eg | {'n_workers': str(n)},
+                            timeit_number=timeit_number,
+                        )
+                    else:
+                        avg_time_eg = -10.0
+                    dt_eg = datetime.now()
+                    cost_dict[load_func_name][method_name_eg][
+                        f"easygraph n_workers={n}"
+                    ] = avg_time_eg
 
         if not skip_networkx:
             if do_run:
@@ -704,7 +747,7 @@ def is_too_large_to_run_constraint(
     dataset_name: str,
     g: None
     | (eg.Graph | eg.GraphC | nx.Graph | eg.DiGraph | eg.DiGraphC | nx.DiGraph) = None,
-    max_num_nodes: int = 10_000,
+    max_num_nodes: int = 1_000,
 ) -> bool:
     if dataset_name.startswith('stub'):
         return False

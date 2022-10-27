@@ -12,14 +12,21 @@ from config import BENCH_CSV_DIR, tool_name_mapping, dataset_name_mapping, drop_
 from utils_other import get_dataset_list_sorted_by_nodes_and_edges, strip_file_content
 import csv
 from io import StringIO
+import re
 
 
 def get_dataset_name_to_path_mapping_from_csv_dir(
     csv_dir: Path,
 ) -> Iterator[tuple[str, Path]]:
     for csv_path in csv_dir.rglob('*.csv'):
-        file_name = csv_path.name
-        dataset_name = file_name.split()[0].split('.')[0]
+        file_stem = csv_path.stem
+        if (
+            re.match(r'(all-|profile_)', file_stem)
+            or re.match(r'.*_multiprocessing', file_stem)
+            or file_stem == 'all'
+        ):
+            continue
+        dataset_name = file_stem.split()[0]
         yield dataset_name, csv_path
 
 
@@ -44,6 +51,9 @@ def add_dataset_name_column_to_csv(
     csv_path: Path,
     remove_records_with_negative_avg_time: bool = True,
 ) -> tuple[str, KeysView[str]]:
+    # from icecream import ic
+
+    # ic(dataset_name, csv_path)
     r = csv.DictReader(csv_path.read_text().splitlines())
     rows_with_dataset_name = [{'dataset': dataset_name} | x for x in r]
     for row in rows_with_dataset_name:

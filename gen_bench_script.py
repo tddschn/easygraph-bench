@@ -22,6 +22,9 @@ from config import (
 from stat import S_IEXEC
 
 ENTRYPOINT_SH_PATH = Path(__file__).parent / 'entrypoint.sh'
+# cSpell:disable
+ENTRYPOINT_SH_M_PATH = Path(__file__).parent / 'mentrypoint.sh'
+# cSpell:enable
 ENTRYPOINT_SH_ER_PATH = Path(__file__).parent / 'entrypoint_er.sh'
 
 
@@ -36,9 +39,14 @@ def gen_bench_script_entrypoint(script_set: str, template: Template) -> str:
 
 
 def gen_bench_script_entrypoint_bash(
-    datasets: list[str], bash_arg: str, template: Template
+    datasets: list[str],
+    bash_arg: str,
+    template: Template,
+    multiprocessing: bool = False,
 ) -> str:
-    script_body = '\n'.join(f'./bench_{d}.py {bash_arg}' for d in datasets)
+    script_body = '\n'.join(
+        f'./{"m" if multiprocessing else ""}bench_{d}.py {bash_arg}' for d in datasets
+    )
     return template.render(script_body=script_body)
 
 
@@ -80,7 +88,14 @@ def get_args():
     parser.add_argument(
         '-E',
         '--entrypoint-bash',
-        help='generate entry point scripts in bash',
+        help='generate entry point script in bash',
+        action='store_true',
+    )
+
+    parser.add_argument(
+        '-M',
+        '--entrypoint-bash-multiprocessing',
+        help='generate entry point script in bash for running multiprocessing bench scripts',
         action='store_true',
     )
 
@@ -115,6 +130,8 @@ def get_args():
         action='store_true',
     )
 
+    parser.add_argument('-m', '--multiprocessing-bench-scripts', action='store_true')
+
     parser.add_argument('-o', '--output', type=Path, help='output file')
 
     return parser.parse_args()
@@ -126,6 +143,7 @@ def main():
     e = Environment(loader=FileSystemLoader('templates'))
     # Load the Jinja2 template.
     template = e.get_template('bench_template.jinja.py')
+    template_m = e.get_template('multiprocessing_bench_template.jinja.py')
     template_entrypoint = e.get_template('entrypoint.jinja.py')
     template_entrypoint_bash = e.get_template('entrypoint.jinja.sh')
     template_profile_script = e.get_template('profile_template.jinja.py')
@@ -152,6 +170,22 @@ def main():
         ENTRYPOINT_SH_PATH.write_text(script_content)
         ENTRYPOINT_SH_PATH.chmod(ENTRYPOINT_SH_PATH.stat().st_mode | S_IEXEC)
         print(f'Benchmark entrypoint shell script generated at {ENTRYPOINT_SH_PATH}')
+        return
+
+    if args.entrypoint_bash_multiprocessing:
+        script_content = gen_bench_script_entrypoint_bash(
+            datasets=args.dataset,
+            bash_arg=args.bash_arg,
+            template=template_entrypoint_bash,
+            multiprocessing=True,
+        )
+        ENTRYPOINT_SH_M_PATH.write_text(script_content)
+        ENTRYPOINT_SH_M_PATH.chmod(ENTRYPOINT_SH_M_PATH.stat().st_mode | S_IEXEC)
+        # cSpell:disable
+        print(
+            f'Benchmark entrypoint shell script (for multiprocessing mbench_*.py) generated at {ENTRYPOINT_SH_PATH}'
+        )
+        # cSpell:enable
         return
 
     if args.entrypoint_bash_er:
@@ -238,6 +272,19 @@ def main():
         print(f'Benchmark script for {dataset_name} is generated at {output_path}')
     else:
         # ignores -o if dataset > 1
+        if args.multiprocessing_bench_scripts:
+            for dataset_name in args.dataset:
+                script_content = gen_bench_script(dataset_name, template=template_m)
+                # cSpell:disable
+                output_path = Path(f'mbench_{dataset_name}.py')
+                # cSpell:enable
+                output_path.write_text(script_content)
+                output_path.chmod(output_path.stat().st_mode | S_IEXEC)
+                print(
+                    f'Multiprocessing benchmark script for {dataset_name} is generated at {output_path}'
+                )
+            return
+
         for dataset_name in args.dataset:
             script_content = gen_bench_script(dataset_name, template=template)
             output_path = Path(f'bench_{dataset_name}.py')

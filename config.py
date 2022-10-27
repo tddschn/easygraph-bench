@@ -262,3 +262,20 @@ random_erdos_renyi_graphs_load_function_names = [
 random_erdos_renyi_dataset_names = [
     x.removeprefix('load_') for x in random_erdos_renyi_graphs_load_function_names
 ]
+
+easygraph_multipcoessing_methods = [
+    'laplacian',
+    'betweenness_centrality',
+    'closeness_centrality',
+    'constraint',
+    'hierarchy',
+    'effective_size',
+]
+
+easygraph_multipcoessing_methods_available_in_networkx = {
+    'betweenness_centrality',
+    'closeness_centrality',
+    "effective_size",
+}
+
+easygraph_multiprocessing_n_workers_options = [2, 4, 8]

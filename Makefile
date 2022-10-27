@@ -14,6 +14,8 @@ gen-scripts:
 	./gen_bench_script.py --entrypoint-bash-er
 	./gen_bench_script.py -P
 	./gen_bench_script.py -Z
+	./gen_bench_script.py -m
+	./gen_bench_script.py -M
 
 evaluate: clean
 	./bench.py
