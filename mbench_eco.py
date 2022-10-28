@@ -173,7 +173,9 @@ def main():
             bench_timestamps.append(__)
     except Exception as e:
         print(e)
-        print(f'Error while benchmarking {method_name}')
+        msg = f'Error while benchmarking {method_name}'
+        # print in red
+        print(f'\033[91m{msg}\033[0m')
 
 
     print()
@@ -184,7 +186,7 @@ def main():
     # print(f'{result=}')
 
     dataset_name = load_func_name.removeprefix("load_")
-    csv_file = f'{dataset_name}.csv'
+    csv_file = f'{dataset_name}_multiprocessing.csv'
     csv_file_path = args.output_dir / csv_file
     if args.no_save:
         _, csv_file_path_s = mkstemp(suffix='.csv')

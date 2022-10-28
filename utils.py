@@ -755,7 +755,7 @@ def is_too_large_to_run_constraint(
     gi_d = json.loads(gi.read_text())
     if dataset_name in gi_d:
         num_nodes = gi_d[dataset_name]['nodes']
-        if dataset_name.startswith('er_') and num_nodes > 200:
+        if dataset_name.startswith('er_') and num_nodes > 500:
             return True
     else:
         if g is None:
