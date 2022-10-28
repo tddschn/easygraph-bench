@@ -5,6 +5,7 @@ dataset/random*
 *.txt
 *.db
 *.tar
+*.bak
 *.tar.*
 output*
 !output
