@@ -153,6 +153,36 @@ dataset_name_mapping = {
 
 slow_methods = {'constraint', 'effective_size'}
 
+random_erdos_renyi_graphs_dir = Path(__file__).parent / 'dataset' / 'random-erdos-renyi'
+random_erdos_renyi_graphs_paths = sorted(
+    random_erdos_renyi_graphs_dir.glob('*.edgelist'),
+    key=lambda p: int(p.stem.removesuffix('_directed')),
+)
+random_erdos_renyi_graphs_load_function_names = [
+    f'load_er_{p.stem}' for p in random_erdos_renyi_graphs_paths
+]
+
+# dataset_names = [x.removeprefix('load_') for x in load_functions_name]
+random_erdos_renyi_dataset_names = [
+    x.removeprefix('load_') for x in random_erdos_renyi_graphs_load_function_names
+]
+
+easygraph_multipcoessing_methods = [
+    'laplacian',
+    'betweenness_centrality',
+    'closeness_centrality',
+    'constraint',
+    'hierarchy',
+    'effective_size',
+]
+
+easygraph_multipcoessing_methods_available_in_networkx = {
+    'betweenness_centrality',
+    'closeness_centrality',
+    "effective_size",
+}
+
+easygraph_multiprocessing_n_workers_options = [2, 4, 8]
 dataset_homepage_mapping = {
     'cheminformatics': 'https://networkrepository.com/ENZYMES-g1.php',
     'bio': 'https://networkrepository.com/bio-yeast.php',
@@ -171,6 +201,10 @@ dataset_homepage_mapping = {
             '.py'
         ): 'https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py'
         for bench_script_name in bench_scripts_stub
+    },
+    **{
+        er_dataset_name: 'https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py'
+        for er_dataset_name in random_erdos_renyi_dataset_names
     },
 }
 
@@ -247,35 +281,3 @@ def read_profile_preparation_code() -> dict[str, str]:
 
 # snap doesn't support python 3.10 and it sucks, so
 profile_tools_to_drop = {'snap'}
-
-
-random_erdos_renyi_graphs_dir = Path(__file__).parent / 'dataset' / 'random-erdos-renyi'
-random_erdos_renyi_graphs_paths = sorted(
-    random_erdos_renyi_graphs_dir.glob('*.edgelist'),
-    key=lambda p: int(p.stem.removesuffix('_directed')),
-)
-random_erdos_renyi_graphs_load_function_names = [
-    f'load_er_{p.stem}' for p in random_erdos_renyi_graphs_paths
-]
-
-# dataset_names = [x.removeprefix('load_') for x in load_functions_name]
-random_erdos_renyi_dataset_names = [
-    x.removeprefix('load_') for x in random_erdos_renyi_graphs_load_function_names
-]
-
-easygraph_multipcoessing_methods = [
-    'laplacian',
-    'betweenness_centrality',
-    'closeness_centrality',
-    'constraint',
-    'hierarchy',
-    'effective_size',
-]
-
-easygraph_multipcoessing_methods_available_in_networkx = {
-    'betweenness_centrality',
-    'closeness_centrality',
-    "effective_size",
-}
-
-easygraph_multiprocessing_n_workers_options = [2, 4, 8]

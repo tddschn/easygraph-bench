@@ -17,6 +17,9 @@ gen-scripts:
 	./gen_bench_script.py -m
 	./gen_bench_script.py -M
 
+deta:
+	deta deploy ../easygraph-bench-results-fastapi
+
 evaluate: clean
 	./bench.py
 

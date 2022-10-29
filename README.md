@@ -20,6 +20,7 @@ This repository includes code for benchmarking the performance of graph librarie
   - [Result visualization (for Objective 1 only)](#result-visualization-for-objective-1-only)
   - [Datasets](#datasets)
   - [Results](#results)
+    - [Bench results REST API](#bench-results-rest-api)
     - [Results downloads](#results-downloads)
 
 ## Objectives
@@ -274,14 +275,14 @@ The `er_*` Erdos-Renyi random graphs are generated with `eg.erdos_renyi_P()`, av
 
 
 
+
+
+
+
 <!-- BEGIN DATASET TABLE -->
 
 | Dataset Name                                                                                            | nodes   | edges    | is_directed | average_degree     | density                | type                                     |
 | ------------------------------------------------------------------------------------------------------- | ------- | -------- | ----------- | ------------------ | ---------------------- | ---------------------------------------- |
-| [stub](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)                       | 5       | 10       | False       | 4.0                | 1.0                    | easygraph.classes.graph.Graph            |
-| [stub_with_underscore](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)       | 5       | 10       | False       | 4.0                | 1.0                    | easygraph.classes.graph.Graph            |
-| [stub_directed](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)              | 5       | 20       | True        | 8.0                | 1.0                    | easygraph.classes.directed_graph.DiGraph |
-| [stub_nx](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)                    | 5       | 10       | False       | 4.0                | 1.0                    | networkx.classes.graph.Graph             |
 | [cheminformatics](https://networkrepository.com/ENZYMES-g1.php)                                         | 37      | 168      | True        | 9.08108108108108   | 0.12612612612612611    | easygraph.classes.directed_graph.DiGraph |
 | [eco](https://networkrepository.com/econ-mahindas.php)                                                  | 1258    | 7619     | False       | 12.112877583465819 | 0.009636338570776308   | networkx.classes.graph.Graph             |
 | [bio](https://networkrepository.com/bio-yeast.php)                                                      | 1458    | 1948     | False       | 2.672153635116598  | 0.0018340107310340413  | easygraph.classes.graph.Graph            |
@@ -294,23 +295,19 @@ The `er_*` Erdos-Renyi random graphs are generated with `eg.erdos_renyi_P()`, av
 | [coauthorship](https://github.com/chenyang03/co-authorship-network)                                     | 402392  | 1234019  | False       | 6.1334171653512    | 1.5242431280399412e-05 | networkx.classes.graph.Graph             |
 | [google](https://snap.stanford.edu/data/web-Google.html)                                                | 875713  | 5105039  | True        | 11.659160021605253 | 6.656960291514363e-06  | networkx.classes.digraph.DiGraph         |
 | [pokec](https://snap.stanford.edu/data/soc-Pokec.html)                                                  | 1632803 | 30622564 | True        | 37.50919614919865  | 1.148614349725155e-05  | networkx.classes.digraph.DiGraph         |
-| er_200                                                                                                  | 200     | 4028     | False       | 40.28              | 0.20241206030150755    | easygraph.classes.graph.Graph            |
-| er_200_directed                                                                                         | 200     | 3818     | True        | 38.18              | 0.09592964824120603    | easygraph.classes.directed_graph.DiGraph |
-| er_500                                                                                                  | 500     | 24807    | False       | 99.228             | 0.19885370741482966    | easygraph.classes.graph.Graph            |
-| er_500_directed                                                                                         | 500     | 24778    | True        | 99.112             | 0.09931062124248496    | easygraph.classes.directed_graph.DiGraph |
-| er_1000                                                                                                 | 1000    | 99731    | False       | 199.462            | 0.19966166166166166    | easygraph.classes.graph.Graph            |
-| er_1000_directed                                                                                        | 1000    | 99542    | True        | 199.084            | 0.09964164164164165    | easygraph.classes.directed_graph.DiGraph |
-| er_2000                                                                                                 | 2000    | 400568   | False       | 400.568            | 0.20038419209604802    | easygraph.classes.graph.Graph            |
-| er_2000_directed                                                                                        | 2000    | 399795   | True        | 399.795            | 0.09999874937468735    | easygraph.classes.directed_graph.DiGraph |
-| er_5000                                                                                                 | 5000    | 2496529  | False       | 998.6116           | 0.1997622724544909     | easygraph.classes.graph.Graph            |
-| er_5000_directed                                                                                        | 5000    | 2500063  | True        | 1000.0252          | 0.10002252450490098    | easygraph.classes.directed_graph.DiGraph |
+| [er_200](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)                     | 200     | 4028     | False       | 40.28              | 0.20241206030150755    | easygraph.classes.graph.Graph            |
+| [er_200_directed](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)            | 200     | 3818     | True        | 38.18              | 0.09592964824120603    | easygraph.classes.directed_graph.DiGraph |
+| [er_500_directed](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)            | 500     | 24778    | True        | 99.112             | 0.09931062124248496    | easygraph.classes.directed_graph.DiGraph |
+| [er_500](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)                     | 500     | 24807    | False       | 99.228             | 0.19885370741482966    | easygraph.classes.graph.Graph            |
+| [er_1000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)                    | 1000    | 99731    | False       | 199.462            | 0.19966166166166166    | easygraph.classes.graph.Graph            |
+| [er_1000_directed](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)           | 1000    | 99542    | True        | 199.084            | 0.09964164164164165    | easygraph.classes.directed_graph.DiGraph |
+| [er_2000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)                    | 2000    | 400568   | False       | 400.568            | 0.20038419209604802    | easygraph.classes.graph.Graph            |
+| [er_2000_directed](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)           | 2000    | 399795   | True        | 399.795            | 0.09999874937468735    | easygraph.classes.directed_graph.DiGraph |
+| [er_5000_directed](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)           | 5000    | 2500063  | True        | 1000.0252          | 0.10002252450490098    | easygraph.classes.directed_graph.DiGraph |
+| [er_5000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)                    | 5000    | 2496529  | False       | 998.6116           | 0.1997622724544909     | easygraph.classes.graph.Graph            |
 
 
 <!-- END DATASET TABLE -->
-
-I don't know how to do that while sticking to the DRY principle. 
-
-But if you know, please tell me. :)
 
 ## Results
 
@@ -328,6 +325,13 @@ Results were generated by downloading all the datasets and running `./bench.sh`.
 Objective 1:
 
 ![](images/bench-results-spreadsheet-screenshot-2022-10-19.png)
+
+### Bench results REST API
+
+- Try it out: 
+  - https://easygraph-bench-results.teddysc.me/results?dataset=eco&method=effective_size
+  - https://easygraph-bench-results.teddysc.me/graph_info
+- Documentation: https://easygraph-bench-results.teddysc.me/docs
 
 ### Results downloads
 
