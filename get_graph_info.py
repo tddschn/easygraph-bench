@@ -87,7 +87,7 @@ def main() -> None:
     args = get_args()
     if args.remove_er_info_where_dataset_not_present:
         gi_d = json.loads(graph_info_json_path.read_text())
-        for dataset, info in gi_d.items():
+        for dataset in gi_d.copy().keys():
             if dataset.startswith('er_') and not Path(dataset).exists():
                 del gi_d[dataset]
         graph_info_json_path.write_text(json.dumps(gi_d, indent=4))
