@@ -35,6 +35,8 @@ from config import (
     easygraph_multipcoessing_methods,
     easygraph_multipcoessing_methods_available_in_networkx,
     easygraph_multiprocessing_n_workers_options,
+    easygraph_multipcoessing_methods_for_paper,
+    easygraph_multiprocessing_n_workers_options_for_paper,
 )
 from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, tabulate_csv
 from eg_bench_types import DTForTools
@@ -105,6 +107,10 @@ def get_args():
     # )
 
     parser.add_argument(
+        '--paper', action='store_true', help='Use this flag to generate the results for the paper (skip ceg and nx, using methods for paper)'
+    )
+
+    parser.add_argument(
         '-w', '--n-workers', '--parallel', type=int, help='Specify the n_workers arg for multiprocessing easygraph methods.', nargs='*', default=easygraph_multiprocessing_n_workers_options,
     )
 
@@ -152,17 +158,20 @@ def main():
     args = get_args()
     flags = {}
     flags |= {'skip_eg': args.skip_easygraph}
-    flags |= {'skip_ceg': args.skip_cpp_easygraph}
-    flags |= {'skip_networkx': args.skip_networkx}
+    flags |= {'skip_ceg': args.skip_cpp_easygraph or args.paper}
+    flags |= {'skip_networkx': args.skip_networkx or args.paper}
     flags |= {'skip_draw': True}
     flags |= {'timeit_number': getattr(args, 'pass', None)}
     flags |= {'n_workers': getattr(args, 'n_workers', None)}
     # flags |= {'timeout': args.timeout if args.timeout > 0 else None}
     result_dicts: list[dict] = []
     bench_timestamps: list[DTForTools] = []
+    methods_to_include = easygraph_multipcoessing_methods_for_paper if args.paper else easygraph_multipcoessing_methods_available_in_networkx
+    if args.paper and flags['n_workers'] == easygraph_multiprocessing_n_workers_options:
+        flags['n_workers'] = easygraph_multiprocessing_n_workers_options_for_paper
     try:
         for method_name in easygraph_multipcoessing_methods:
-            if method_name not in easygraph_multipcoessing_methods_available_in_networkx:
+            if method_name not in methods_to_include:
                 continue
             _, __ = eval_method(
                 load_func_name,
