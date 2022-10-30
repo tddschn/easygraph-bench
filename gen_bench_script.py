@@ -18,12 +18,16 @@ from config import (
     edgelist_filenames,
     profile_tools_to_drop,
     random_erdos_renyi_dataset_names,
+    dataset_names_for_paper_multiprocessing,
+    er_dataset_names_for_paper_multiprocessing,
 )
 from stat import S_IEXEC
 
 ENTRYPOINT_SH_PATH = Path(__file__).parent / 'entrypoint.sh'
+ENTRYPOINT_SH_PAPER_PATH = Path(__file__).parent / 'entrypoint_paper.sh'
 # cSpell:disable
 ENTRYPOINT_SH_M_PATH = Path(__file__).parent / 'mentrypoint.sh'
+ENTRYPOINT_SH_M_PAPER_PATH = Path(__file__).parent / 'mentrypoint_paper.sh'
 # cSpell:enable
 ENTRYPOINT_SH_ER_PATH = Path(__file__).parent / 'entrypoint_er.sh'
 
@@ -93,9 +97,21 @@ def get_args():
     )
 
     parser.add_argument(
+        '--entrypoint-bash-paper',
+        help='generate entry point script in bash for the paper',
+        action='store_true',
+    )
+
+    parser.add_argument(
         '-M',
         '--entrypoint-bash-multiprocessing',
         help='generate entry point script in bash for running multiprocessing bench scripts',
+        action='store_true',
+    )
+
+    parser.add_argument(
+        '--entrypoint-bash-multiprocessing-paper',
+        help='generate entry point script in bash for running multiprocessing bench scripts (for paper)',
         action='store_true',
     )
 
@@ -172,6 +188,26 @@ def main():
         print(f'Benchmark entrypoint shell script generated at {ENTRYPOINT_SH_PATH}')
         return
 
+    if args.entrypoint_bash_paper:
+        script_content = gen_bench_script_entrypoint_bash(
+            datasets=list(
+                filter(
+                    lambda x: not x.startswith('stub'),
+                    dataset_names + er_dataset_names_for_paper_multiprocessing,
+                )
+            ),
+            bash_arg=args.bash_arg,
+            template=template_entrypoint_bash,
+        )
+        ENTRYPOINT_SH_PAPER_PATH.write_text(script_content)
+        ENTRYPOINT_SH_PAPER_PATH.chmod(
+            ENTRYPOINT_SH_PAPER_PATH.stat().st_mode | S_IEXEC
+        )
+        print(
+            f'Benchmark entrypoint shell script generated at {ENTRYPOINT_SH_PAPER_PATH}'
+        )
+        return
+
     if args.entrypoint_bash_multiprocessing:
         script_content = gen_bench_script_entrypoint_bash(
             datasets=args.dataset,
@@ -183,7 +219,26 @@ def main():
         ENTRYPOINT_SH_M_PATH.chmod(ENTRYPOINT_SH_M_PATH.stat().st_mode | S_IEXEC)
         # cSpell:disable
         print(
-            f'Benchmark entrypoint shell script (for multiprocessing mbench_*.py) generated at {ENTRYPOINT_SH_PATH}'
+            f'Benchmark entrypoint shell script (for multiprocessing mbench_*.py) generated at {ENTRYPOINT_SH_M_PATH}'
+        )
+        # cSpell:enable
+        return
+
+    if args.entrypoint_bash_multiprocessing_paper:
+        script_content = gen_bench_script_entrypoint_bash(
+            datasets=er_dataset_names_for_paper_multiprocessing
+            + dataset_names_for_paper_multiprocessing,
+            bash_arg=f'--paper {args.bash_arg}',
+            template=template_entrypoint_bash,
+            multiprocessing=True,
+        )
+        ENTRYPOINT_SH_M_PAPER_PATH.write_text(script_content)
+        ENTRYPOINT_SH_M_PAPER_PATH.chmod(
+            ENTRYPOINT_SH_M_PAPER_PATH.stat().st_mode | S_IEXEC
+        )
+        # cSpell:disable
+        print(
+            f'Benchmark entrypoint shell script (for multiprocessing mbench_*.py) generated at {ENTRYPOINT_SH_M_PAPER_PATH}'
         )
         # cSpell:enable
         return

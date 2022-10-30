@@ -749,6 +749,7 @@ def is_too_large_to_run_constraint(
     | (eg.Graph | eg.GraphC | nx.Graph | eg.DiGraph | eg.DiGraphC | nx.DiGraph) = None,
     max_num_nodes: int = 1_000,
 ) -> bool:
+    return False
     if dataset_name.startswith('stub'):
         return False
     gi = Path(__file__).parent / 'graph_info.json'

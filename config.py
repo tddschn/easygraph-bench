@@ -24,7 +24,8 @@ graph_benchmark_code_ordereddict_yaml_path = (
 tool_order = ['nx', 'eg', 'eg (C++)']
 
 # (`eg.average_clustering` vs `nx.average_clustering`, ...)
-clustering_methods = ["average_clustering", "clustering"]
+# clustering_methods = ["average_clustering", "clustering"]
+clustering_methods = ["clustering"]
 
 # (`eg.Dijkstra` vs `nx.single_source_dijkstra_path`)
 shortest_path_methods = [('Dijkstra', 'single_source_dijkstra_path')]
@@ -289,3 +290,8 @@ def read_profile_preparation_code() -> dict[str, str]:
 
 # snap doesn't support python 3.10 and it sucks, so
 profile_tools_to_drop = {'snap'}
+
+dataset_names_for_paper_multiprocessing = ['bio', 'uspowergrid', 'enron', 'coauth']
+er_dataset_names_for_paper_multiprocessing = [
+    f'er_{x}' for x in (500, 1000, 5000, 10000)
+]

@@ -105,6 +105,11 @@ def get_args():
     # parser.add_argument(
     #     '-t', '--timeout', type=int, help='Timeout for benchmarking one method in seconds, 0 for no timeout', default=60
     # )
+
+    # parser.add_argument(
+    #     '--paper', action='store_true', help='Use this flag to generate the results for the paper'
+    # )
+
     parser.add_argument(
         '-o', '--output-dir', type=Path, help='Output directory', default=BENCH_CSV_DIR,
     )
