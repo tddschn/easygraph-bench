@@ -88,7 +88,12 @@ def main() -> None:
     if args.remove_er_info_where_dataset_not_present:
         gi_d = json.loads(graph_info_json_path.read_text())
         for dataset in gi_d.copy().keys():
-            if dataset.startswith('er_') and not Path(dataset).exists():
+            if (
+                dataset.startswith('er_')
+                and not Path(
+                    f'dataset/random-erdos-renyi/{dataset.removeprefix("er_")}.edgelist'
+                ).exists()
+            ):
                 del gi_d[dataset]
         graph_info_json_path.write_text(json.dumps(gi_d, indent=4))
         return
