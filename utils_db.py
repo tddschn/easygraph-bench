@@ -1,21 +1,15 @@
-from datetime import datetime
-from typing import Iterable
-from config import (
-    bench_results_db_path,
-    bench_results_table_name,
-    graph_info_table_name,
-    graph_info_json_path,
-    dataset_homepage_mapping,
-    graph_property_to_excel_field_mapping,
-    bench_results_db_path,
-    methods_timlrx,
-    methods6_timlrx,
-)
-from utils_other import get_autorange_count
 import json
 import sqlite3
+from datetime import datetime
 from pathlib import Path
+from typing import Iterable
 
+from config import (bench_results_db_path, bench_results_table_name,
+                    dataset_homepage_mapping, graph_info_json_path,
+                    graph_info_table_name,
+                    graph_property_to_excel_field_mapping, methods6_timlrx,
+                    methods_timlrx)
+from utils_other import get_autorange_count
 
 python_type_to_sqlite_type = {
     int: 'INTEGER',
