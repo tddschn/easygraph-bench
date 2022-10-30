@@ -4,6 +4,7 @@
 *.zip
 *.txt
 *.db
+*.db.*
 *.tar
 *.bak
 *.tar.*
