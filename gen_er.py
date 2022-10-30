@@ -34,6 +34,10 @@ def get_args():
         '-p', help='Probability of edge', metavar='float', type=float, default=0.05
     )
 
+    parser.add_argument(
+        '-d', '--dynamic-p', help='Dynamically assign p values', action='store_true'
+    )
+
     return parser.parse_args()
 
 
@@ -58,6 +62,7 @@ def main():
                 f'Generating {filepath} ({"directed" if directed else "undirected"}) {idx} / {total_graph_count}...'
             )
             er(num, args.p, directed, filepath)
+            idx += 1
 
 
 if __name__ == '__main__':
