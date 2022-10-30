@@ -94,9 +94,7 @@ def get_args():
 
     # parser.add_argument('-n', '--dry-run', action='store_true', help='Dry run')
 
-    parser.add_argument(
-        '-D', '--skip-draw', action='store_true', help='Skip drawing graphs to speed things up'
-    )
+    
 
     parser.add_argument(
         '-p', '--pass', type=int, help='Number of passes to run in the benchmark, uses Timer.autorange() if not set.'
@@ -150,7 +148,7 @@ def main():
     flags |= {'skip_eg': args.skip_easygraph}
     flags |= {'skip_ceg': args.skip_cpp_easygraph}
     flags |= {'skip_networkx': args.skip_networkx}
-    flags |= {'skip_draw': args.skip_draw}
+    flags |= {'skip_draw': True}
     flags |= {'timeit_number': getattr(args, 'pass', None)}
     # flags |= {'timeout': args.timeout if args.timeout > 0 else None}
     result_dicts: list[dict] = []
