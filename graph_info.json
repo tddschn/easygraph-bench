@@ -127,30 +127,6 @@
         "density": 1.0,
         "type": "networkx.classes.graph.Graph"
     },
-    "er_200": {
-        "nodes": 200,
-        "edges": 4028,
-        "is_directed": false,
-        "average_degree": 40.28,
-        "density": 0.20241206030150755,
-        "type": "easygraph.classes.graph.Graph"
-    },
-    "er_200_directed": {
-        "nodes": 200,
-        "edges": 3818,
-        "is_directed": true,
-        "average_degree": 38.18,
-        "density": 0.09592964824120603,
-        "type": "easygraph.classes.directed_graph.DiGraph"
-    },
-    "er_500_directed": {
-        "nodes": 500,
-        "edges": 24778,
-        "is_directed": true,
-        "average_degree": 99.112,
-        "density": 0.09931062124248496,
-        "type": "easygraph.classes.directed_graph.DiGraph"
-    },
     "er_500": {
         "nodes": 500,
         "edges": 2511,
@@ -166,38 +142,6 @@
         "average_degree": 9.9,
         "density": 0.00990990990990991,
         "type": "easygraph.classes.graph.Graph"
-    },
-    "er_1000_directed": {
-        "nodes": 1000,
-        "edges": 99542,
-        "is_directed": true,
-        "average_degree": 199.084,
-        "density": 0.09964164164164165,
-        "type": "easygraph.classes.directed_graph.DiGraph"
-    },
-    "er_2000": {
-        "nodes": 2000,
-        "edges": 400568,
-        "is_directed": false,
-        "average_degree": 400.568,
-        "density": 0.20038419209604802,
-        "type": "easygraph.classes.graph.Graph"
-    },
-    "er_2000_directed": {
-        "nodes": 2000,
-        "edges": 399795,
-        "is_directed": true,
-        "average_degree": 399.795,
-        "density": 0.09999874937468735,
-        "type": "easygraph.classes.directed_graph.DiGraph"
-    },
-    "er_5000_directed": {
-        "nodes": 5000,
-        "edges": 2500063,
-        "is_directed": true,
-        "average_degree": 1000.0252,
-        "density": 0.10002252450490098,
-        "type": "easygraph.classes.directed_graph.DiGraph"
     },
     "er_5000": {
         "nodes": 5000,
