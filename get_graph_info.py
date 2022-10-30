@@ -6,7 +6,7 @@ Purpose: Get graph info
 """
 
 import argparse
-from config import dataset_names, random_erdos_renyi_dataset_names
+from config import dataset_names, random_erdos_renyi_dataset_names, graph_info_json_path
 from pathlib import Path
 import json
 
@@ -45,6 +45,12 @@ def get_args():
     )
 
     parser.add_argument(
+        '--remove-er-info-where-dataset-not-present',
+        action='store_true',
+        help='Remove ER info where dataset not present in dataset/',
+    )
+
+    parser.add_argument(
         '-t',
         '--test',
         action='store_true',
@@ -79,6 +85,14 @@ def get_args():
 
 def main() -> None:
     args = get_args()
+    if args.remove_er_info_where_dataset_not_present:
+        gi_d = json.loads(graph_info_json_path.read_text())
+        for dataset, info in gi_d.items():
+            if dataset.startswith('er_') and not Path(dataset).exists():
+                del gi_d[dataset]
+        graph_info_json_path.write_text(json.dumps(gi_d, indent=4))
+        return
+
     import dataset_loaders
 
     if ((datasets_to_update := args.dataset) is None) and (not args.all_er):
@@ -98,10 +112,9 @@ def main() -> None:
         if args.stdout:
             print(content)
             return
-        graph_info_path = Path(__file__).parent / "graph_info.json"
-        graph_info_path.write_text(content)
+        graph_info_json_path.write_text(content)
     else:
-        gi = Path(__file__).parent / "graph_info.json"
+        gi = graph_info_json_path
         info_dict = json.loads(gi.read_text())
         if args.all_er:
             datasets_to_update = random_erdos_renyi_dataset_names
@@ -120,8 +133,7 @@ def main() -> None:
         if args.stdout:
             print(content)
             return
-        graph_info_path = Path(__file__).parent / "graph_info.json"
-        graph_info_path.write_text(content)
+        graph_info_json_path.write_text(content)
 
 
 if __name__ == '__main__':
