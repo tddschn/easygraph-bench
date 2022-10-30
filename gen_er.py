@@ -68,10 +68,11 @@ def main():
     num_nodes = args.nodes if args.nodes != n_nodes else n_nodes
 
     Path('dataset/random-erdos-renyi').mkdir(parents=True, exist_ok=True)
-    total_graph_count = len(num_nodes) * 2
+    directed_option_list = [False] + ([True] if args.directed else [])
+    total_graph_count = len(num_nodes) * len(directed_option_list)
     idx = 1
     for num in num_nodes:
-        for directed in [False] + ([True] if args.directed else []):
+        for directed in directed_option_list:
             filepath = f'dataset/random-erdos-renyi/{num}{"_directed" if directed else ""}.edgelist'
             print(
                 f'Generating {filepath} ({"directed" if directed else "undirected"}) {idx} / {total_graph_count}...'
