@@ -153,18 +153,18 @@
     },
     "er_500": {
         "nodes": 500,
-        "edges": 24807,
+        "edges": 2511,
         "is_directed": false,
-        "average_degree": 99.228,
-        "density": 0.19885370741482966,
+        "average_degree": 10.044,
+        "density": 0.020128256513026053,
         "type": "easygraph.classes.graph.Graph"
     },
     "er_1000": {
         "nodes": 1000,
-        "edges": 99731,
+        "edges": 4950,
         "is_directed": false,
-        "average_degree": 199.462,
-        "density": 0.19966166166166166,
+        "average_degree": 9.9,
+        "density": 0.00990990990990991,
         "type": "easygraph.classes.graph.Graph"
     },
     "er_1000_directed": {
@@ -201,10 +201,18 @@
     },
     "er_5000": {
         "nodes": 5000,
-        "edges": 2496529,
+        "edges": 24920,
         "is_directed": false,
-        "average_degree": 998.6116,
-        "density": 0.1997622724544909,
+        "average_degree": 9.968,
+        "density": 0.001993998799759952,
+        "type": "easygraph.classes.graph.Graph"
+    },
+    "er_10000": {
+        "nodes": 10000,
+        "edges": 50023,
+        "is_directed": false,
+        "average_degree": 10.0046,
+        "density": 0.0010005600560056005,
         "type": "easygraph.classes.graph.Graph"
     }
 }
