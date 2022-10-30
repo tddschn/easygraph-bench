@@ -196,7 +196,7 @@ def main():
                     dataset_names + er_dataset_names_for_paper_multiprocessing,
                 )
             ),
-            bash_arg=f'-D {args.bash_arg}',
+            bash_arg=f'{args.bash_arg}',
             template=template_entrypoint_bash,
         )
         ENTRYPOINT_SH_PAPER_PATH.write_text(script_content)
