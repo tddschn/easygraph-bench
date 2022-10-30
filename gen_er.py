@@ -76,7 +76,7 @@ def main():
             print(
                 f'Generating {filepath} ({"directed" if directed else "undirected"}) {idx} / {total_graph_count}...'
             )
-            if hasattr(args, 'p'):
+            if args.p is not None:
                 p = args.p
             else:
                 p = get_p(num)
