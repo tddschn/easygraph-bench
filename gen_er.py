@@ -10,7 +10,15 @@ from pathlib import Path
 
 
 # n_nodes = [200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000]
-n_nodes = [200, 500, 1000, 2000, 5000, 10000]
+# n_nodes = [200, 500, 1000, 2000, 5000, 10000]
+n_nodes = [500, 1000, 5000, 10000]
+
+
+def get_p(num_nodes: int, edge_to_node_ratio: float | int = 5) -> float:
+    total_possible_edges = num_nodes * (num_nodes - 1) / 2
+    # ratio = tot * p / nodes
+    # p = ratio * nodes / tot
+    return edge_to_node_ratio * num_nodes / total_possible_edges
 
 
 def get_args():
@@ -31,11 +39,18 @@ def get_args():
         default=n_nodes,
     )
     parser.add_argument(
-        '-p', help='Probability of edge', metavar='float', type=float, default=0.05
+        '-p',
+        help='Probability of edge, dynamically assign p if not specified',
+        metavar='float',
+        type=float,
     )
 
+    # parser.add_argument(
+    #     '-d', '--dynamic-p', help='Dynamically assign p values', action='store_true'
+    # )
+
     parser.add_argument(
-        '-d', '--dynamic-p', help='Dynamically assign p values', action='store_true'
+        '--directed', help='Also generate directed graphs', action='store_true'
     )
 
     return parser.parse_args()
@@ -56,12 +71,16 @@ def main():
     total_graph_count = len(num_nodes) * 2
     idx = 1
     for num in num_nodes:
-        for directed in (True, False):
+        for directed in [False] + ([True] if args.directed else []):
             filepath = f'dataset/random-erdos-renyi/{num}{"_directed" if directed else ""}.edgelist'
             print(
                 f'Generating {filepath} ({"directed" if directed else "undirected"}) {idx} / {total_graph_count}...'
             )
-            er(num, args.p, directed, filepath)
+            if hasattr(args, 'p'):
+                p = args.p
+            else:
+                p = get_p(num)
+            er(num, p, directed, filepath)
             idx += 1
 
 
