@@ -22,7 +22,8 @@ def sampled_dataset_loader(
     print_with_hr(f'loading {dataset} from {sampled_graph_dir / f"{dataset}.edgelist"}')
     g = nx.read_edgelist(
         sampled_graph_dir / f'{dataset}.edgelist',
-        create_using=nx.DiGraph if directed else nx.Graph,
+        nodetype=int,
+        create_using=nx.DiGraph() if directed else nx.Graph(),
     )
     print(
         f"""loaded \033[33m{dataset} (sampled)\033[0m with {g.number_of_nodes()} nodes and {g.number_of_edges()} edges"""
