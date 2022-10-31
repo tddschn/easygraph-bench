@@ -101,7 +101,7 @@ def main() -> None:
 
         gi_d = json.loads(graph_info_json_path.read_text())
         for sampled_graph_dataset_name in sampled_graph_dataset_names:
-            gi_d[sampled_graph_dataset_name] = get_graph_info(
+            gi_d[f'{sampled_graph_dataset_name}_sampled'] = get_graph_info(
                 getattr(dataset_loaders_sampled, f'load_{sampled_graph_dataset_name}')()
             )
         graph_info_json_path.write_text(json.dumps(gi_d, indent=4))

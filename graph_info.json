@@ -158,5 +158,53 @@
         "average_degree": 10.0046,
         "density": 0.0010005600560056005,
         "type": "easygraph.classes.graph.Graph"
+    },
+    "enron_sampled": {
+        "nodes": 9301,
+        "edges": 79905,
+        "is_directed": false,
+        "average_degree": 17.182023438339964,
+        "density": 0.001847529401972039,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "pgp_undirected_sampled": {
+        "nodes": 8781,
+        "edges": 51939,
+        "is_directed": false,
+        "average_degree": 11.829859924837718,
+        "density": 0.0013473644561318586,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "pgp_sampled": {
+        "nodes": 6465,
+        "edges": 18906,
+        "is_directed": true,
+        "average_degree": 5.848723897911833,
+        "density": 0.00045240747972709105,
+        "type": "networkx.classes.digraph.DiGraph"
+    },
+    "road_sampled": {
+        "nodes": 2075,
+        "edges": 1132,
+        "is_directed": false,
+        "average_degree": 1.0910843373493977,
+        "density": 0.0005260773082687548,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "amazon_sampled": {
+        "nodes": 262111,
+        "edges": 1234877,
+        "is_directed": true,
+        "average_degree": 9.42254998836371,
+        "density": 1.7974419114806206e-05,
+        "type": "networkx.classes.digraph.DiGraph"
+    },
+    "coauthorship_sampled": {
+        "nodes": 4340,
+        "edges": 6398,
+        "is_directed": false,
+        "average_degree": 2.9483870967741934,
+        "density": 0.0006795084343798557,
+        "type": "networkx.classes.graph.Graph"
     }
 }
