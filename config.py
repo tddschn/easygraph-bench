@@ -173,7 +173,7 @@ random_erdos_renyi_dataset_names = [
 sampled_graph_dir = DATASET_DIR / 'sampled'
 default_target_node_number = 10000
 sampled_graph_dataset_names = sorted(
-    (x.stem for x in sorted(sampled_graph_dir.glob('*.edgelist'))),
+    (f'{x.stem}_sampled' for x in sorted(sampled_graph_dir.glob('*.edgelist'))),
     key=lambda dataset_name: get_dataset_list_sorted_by_nodes_and_edges().index(
         dataset_name
     )
