@@ -169,6 +169,18 @@ random_erdos_renyi_dataset_names = [
     x.removeprefix('load_') for x in random_erdos_renyi_graphs_load_function_names
 ]
 
+# for sampling graphs
+sampled_graph_dir = DATASET_DIR / 'sampled'
+default_target_node_number = 10000
+sampled_graph_dataset_names = sorted(
+    (x.stem for x in sorted(sampled_graph_dir.glob('*.edgelist'))),
+    key=lambda dataset_name: get_dataset_list_sorted_by_nodes_and_edges().index(
+        dataset_name
+    )
+    if dataset_name in get_dataset_list_sorted_by_nodes_and_edges()
+    else 1000000,
+)
+
 easygraph_multipcoessing_methods = [
     'laplacian',
     'betweenness_centrality',
@@ -215,6 +227,10 @@ dataset_homepage_mapping = {
     **{
         er_dataset_name: 'https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py'
         for er_dataset_name in random_erdos_renyi_dataset_names
+    },
+    **{
+        sampled_graph_dataset_name: 'https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled'
+        for sampled_graph_dataset_name in sampled_graph_dataset_names
     },
 }
 
@@ -301,15 +317,3 @@ dataset_names_for_paper_multiprocessing = [
 er_dataset_names_for_paper_multiprocessing = [
     f'er_{x}' for x in (500, 1000, 5000, 10000)
 ]
-
-# for sampling graphs
-sampled_graph_dir = DATASET_DIR / 'sampled'
-default_target_node_number = 10000
-sampled_graph_dataset_names = sorted(
-    (x.stem for x in sorted(sampled_graph_dir.glob('*.edgelist'))),
-    key=lambda dataset_name: get_dataset_list_sorted_by_nodes_and_edges().index(
-        dataset_name
-    )
-    if dataset_name in get_dataset_list_sorted_by_nodes_and_edges()
-    else 1000000,
-)

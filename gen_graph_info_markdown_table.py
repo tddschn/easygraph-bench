@@ -30,7 +30,7 @@ def get_markdown_content() -> str:
         else:
             data.append({'Dataset Name': graph_name, **graph_info})
 
-    sorted_data = sorted(data, key=lambda x: ((n := x['Dataset Name']).startswith('er_') or n.startswith('[er_'), x['nodes'], n.endswith('_directed')))  # type: ignore
+    sorted_data = sorted(data, key=lambda x: ((n := x['Dataset Name']).startswith('er_') or n.startswith('[er_'), x['nodes'], 'sampled' in n, n.endswith('_directed')))  # type: ignore
     # from icecream import ic
 
     # ic(sorted_data)
