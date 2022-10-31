@@ -39,11 +39,13 @@ graphio
 graphlabel
 graphml
 graphtool
+icecream
 igraph
 inproceedings
 kcore
 klass
 kruskal
+littleballoffur
 mahindas
 matplotlib
 measygraph
