@@ -42,6 +42,7 @@ graphtool
 icecream
 igraph
 inproceedings
+instsance
 kcore
 klass
 kruskal
@@ -49,6 +50,7 @@ littleballoffur
 mahindas
 matplotlib
 measygraph
+mentrypoint
 mergedeep
 metavariable
 metavars
@@ -99,6 +101,8 @@ tomark
 uspowergrid
 vprop
 whitegrid
+Xeon
 Xinyuan
 xlabel
+xlarge
 ylabel
