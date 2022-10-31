@@ -36,8 +36,10 @@ for dataset_name in dataset_names:
         dataset_name in gi_d
         and gi_d[dataset_name]['nodes'] > default_target_node_number
     ):
-        g[f'load_{dataset_name}'] = partial(
+        p = partial(
             sampled_dataset_loader,
             dataset_name,
             directed=gi_d[dataset_name]['is_directed'],
         )
+        p.sampled = True
+        g[f'load_{dataset_name}'] = p

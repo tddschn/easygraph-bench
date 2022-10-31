@@ -53,7 +53,8 @@ from dataset_loaders_sampled import {{ load_func_name }}
 
 load_func_name = '{{ load_func_name }}'
 original_load_func_uses_networkx = hasattr({{ load_func_name }}, 'load_func_for') and {{ load_func_name }}.load_func_for == 'nx'  # type: ignore
-if original_load_func_uses_networkx or isinstance({{ load_func_name }}, partial):
+sampled_graph = hasattr({{ load_func_name }}, 'sampled') and {{ load_func_name }}.sampled  # type: ignore
+if original_load_func_uses_networkx or sampled_graph:
     G_nx = {{ load_func_name }}()
     G_eg = nx2eg(G_nx)  # type: ignore
 else:

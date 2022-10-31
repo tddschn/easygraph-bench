@@ -53,7 +53,8 @@ from dataset_loaders_sampled import load_stub
 
 load_func_name = 'load_stub'
 original_load_func_uses_networkx = hasattr(load_stub, 'load_func_for') and load_stub.load_func_for == 'nx'  # type: ignore
-if original_load_func_uses_networkx or isinstance(load_stub, partial):
+sampled_graph = hasattr(load_stub, 'sampled') and load_stub.sampled  # type: ignore
+if original_load_func_uses_networkx or sampled_graph:
     G_nx = load_stub()
     G_eg = nx2eg(G_nx)  # type: ignore
 else:

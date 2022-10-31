@@ -53,7 +53,8 @@ from dataset_loaders_sampled import load_cheminformatics
 
 load_func_name = 'load_cheminformatics'
 original_load_func_uses_networkx = hasattr(load_cheminformatics, 'load_func_for') and load_cheminformatics.load_func_for == 'nx'  # type: ignore
-if original_load_func_uses_networkx or isinstance(load_cheminformatics, partial):
+sampled_graph = hasattr(load_cheminformatics, 'sampled') and load_cheminformatics.sampled  # type: ignore
+if original_load_func_uses_networkx or sampled_graph:
     G_nx = load_cheminformatics()
     G_eg = nx2eg(G_nx)  # type: ignore
 else:

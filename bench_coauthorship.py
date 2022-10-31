@@ -44,8 +44,8 @@ import networkx as nx
 from dataset_loaders_sampled import load_coauthorship
 
 load_func_name = 'load_coauthorship'
-original_load_func_uses_networkx = hasattr(load_coauthorship, 'load_func_for') and load_coauthorship.load_func_for == 'nx'  # type: ignore
-if original_load_func_uses_networkx or isinstance(load_coauthorship, partial):
+sampled_graph = hasattr(load_coauthorship, 'sampled') and load_coauthorship.sampled  # type: ignore
+if original_load_func_uses_networkx or sampled_graph:
     G_nx = load_coauthorship()
     G_eg = nx2eg(G_nx)  # type: ignore
 else:

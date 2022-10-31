@@ -53,7 +53,8 @@ from dataset_loaders_sampled import load_enron
 
 load_func_name = 'load_enron'
 original_load_func_uses_networkx = hasattr(load_enron, 'load_func_for') and load_enron.load_func_for == 'nx'  # type: ignore
-if original_load_func_uses_networkx or isinstance(load_enron, partial):
+sampled_graph = hasattr(load_enron, 'sampled') and load_enron.sampled  # type: ignore
+if original_load_func_uses_networkx or sampled_graph:
     G_nx = load_enron()
     G_eg = nx2eg(G_nx)  # type: ignore
 else:
