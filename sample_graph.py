@@ -59,7 +59,7 @@ def main():
             print(
                 f'sampling {dataset} with {info["nodes"]} nodes and {info["edges"]} edges'
             )
-            g = getattr(dataset_loaders, dataset)()
+            g = getattr(dataset_loaders, f'load_{dataset}')()
             if not isinstance(g, (nx.Graph, nx.DiGraph)):
                 g = eg2nx(g)
 
