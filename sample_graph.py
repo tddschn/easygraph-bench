@@ -68,6 +68,9 @@ def main():
             g = getattr(dataset_loaders, f'load_{dataset}')()
             if not isinstance(g, (nx.Graph, nx.DiGraph)):
                 g = eg2nx(g)
+            # relabel g
+            print('relabeling...')
+            g = nx.convert_node_labels_to_integers(g)
 
             new_graph = sampler.sample(g)
             sampled_graph_dir.mkdir(exist_ok=True)
