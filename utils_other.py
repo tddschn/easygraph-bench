@@ -4,7 +4,10 @@ from itertools import count
 import json
 from functools import cache
 from typing import Any, Callable, Iterable, Iterator, TypeVar
-from config import graph_info_json_path
+
+# from config import graph_info_json_path
+# to avoid circular imports
+graph_info_json_path = Path(__file__).parent / 'graph_info.json'
 
 T = TypeVar('T')
 

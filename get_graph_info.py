@@ -6,7 +6,12 @@ Purpose: Get graph info
 """
 
 import argparse
-from config import dataset_names, random_erdos_renyi_dataset_names, graph_info_json_path
+from config import (
+    dataset_names,
+    random_erdos_renyi_dataset_names,
+    graph_info_json_path,
+    sampled_graph_dataset_names,
+)
 from pathlib import Path
 import json
 
@@ -80,11 +85,27 @@ def get_args():
         action='store_true',
     )
 
+    parser.add_argument(
+        '--all-sampled',
+        help='Update all sampled datasets, overrides --dataset',
+        action='store_true',
+    )
+
     return parser.parse_args()
 
 
 def main() -> None:
     args = get_args()
+    if args.all_sampled:
+        import dataset_loaders_sampled
+
+        gi_d = json.loads(graph_info_json_path.read_text())
+        for sampled_graph_dataset_name in sampled_graph_dataset_names:
+            gi_d[sampled_graph_dataset_name] = get_graph_info(
+                getattr(dataset_loaders_sampled, f'load_{sampled_graph_dataset_name}')()
+            )
+        graph_info_json_path.write_text(json.dumps(gi_d, indent=4))
+        return
     if args.remove_er_info_where_dataset_not_present:
         gi_d = json.loads(graph_info_json_path.read_text())
         for dataset in gi_d.copy().keys():

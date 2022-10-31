@@ -4,6 +4,7 @@ from functools import cache
 import sys
 from pathlib import Path
 from typing import Union
+from utils_other import get_dataset_list_sorted_by_nodes_and_edges
 
 DATASET_DIR = Path(__file__).parent / "dataset"
 graph_info_json_path = Path(__file__).parent / 'graph_info.json'
@@ -304,3 +305,11 @@ er_dataset_names_for_paper_multiprocessing = [
 # for sampling graphs
 sampled_graph_dir = DATASET_DIR / 'sampled'
 default_target_node_number = 10000
+sampled_graph_dataset_names = sorted(
+    (x.stem for x in sorted(sampled_graph_dir.glob('*.edgelist'))),
+    key=lambda dataset_name: get_dataset_list_sorted_by_nodes_and_edges().index(
+        dataset_name
+    )
+    if dataset_name in get_dataset_list_sorted_by_nodes_and_edges()
+    else 1000000,
+)
