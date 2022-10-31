@@ -8,10 +8,13 @@ Purpose: Why not?
 import argparse
 import json
 from pathlib import Path
-from config import DATASET_DIR, dataset_names, graph_info_json_path
-
-sampled_graph_dir = DATASET_DIR / 'sampled'
-default_target_node_number = 10000
+from config import (
+    DATASET_DIR,
+    dataset_names,
+    graph_info_json_path,
+    default_target_node_number,
+    sampled_graph_dir,
+)
 
 
 def get_args():

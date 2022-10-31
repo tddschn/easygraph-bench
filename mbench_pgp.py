@@ -9,6 +9,7 @@ from hr_tddschn import hr
 from pathlib import Path
 from tempfile import mkstemp
 import sqlite3
+from functools import partial
 from utils_db import insert_bench_results
 import re
 
@@ -48,10 +49,11 @@ from eg_bench_types import DTForTools
 
 import easygraph as eg
 import networkx as nx
-from dataset_loaders import load_pgp
+from dataset_loaders_sampled import load_pgp
 
 load_func_name = 'load_pgp'
-if hasattr(load_pgp, 'load_func_for') and load_pgp.load_func_for == 'nx':  # type: ignore
+original_load_func_uses_networkx = hasattr(load_pgp, 'load_func_for') and load_pgp.load_func_for == 'nx'  # type: ignore
+if original_load_func_uses_networkx or isinstance(load_pgp, partial):
     G_nx = load_pgp()
     G_eg = nx2eg(G_nx)  # type: ignore
 else:

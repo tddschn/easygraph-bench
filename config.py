@@ -295,3 +295,7 @@ dataset_names_for_paper_multiprocessing = ['bio', 'uspowergrid', 'enron', 'coaut
 er_dataset_names_for_paper_multiprocessing = [
     f'er_{x}' for x in (500, 1000, 5000, 10000)
 ]
+
+# for sampling graphs
+sampled_graph_dir = DATASET_DIR / 'sampled'
+default_target_node_number = 10000

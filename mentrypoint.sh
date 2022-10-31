@@ -8,8 +8,6 @@
 ./mbench_road.py "$@"
 ./mbench_uspowergrid.py "$@"
 ./mbench_enron.py "$@"
-./mbench_google.py "$@"
-./mbench_amazon.py "$@"
 ./mbench_coauthorship.py "$@"
 ./mbench_stub.py "$@"
 ./mbench_stub_with_underscore.py "$@"

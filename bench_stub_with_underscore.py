@@ -9,6 +9,7 @@ from hr_tddschn import hr
 from pathlib import Path
 from tempfile import mkstemp
 import sqlite3
+from functools import partial
 from utils_db import insert_bench_results
 
 from config import (
@@ -40,10 +41,11 @@ from eg_bench_types import DTForTools
 
 import easygraph as eg
 import networkx as nx
-from dataset_loaders import load_stub_with_underscore
+from dataset_loaders_sampled import load_stub_with_underscore
 
 load_func_name = 'load_stub_with_underscore'
-if hasattr(load_stub_with_underscore, 'load_func_for') and load_stub_with_underscore.load_func_for == 'nx':  # type: ignore
+original_load_func_uses_networkx = hasattr(load_stub_with_underscore, 'load_func_for') and load_stub_with_underscore.load_func_for == 'nx'  # type: ignore
+if original_load_func_uses_networkx or isinstance(load_stub_with_underscore, partial):
     G_nx = load_stub_with_underscore()
     G_eg = nx2eg(G_nx)  # type: ignore
 else:

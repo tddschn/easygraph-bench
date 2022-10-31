@@ -8,8 +8,6 @@
 ./bench_road.py "$@"
 ./bench_uspowergrid.py "$@"
 ./bench_enron.py "$@"
-./bench_google.py "$@"
-./bench_amazon.py "$@"
 ./bench_coauthorship.py "$@"
 ./bench_stub.py "$@"
 ./bench_stub_with_underscore.py "$@"
