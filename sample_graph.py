@@ -39,6 +39,10 @@ def get_args():
         default=default_target_node_number,
     )
 
+    parser.add_argument(
+        '-d', '--directed-only', help='Only sample directed graphs', action='store_true'
+    )
+
     return parser.parse_args()
 
 
@@ -50,7 +54,7 @@ def main():
     from littleballoffur import PageRankBasedSampler  # type: ignore
     import dataset_loaders
     import networkx as nx
-    from utils import eg2nx
+    from utils import eg2nx, randomly_sample_directed_graph
     from get_graph_info import get_graph_info
 
     sampler = PageRankBasedSampler(number_of_nodes=args.target_node_number)
@@ -59,7 +63,35 @@ def main():
         if info['nodes'] > args.nodes_threshold_to_sample:
             print(f'\033[94m{dataset}\033[0m')
             if info['is_directed']:
-                print(f'skipping {dataset} because it is directed')
+                # print(f'skipping {dataset} because it is directed')
+                try:
+                    g = getattr(dataset_loaders, f'load_{dataset}')()
+                except Exception as e:
+                    print(f'''failed to load \033[31m{dataset}\033[0m: {e}''')
+                    continue
+                if not isinstance(g, (nx.Graph, nx.DiGraph)):
+                    g = eg2nx(g)
+                print(f'sampling {dataset}')
+                print('before: ')
+                print(info)
+                # relabel g
+                print('relabeling...')
+                g = nx.convert_node_labels_to_integers(g)
+
+                new_graph = randomly_sample_directed_graph(g, args.target_node_number)
+                sampled_graph_dir.mkdir(exist_ok=True)
+                new_graph_path = sampled_graph_dir / f'{dataset}.edgelist'
+                print(f'sampled {dataset}')
+                print('after: ')
+                print(get_graph_info(new_graph))
+                print(f'saving to {new_graph_path}')
+                nx.write_edgelist(new_graph, new_graph_path)
+
+                continue
+            if args.directed_only and not info['is_directed']:
+                print(
+                    f'skipping {dataset} because it is not directed (--directed-only specified)'
+                )
                 continue
             try:
                 g = getattr(dataset_loaders, f'load_{dataset}')()

@@ -7,6 +7,7 @@ import os
 from itertools import islice
 from functools import cache
 from pathlib import Path
+from random import random
 from textwrap import dedent
 from timeit import Timer
 from typing import Literal
@@ -798,3 +799,23 @@ def test_if_graph_type_supported_by_nx(
             return False
     except NetworkXNotImplemented:
         return False
+
+
+def randomly_sample_directed_graph(g: nx.DiGraph, sample_size: int) -> nx.DiGraph:
+    """Randomly sample a directed graph
+
+    Args:
+        g (nx.DiGraph): the graph to sample
+        sample_size (int): the number of nodes to sample
+
+    Returns:
+        nx.DiGraph: the sampled graph
+    """
+    if sample_size >= g.number_of_nodes():
+        return g
+    if len(largest_cc := max(nx.connected_components(g), key=len)) >= sample_size:
+        sampled_nodes = random.sample(largest_cc, sample_size)
+    else:
+        sampled_nodes = random.sample(g.nodes, sample_size)
+    sampled_g = g.subgraph(sampled_nodes)
+    return sampled_g
