@@ -44,6 +44,7 @@ import networkx as nx
 from dataset_loaders_sampled import load_road
 
 load_func_name = 'load_road'
+original_load_func_uses_networkx = hasattr(load_road, 'load_func_for') and load_road.load_func_for == 'nx'  # type: ignore
 sampled_graph = hasattr(load_road, 'sampled') and load_road.sampled  # type: ignore
 if original_load_func_uses_networkx or sampled_graph:
     G_nx = load_road()

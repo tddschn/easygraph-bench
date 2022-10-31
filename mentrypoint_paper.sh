@@ -7,4 +7,4 @@
 ./mbench_bio.py --paper "$@"
 ./mbench_uspowergrid.py --paper "$@"
 ./mbench_enron.py --paper "$@"
-./mbench_coauth.py --paper "$@"
+./mbench_coauthorship.py --paper "$@"
