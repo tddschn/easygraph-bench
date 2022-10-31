@@ -56,6 +56,9 @@ def main():
     gi_d = json.loads(graph_info_json_path.read_text())
     for dataset, info in gi_d.items():
         if info['nodes'] > args.nodes_threshold_to_sample:
+            if info['is_directed']:
+                print(f'skipping {dataset} because it is directed')
+                continue
             print(
                 f'sampling {dataset} with {info["nodes"]} nodes and {info["edges"]} edges'
             )
