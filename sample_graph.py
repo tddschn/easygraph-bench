@@ -51,6 +51,7 @@ def main():
     import dataset_loaders
     import networkx as nx
     from utils import eg2nx
+    from get_graph_info import get_graph_info
 
     sampler = PageRankBasedSampler(number_of_nodes=args.target_node_number)
     gi_d = json.loads(graph_info_json_path.read_text())
@@ -62,6 +63,8 @@ def main():
             print(
                 f'sampling {dataset} with {info["nodes"]} nodes and {info["edges"]} edges'
             )
+            print('before: ')
+            print(info)
             g = getattr(dataset_loaders, f'load_{dataset}')()
             if not isinstance(g, (nx.Graph, nx.DiGraph)):
                 g = eg2nx(g)
@@ -69,6 +72,9 @@ def main():
             new_graph = sampler.sample(g)
             sampled_graph_dir.mkdir(exist_ok=True)
             new_graph_path = sampled_graph_dir / f'{dataset}.edgelist'
+            print(f'sampled {dataset}')
+            print('after: ')
+            print(get_graph_info(new_graph))
             print(f'saving to {new_graph_path}')
             nx.write_edgelist(new_graph, new_graph_path)
 
