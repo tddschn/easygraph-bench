@@ -10,6 +10,7 @@ from config import (
     sampled_graph_dir,
     default_target_node_number,
 )
+from dataset_loaders import *  # for er graphs
 
 g = globals()
 gi_d = json.loads(graph_info_json_path.read_text())
