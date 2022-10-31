@@ -7,7 +7,7 @@ import os
 from itertools import islice
 from functools import cache
 from pathlib import Path
-from random import random
+import random
 from textwrap import dedent
 from timeit import Timer
 from typing import Literal
