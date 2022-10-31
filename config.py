@@ -291,7 +291,12 @@ def read_profile_preparation_code() -> dict[str, str]:
 # snap doesn't support python 3.10 and it sucks, so
 profile_tools_to_drop = {'snap'}
 
-dataset_names_for_paper_multiprocessing = ['bio', 'uspowergrid', 'enron', 'coauth']
+dataset_names_for_paper_multiprocessing = [
+    'bio',
+    'uspowergrid',
+    'enron',
+    'coauthorship',
+]
 er_dataset_names_for_paper_multiprocessing = [
     f'er_{x}' for x in (500, 1000, 5000, 10000)
 ]
