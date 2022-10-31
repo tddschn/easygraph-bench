@@ -57,17 +57,22 @@ def main():
     gi_d = json.loads(graph_info_json_path.read_text())
     for dataset, info in gi_d.items():
         if info['nodes'] > args.nodes_threshold_to_sample:
+            print(f'\033[94m{dataset}\033[0m')
             if info['is_directed']:
                 print(f'skipping {dataset} because it is directed')
                 continue
+            try:
+                g = getattr(dataset_loaders, f'load_{dataset}')()
+            except Exception as e:
+                print(f'''failed to load \033[31m{dataset}\033[0m: {e}''')
+                continue
+            if not isinstance(g, (nx.Graph, nx.DiGraph)):
+                g = eg2nx(g)
             print(
                 f'sampling {dataset} with {info["nodes"]} nodes and {info["edges"]} edges'
             )
             print('before: ')
             print(info)
-            g = getattr(dataset_loaders, f'load_{dataset}')()
-            if not isinstance(g, (nx.Graph, nx.DiGraph)):
-                g = eg2nx(g)
             # relabel g
             print('relabeling...')
             g = nx.convert_node_labels_to_integers(g)
