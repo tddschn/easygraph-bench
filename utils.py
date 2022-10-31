@@ -813,7 +813,10 @@ def randomly_sample_directed_graph(g: nx.DiGraph, sample_size: int) -> nx.DiGrap
     """
     if sample_size >= g.number_of_nodes():
         return g
-    if len(largest_cc := max(nx.connected_components(g), key=len)) >= sample_size:
+    if (
+        len(largest_cc := max(nx.strongly_connected_components(g), key=len))
+        >= sample_size
+    ):
         sampled_nodes = random.sample(largest_cc, sample_size)
     else:
         sampled_nodes = random.sample(g.nodes, sample_size)
