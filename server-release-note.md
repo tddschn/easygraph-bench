@@ -111,7 +111,7 @@ On these datasets:
   - For local benchmarking results:
     - https://easygraph-bench-results.teddysc.me/results?dataset=eco&method=effective_size
     - https://easygraph-bench-results.teddysc.me/graph_info
-  - For local benchmarking results:  
+  - For server benchmarking results:  
     Just prepend `/s` in the URL path, like so:
     - https://easygraph-bench-results.teddysc.me/s/results?dataset=eco&method=effective_size
     - https://easygraph-bench-results.teddysc.me/s/graph_info
