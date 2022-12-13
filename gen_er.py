@@ -129,9 +129,9 @@ def main():
             )
             if args.p is not None:
                 p = args.p
-            elif args.edges_number is not None:
+            elif args.edges is not None:
                 # Use the specified number of edges to calculate p
-                p = get_p(num, args.edges_number)
+                p = get_p(num, args.edges)
             else:
                 # Use the default edge-to-node ratio to calculate p
                 # p = get_p(num)
