@@ -317,3 +317,15 @@ dataset_names_for_paper_multiprocessing = [
 er_dataset_names_for_paper_multiprocessing = [
     f'er_{x}' for x in (500, 1000, 5000, 10000)
 ]
+
+# cSpell:disable
+# From gaomin:
+# 增加multiprocessing和hybrid programming针对random graph的benckmark， 其中node size分别取0.5k, 5k, 50k, 500k, 1000k的不同algorithm的runtime效果（之前生成ER图的参数p的设定问题可以采用另一个function：erdos_renyi_M， 可以直接设定edge size的大小）
+# cSpell:enable
+er_dataset_names_for_paper_20221213 = [
+    # 0.5k, 5k, 50k, 500k, 1000k
+    f'er_{x}'
+    for x in (50000, 500000, 1000000)
+]
+
+er_dataset_edges_count_for_paper_20221213 = [60_000, 70_000, 80_000]

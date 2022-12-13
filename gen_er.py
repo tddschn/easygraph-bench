@@ -60,7 +60,18 @@ def get_args():
     # )
 
     parser.add_argument(
+        '--edges', '--edges-number', help='Number of edges', metavar='INT', type=int
+    )
+
+    parser.add_argument(
         '--directed', help='Also generate directed graphs', action='store_true'
+    )
+
+    parser.add_argument(
+        # er_dataset_dir_name
+        '--er-dataset-dir-name',
+        default='random-erdos-renyi',
+        help='Name of the directory to store the generated ER datasets',
     )
 
     return parser.parse_args()
@@ -77,13 +88,13 @@ def get_args():
 
 #     num_nodes = args.nodes if args.nodes != n_nodes else n_nodes
 
-#     Path('dataset/random-erdos-renyi').mkdir(parents=True, exist_ok=True)
+#     Path('dataset/{er_dataset_dir_name}').mkdir(parents=True, exist_ok=True)
 #     directed_option_list = [False] + ([True] if args.directed else [])
 #     total_graph_count = len(num_nodes) * len(directed_option_list)
 #     idx = 1
 #     for num in num_nodes:
 #         for directed in directed_option_list:
-#             filepath = f'dataset/random-erdos-renyi/{num}{"_directed" if directed else ""}.edgelist'
+#             filepath = f'dataset/{er_dataset_dir_name}/{num}{"_directed" if directed else ""}.edgelist'
 #             print(
 #                 f'Generating {filepath} ({"directed" if directed else "undirected"}) {idx} / {total_graph_count}...'
 #             )
@@ -106,13 +117,13 @@ def main():
 
     num_nodes = args.nodes if args.nodes != n_nodes else n_nodes
 
-    Path('dataset/random-erdos-renyi').mkdir(parents=True, exist_ok=True)
+    Path(f'dataset/{args.er_dataset_dir_name}').mkdir(parents=True, exist_ok=True)
     directed_option_list = [False] + ([True] if args.directed else [])
     total_graph_count = len(num_nodes) * len(directed_option_list)
     idx = 1
     for num in num_nodes:
         for directed in directed_option_list:
-            filepath = f'dataset/random-erdos-renyi/{num}{"_directed" if directed else ""}.edgelist'
+            filepath = f'dataset/{args.er_dataset_dir_name}/{num}{"_directed" if directed else ""}.edgelist'
             print(
                 f'Generating {filepath} ({"directed" if directed else "undirected"}) {idx} / {total_graph_count}...'
             )
