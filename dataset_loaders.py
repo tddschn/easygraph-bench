@@ -8,6 +8,7 @@ from config import (
     DATASET_DIR,
     random_erdos_renyi_graphs_dir,
     random_erdos_renyi_graphs_paths,
+    random_erdos_renyi_graphs_paths_date_s,
 )
 from utils import (
     list_allfile,
@@ -363,12 +364,17 @@ def load_stub_nx():
 # random-erdos-renyi
 # --------------------
 def load_random_erdos_renyi(
+    date_s: str | None = None,
     filepath: Path | None = None,
     node_number: int | None = None,
     directed: bool | None = False,
 ) -> eg.Graph | eg.DiGraph:
-    dataset_dir = random_erdos_renyi_graphs_dir
     if filepath is None:
+        dataset_dir = (
+            random_erdos_renyi_graphs_dir
+            if date_s is None
+            else DATASET_DIR / f'er-paper-{date_s}'
+        )
         filepath = (
             dataset_dir / f'{node_number}{"_directed" if directed else ""}.edgelist'
         )
@@ -386,3 +392,9 @@ def load_random_erdos_renyi(
 for p in random_erdos_renyi_graphs_paths:
     g = globals()
     g[f'load_er_{p.stem}'] = partial(load_random_erdos_renyi, filepath=p)
+
+for p in random_erdos_renyi_graphs_paths_date_s:
+    g = globals()
+    g[f'load_er_paper_{p.parent.name.removeprefix("er-paper-")}_{p.stem}'] = partial(
+        load_random_erdos_renyi, filepath=p
+    )

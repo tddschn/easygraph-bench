@@ -7,7 +7,6 @@ Purpose: generate bench scripts from jinja template
 
 import argparse
 from datetime import date
-import json
 from jinja2 import FileSystemLoader, Environment, Template
 from pathlib import Path
 from config import (
@@ -26,9 +25,14 @@ from stat import S_IEXEC
 
 
 def gen_gen_er_paper(
-    nodes_and_edges_list: list[dict[str, str]], date_s: str, template: Template
+    nodes_and_edges_list: list[dict[str, str]],
+    date_s: str,
+    extra_args: str,
+    template: Template,
 ) -> str:
-    return template.render(nodes_and_edges_list=nodes_and_edges_list, date_s=date_s)
+    return template.render(
+        nodes_and_edges_list=nodes_and_edges_list, date_s=date_s, extra_args=extra_args
+    )
 
 
 def get_args():
@@ -48,12 +52,21 @@ def get_args():
         default=date.today().strftime('%Y%m%d'),
     )
 
+    parser.add_argument(
+        '--sparse',
+        help='Generate sparse graphs with nx.fast_gnp_random_graph()',
+        action='store_true',
+    )
+
     return parser.parse_args()
 
 
 def main():
     """Make a jazz noise here"""
     args = get_args()
+    extra_args = ''
+    if args.sparse:
+        extra_args += ' --sparse'
     e = Environment(loader=FileSystemLoader('templates'))
     # Load the Jinja2 template.
     template = e.get_template('gen-er-paper.jinja.sh')
@@ -69,6 +82,7 @@ def main():
     script_content = gen_gen_er_paper(
         date_s=args.date_string,
         nodes_and_edges_list=nodes_and_edges_list,
+        extra_args=extra_args,
         template=template,
     )
     output_path = Path(f'gen-er-paper-{args.date_string}.sh')

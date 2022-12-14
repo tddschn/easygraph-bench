@@ -74,46 +74,19 @@ def get_args():
         help='Name of the directory to store the generated ER datasets',
     )
 
+    parser.add_argument(
+        '--sparse',
+        help='Generate sparse graphs with nx.fast_gnp_random_graph()',
+        action='store_true',
+    )
+
     return parser.parse_args()
-
-
-# def main():
-#     """Make a jazz noise here"""
-
-#     args = get_args()
-
-#     import easygraph as eg
-
-#     er = eg.erdos_renyi_P
-
-#     num_nodes = args.nodes if args.nodes != n_nodes else n_nodes
-
-#     Path('dataset/{er_dataset_dir_name}').mkdir(parents=True, exist_ok=True)
-#     directed_option_list = [False] + ([True] if args.directed else [])
-#     total_graph_count = len(num_nodes) * len(directed_option_list)
-#     idx = 1
-#     for num in num_nodes:
-#         for directed in directed_option_list:
-#             filepath = f'dataset/{er_dataset_dir_name}/{num}{"_directed" if directed else ""}.edgelist'
-#             print(
-#                 f'Generating {filepath} ({"directed" if directed else "undirected"}) {idx} / {total_graph_count}...'
-#             )
-#             if args.p is not None:
-#                 p = args.p
-#             else:
-#                 p = get_p(num)
-#             er(num, p, directed, filepath)
-#             idx += 1
 
 
 def main():
     """Make a jazz noise here"""
 
     args = get_args()
-
-    import easygraph as eg
-
-    er = eg.erdos_renyi_P
 
     num_nodes = args.nodes if args.nodes != n_nodes else n_nodes
 
@@ -123,7 +96,7 @@ def main():
     idx = 1
     for num in num_nodes:
         for directed in directed_option_list:
-            filepath = f'dataset/{args.er_dataset_dir_name}/{num}{"_directed" if directed else ""}.edgelist'
+            filepath = f'dataset/{args.er_dataset_dir_name}/{num}{"_directed" if directed else ""}.{"pickle" if args.sparse else "edgelist"}'
             print(
                 f'Generating {filepath} ({"directed" if directed else "undirected"}) {idx} / {total_graph_count}...'
             )
@@ -136,7 +109,20 @@ def main():
                 # Use the default edge-to-node ratio to calculate p
                 # p = get_p(num)
                 sys.exit(f'Error: Either p or edges_number must be specified')
-            er(num, p, directed, filepath)
+            if args.sparse:
+                import networkx as nx
+                from utils import nx2eg
+                import pickle
+
+                gnx = nx.fast_gnp_random_graph(num, p, directed=directed)
+                g = nx2eg(gnx)
+                with open(filepath, 'wb') as f:
+                    pickle.dump(g, f)
+            else:
+                import easygraph as eg
+
+                er = eg.erdos_renyi_P
+                er(num, p, directed, filepath)
             idx += 1
 
 
