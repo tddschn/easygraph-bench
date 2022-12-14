@@ -209,26 +209,26 @@
     },
     "er_paper_20221213_50000": {
         "nodes": 50000,
-        "edges": 60375,
+        "edges": 60316,
         "is_directed": false,
-        "average_degree": 2.415,
-        "density": 4.8300966019320385e-05,
+        "average_degree": 2.41264,
+        "density": 4.8253765075301506e-05,
         "type": "easygraph.classes.graph.Graph"
     },
     "er_paper_20221213_500000": {
         "nodes": 500000,
-        "edges": 70038,
+        "edges": 70315,
         "is_directed": false,
-        "average_degree": 0.280152,
-        "density": 5.603051206102412e-07,
+        "average_degree": 0.28126,
+        "density": 5.625211250422501e-07,
         "type": "easygraph.classes.graph.Graph"
     },
     "er_paper_20221213_1000000": {
         "nodes": 1000000,
-        "edges": 80667,
+        "edges": 80266,
         "is_directed": false,
-        "average_degree": 0.161334,
-        "density": 1.6133416133416134e-07,
+        "average_degree": 0.160532,
+        "density": 1.6053216053216054e-07,
         "type": "easygraph.classes.graph.Graph"
     }
 }
