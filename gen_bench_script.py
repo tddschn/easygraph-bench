@@ -6,7 +6,6 @@ Purpose: generate bench scripts from jinja template
 """
 
 import argparse
-from datetime import date
 import json
 from jinja2 import FileSystemLoader, Environment, Template
 from pathlib import Path

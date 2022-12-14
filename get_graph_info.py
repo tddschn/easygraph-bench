@@ -11,6 +11,7 @@ from config import (
     random_erdos_renyi_dataset_names,
     graph_info_json_path,
     sampled_graph_dataset_names,
+    random_erdos_renyi_graphs_load_function_names_date_s,
 )
 from pathlib import Path
 import json
@@ -91,6 +92,10 @@ def get_args():
         action='store_true',
     )
 
+    parser.add_argument(
+        '--er-paper', help='Update ER datasets for paper', action='store_true'
+    )
+
     return parser.parse_args()
 
 
@@ -121,7 +126,11 @@ def main() -> None:
 
     import dataset_loaders
 
-    if ((datasets_to_update := args.dataset) is None) and (not args.all_er):
+    if (
+        ((datasets_to_update := args.dataset) is None)
+        and (not args.all_er)
+        and (not args.er_paper)
+    ):
         info_dict = {}
         for dataset_name in dataset_names + random_erdos_renyi_dataset_names:
             if not args.test and dataset_name.startswith('stub'):
@@ -144,6 +153,11 @@ def main() -> None:
         info_dict = json.loads(gi.read_text())
         if args.all_er:
             datasets_to_update = random_erdos_renyi_dataset_names
+        if args.er_paper:
+            datasets_to_update = [
+                load_func_name.removeprefix('load_')
+                for load_func_name in random_erdos_renyi_graphs_load_function_names_date_s
+            ]
         for dataset_name in datasets_to_update:
             if not args.test and dataset_name.startswith('stub'):
                 continue
