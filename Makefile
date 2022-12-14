@@ -18,6 +18,8 @@ gen-scripts:
 	./gen_bench_script.py -M
 	./gen_bench_script.py --entrypoint-bash-multiprocessing-paper
 	./gen_bench_script.py --entrypoint-bash-paper
+	./gen_bench_script.py --er-paper
+	./gen_bench_script.py --er-paper --multiprocessing-bench-scripts
 
 deta:
 	deta deploy ../easygraph-bench-results-fastapi
