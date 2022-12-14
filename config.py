@@ -332,7 +332,7 @@ er_dataset_edges_count_for_paper_20221213 = [60_000, 70_000, 80_000]
 
 # random_erdos_renyi_graphs_dir = Path(__file__).parent / 'dataset' / 'random-erdos-renyi'
 random_erdos_renyi_graphs_paths_date_s = sorted(
-    DATASET_DIR.glob('er-paper-*/*.edgelist'),
+    DATASET_DIR.glob('er-paper-*/*.*'),
     key=lambda p: (
         int(p.parent.name.removeprefix('er-paper-')),
         int(p.stem.removesuffix('_directed')),
