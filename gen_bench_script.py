@@ -6,6 +6,7 @@ Purpose: generate bench scripts from jinja template
 """
 
 import argparse
+from datetime import date
 import json
 from jinja2 import FileSystemLoader, Environment, Template
 from pathlib import Path
@@ -20,6 +21,7 @@ from config import (
     random_erdos_renyi_dataset_names,
     dataset_names_for_paper_multiprocessing,
     er_dataset_names_for_paper_multiprocessing,
+    random_erdos_renyi_graphs_load_function_names_date_s,
 )
 from stat import S_IEXEC
 
@@ -147,6 +149,10 @@ def get_args():
     )
 
     parser.add_argument('-m', '--multiprocessing-bench-scripts', action='store_true')
+    parser.add_argument('--er-paper', action='store_true')
+    # parser.add_argument(
+    #     '--er-paper-date-string', type=str, default=date.today().strftime('%Y%m%d')
+    # )
 
     parser.add_argument('-o', '--output', type=Path, help='output file')
 
@@ -193,7 +199,7 @@ def main():
             datasets=list(
                 filter(
                     lambda x: not x.startswith('stub'),
-                    dataset_names + er_dataset_names_for_paper_multiprocessing,
+                    args.dataset + er_dataset_names_for_paper_multiprocessing,
                 )
             ),
             bash_arg=f'{args.bash_arg}',
@@ -328,7 +334,13 @@ def main():
     else:
         # ignores -o if dataset > 1
         if args.multiprocessing_bench_scripts:
-            for dataset_name in args.dataset:
+            dataset_names = args.dataset
+            if args.er_paper:
+                dataset_names = [
+                    load_func_name.removeprefix('load_')
+                    for load_func_name in random_erdos_renyi_graphs_load_function_names_date_s
+                ]
+            for dataset_name in dataset_names:
                 script_content = gen_bench_script(dataset_name, template=template_m)
                 # cSpell:disable
                 output_path = Path(f'mbench_{dataset_name}.py')
@@ -337,6 +349,18 @@ def main():
                 output_path.chmod(output_path.stat().st_mode | S_IEXEC)
                 print(
                     f'Multiprocessing benchmark script for {dataset_name} is generated at {output_path}'
+                )
+            return
+
+        if args.er_paper:
+            for load_func_name in random_erdos_renyi_graphs_load_function_names_date_s:
+                dataset_name = load_func_name.removeprefix('load_')
+                script_content = gen_bench_script(dataset_name, template=template)
+                output_path = Path(f'bench_{dataset_name}.py')
+                output_path.write_text(script_content)
+                output_path.chmod(output_path.stat().st_mode | S_IEXEC)
+                print(
+                    f'Benchmark script for {dataset_name} is generated at {output_path}'
                 )
             return
 
