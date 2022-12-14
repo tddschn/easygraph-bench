@@ -35,10 +35,10 @@ shortest_path_methods = [('Dijkstra', 'single_source_dijkstra_path')]
 connected_components_methods_G = [
     # "is_connected",
     # "number_connected_components",
-    "connected_components",
+    # "connected_components",
     # "is_biconnected",
     "biconnected_components",
-    'strongly_connected_components',
+    # 'strongly_connected_components',
 ]
 
 # methods takes G and a node as args
@@ -169,6 +169,27 @@ random_erdos_renyi_dataset_names = [
     x.removeprefix('load_') for x in random_erdos_renyi_graphs_load_function_names
 ]
 
+er_dataset_names_for_paper_20221213 = [
+    # 0.5k, 5k, 50k, 500k, 1000k
+    f'er_{x}'
+    for x in (50000, 500000, 1000000)
+]
+
+er_dataset_edges_count_for_paper_20221213 = [60_000, 70_000, 80_000]
+
+# random_erdos_renyi_graphs_dir = Path(__file__).parent / 'dataset' / 'random-erdos-renyi'
+random_erdos_renyi_graphs_paths_date_s = sorted(
+    DATASET_DIR.glob('er-paper-*/*.*'),
+    key=lambda p: (
+        int(p.parent.name.removeprefix('er-paper-')),
+        int(p.stem.removesuffix('_directed')),
+    ),
+)
+
+random_erdos_renyi_graphs_load_function_names_date_s = [
+    f'load_er_paper_{p.parent.name.removeprefix("er-paper-")}_{p.stem}'
+    for p in random_erdos_renyi_graphs_paths_date_s
+]
 # for sampling graphs
 sampled_graph_dir = DATASET_DIR / 'sampled'
 default_target_node_number = 10000
@@ -227,6 +248,10 @@ dataset_homepage_mapping = {
     **{
         er_dataset_name: 'https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py'
         for er_dataset_name in random_erdos_renyi_dataset_names
+        + [
+            x.removeprefix('load_')
+            for x in random_erdos_renyi_graphs_load_function_names_date_s
+        ]
     },
     **{
         sampled_graph_dataset_name: 'https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled'
@@ -322,24 +347,3 @@ er_dataset_names_for_paper_multiprocessing = [
 # From gaomin:
 # 增加multiprocessing和hybrid programming针对random graph的benckmark， 其中node size分别取0.5k, 5k, 50k, 500k, 1000k的不同algorithm的runtime效果（之前生成ER图的参数p的设定问题可以采用另一个function：erdos_renyi_M， 可以直接设定edge size的大小）
 # cSpell:enable
-er_dataset_names_for_paper_20221213 = [
-    # 0.5k, 5k, 50k, 500k, 1000k
-    f'er_{x}'
-    for x in (50000, 500000, 1000000)
-]
-
-er_dataset_edges_count_for_paper_20221213 = [60_000, 70_000, 80_000]
-
-# random_erdos_renyi_graphs_dir = Path(__file__).parent / 'dataset' / 'random-erdos-renyi'
-random_erdos_renyi_graphs_paths_date_s = sorted(
-    DATASET_DIR.glob('er-paper-*/*.*'),
-    key=lambda p: (
-        int(p.parent.name.removeprefix('er-paper-')),
-        int(p.stem.removesuffix('_directed')),
-    ),
-)
-
-random_erdos_renyi_graphs_load_function_names_date_s = [
-    f'load_er_paper_{p.parent.name.removeprefix("er-paper-")}_{p.stem}'
-    for p in random_erdos_renyi_graphs_paths_date_s
-]

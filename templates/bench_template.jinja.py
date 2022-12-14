@@ -109,9 +109,9 @@ def get_args():
     #     '-t', '--timeout', type=int, help='Timeout for benchmarking one method in seconds, 0 for no timeout', default=60
     # )
 
-    # parser.add_argument(
-    #     '--paper', action='store_true', help='Use this flag to generate the results for the paper'
-    # )
+    parser.add_argument(
+        '--paper', action='store_true', help='Use this flag to generate the results for the paper'
+    )
 
     parser.add_argument(
         '-o', '--output-dir', type=Path, help='Output directory', default=BENCH_CSV_DIR,
@@ -163,7 +163,7 @@ def main():
         'call_method_args_nx': ['first_node_nx'],
         'call_method_args_ceg': ['first_node_ceg'],
     }
-    if method_groups is None or 'clustering' in method_groups:
+    if method_groups is None or 'clustering' in method_groups or args.paper:
         # bench: clustering
         for method_name in clustering_methods:
             _, __ = eval_method(
@@ -174,7 +174,7 @@ def main():
             result_dicts.append(_)
             bench_timestamps.append(__)
 
-    if method_groups is None or 'shortest-path' in method_groups:
+    if method_groups is None or 'shortest-path' in method_groups or args.paper:
         # bench: shortest path
         # bench_shortest_path(cost_dict, g, load_func_name)
         _, __ = eval_method(
@@ -185,7 +185,7 @@ def main():
         )
         result_dicts.append(_)
         bench_timestamps.append(__)
-    if method_groups is None or 'connected-components' in method_groups:
+    if method_groups is None or 'connected-components' in method_groups or args.paper:
         # bench: connected components
         for method_name in connected_components_methods_G:
             _, __ = eval_method(
@@ -204,7 +204,7 @@ def main():
             )
             result_dicts.append(_)
             bench_timestamps.append(__)
-    if method_groups is None or 'mst' in method_groups:
+    if method_groups is None or 'mst' in method_groups or args.paper:
         # bench: mst
         for method_name in mst_methods:
             _, __ = eval_method(
@@ -215,7 +215,7 @@ def main():
             result_dicts.append(_)
             bench_timestamps.append(__)
 
-    if method_groups is None or 'other' in method_groups:
+    if not args.paper and (method_groups is None or 'other' in method_groups):
         # bench: other
         for method_name in other_methods:
             _, __ = eval_method(
@@ -227,7 +227,7 @@ def main():
             bench_timestamps.append(__)
 
 
-    if method_groups is None or 'new' in method_groups:
+    if not args.paper and (method_groups is None or 'new' in method_groups):
         # bench: other
         for method_name in new_methods:
             _, __ = eval_method(
