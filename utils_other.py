@@ -71,3 +71,15 @@ def f7(
     if keep_last:
         return reversed(list(result))
     return result
+
+
+def tool_str_to_tool_and_n_workers(tool_str: str) -> tuple[str, str]:
+    import re
+
+    tool_str_regex = r"^(?P<tool>.+?)( n_workers=(?P<n_workers>\d+))?$"
+    if not (m := re.match(tool_str_regex, tool_str)):
+        raise ValueError(f'Invalid tool_str: {tool_str}')
+    gd = m.groupdict()
+    tool = gd.get('tool', '')
+    n_workers = gd.get('n_workers', '')
+    return tool, n_workers

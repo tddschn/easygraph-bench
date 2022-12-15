@@ -11,9 +11,8 @@ from tempfile import mkstemp
 import sqlite3
 from functools import partial
 from utils_db import insert_bench_results
+from utils_other import tool_str_to_tool_and_n_workers
 import re
-
-tool_str_regex = r"^(?P<tool>.+?)( n_workers=(?P<n_workers>\d+))?$"
 
 from config import (
     eg_master_dir,
@@ -229,9 +228,7 @@ def main():
             #                          'networkx': 0.00013218499952927232}}}
             for method, tool_time_mapping in data.items():
                 for tool, avg_time in tool_time_mapping.items():
-                    gd = re.match(tool_str_regex, tool).groupdict()
-                    tool = gd.get('tool')
-                    n_workers = gd.get('n_workers')
+                    tool, n_workers = tool_str_to_tool_and_n_workers(tool)
                     n_workers_kwarg = {}
                     if n_workers is not None:
                         n_workers_kwarg = {'n_workers': int(n_workers)}

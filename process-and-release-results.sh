@@ -15,7 +15,7 @@ cp ./all*.csv output -v
 # [[ -f bench-results.db ]] && rm -v bench-results.db
 # sqlite3 bench-results.db '.import all.csv bench-results --csv'
 
-python3 ./fill_excel.py
+# python3 ./fill_excel.py
 # cp '/Users/tscp/Downloads/easygraph-benchmark-results.xlsx' output -v
 # cp '/Users/tscp/Downloads/easygraph-benchmark-results-template.xlsx' output -v
 
