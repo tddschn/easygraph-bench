@@ -9,6 +9,7 @@ import argparse
 from datetime import datetime
 from pathlib import Path
 from utils_db import insert_bench_results
+from utils_other import tool_str_to_tool_and_n_workers
 from config import bench_results_db_path, tool_name_mapping
 import sqlite3, csv
 
@@ -48,13 +49,16 @@ def main():
         with csv_path.open() as f:
             reader = csv.DictReader(f)
             for row in reader:
+                tool_str = row['tool']
+                tool, n_workers = tool_str_to_tool_and_n_workers(tool_str)
                 insert_bench_results(
                     conn,
                     dataset=row.get('dataset', csv_path.stem),
                     method=row['method'],
-                    tool=tool_name_mapping[row['tool']],
+                    tool=tool,
                     average_time=float(row['avg time']),
                     timestamp=datetime.now(),
+                    n_workers=int(n_workers) if n_workers else 1,
                 )
 
 
