@@ -53,6 +53,12 @@ dataset_names_for_paper_multiprocessing = [
 er_dataset_names_for_paper_multiprocessing = [
     f'er_{x}' for x in (500, 1000, 5000, 10000)
 ]
+
+# additions from the 20221213 runs: 
+er_dataset_names_for_paper_20221213 = [
+    f'er_{x}'
+    for x in (50000, 500000, 1000000)
+]
 ```
 
 ## Benchmarking easygraph with and without C++ binding, and networkx
