@@ -21,6 +21,10 @@ gen-scripts:
 	./gen_bench_script.py --er-paper
 	./gen_bench_script.py --er-paper --multiprocessing-bench-scripts
 
+release-dbs:
+	gh release upload server bench-results-server.db --clobber
+	gh release upload local bench-results-local.db --clobber
+
 deta:
 	deta deploy ../easygraph-bench-results-fastapi
 
