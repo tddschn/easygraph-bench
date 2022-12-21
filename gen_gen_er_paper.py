@@ -14,6 +14,7 @@ from config import (
     er_dataset_edges_count_for_paper_20221213,
 )
 from stat import S_IEXEC
+from utils_other import autorange_count_generator
 
 # ENTRYPOINT_SH_PATH = Path(__file__).parent / 'entrypoint.sh'
 # ENTRYPOINT_SH_PAPER_PATH = Path(__file__).parent / 'entrypoint_paper.sh'
@@ -52,9 +53,19 @@ def get_args():
         default=date.today().strftime('%Y%m%d'),
     )
 
+    # parser.add_argument(
+    #     '--sparse',
+    #     help='Generate sparse graphs with nx.fast_gnp_random_graph()',
+    #     action='store_true',
+    # )
+
     parser.add_argument(
-        '--sparse',
-        help='Generate sparse graphs with nx.fast_gnp_random_graph()',
+        '--extra-args', help='Extra arguments', metavar='str', type=str, default=''
+    )
+
+    parser.add_argument(
+        '--experiment-20221221',
+        help='Generate scripts for experiment 20221221',
         action='store_true',
     )
 
@@ -64,25 +75,31 @@ def get_args():
 def main():
     """Make a jazz noise here"""
     args = get_args()
-    extra_args = ''
-    if args.sparse:
-        extra_args += ' --sparse'
+    # extra_args = ''
+    # if args.sparse:
+    #     extra_args += ' --sparse'
     e = Environment(loader=FileSystemLoader('templates'))
     # Load the Jinja2 template.
     template = e.get_template('gen-er-paper.jinja.sh')
     nodes_and_edges_list = []
-    for i, dataset_name in enumerate(er_dataset_names_for_paper_20221213):
-        nodes_and_edges_list.append(
-            {
-                'nodes': dataset_name.split('_')[1],
-                'edges': str(er_dataset_edges_count_for_paper_20221213[i]),
-            }
-        )
+    if args.experiment_20221221:
+        for nodes in (10_000, 100_000, 1_000_000):
+            for edges in autorange_count_generator(nodes):
+                if edges <= 5 * nodes:
+                    nodes_and_edges_list.append({'nodes': nodes, 'edges': edges})
+    else:
+        for i, dataset_name in enumerate(er_dataset_names_for_paper_20221213):
+            nodes_and_edges_list.append(
+                {
+                    'nodes': dataset_name.split('_')[1],
+                    'edges': str(er_dataset_edges_count_for_paper_20221213[i]),
+                }
+            )
 
     script_content = gen_gen_er_paper(
         date_s=args.date_string,
         nodes_and_edges_list=nodes_and_edges_list,
-        extra_args=extra_args,
+        extra_args=args.extra_args,
         template=template,
     )
     output_path = Path(f'gen-er-paper-{args.date_string}.sh')

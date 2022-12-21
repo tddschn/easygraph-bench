@@ -31,12 +31,14 @@ def is_dataset_directed(dataset_name: str) -> bool:
     return gi_d[dataset_name]['is_directed']
 
 
-def autorange_count_generator() -> Iterator[int]:
+def autorange_count_generator(larger_than: int | None = None) -> Iterator[int]:
     base_nums = [1, 2, 5]
     for i in count():
         multiplier = 10**i
         for base_num in base_nums:
-            yield base_num * multiplier
+            result = base_num * multiplier
+            if larger_than is None or result > larger_than:
+                yield result
 
 
 def get_autorange_count(average_time: float) -> int:  # type: ignore
