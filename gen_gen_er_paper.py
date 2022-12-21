@@ -83,10 +83,13 @@ def main():
     template = e.get_template('gen-er-paper.jinja.sh')
     nodes_and_edges_list = []
     if args.experiment_20221221:
-        for nodes in (10_000, 100_000, 1_000_000):
-            for edges in autorange_count_generator(nodes):
+        # for nodes in (10_000, 100_000, 1_000_000):
+        for nodes in (100_000, 1_000_000):
+            for edges in autorange_count_generator(50_000):
                 if edges <= 5 * nodes:
                     nodes_and_edges_list.append({'nodes': nodes, 'edges': edges})
+                else:
+                    break
     else:
         for i, dataset_name in enumerate(er_dataset_names_for_paper_20221213):
             nodes_and_edges_list.append(

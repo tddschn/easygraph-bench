@@ -37,7 +37,7 @@ def autorange_count_generator(larger_than: int | None = None) -> Iterator[int]:
         multiplier = 10**i
         for base_num in base_nums:
             result = base_num * multiplier
-            if larger_than is None or result > larger_than:
+            if larger_than is None or result >= larger_than:
                 yield result
 
 
