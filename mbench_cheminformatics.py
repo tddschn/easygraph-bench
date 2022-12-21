@@ -113,6 +113,10 @@ def get_args():
     )
 
     parser.add_argument(
+        '--paper-fast', action='store_true', help='Use this flag to generate the results for the paper (skip ceg and nx, using methods for paper, running only fast methods)'
+    )
+
+    parser.add_argument(
         '-w', '--n-workers', '--parallel', type=int, help='Specify the n_workers arg for multiprocessing easygraph methods.', nargs='*', default=easygraph_multiprocessing_n_workers_options,
     )
 
@@ -169,6 +173,10 @@ def main():
     result_dicts: list[dict] = []
     bench_timestamps: list[DTForTools] = []
     methods_to_include = easygraph_multipcoessing_methods_for_paper if args.paper else easygraph_multipcoessing_methods_available_in_networkx
+    if args.paper_fast and 'betweenness_centrality' in methods_to_include:
+        methods_to_include.remove('betweenness_centrality')
+        if 'closeness_centrality' in methods_to_include:
+            methods_to_include.remove('closeness_centrality')
     if args.paper and flags['n_workers'] == easygraph_multiprocessing_n_workers_options:
         flags['n_workers'] = easygraph_multiprocessing_n_workers_options_for_paper
     try:

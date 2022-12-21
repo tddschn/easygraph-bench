@@ -175,6 +175,8 @@ def main():
     methods_to_include = easygraph_multipcoessing_methods_for_paper if args.paper else easygraph_multipcoessing_methods_available_in_networkx
     if args.paper_fast and 'betweenness_centrality' in methods_to_include:
         methods_to_include.remove('betweenness_centrality')
+        if 'closeness_centrality' in methods_to_include:
+            methods_to_include.remove('closeness_centrality')
     if args.paper and flags['n_workers'] == easygraph_multiprocessing_n_workers_options:
         flags['n_workers'] = easygraph_multiprocessing_n_workers_options_for_paper
     try:

@@ -11,8 +11,6 @@ from tempfile import mkstemp
 import sqlite3
 from functools import partial
 from utils_db import insert_bench_results
-from utils_other import tool_str_to_tool_and_n_workers
-import re
 
 from config import (
     eg_master_dir,
@@ -32,11 +30,6 @@ from config import (
     tool_name_mapping_for_DTForTools,
     bench_results_db_path,
     tool_name_mapping,
-    easygraph_multipcoessing_methods,
-    easygraph_multipcoessing_methods_available_in_networkx,
-    easygraph_multiprocessing_n_workers_options,
-    easygraph_multipcoessing_methods_for_paper,
-    easygraph_multiprocessing_n_workers_options_for_paper,
 )
 from utils import eg2nx, eg2ceg, nx2eg, get_first_node, eval_method, json2csv, tabulate_csv
 from eg_bench_types import DTForTools
@@ -48,16 +41,16 @@ from eg_bench_types import DTForTools
 
 import easygraph as eg
 import networkx as nx
-from dataset_loaders_sampled import load_pgp
+from dataset_loaders_sampled import load_er_paper_20221221_1000000_500000
 
-load_func_name = 'load_pgp'
-original_load_func_uses_networkx = hasattr(load_pgp, 'load_func_for') and load_pgp.load_func_for == 'nx'  # type: ignore
-sampled_graph = hasattr(load_pgp, 'sampled') and load_pgp.sampled  # type: ignore
+load_func_name = 'load_er_paper_20221221_1000000_500000'
+original_load_func_uses_networkx = hasattr(load_er_paper_20221221_1000000_500000, 'load_func_for') and load_er_paper_20221221_1000000_500000.load_func_for == 'nx'  # type: ignore
+sampled_graph = hasattr(load_er_paper_20221221_1000000_500000, 'sampled') and load_er_paper_20221221_1000000_500000.sampled  # type: ignore
 if original_load_func_uses_networkx or sampled_graph:
-    G_nx = load_pgp()
+    G_nx = load_er_paper_20221221_1000000_500000()
     G_eg = nx2eg(G_nx)  # type: ignore
 else:
-    G_eg = load_pgp()
+    G_eg = load_er_paper_20221221_1000000_500000()
     G_nx = eg2nx(G_eg)
 G_ceg = eg2ceg(G_eg)
 first_node_eg = get_first_node(G_eg)
@@ -82,9 +75,9 @@ def get_args():
     #     nargs='+',
     # )
 
-    # parser.add_argument(
-    #     '-G', '--method-group', type=str, choices=method_groups, nargs='+'
-    # )
+    parser.add_argument(
+        '-G', '--method-group', type=str, choices=method_groups, nargs='+'
+    )
 
     parser.add_argument(
         '-E', '--skip-easygraph', action='store_true', help='Skip benchmarking easygraph (python) method',
@@ -102,23 +95,9 @@ def get_args():
         '-N', '--skip-networkx', action='store_true', help='Skip benchmarking networkx method',
     )
 
-    parser.add_argument('-n', '--dry-run', action='store_true', help='Dry run')
+    # parser.add_argument('-n', '--dry-run', action='store_true', help='Dry run')
 
-    # parser.add_argument(
-    #     '-D', '--skip-draw', action='store_true', help='Skip drawing graphs to speed things up'
-    # )
-
-    parser.add_argument(
-        '--paper', action='store_true', help='Use this flag to generate the results for the paper (skip ceg and nx, using methods for paper)'
-    )
-
-    parser.add_argument(
-        '--paper-fast', action='store_true', help='Use this flag to generate the results for the paper (skip ceg and nx, using methods for paper, running only fast methods)'
-    )
-
-    parser.add_argument(
-        '-w', '--n-workers', '--parallel', type=int, help='Specify the n_workers arg for multiprocessing easygraph methods.', nargs='*', default=easygraph_multiprocessing_n_workers_options,
-    )
+    
 
     parser.add_argument(
         '-p', '--pass', type=int, help='Number of passes to run in the benchmark, uses Timer.autorange() if not set.'
@@ -127,6 +106,11 @@ def get_args():
     # parser.add_argument(
     #     '-t', '--timeout', type=int, help='Timeout for benchmarking one method in seconds, 0 for no timeout', default=60
     # )
+
+    parser.add_argument(
+        '--paper', action='store_true', help='Use this flag to generate the results for the paper'
+    )
+
     parser.add_argument(
         '-o', '--output-dir', type=Path, help='Output directory', default=BENCH_CSV_DIR,
     )
@@ -162,27 +146,24 @@ def get_args():
 
 def main():
     args = get_args()
+    method_groups = args.method_group
     flags = {}
     flags |= {'skip_eg': args.skip_easygraph}
-    flags |= {'skip_ceg': args.skip_cpp_easygraph or args.paper}
-    flags |= {'skip_networkx': args.skip_networkx or args.paper}
+    flags |= {'skip_ceg': args.skip_cpp_easygraph}
+    flags |= {'skip_networkx': args.skip_networkx}
     flags |= {'skip_draw': True}
     flags |= {'timeit_number': getattr(args, 'pass', None)}
-    flags |= {'n_workers': getattr(args, 'n_workers', None)}
     # flags |= {'timeout': args.timeout if args.timeout > 0 else None}
     result_dicts: list[dict] = []
     bench_timestamps: list[DTForTools] = []
-    methods_to_include = easygraph_multipcoessing_methods_for_paper if args.paper else easygraph_multipcoessing_methods_available_in_networkx
-    if args.paper_fast and 'betweenness_centrality' in methods_to_include:
-        methods_to_include.remove('betweenness_centrality')
-        if 'closeness_centrality' in methods_to_include:
-            methods_to_include.remove('closeness_centrality')
-    if args.paper and flags['n_workers'] == easygraph_multiprocessing_n_workers_options:
-        flags['n_workers'] = easygraph_multiprocessing_n_workers_options_for_paper
-    try:
-        for method_name in easygraph_multipcoessing_methods:
-            if method_name not in methods_to_include:
-                continue
+    first_node_args = {
+        'call_method_args_eg': ['first_node_eg'],
+        'call_method_args_nx': ['first_node_nx'],
+        'call_method_args_ceg': ['first_node_ceg'],
+    }
+    if method_groups is None or 'clustering' in method_groups or args.paper:
+        # bench: clustering
+        for method_name in clustering_methods:
             _, __ = eval_method(
                 load_func_name,
                 method_name,
@@ -190,22 +171,81 @@ def main():
             )
             result_dicts.append(_)
             bench_timestamps.append(__)
-    except Exception as e:
-        print(e)
-        msg = f'Error while benchmarking {method_name}'
-        # print in red
-        print(f'\033[91m{msg}\033[0m')
+
+    if method_groups is None or 'shortest-path' in method_groups or args.paper:
+        # bench: shortest path
+        # bench_shortest_path(cost_dict, g, load_func_name)
+        _, __ = eval_method(
+            load_func_name,
+            ('Dijkstra', 'single_source_dijkstra_path'),
+            **first_node_args,
+            **flags,
+        )
+        result_dicts.append(_)
+        bench_timestamps.append(__)
+    if method_groups is None or 'connected-components' in method_groups or args.paper:
+        # bench: connected components
+        for method_name in connected_components_methods_G:
+            _, __ = eval_method(
+                load_func_name,
+                method_name,
+                **flags,
+            )
+            result_dicts.append(_)
+            bench_timestamps.append(__)
+        for method_name in connected_components_methods_G_node:
+            _, __ = eval_method(
+                load_func_name,
+                method_name,
+                **first_node_args,
+                **flags,
+            )
+            result_dicts.append(_)
+            bench_timestamps.append(__)
+    if method_groups is None or 'mst' in method_groups or args.paper:
+        # bench: mst
+        for method_name in mst_methods:
+            _, __ = eval_method(
+                load_func_name,
+                method_name,
+                **flags,
+            )
+            result_dicts.append(_)
+            bench_timestamps.append(__)
+
+    if not args.paper and (method_groups is None or 'other' in method_groups):
+        # bench: other
+        for method_name in other_methods:
+            _, __ = eval_method(
+                load_func_name,
+                method_name,
+                **flags,
+            )
+            result_dicts.append(_)
+            bench_timestamps.append(__)
+
+
+    if not args.paper and (method_groups is None or 'new' in method_groups):
+        # bench: other
+        for method_name in new_methods:
+            _, __ = eval_method(
+                load_func_name,
+                method_name,
+                **flags,
+            )
+            result_dicts.append(_)
+            bench_timestamps.append(__)
 
 
     print()
     from mergedeep import merge
     
-    result = merge({}, *result_dicts)
+    result = merge(*result_dicts)
     # print(f'{result_dicts=}')
     # print(f'{result=}')
 
     dataset_name = load_func_name.removeprefix("load_")
-    csv_file = f'{dataset_name}_multiprocessing.csv'
+    csv_file = f'{dataset_name}.csv'
     csv_file_path = args.output_dir / csv_file
     if args.no_save:
         _, csv_file_path_s = mkstemp(suffix='.csv')
@@ -236,10 +276,6 @@ def main():
             #                          'networkx': 0.00013218499952927232}}}
             for method, tool_time_mapping in data.items():
                 for tool, avg_time in tool_time_mapping.items():
-                    tool, n_workers = tool_str_to_tool_and_n_workers(tool)
-                    n_workers_kwarg = {}
-                    if n_workers is not None:
-                        n_workers_kwarg = {'n_workers': int(n_workers)}
                     insert_bench_results(
                         conn,
                         dataset=dataset_name,
@@ -248,7 +284,6 @@ def main():
                         average_time=avg_time,
                         timestamp=getattr(dt_for_tools, tool_name_mapping_for_DTForTools[tool]),
                         iteration_count=getattr(args, 'pass', None),
-                        **n_workers_kwarg,
                     )
     print(f'Finished writing new results to database at {args.db_path} .')
 

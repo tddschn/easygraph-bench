@@ -48,16 +48,16 @@ from eg_bench_types import DTForTools
 
 import easygraph as eg
 import networkx as nx
-from dataset_loaders_sampled import load_pgp
+from dataset_loaders_sampled import load_er_paper_20221221_1000000_200000
 
-load_func_name = 'load_pgp'
-original_load_func_uses_networkx = hasattr(load_pgp, 'load_func_for') and load_pgp.load_func_for == 'nx'  # type: ignore
-sampled_graph = hasattr(load_pgp, 'sampled') and load_pgp.sampled  # type: ignore
+load_func_name = 'load_er_paper_20221221_1000000_200000'
+original_load_func_uses_networkx = hasattr(load_er_paper_20221221_1000000_200000, 'load_func_for') and load_er_paper_20221221_1000000_200000.load_func_for == 'nx'  # type: ignore
+sampled_graph = hasattr(load_er_paper_20221221_1000000_200000, 'sampled') and load_er_paper_20221221_1000000_200000.sampled  # type: ignore
 if original_load_func_uses_networkx or sampled_graph:
-    G_nx = load_pgp()
+    G_nx = load_er_paper_20221221_1000000_200000()
     G_eg = nx2eg(G_nx)  # type: ignore
 else:
-    G_eg = load_pgp()
+    G_eg = load_er_paper_20221221_1000000_200000()
     G_nx = eg2nx(G_eg)
 G_ceg = eg2ceg(G_eg)
 first_node_eg = get_first_node(G_eg)
