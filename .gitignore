@@ -1,6 +1,8 @@
 # large random datasets
 # dataset/random*
 
+dataset/er-paper-20221221/
+
 *.zip
 *.txt
 *.db

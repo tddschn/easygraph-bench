@@ -31,6 +31,11 @@ def get_p(num_nodes: int, edges_number: int) -> float:
     return edges_number / total_possible_edges
 
 
+def get_edge_count_from_p(num_nodes: int, p: float) -> int:
+    total_possible_edges = num_nodes * (num_nodes - 1) / 2
+    return int(p * total_possible_edges)
+
+
 def get_args():
     """Get command-line arguments"""
 
@@ -80,6 +85,12 @@ def get_args():
         action='store_true',
     )
 
+    parser.add_argument(
+        '--append-edge-count-in-filename',
+        help='Append edge count in filename',
+        action='store_true',
+    )
+
     return parser.parse_args()
 
 
@@ -96,7 +107,15 @@ def main():
     idx = 1
     for num in num_nodes:
         for directed in directed_option_list:
-            filepath = f'dataset/{args.er_dataset_dir_name}/{num}{"_directed" if directed else ""}.{"pickle" if args.sparse else "edgelist"}'
+            if args.p is not None:
+                edge_count = get_edge_count_from_p(num, args.p)
+            elif args.edges is not None:
+                edge_count = args.edges
+            else:
+                # Use the default edge-to-node ratio to calculate p
+                # p = get_p(num)
+                sys.exit(f'Error: Either p or edges_number must be specified')
+            filepath = f'dataset/{args.er_dataset_dir_name}/{num}{f"_{edge_count}" if args.append_edge_count_in_filename else ""}{"_directed" if directed else ""}.{"pickle" if args.sparse else "edgelist"}'
             print(
                 f'Generating {filepath} ({"directed" if directed else "undirected"}) {idx} / {total_graph_count}...'
             )
