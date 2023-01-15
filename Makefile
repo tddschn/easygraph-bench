@@ -1,3 +1,11 @@
+# SHELL := /usr/local/bin/bash
+REPOS=tddschn/easygraph-bench easy-graph/easygraph-bench
+TAGS=server local
+TAG_SERVER=server
+NOTE_FILE_SERVER=server-release-note.md
+
+
+
 sanity-check: gen-scripts
 	# ./bench_stub.py -D -p 1 -a -G new
 	# ./bench_stub_directed.py -D -p 1 -a -G new
@@ -22,12 +30,17 @@ gen-scripts:
 	./gen_bench_script.py --er-paper --multiprocessing-bench-scripts
 
 release-dbs:
-	gh release upload server bench-results-server.db --clobber
-	gh release upload local bench-results-local.db --clobber
-	# gh --repo easy-graph/easygraph-bench release create server --generate-notes
-	# gh --repo easy-graph/easygraph-bench release create local --generate-notes
-	gh --repo easy-graph/easygraph-bench release upload server bench-results-server.db --clobber
-	gh --repo easy-graph/easygraph-bench release upload local bench-results-local.db --clobber
+	$(foreach REPO,$(REPOS), \
+		$(foreach TAG,$(TAGS), \
+			gh --repo $(REPO) release upload $(TAG) bench-results-$(TAG).db --clobber; \
+		) \
+	)
+
+edit-server-release-note:
+	$(foreach REPO,$(REPOS), \
+		gh --repo $(REPO) release edit $(TAG_SERVER) -F $(NOTE_FILE_SERVER); \
+	)
+
 
 deta:
 	deta deploy ../easygraph-bench-results-fastapi
