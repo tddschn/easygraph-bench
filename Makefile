@@ -1,5 +1,6 @@
 # SHELL := /usr/local/bin/bash
 REPOS=tddschn/easygraph-bench easy-graph/easygraph-bench
+REPO_SERVER=easy-graph/easygraph-bench
 TAGS=server local
 TAG_SERVER=server
 NOTE_FILE_SERVER=server-release-note.md
@@ -39,6 +40,11 @@ release-dbs:
 edit-server-release-note:
 	$(foreach REPO,$(REPOS), \
 		gh --repo $(REPO) release edit $(TAG_SERVER) -F $(NOTE_FILE_SERVER); \
+	)
+
+init-server-releases:
+	$(foreach TAG,$(TAGS), \
+		gh --repo $(REPO_SERVER) release create $(TAG) --generate-notes; \
 	)
 
 
