@@ -24,6 +24,10 @@ gen-scripts:
 release-dbs:
 	gh release upload server bench-results-server.db --clobber
 	gh release upload local bench-results-local.db --clobber
+	# gh --repo easy-graph/easygraph-bench release create server --generate-notes
+	# gh --repo easy-graph/easygraph-bench release create local --generate-notes
+	gh --repo easy-graph/easygraph-bench release upload server bench-results-server.db --clobber
+	gh --repo easy-graph/easygraph-bench release upload local bench-results-local.db --clobber
 
 deta:
 	deta deploy ../easygraph-bench-results-fastapi
