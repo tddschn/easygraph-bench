@@ -21,7 +21,7 @@ cp ./all*.csv output -v
 
 cp profile_results.csv output/profile_results.csv -v
 
-REPO='tddschn/easygraph-bench'
+REPOS=('tddschn/easygraph-bench' 'easy-graph/easygraph-bench')
 TAG='local'
 DATE_STR="$(date +"%Y-%m-%dT%H:%M:%S:%z")"
 CSV_ZIP_FILENAME="$(echo "bench-results-csv-${DATE_STR}.zip" | tr ':' '-')"
@@ -30,13 +30,12 @@ zip -r "${CSV_ZIP_FILENAME}" output
 
 set +e
 # don't exit on error
-gh release -R "${REPO}" delete "${TAG}" --yes
-# gh release -R "${REPO}" create "${TAG}" --notes "Released from GitHub Actions"
-gh release -R "${REPO}" create "${TAG}" --notes-file output/README.md
-
+for REPO in "${REPOS[@]}"; do
+    gh release -R "${REPO}" delete "${TAG}" --yes
+    gh release -R "${REPO}" create "${TAG}" --notes-file output/README.md
+    gh release -R "${REPO}" upload "${TAG}" "${CSV_ZIP_FILENAME}"
+done
 set -e
-
-gh release -R "${REPO}" upload "${TAG}" "${CSV_ZIP_FILENAME}"
 
 echo "https://github.com/tddschn/easygraph-bench/releases/tag/${TAG}"
 
