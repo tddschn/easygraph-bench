@@ -42,6 +42,12 @@ edit-server-release-note:
 		gh --repo $(REPO) release edit $(TAG_SERVER) -F $(NOTE_FILE_SERVER); \
 	)
 
+make-server-release-latest:
+	$(foreach REPO,$(REPOS), \
+		gh --repo $(REPO) release edit $(TAG_SERVER) --latest; \
+	)
+
+
 init-server-releases:
 	$(foreach TAG,$(TAGS), \
 		gh --repo $(REPO_SERVER) release create $(TAG) --generate-notes; \
