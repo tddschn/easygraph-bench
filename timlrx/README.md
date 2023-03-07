@@ -11,7 +11,7 @@ Then I added code for EasyGraph to that file, generated benchmarking scripts for
 
 ## Run the benchmark
 
-Clone this repository, install required packages, and run
+Clone this repository, install required packages, set up sqlite databases to store bench results, and run
 
 ```bash
 ./profile_entrypoint.sh
