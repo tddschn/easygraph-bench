@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "easygraph-bench"
+version = "0.1.0"
+description = "Code and utility modules for benchmarking the performance of graph libraries including easygraph"
+authors = ["Teddy Xinyuan Chen <45612704+tddschn@users.noreply.github.com>"]
+readme = "README.md"
+# packages = [{include = "easygraph_bench"}]
+include = [
+    "__init__.py",
+    "utils.py",
+    "utils_db.py",
+    "utils_other.py",
+    "eg_bench_types.py",
+    "dataset_loaders.py",
+    "dataset_loaders_sampled.py",
+    "config.py",
+]
+
+
+[tool.poetry.dependencies]
+python = ">=3.10, <4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
