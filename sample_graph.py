@@ -16,12 +16,19 @@ from config import (
     sampled_graph_dir,
 )
 
+macos_warning = """
+\033[31mInstalling littleballoffur on macOS is a PITA, 
+just use the randomly_sample_directed_graph() from utils.py manually if you're on a Mac.\033[0m
+""".strip()
+
 
 def get_args():
     """Get command-line arguments"""
 
     parser = argparse.ArgumentParser(
-        description='Why not?', formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        description='Why not?',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        epilog=macos_warning,
     )
 
     parser.add_argument(
