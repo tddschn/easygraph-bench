@@ -1,0 +1,13 @@
+---
+- name: Clone repositories
+  hosts: all
+  tasks:
+    - name: Clone easygraph-bench
+      git:
+        repo: https://github.com/tddschn/easygraph-bench
+        dest: "{{ ansible_env.HOME }}/easygraph-bench"
+
+    - name: Clone Easy-Graph
+      git:
+        repo: https://github.com/easy-graph/Easy-Graph
+        dest: "{{ ansible_env.HOME }}/Easy-Graph"

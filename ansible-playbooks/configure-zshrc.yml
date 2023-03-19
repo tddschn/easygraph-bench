@@ -1,0 +1,9 @@
+---
+- name: Configure .zshrc
+  hosts: all
+  tasks:
+    - name: Set .zshrc content
+      ansible.builtin.copy:
+        dest: "{{ ansible_env.HOME }}/.zshrc"
+        content: |
+          # Your .zshrc content goes here

@@ -1,0 +1,22 @@
+---
+- name: Configure Conda
+  hosts: all
+  tasks:
+    - name: Add conda-forge channel
+      shell: conda config --add channels conda-forge
+
+    - name: Remove forge channel
+      shell: conda config --remove channels forge
+
+    - name: Install Python packages with pip
+      pip:
+        name:
+          - pybind11
+          - better-exceptions
+          - pebble
+          - hr_tddschn
+          - tensorflow
+          - torch
+
+    - name: Install Python packages with mamba
+      shell: mamba install -y networkx graph-tool python-igraph networkit pyinstrument ipython

@@ -1,0 +1,29 @@
+- name: Install vimrc and oh-my-zsh
+  hosts: all
+  tasks:
+    - name: Install zsh
+      apt:
+        name: zsh
+        state: present
+      become: yes
+
+    - name: Set default shell to zsh
+      command: chsh -s /bin/zsh {{ ansible_user }}
+
+    - name: Clone amix/vimrc
+      git:
+        repo: https://github.com/amix/vimrc.git
+        dest: "{{ ansible_env.HOME }}/.vim_runtime"
+        depth: 1
+
+    - name: Install awesome vimrc
+      shell: sh ~/.vim_runtime/install_awesome_vimrc.sh
+
+    - name: Install oh-my-zsh unattended
+      shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+    - name: Download and set .zshrc content
+      ansible.builtin.copy:
+        dest: "{{ ansible_env.HOME }}/.zshrc"
+        content: |
+          # Your .zshrc content goes here
