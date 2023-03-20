@@ -1,6 +1,7 @@
 easygraph: |
   import easygraph as eg
-  from easygraph import *  # type: ignore
+  # from easygraph import *  # type: ignore
+  from easygraph import Dijkstra, pagerank, strongly_connected_components, read_edgelist
 networkx: |
   import networkx as nx
   from networkx import *  # type: ignore
