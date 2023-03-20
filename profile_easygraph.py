@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 import easygraph as eg
-from easygraph import *  # type: ignore
+# from easygraph import *  # type: ignore
+from easygraph import Dijkstra, pagerank, strongly_connected_components, read_edgelist
 
 
 from benchmark import benchmark_autorange
