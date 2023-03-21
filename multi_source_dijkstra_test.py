@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from hr_tddschn import hr
-from easygraph import multi_source_dijkstra, read_edgelist
+from easygraph import multi_source_dijkstra, read_edgelist, DiGraph
 from utils_other import autorange_count_generator
 from itertools import islice
 from random import sample
@@ -10,8 +10,8 @@ from benchmark import benchmark_autorange
 
 def test_multi_source_dijkstra(edgelist_path: str) -> list[dict[int, float]]:
     amz = read_edgelist(
-        edgelist_path, delimiter="\t", nodetype=int, create_using=eg.DiGraph()
-    ).cpp()
+        edgelist_path, delimiter="\t", nodetype=int, create_using=DiGraph()
+    ).cpp()  # type: ignore
     amz_l = []
     nodes = amz.nodes
     num_nodes = len(amz.nodes)
@@ -22,7 +22,7 @@ def test_multi_source_dijkstra(edgelist_path: str) -> list[dict[int, float]]:
         amz_l.append(
             {
                 num: benchmark_autorange(
-                    'multi_source_dijkstra(amz, sources)', globals=globals()
+                    'multi_source_dijkstra(amz, sources)', globals=globals() | locals()
                 )
             }
         )
