@@ -320,6 +320,8 @@ dataset_edgelist_filenames = [
 edgelist_filenames = [f'dataset/{x}.edgelist' for x in dataset_edgelist_filenames] + [
     'enron.txt',
     'amazon.txt',
+    'google.txt',
+    'pokec.txt',
 ]
 
 
