@@ -9,17 +9,17 @@ from benchmark import benchmark_autorange
 
 
 def test_multi_source_dijkstra(edgelist_path: str) -> list[dict[int, float]]:
-    amz = read_edgelist(
+    g = read_edgelist(
         edgelist_path, delimiter="\t", nodetype=int, create_using=DiGraph()
     ).cpp()  # type: ignore
-    amz_l = []
-    nodes = amz.nodes
-    num_nodes = len(amz.nodes)
+    g_l = []
+    nodes = g.nodes
+    num_nodes = len(g.nodes)
     for num in islice(autorange_count_generator(), 20):
         if num > num_nodes:
             break
-        sources = sample(amz.nodes.keys(), num)
-        amz_l.append(
+        sources = sample(g.nodes.keys(), num)
+        g_l.append(
             {
                 num: benchmark_autorange(
                     'multi_source_dijkstra(amz, sources)', globals=globals() | locals()
@@ -27,7 +27,7 @@ def test_multi_source_dijkstra(edgelist_path: str) -> list[dict[int, float]]:
             }
         )
 
-    return amz_l
+    return g_l
 
 
 def main() -> None:
