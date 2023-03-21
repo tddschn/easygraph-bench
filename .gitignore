@@ -25,6 +25,7 @@ out.*
 !timlrx
 !timlrx/graph-benchmark-code.json
 *.csv
+!multi_source_dijkstra_test_result.csv
 
 # images
 # images/*
