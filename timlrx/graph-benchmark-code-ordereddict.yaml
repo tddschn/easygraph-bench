@@ -95,7 +95,7 @@
           - "'betweenness_centrality(g)'"
         - - closeness centrality
           - "'closeness_centrality(g)'"
-        - - k-core
-          - "'k_core(g)'"
         - - strongly connected components
           - "'[i for i in strongly_connected_components(g)]'"
+        - - k-core
+          - "'k_core(g)'"

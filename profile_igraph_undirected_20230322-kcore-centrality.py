@@ -53,8 +53,10 @@ print()
 avg_times |= {'loading_undirected': benchmark_autorange("Graph.Read(filename, format='edges', directed=False)", globals=globals(), n=n) }
 
 
-# loading* only
+
+# loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval("Graph.Read(filename, format='edges', directed=False)")
+
 
 
 

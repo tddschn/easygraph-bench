@@ -51,7 +51,21 @@ print()
 
 # remove self loop from graph g before doing k-core
 {% if tool in ('networkx', 'easygraph') %}
+
+# if tool is easygraph
+{% if tool == 'easygraph' %}
+# give eg access to a python version of Graph first, so that removing self loops is possible
+# eval code.removesuffix('.cpp()')
+{# g_python = eval({{ loading_code_str }}.removesuffix('.cpp()')) #}
+g_og = g
+g_python = g.py()
+g = g_python
+{% endif %}
+
 g.remove_edges_from({{ tool }}.selfloop_edges(g))
+{% if tool == 'easygraph' %}
+g = g.cpp()
+{% endif %}
 {% endif %}
 
 {% if tool == 'networkit' %}
@@ -65,8 +79,10 @@ g.removeSelfLoops()
 avg_times |= {'{{ method }}': benchmark_autorange({{ code }}, globals=globals(), n=n) }
 
 {% if method in ('loading', 'loading_undirected') %}
-# loading* only
+
+# loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval({{ code }})
+{# {% set loading_code_str = {{ code }} %} #}
 {% endif %}
 
 {% if method in ('loading', 'loading_undirected') %}

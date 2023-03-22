@@ -58,8 +58,10 @@ print()
 avg_times |= {'loading': benchmark_autorange('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.DiGraph()).cpp()', globals=globals(), n=n) }
 
 
-# loading* only
+
+# loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.DiGraph()).cpp()')
+
 
 
 
@@ -116,7 +118,21 @@ print()
 
 # remove self loop from graph g before doing k-core
 
+
+# if tool is easygraph
+
+# give eg access to a python version of Graph first, so that removing self loops is possible
+# eval code.removesuffix('.cpp()')
+
+g_og = g
+g_python = g.py()
+g = g_python
+
+
 g.remove_edges_from(easygraph.selfloop_edges(g))
+
+g = g.cpp()
+
 
 
 
