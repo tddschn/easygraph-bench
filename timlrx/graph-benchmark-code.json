@@ -14,6 +14,8 @@
     "shortest path": "\"g.shortest_paths([g.vs[0]])\"",
     "page rank": "\"g.pagerank(damping=0.85)\"",
     "k-core": "\"g.coreness(mode='all')\"",
+    "betweenness centrality": "\"g.betweenness()\"",
+    "closeness centrality": "\"g.closeness()\"",
     "strongly connected components": "\"[i for i in g.components(mode=STRONG)]\""
   },
   "networkit": {
@@ -46,6 +48,7 @@
     "loading_undirected": "'read_edgelist(filename, delimiter=\"\\t\", nodetype=int, create_using=eg.Graph()).cpp()'",
     "shortest path": "f'Dijkstra(g, {nodeid})'",
     "page rank": "'pagerank(g)'",
+    "k-core": "'k_core(g)'",
     "strongly connected components": "'[i for i in strongly_connected_components(g)]'"
   }
 }
