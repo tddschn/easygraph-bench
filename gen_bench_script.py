@@ -150,8 +150,17 @@ def get_args():
         help='select tools for profiling',
         type=str,
         nargs='+',
+        choices=['igraph', 'graphtool', 'networkit', 'easygraph', 'networkx', 'snap'],
+        default=['igraph', 'graphtool', 'networkit', 'easygraph', 'networkx', 'snap'],
+    )
+
+    parser.add_argument(
+        '--profile-select-methods',
+        help='select methods for profiling',
+        type=str,
+        nargs='+',
         choices=graph_benchmark_method_order,
-        default=None,
+        default=graph_benchmark_method_order,
     )
 
     parser.add_argument(
@@ -160,6 +169,7 @@ def get_args():
         type=str,
         nargs='+',
         choices=edgelist_filenames,
+        default=edgelist_filenames,
     )
 
     parser.add_argument(
@@ -302,9 +312,9 @@ def main():
                     m = {
                         method: code
                         for method, code in m.items()
-                        if method in args.profile_select_methods
+                        if method in [loading_method] + args.profile_select_methods
                     }
-                if loading_method not in m:
+                if loading_method not in m and not args.profile_suffix:
                     continue
                 methods_to_pop = []
                 if loading_method == 'loading':
@@ -360,9 +370,9 @@ def main():
             for tool in gbc:
                 is_directed = gi[dataset_name]['is_directed']
                 script_name_suffix = '_undirected' if not is_directed else ''
-                script_filename = f'profile_{tool}{script_name_suffix}.py'
+                script_filename = f'''profile_{tool}{script_name_suffix}{f'_{args.profile_suffix}' if args.profile_suffix else ''}.py'''
                 script_lines.append(
-                    f'{"# " if do_comment_out_profile_entrypoint_line(tool) else ""}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'
+                    f'''{"# " if do_comment_out_profile_entrypoint_line(tool) else ""}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'''
                 )
         output_path.write_text('\n'.join(script_lines))
         output_path.chmod(output_path.stat().st_mode | S_IEXEC)
