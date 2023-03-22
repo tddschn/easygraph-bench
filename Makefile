@@ -31,8 +31,12 @@ gen-scripts:
 	./gen_bench_script.py --er-paper --multiprocessing-bench-scripts
 
 gen-scripts-20230322:
-	./gen_bench_script.py --profile --profile-suffix '20230322-kcore-centrality' --profile-select-tools 'igraph' 'easygraph' --profile-select-methods 'betweenness centrality' 'closeness centrality' 'k-core'
-	./gen_bench_script.py --profile-entrypoint --profile-suffix '20230322-kcore-centrality' --profile-select-tools 'igraph' 'easygraph' --profile-select-methods 'betweenness centrality' 'closeness centrality' 'k-core'
+	./gen_bench_script.py --profile --profile-suffix '20230322-centrality' --profile-select-tools 'igraph' 'easygraph' --profile-select-methods 'betweenness centrality' 'closeness centrality'
+	./gen_bench_script.py --profile-entrypoint --profile-suffix '20230322-centrality' --profile-select-tools 'igraph' 'easygraph' --profile-select-methods 'betweenness centrality' 'closeness centrality'
+
+gen-scripts-20230323:
+	./gen_bench_script.py --profile --profile-suffix '20230323-kcore-centrality' --profile-select-tools 'igraph' 'easygraph' --profile-select-methods 'betweenness centrality' 'closeness centrality' 'k-core'
+	./gen_bench_script.py --profile-entrypoint --profile-suffix '20230323-kcore-centrality' --profile-select-tools 'igraph' 'easygraph' --profile-select-methods 'betweenness centrality' 'closeness centrality' 'k-core'
 
 release-dbs:
 	$(foreach REPO,$(REPOS), \
