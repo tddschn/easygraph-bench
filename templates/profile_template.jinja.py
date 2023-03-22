@@ -46,12 +46,12 @@ print(f"""Profiling \033[92m{{ method }}\033[0m on dataset \033[34m{filename}\03
 print("=================")
 print()
 
-{% if tool in ('networkx', 'networkit') %}
+{% if tool in ('networkx', 'networkit', 'easygraph') %}
 {% if method == 'k-core' %}
 
 # remove self loop from graph g before doing k-core
-{% if tool == 'networkx' %}
-g.remove_edges_from(nx.selfloop_edges(g))
+{% if tool in ('networkx', 'easygraph') %}
+g.remove_edges_from({{ tool }}.selfloop_edges(g))
 {% endif %}
 
 {% if tool == 'networkit' %}

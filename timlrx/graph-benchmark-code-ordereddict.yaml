@@ -28,6 +28,10 @@
           - '"g.shortest_paths([g.vs[0]])"'
         - - page rank
           - '"g.pagerank(damping=0.85)"'
+        - - betweenness centrality
+          - '"g.betweenness()"'
+        - - closeness centrality
+          - '"g.closeness()"'
         - - k-core
           - '"g.coreness(mode=''all'')"'
         - - strongly connected components
@@ -85,7 +89,13 @@
           - '''read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph()).cpp()'''
         - - shortest path
           - f'Dijkstra(g, {nodeid})'
-        # - - page rank
-        #   - '''pagerank(g)'''
+        - - page rank
+          - "'pagerank(g)'"
+        - - betweenness centrality
+          - "'betweenness_centrality(g)'"
+        - - closeness centrality
+          - "'closeness_centrality(g)'"
+        - - k-core
+          - "'k_core(g)'"
         - - strongly connected components
           - "'[i for i in strongly_connected_components(g)]'"

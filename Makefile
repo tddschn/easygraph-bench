@@ -30,6 +30,10 @@ gen-scripts:
 	./gen_bench_script.py --er-paper
 	./gen_bench_script.py --er-paper --multiprocessing-bench-scripts
 
+gen-scripts-20230322:
+	./gen_bench_script.py --profile --profile-suffix '20230322-kcore-centrality' --profile-select-tools 'igraph' 'easygraph' --profile-select-methods 'betweenness centrality' 'closeness centrality' 'k-core'
+	./gen_bench_script.py --profile-entrypoint --profile-suffix '20230322-kcore-centrality' --profile-select-tools 'igraph' 'easygraph' --profile-select-methods 'betweenness centrality' 'closeness centrality' 'k-core'
+
 release-dbs:
 	$(foreach REPO,$(REPOS), \
 		$(foreach TAG,$(TAGS), \

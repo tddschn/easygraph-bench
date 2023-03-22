@@ -1,9 +1,11 @@
 easygraph: |
   import easygraph as eg
+  import easygraph
   # from easygraph import *  # type: ignore
-  from easygraph import Dijkstra, pagerank, strongly_connected_components, read_edgelist
+  from easygraph import Dijkstra, pagerank, strongly_connected_components, read_edgelist, multi_source_dijkstra, k_core, betweenness_centrality, closeness_centrality
 networkx: |
   import networkx as nx
+  import networkx
   from networkx import *  # type: ignore
 networkit: |
   import networkit as nk

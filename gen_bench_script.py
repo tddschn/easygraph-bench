@@ -15,6 +15,7 @@ from config import (
     bench_scripts_set,
     read_profile_preparation_code,
     graph_benchmark_code_ordereddict_yaml_path,
+    graph_benchmark_method_order,
     edgelist_filenames,
     profile_tools_to_drop,
     random_erdos_renyi_dataset_names,
@@ -138,6 +139,27 @@ def get_args():
 
     parser.add_argument(
         '-P', '--profile', help='generate profile scripts', action='store_true'
+    )
+
+    parser.add_argument(
+        '--profile-suffix', help='suffix for profile scripts', type=str, default=''
+    )
+
+    parser.add_argument(
+        '--profile-select-tools',
+        help='select tools for profiling',
+        type=str,
+        nargs='+',
+        choices=graph_benchmark_method_order,
+        default=None,
+    )
+
+    parser.add_argument(
+        '--profile-select-datasets',
+        help='select datasets for profiling',
+        type=str,
+        nargs='+',
+        choices=edgelist_filenames,
     )
 
     parser.add_argument(
@@ -271,8 +293,17 @@ def main():
             graph_benchmark_code_ordereddict_yaml_path.read_text(), Loader=Loader
         )
         for tool, method_to_code_mapping in gbc.items():
+            if args.profile_suffix and tool not in args.profile_select_tools:
+                continue
             for loading_method, script_name_suffix in loading_methods.items():
+                # loading_method can only be loading or loading_undirected
                 m = method_to_code_mapping.copy()
+                if args.profile_suffix:
+                    m = {
+                        method: code
+                        for method, code in m.items()
+                        if method in args.profile_select_methods
+                    }
                 if loading_method not in m:
                     continue
                 methods_to_pop = []
@@ -284,20 +315,30 @@ def main():
                     methods_to_pop += ['strongly connected components']
                 [m.pop(method_to_pop, None) for method_to_pop in methods_to_pop]
                 script_content = gen_profile_script(tool, m, template_profile_script)
-                output_path = Path(f'profile_{tool}{script_name_suffix}.py')
+                output_path = Path(
+                    f'''profile_{tool}{script_name_suffix}{f'_{args.profile_suffix}' if args.profile_suffix else ''}.py'''
+                )
                 output_path.write_text(script_content)
                 output_path.chmod(output_path.stat().st_mode | S_IEXEC)
                 print(f'Profile script for {tool} generated at {output_path}')
         return
 
     if args.profile_entrypoint:
-        output_path = Path('profile_entrypoint.sh')
+        output_path = Path(
+            f'''profile_entrypoint{f'_{args.profile_suffix}' if args.profile_suffix else ''}.sh'''
+        )
         script_lines = ['#!/usr/bin/env bash', '']
         gi = json.loads(graph_info_json_path.read_text())
         gbc = yaml.load(
             graph_benchmark_code_ordereddict_yaml_path.read_text(), Loader=Loader
         )
         for edgelist_path in edgelist_filenames:
+            # loop over datasets
+            if (
+                args.profile_suffix
+                and edgelist_path not in args.profile_select_datasets
+            ):
+                continue
             p = Path(edgelist_path)
             dataset_name = p.stem
             script_lines += [
@@ -309,14 +350,19 @@ def main():
                 '',
             ]
             # print(dataset_name)
+            def do_comment_out_profile_entrypoint_line(tool) -> bool:
+                if tool in profile_tools_to_drop:
+                    return True
+                if args.profile_suffix and tool not in args.profile_select_tools:
+                    return True
+                return False
+
             for tool in gbc:
-                # if tool in profile_tool_to_drop:
-                #     continue
                 is_directed = gi[dataset_name]['is_directed']
                 script_name_suffix = '_undirected' if not is_directed else ''
                 script_filename = f'profile_{tool}{script_name_suffix}.py'
                 script_lines.append(
-                    f'{"# " if tool in profile_tools_to_drop else ""}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'
+                    f'{"# " if do_comment_out_profile_entrypoint_line(tool) else ""}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'
                 )
         output_path.write_text('\n'.join(script_lines))
         output_path.chmod(output_path.stat().st_mode | S_IEXEC)
