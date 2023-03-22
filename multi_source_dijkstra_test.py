@@ -5,10 +5,13 @@ from easygraph import multi_source_dijkstra, read_edgelist, DiGraph
 from utils_other import autorange_count_generator
 from itertools import islice
 from random import sample
+import random
 from benchmark import benchmark_autorange
 
 
-def test_multi_source_dijkstra(edgelist_path: str) -> list[dict[int, float]]:
+def test_multi_source_dijkstra(
+    edgelist_path: str, seed: int = 0
+) -> list[dict[int, float]]:
     g = read_edgelist(
         edgelist_path, delimiter="\t", nodetype=int, create_using=DiGraph()
     ).cpp()  # type: ignore
@@ -18,6 +21,8 @@ def test_multi_source_dijkstra(edgelist_path: str) -> list[dict[int, float]]:
     for num in islice(autorange_count_generator(), 20):
         if num > num_nodes:
             break
+
+        random.seed(seed)
         sources = sample(g.nodes.keys(), num)
         g_l.append(
             {
