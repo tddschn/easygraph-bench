@@ -1,3 +1,13 @@
+---
+title: Easygraph Bench
+emoji: 📉
+colorFrom: yellow
+colorTo: indigo
+sdk: gradio
+sdk_version: 3.23.0
+app_file: app.py
+pinned: false
+---
 # easygraph-bench
 
 [![Benchmark using all datasets](https://github.com/tddschn/easygraph-bench/actions/workflows/bench-all.yaml/badge.svg)](https://github.com/tddschn/easygraph-bench/actions/workflows/bench-all.yaml)
