@@ -11,3 +11,8 @@
       git:
         repo: https://github.com/easy-graph/Easy-Graph
         dest: "{{ ansible_env.HOME }}/Easy-Graph"
+
+    - name: Clone https://github.com/chenyang03/co-authorship-network
+      git:
+        repo: https://github.com/chenyang03/co-authorship-network
+        dest: "{{ ansible_env.HOME }}/co-authorship-network"
