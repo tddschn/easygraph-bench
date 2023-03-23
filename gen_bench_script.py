@@ -190,9 +190,9 @@ def get_args():
     return parser.parse_args()
 
 
-def main():
+def main(args):
     """Make a jazz noise here"""
-    args = get_args()
+    # args = get_args()
     e = Environment(loader=FileSystemLoader('templates'))
     # Load the Jinja2 template.
     template = e.get_template('bench_template.jinja.py')
@@ -200,7 +200,7 @@ def main():
     template_entrypoint = e.get_template('entrypoint.jinja.py')
     template_entrypoint_bash = e.get_template('entrypoint.jinja.sh')
     template_profile_script = e.get_template('profile_template.jinja.py')
-    if args.entrypoint:
+    if getattr(args, 'entrypoint', False):
         for script_set in bench_scripts_set:
             script_content = gen_bench_script_entrypoint(
                 script_set, template=template_entrypoint
@@ -214,7 +214,7 @@ def main():
             )
         return
 
-    if args.entrypoint_bash:
+    if getattr(args, 'entrypoint_bash', False):
         script_content = gen_bench_script_entrypoint_bash(
             datasets=args.dataset,
             bash_arg=args.bash_arg,
@@ -225,7 +225,7 @@ def main():
         print(f'Benchmark entrypoint shell script generated at {ENTRYPOINT_SH_PATH}')
         return
 
-    if args.entrypoint_bash_paper:
+    if getattr(args, 'entrypoint_bash_paper', False):
         script_content = gen_bench_script_entrypoint_bash(
             datasets=list(
                 filter(
@@ -245,7 +245,7 @@ def main():
         )
         return
 
-    if args.entrypoint_bash_multiprocessing:
+    if getattr(args, 'entrypoint_bash_multiprocessing', False):
         script_content = gen_bench_script_entrypoint_bash(
             datasets=args.dataset,
             bash_arg=args.bash_arg,
@@ -261,7 +261,7 @@ def main():
         # cSpell:enable
         return
 
-    if args.entrypoint_bash_multiprocessing_paper:
+    if getattr(args, 'entrypoint_bash_multiprocessing_paper', False):
         script_content = gen_bench_script_entrypoint_bash(
             datasets=er_dataset_names_for_paper_multiprocessing
             + dataset_names_for_paper_multiprocessing,
@@ -280,7 +280,7 @@ def main():
         # cSpell:enable
         return
 
-    if args.entrypoint_bash_er:
+    if getattr(args, 'entrypoint_bash_er', False):
         script_content = gen_bench_script_entrypoint_bash(
             datasets=random_erdos_renyi_dataset_names,
             bash_arg=args.bash_arg_er,
@@ -298,7 +298,7 @@ def main():
         from yaml import CLoader as Loader, CDumper as Dumper
     except ImportError:
         from yaml import Loader, Dumper
-    if args.profile:
+    if getattr(args, 'profile', False):
         gbc = yaml.load(
             graph_benchmark_code_ordereddict_yaml_path.read_text(), Loader=Loader
         )
@@ -333,7 +333,7 @@ def main():
                 print(f'Profile script for {tool} generated at {output_path}')
         return
 
-    if args.profile_entrypoint:
+    if getattr(args, 'profile_entrypoint', False):
         output_path = Path(
             f'''profile_entrypoint{f'_{args.profile_suffix}' if args.profile_suffix else ''}.sh'''
         )
@@ -379,7 +379,7 @@ def main():
         print(f'Profile entrypoint script generated at {output_path}')
         return
 
-    if args.output is not None and len(args.dataset) == 1:
+    if getattr(args, 'output', None) is not None and len(args.dataset) == 1:
         dataset_name = args.dataset[0]
         script_content = gen_bench_script(dataset_name, template=template)
         output_path = args.output
@@ -388,7 +388,7 @@ def main():
         print(f'Benchmark script for {dataset_name} is generated at {output_path}')
     else:
         # ignores -o if dataset > 1
-        if args.multiprocessing_bench_scripts:
+        if getattr(args, 'multiprocessing_bench_scripts', False):
             dataset_names = args.dataset
             if args.er_paper:
                 dataset_names = [
@@ -407,7 +407,7 @@ def main():
                 )
             return
 
-        if args.er_paper:
+        if getattr(args, 'er_paper', False):
             for load_func_name in random_erdos_renyi_graphs_load_function_names_date_s:
                 dataset_name = load_func_name.removeprefix('load_')
                 script_content = gen_bench_script(dataset_name, template=template)
@@ -419,7 +419,7 @@ def main():
                 )
             return
 
-        for dataset_name in args.dataset:
+        for dataset_name in getattr(args, 'dataset', []):
             script_content = gen_bench_script(dataset_name, template=template)
             output_path = Path(f'bench_{dataset_name}.py')
             output_path.write_text(script_content)
@@ -428,4 +428,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    args = get_args()
+    main(args)
