@@ -30,6 +30,9 @@ gen-scripts:
 	./gen_bench_script.py --er-paper
 	./gen_bench_script.py --er-paper --multiprocessing-bench-scripts
 
+gen-scripts-20230324:
+	./gen_profile_scripts_with_suffix_wrapper.py '20230324-centrality-dijkstra' --tools 'igraph' 'easygraph' --methods 'betweenness centrality' 'closeness centrality' 'shortest path'
+
 gen-scripts-20230322:
 	./gen_profile_scripts_with_suffix_wrapper.py '20230322-centrality' --tools 'igraph' 'easygraph' --methods 'betweenness centrality' 'closeness centrality'
 
