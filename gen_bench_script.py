@@ -369,7 +369,10 @@ def main(args):
                 return False
 
             for tool in gbc:
-                is_directed = gi[dataset_name]['is_directed']
+                try:
+                    is_directed = gi[dataset_name]['is_directed']
+                except:
+                    is_directed = False
                 script_name_suffix = '_undirected' if not is_directed else ''
                 script_filename = f'''profile_{tool}{script_name_suffix}{f'_{args.profile_suffix}' if args.profile_suffix else ''}.py'''
                 script_lines.append(
