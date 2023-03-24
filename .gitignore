@@ -1,3 +1,4 @@
+*_lcc.edgelist
 pgp_sampled_1500_20230317.edgelist
 pyinstrument_profile_evaluations.*
 # large random datasets
@@ -323,4 +324,5 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
 
