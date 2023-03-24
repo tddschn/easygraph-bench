@@ -17,7 +17,7 @@ def get_lcc(g: nx.Graph) -> nx.Graph:
     return nx.subgraph(g, max(nx.connected_components(g), key=len))
 
 def write_graph(g: nx.Graph, path: str):
-    nx.write_edgelist(g, path, delimiter="\t")
+    nx.write_edgelist(g, path, delimiter="\t", data=False)
 
 
 
@@ -39,8 +39,8 @@ def main():
     for filename in edgelist_filenames:
         g = load_graph(filename)
         lcc = get_lcc(g)
-        write_graph(lcc, str(Path(filename).with_name(f"{Path(filename).stem}_lcc.edgelist")))
-        print(f'Wrote {filename} to {Path(filename).with_name(f"{Path(filename).stem}_lcc.edgelist")}')
+        write_graph(lcc, str(Path(filename).with_stem(f"{Path(filename).stem}_lcc")))
+        print(f'Converted {filename} to {Path(filename).with_stem(f"{Path(filename).stem}_lcc")}')
 
 
 if __name__ == '__main__':
