@@ -31,7 +31,7 @@ gen-scripts:
 	./gen_bench_script.py --er-paper --multiprocessing-bench-scripts
 
 gen-scripts-20230324:
-	./gen_profile_scripts_with_suffix_wrapper.py '20230324-centrality-dijkstra' --tools 'igraph' 'easygraph' --methods 'betweenness centrality' 'closeness centrality' 'shortest path'
+	./gen_profile_scripts_with_suffix_wrapper.py '20230324-centrality-dijkstra' --tools 'igraph' 'easygraph' --methods 'betweenness centrality' 'closeness centrality' 'shortest path' -d 'dataset/road_lcc.edgelist' 'enron_lcc.txt' 'google_lcc.txt', 'amazon_lcc.txt', 'pokec_lcc.txt'
 
 gen-scripts-20230322:
 	./gen_profile_scripts_with_suffix_wrapper.py '20230322-centrality' --tools 'igraph' 'easygraph' --methods 'betweenness centrality' 'closeness centrality'
