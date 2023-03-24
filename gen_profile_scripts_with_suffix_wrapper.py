@@ -8,7 +8,7 @@ Purpose: wrapper around gen_bench_script.py's --profile-suffix workflow
 import argparse
 from copy import deepcopy
 from pathlib import Path
-from config import graph_benchmark_method_order, edgelist_filenames
+from config import graph_benchmark_method_order, edgelist_filenames, edgelist_filenames_lcc
 
 
 def get_args():
@@ -56,8 +56,8 @@ def get_args():
         help='select datasets for profiling (--profile-select-datasets)',
         type=str,
         nargs='+',
-        choices=edgelist_filenames,
-        default=edgelist_filenames,
+        choices=edgelist_filenames + edgelist_filenames_lcc,
+        default=edgelist_filenames + edgelist_filenames_lcc,
     )
 
     return parser.parse_args()

@@ -25,7 +25,7 @@
         - - loading_undirected
           - '"Graph.Read(filename, format=''edges'', directed=False)"'
         - - shortest path
-          - '"g.shortest_paths([g.vs[0]])"'
+          - '"g.distances(source=[g.vs[0]], weights=[1]*len(g.es), )"'
         - - page rank
           - '"g.pagerank(damping=0.85)"'
         - - betweenness centrality

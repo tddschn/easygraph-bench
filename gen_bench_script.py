@@ -17,6 +17,7 @@ from config import (
     graph_benchmark_code_ordereddict_yaml_path,
     graph_benchmark_method_order,
     edgelist_filenames,
+    edgelist_filenames_lcc,
     profile_tools_to_drop,
     random_erdos_renyi_dataset_names,
     dataset_names_for_paper_multiprocessing,
@@ -168,8 +169,8 @@ def get_args():
         help='select datasets for profiling',
         type=str,
         nargs='+',
-        choices=edgelist_filenames,
-        default=edgelist_filenames,
+        choices=edgelist_filenames + edgelist_filenames_lcc,
+        default=edgelist_filenames + edgelist_filenames_lcc,
     )
 
     parser.add_argument(
