@@ -343,7 +343,7 @@ def main(args):
         gbc = yaml.load(
             graph_benchmark_code_ordereddict_yaml_path.read_text(), Loader=Loader
         )
-        for edgelist_path in edgelist_filenames:
+        for edgelist_path in edgelist_filenames + edgelist_filenames_lcc:
             # loop over datasets
             if (
                 args.profile_suffix
