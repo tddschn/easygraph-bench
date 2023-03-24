@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import networkx as nx
+import networkx
 from networkx import *  # type: ignore
 
 
@@ -56,8 +57,10 @@ print()
 avg_times |= {'loading': benchmark_autorange('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=nx.DiGraph())', globals=globals(), n=n) }
 
 
-# loading* only
+
+# loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=nx.DiGraph())')
+
 
 
 
@@ -148,7 +151,12 @@ print()
 
 # remove self loop from graph g before doing k-core
 
-g.remove_edges_from(nx.selfloop_edges(g))
+
+# if tool is easygraph
+
+
+g.remove_edges_from(networkx.selfloop_edges(g))
+
 
 
 

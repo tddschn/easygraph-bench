@@ -55,8 +55,10 @@ print()
 avg_times |= {'loading': benchmark_autorange("nk.graphio.EdgeListReader(separator='\t', firstNode=0, continuous=True, directed =True).read(filename)", globals=globals(), n=n) }
 
 
-# loading* only
+
+# loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval("nk.graphio.EdgeListReader(separator='\t', firstNode=0, continuous=True, directed =True).read(filename)")
+
 
 
 

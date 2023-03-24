@@ -53,8 +53,10 @@ print()
 avg_times |= {'loading_undirected': benchmark_autorange("Graph.Read(filename, format='edges', directed=False)", globals=globals(), n=n) }
 
 
-# loading* only
+
+# loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval("Graph.Read(filename, format='edges', directed=False)")
+
 
 
 
@@ -69,8 +71,8 @@ print()
 
 
 
-# "g.shortest_paths([g.vs[0]])" contains quotes
-avg_times |= {'shortest path': benchmark_autorange("g.shortest_paths([g.vs[0]])", globals=globals(), n=n) }
+# "g.distances(source=[g.vs[0]], weights=[1]*len(g.es), )" contains quotes
+avg_times |= {'shortest path': benchmark_autorange("g.distances(source=[g.vs[0]], weights=[1]*len(g.es), )", globals=globals(), n=n) }
 
 
 
@@ -86,6 +88,36 @@ print()
 
 # "g.pagerank(damping=0.85)" contains quotes
 avg_times |= {'page rank': benchmark_autorange("g.pagerank(damping=0.85)", globals=globals(), n=n) }
+
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mbetweenness centrality\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+
+# "g.betweenness()" contains quotes
+avg_times |= {'betweenness centrality': benchmark_autorange("g.betweenness()", globals=globals(), n=n) }
+
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mcloseness centrality\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+
+# "g.closeness()" contains quotes
+avg_times |= {'closeness centrality': benchmark_autorange("g.closeness()", globals=globals(), n=n) }
 
 
 

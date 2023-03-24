@@ -53,8 +53,10 @@ print()
 avg_times |= {'loading': benchmark_autorange('''load_graph_from_csv(filename, directed=True, csv_options={'delimiter': '\t', 'quotechar': '"'})''', globals=globals(), n=n) }
 
 
-# loading* only
+
+# loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval('''load_graph_from_csv(filename, directed=True, csv_options={'delimiter': '\t', 'quotechar': '"'})''')
+
 
 
 

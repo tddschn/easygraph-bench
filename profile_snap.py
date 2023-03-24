@@ -53,8 +53,10 @@ print()
 avg_times |= {'loading': benchmark_autorange("snap.LoadEdgeListStr(snap.PNGraph, filename, 0, 1)", globals=globals(), n=n) }
 
 
-# loading* only
+
+# loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval("snap.LoadEdgeListStr(snap.PNGraph, filename, 0, 1)")
+
 
 
 
