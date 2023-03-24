@@ -101,10 +101,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
 alias apti='sudo apt install -y'
 alias apts='apt search'
-
 
 # source ~/.zshrc-addon
 
@@ -112,11 +110,11 @@ alias apts='apt search'
 export PATH="$PATH:/home/teddy/.local/bin"
 export TERM="xterm-256color"
 
-source "$HOME/.cargo/env"
+# source "$HOME/.cargo/env"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/t2/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/t2/miniconda3/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
@@ -129,7 +127,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-export PATH="$PATH:/snap/bin"
+export PATH="$PATH:/snap/bin:$HOME/.cargo/bin"
 
 # export PYENV_ROOT="$HOME/.pyenv"
 # command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
