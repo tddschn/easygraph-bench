@@ -230,5 +230,93 @@
         "average_degree": 0.160532,
         "density": 1.6053216053216054e-07,
         "type": "easygraph.classes.graph.Graph"
+    },
+    "dataset/cheminformatics_lcc.edgelist": {
+        "nodes": 37,
+        "edges": 84,
+        "is_directed": false,
+        "average_degree": 4.54054054054054,
+        "density": 0.12612612612612611,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "dataset/bio_lcc.edgelist": {
+        "nodes": 1458,
+        "edges": 1948,
+        "is_directed": false,
+        "average_degree": 2.672153635116598,
+        "density": 0.0018340107310340413,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "dataset/eco_lcc.edgelist": {
+        "nodes": 1258,
+        "edges": 7619,
+        "is_directed": false,
+        "average_degree": 12.112877583465819,
+        "density": 0.009636338570776308,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "dataset/pgp_lcc.edgelist": {
+        "nodes": 39796,
+        "edges": 197150,
+        "is_directed": false,
+        "average_degree": 9.908030957885215,
+        "density": 0.00024897677994434515,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "dataset/pgp_undirected_lcc.edgelist": {
+        "nodes": 39796,
+        "edges": 197150,
+        "is_directed": false,
+        "average_degree": 9.908030957885215,
+        "density": 0.00024897677994434515,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "dataset/road_lcc.edgelist": {
+        "nodes": 126146,
+        "edges": 161950,
+        "is_directed": false,
+        "average_degree": 2.567659695907916,
+        "density": 2.035482734874879e-05,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "dataset/uspowergrid_lcc.edgelist": {
+        "nodes": 4941,
+        "edges": 6594,
+        "is_directed": false,
+        "average_degree": 2.66909532483303,
+        "density": 0.0005403026973346214,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "enron_lcc.txt": {
+        "nodes": 33696,
+        "edges": 180811,
+        "is_directed": false,
+        "average_degree": 10.731896961063628,
+        "density": 0.0003185011711252004,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "amazon_lcc.txt": {
+        "nodes": 262111,
+        "edges": 899792,
+        "is_directed": false,
+        "average_degree": 6.86573245685988,
+        "density": 2.6194088195261075e-05,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "google_lcc.txt": {
+        "nodes": 855802,
+        "edges": 4291352,
+        "is_directed": false,
+        "average_degree": 10.028843120254452,
+        "density": 1.1718662539836308e-05,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "pokec_lcc.txt": {
+        "nodes": 1632803,
+        "edges": 22301964,
+        "is_directed": false,
+        "average_degree": 27.31739713854029,
+        "density": 1.6730379518484355e-05,
+        "type": "networkx.classes.graph.Graph"
     }
 }
