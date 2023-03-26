@@ -5,6 +5,12 @@ Date   : 2022-08-23
 Purpose: Get graph info
 """
 
+from typing import TYPE_CHECKING
+
+
+if TYPE_CHECKING:
+    import networkx as nx
+
 import argparse
 from config import (
     dataset_names,
@@ -12,6 +18,7 @@ from config import (
     graph_info_json_path,
     sampled_graph_dataset_names,
     random_erdos_renyi_graphs_load_function_names_date_s,
+    edgelist_filenames_lcc,
 )
 from pathlib import Path
 import json
@@ -25,7 +32,7 @@ def get_fully_qualified_type_name(o) -> str:
     return module + '.' + klass.__qualname__
 
 
-def get_graph_info(g):
+def get_graph_info(g) -> dict:
     import easygraph as eg
     import networkx as nx
 
@@ -40,6 +47,22 @@ def get_graph_info(g):
     )
     d['type'] = type_name
     return d
+
+# def get_nx_llc_graph_info(g: 'nx.Graph') -> dict:
+#     import easygraph as eg
+#     import networkx as nx
+
+#     d = {}
+#     d['nodes'] = len(g.nodes)
+#     d['edges'] = len(g.edges)
+#     d['is_directed'] = g.is_directed()
+#     type_name = get_fully_qualified_type_name(g)
+#     d['average_degree'] = d['edges'] / d['nodes'] * 2
+#     d['density'] = (
+#         nx.density(g)
+#     )
+#     d['type'] = type_name
+#     return d
 
 
 def get_args():
@@ -94,6 +117,10 @@ def get_args():
 
     parser.add_argument(
         '--er-paper', help='Update ER datasets for paper', action='store_true'
+    )
+
+    parser.add_argument(
+        '--edgelist-filenames-llc', help='Update datasets in config.edgelist_filenames_lcc', action='store_true'
     )
 
     return parser.parse_args()
@@ -158,6 +185,18 @@ def main() -> None:
                 load_func_name.removeprefix('load_')
                 for load_func_name in random_erdos_renyi_graphs_load_function_names_date_s
             ]
+        if args.edgelist_filenames_lcc:
+            import networkx as nx
+            for lcc_path in edgelist_filenames_lcc:
+                g = nx.read_edgelist(lcc_path, delimiter="\t", nodetype=int, create_using=nx.Graph())
+                info = get_graph_info(g)
+                info_dict[lcc_path.name] = info
+            content = json.dumps(info_dict, indent=4)
+            if args.stdout:
+                print(content)
+                return
+            graph_info_json_path.write_text(content)
+            return
         for dataset_name in datasets_to_update:
             if not args.test and dataset_name.startswith('stub'):
                 continue
