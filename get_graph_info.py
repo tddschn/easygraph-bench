@@ -48,7 +48,7 @@ def get_graph_info(g) -> dict:
     d['type'] = type_name
     return d
 
-# def get_nx_llc_graph_info(g: 'nx.Graph') -> dict:
+# def get_nx_lcc_graph_info(g: 'nx.Graph') -> dict:
 #     import easygraph as eg
 #     import networkx as nx
 
@@ -120,7 +120,7 @@ def get_args():
     )
 
     parser.add_argument(
-        '--edgelist-filenames-llc', help='Update datasets in config.edgelist_filenames_lcc', action='store_true'
+        '--edgelist-filenames-lcc', help='Update datasets in config.edgelist_filenames_lcc', action='store_true'
     )
 
     return parser.parse_args()
