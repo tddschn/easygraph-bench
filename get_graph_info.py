@@ -191,7 +191,7 @@ def main() -> None:
             for lcc_path in edgelist_filenames_lcc:
                 g = nx.read_edgelist(lcc_path, delimiter="\t", nodetype=int, create_using=nx.Graph())
                 info = get_graph_info(g)
-                info_dict[lcc_path.name] = info
+                info_dict[lcc_path] = info
             content = json.dumps(info_dict, indent=4)
             if args.stdout:
                 print(content)
