@@ -157,6 +157,7 @@ def main() -> None:
         ((datasets_to_update := args.dataset) is None)
         and (not args.all_er)
         and (not args.er_paper)
+        and (not args.edgelist_filenames_lcc)
     ):
         info_dict = {}
         for dataset_name in dataset_names + random_erdos_renyi_dataset_names:
