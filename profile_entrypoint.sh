@@ -132,3 +132,87 @@ echo "[35m============================================[0m"
 ./profile_networkx.py pokec.txt "$@" || echo "./profile_networkx.py pokec.txt failed" >>profile_entrypoint.log
 # ./profile_snap.py pokec.txt "$@" || echo "./profile_snap.py pokec.txt failed" >>profile_entrypoint.log
 ./profile_easygraph.py pokec.txt "$@" || echo "./profile_easygraph.py pokec.txt failed" >>profile_entrypoint.log
+
+# dataset: cheminformatics_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34mcheminformatics_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py dataset/cheminformatics_lcc.edgelist "$@" || echo "./profile_graphtool_undirected.py dataset/cheminformatics_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py dataset/cheminformatics_lcc.edgelist "$@" || echo "./profile_igraph_undirected.py dataset/cheminformatics_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py dataset/cheminformatics_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/cheminformatics_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py dataset/cheminformatics_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/cheminformatics_lcc.edgelist failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py dataset/cheminformatics_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/cheminformatics_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py dataset/cheminformatics_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/cheminformatics_lcc.edgelist failed" >>profile_entrypoint.log
+
+# dataset: bio_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34mbio_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py dataset/bio_lcc.edgelist "$@" || echo "./profile_graphtool_undirected.py dataset/bio_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py dataset/bio_lcc.edgelist "$@" || echo "./profile_igraph_undirected.py dataset/bio_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py dataset/bio_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/bio_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py dataset/bio_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/bio_lcc.edgelist failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py dataset/bio_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/bio_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py dataset/bio_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/bio_lcc.edgelist failed" >>profile_entrypoint.log
+
+# dataset: eco_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34meco_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py dataset/eco_lcc.edgelist "$@" || echo "./profile_graphtool_undirected.py dataset/eco_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py dataset/eco_lcc.edgelist "$@" || echo "./profile_igraph_undirected.py dataset/eco_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py dataset/eco_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/eco_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py dataset/eco_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/eco_lcc.edgelist failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py dataset/eco_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/eco_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py dataset/eco_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/eco_lcc.edgelist failed" >>profile_entrypoint.log
+
+# dataset: pgp_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34mpgp_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py dataset/pgp_lcc.edgelist "$@" || echo "./profile_graphtool_undirected.py dataset/pgp_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py dataset/pgp_lcc.edgelist "$@" || echo "./profile_igraph_undirected.py dataset/pgp_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py dataset/pgp_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/pgp_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py dataset/pgp_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/pgp_lcc.edgelist failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py dataset/pgp_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/pgp_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py dataset/pgp_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/pgp_lcc.edgelist failed" >>profile_entrypoint.log
+
+# dataset: pgp_undirected_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34mpgp_undirected_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py dataset/pgp_undirected_lcc.edgelist "$@" || echo "./profile_graphtool_undirected.py dataset/pgp_undirected_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py dataset/pgp_undirected_lcc.edgelist "$@" || echo "./profile_igraph_undirected.py dataset/pgp_undirected_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py dataset/pgp_undirected_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/pgp_undirected_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py dataset/pgp_undirected_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/pgp_undirected_lcc.edgelist failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py dataset/pgp_undirected_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/pgp_undirected_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py dataset/pgp_undirected_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/pgp_undirected_lcc.edgelist failed" >>profile_entrypoint.log
+
+# dataset: road_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34mroad_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py dataset/road_lcc.edgelist "$@" || echo "./profile_graphtool_undirected.py dataset/road_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py dataset/road_lcc.edgelist "$@" || echo "./profile_igraph_undirected.py dataset/road_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py dataset/road_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/road_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py dataset/road_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/road_lcc.edgelist failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py dataset/road_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/road_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py dataset/road_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/road_lcc.edgelist failed" >>profile_entrypoint.log
+
+# dataset: uspowergrid_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34muspowergrid_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_graphtool_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_igraph_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log
