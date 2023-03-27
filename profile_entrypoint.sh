@@ -133,6 +133,30 @@ echo "[35m============================================[0m"
 # ./profile_snap.py pokec.txt "$@" || echo "./profile_snap.py pokec.txt failed" >>profile_entrypoint.log
 ./profile_easygraph.py pokec.txt "$@" || echo "./profile_easygraph.py pokec.txt failed" >>profile_entrypoint.log
 
+# dataset: condmat
+echo "[35m============================================[0m"
+echo "dataset: [34mcondmat[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py condmat.txt "$@" || echo "./profile_graphtool_undirected.py condmat.txt failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py condmat.txt "$@" || echo "./profile_igraph_undirected.py condmat.txt failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py condmat.txt "$@" || echo "./profile_networkit_undirected.py condmat.txt failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py condmat.txt "$@" || echo "./profile_networkx_undirected.py condmat.txt failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py condmat.txt "$@" || echo "./profile_snap_undirected.py condmat.txt failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py condmat.txt "$@" || echo "./profile_easygraph_undirected.py condmat.txt failed" >>profile_entrypoint.log
+
+# dataset: wikivote
+echo "[35m============================================[0m"
+echo "dataset: [34mwikivote[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py wikivote.txt "$@" || echo "./profile_graphtool_undirected.py wikivote.txt failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py wikivote.txt "$@" || echo "./profile_igraph_undirected.py wikivote.txt failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py wikivote.txt "$@" || echo "./profile_networkit_undirected.py wikivote.txt failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py wikivote.txt "$@" || echo "./profile_networkx_undirected.py wikivote.txt failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py wikivote.txt "$@" || echo "./profile_snap_undirected.py wikivote.txt failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py wikivote.txt "$@" || echo "./profile_easygraph_undirected.py wikivote.txt failed" >>profile_entrypoint.log
+
 # dataset: cheminformatics_lcc
 echo "[35m============================================[0m"
 echo "dataset: [34mcheminformatics_lcc[0m"
@@ -216,3 +240,75 @@ echo "[35m============================================[0m"
 ./profile_networkx_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log
 # ./profile_snap_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log
 ./profile_easygraph_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log
+
+# dataset: enron_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34menron_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py enron_lcc.txt "$@" || echo "./profile_graphtool_undirected.py enron_lcc.txt failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py enron_lcc.txt "$@" || echo "./profile_igraph_undirected.py enron_lcc.txt failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py enron_lcc.txt "$@" || echo "./profile_networkit_undirected.py enron_lcc.txt failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py enron_lcc.txt "$@" || echo "./profile_networkx_undirected.py enron_lcc.txt failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py enron_lcc.txt "$@" || echo "./profile_snap_undirected.py enron_lcc.txt failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py enron_lcc.txt "$@" || echo "./profile_easygraph_undirected.py enron_lcc.txt failed" >>profile_entrypoint.log
+
+# dataset: amazon_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34mamazon_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py amazon_lcc.txt "$@" || echo "./profile_graphtool_undirected.py amazon_lcc.txt failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py amazon_lcc.txt "$@" || echo "./profile_igraph_undirected.py amazon_lcc.txt failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py amazon_lcc.txt "$@" || echo "./profile_networkit_undirected.py amazon_lcc.txt failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py amazon_lcc.txt "$@" || echo "./profile_networkx_undirected.py amazon_lcc.txt failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py amazon_lcc.txt "$@" || echo "./profile_snap_undirected.py amazon_lcc.txt failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py amazon_lcc.txt "$@" || echo "./profile_easygraph_undirected.py amazon_lcc.txt failed" >>profile_entrypoint.log
+
+# dataset: google_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34mgoogle_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py google_lcc.txt "$@" || echo "./profile_graphtool_undirected.py google_lcc.txt failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py google_lcc.txt "$@" || echo "./profile_igraph_undirected.py google_lcc.txt failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py google_lcc.txt "$@" || echo "./profile_networkit_undirected.py google_lcc.txt failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py google_lcc.txt "$@" || echo "./profile_networkx_undirected.py google_lcc.txt failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py google_lcc.txt "$@" || echo "./profile_snap_undirected.py google_lcc.txt failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py google_lcc.txt "$@" || echo "./profile_easygraph_undirected.py google_lcc.txt failed" >>profile_entrypoint.log
+
+# dataset: pokec_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34mpokec_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py pokec_lcc.txt "$@" || echo "./profile_graphtool_undirected.py pokec_lcc.txt failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py pokec_lcc.txt "$@" || echo "./profile_igraph_undirected.py pokec_lcc.txt failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py pokec_lcc.txt "$@" || echo "./profile_networkit_undirected.py pokec_lcc.txt failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py pokec_lcc.txt "$@" || echo "./profile_networkx_undirected.py pokec_lcc.txt failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py pokec_lcc.txt "$@" || echo "./profile_snap_undirected.py pokec_lcc.txt failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py pokec_lcc.txt "$@" || echo "./profile_easygraph_undirected.py pokec_lcc.txt failed" >>profile_entrypoint.log
+
+# dataset: condmat_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34mcondmat_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py condmat_lcc.txt "$@" || echo "./profile_graphtool_undirected.py condmat_lcc.txt failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py condmat_lcc.txt "$@" || echo "./profile_igraph_undirected.py condmat_lcc.txt failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py condmat_lcc.txt "$@" || echo "./profile_networkit_undirected.py condmat_lcc.txt failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py condmat_lcc.txt "$@" || echo "./profile_networkx_undirected.py condmat_lcc.txt failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py condmat_lcc.txt "$@" || echo "./profile_snap_undirected.py condmat_lcc.txt failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py condmat_lcc.txt "$@" || echo "./profile_easygraph_undirected.py condmat_lcc.txt failed" >>profile_entrypoint.log
+
+# dataset: wikivote_lcc
+echo "[35m============================================[0m"
+echo "dataset: [34mwikivote_lcc[0m"
+echo "[35m============================================[0m"
+
+./profile_graphtool_undirected.py wikivote_lcc.txt "$@" || echo "./profile_graphtool_undirected.py wikivote_lcc.txt failed" >>profile_entrypoint.log
+./profile_igraph_undirected.py wikivote_lcc.txt "$@" || echo "./profile_igraph_undirected.py wikivote_lcc.txt failed" >>profile_entrypoint.log
+./profile_networkit_undirected.py wikivote_lcc.txt "$@" || echo "./profile_networkit_undirected.py wikivote_lcc.txt failed" >>profile_entrypoint.log
+./profile_networkx_undirected.py wikivote_lcc.txt "$@" || echo "./profile_networkx_undirected.py wikivote_lcc.txt failed" >>profile_entrypoint.log
+# ./profile_snap_undirected.py wikivote_lcc.txt "$@" || echo "./profile_snap_undirected.py wikivote_lcc.txt failed" >>profile_entrypoint.log
+./profile_easygraph_undirected.py wikivote_lcc.txt "$@" || echo "./profile_easygraph_undirected.py wikivote_lcc.txt failed" >>profile_entrypoint.log
