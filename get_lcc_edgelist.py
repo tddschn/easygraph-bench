@@ -29,6 +29,8 @@ def get_args():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 
+
+
     return parser.parse_args()
 
 
@@ -37,10 +39,13 @@ def main():
 
     args = get_args()
     for filename in edgelist_filenames:
+        new_path = Path(filename).with_stem(f"{Path(filename).stem}_lcc")
+        if new_path.exists():
+            continue
         g = load_graph(filename)
         lcc = get_lcc(g)
-        write_graph(lcc, str(Path(filename).with_stem(f"{Path(filename).stem}_lcc")))
-        print(f'Converted {filename} to {Path(filename).with_stem(f"{Path(filename).stem}_lcc")}')
+        write_graph(lcc, str(new_path))
+        print(f'Converted {filename} to {new_path}')
 
 
 if __name__ == '__main__':

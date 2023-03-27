@@ -20,3 +20,13 @@ wget -nv 'http://snap.stanford.edu/data/soc-pokec-relationships.txt.gz' &&
     gunzip soc-pokec-relationships.txt.gz &&
     grep -v '^#' soc-pokec-relationships.txt >pokec.txt &&
     rm soc-pokec-relationships.txt
+
+wget -nv 'https://snap.stanford.edu/data/ca-CondMat.txt.gz' &&
+    gunzip ca-CondMat.txt.gz &&
+    grep -v '^#' ca-CondMat.txt >condmat.txt &&
+    rm ca-CondMat.txt
+
+wget -nv 'http://snap.stanford.edu/data/wiki-Vote.txt.gz' &&
+    gunzip wiki-Vote.txt.gz &&
+    grep -v '^#' wiki-Vote.txt >wikivote.txt &&
+    rm wiki-Vote.txt

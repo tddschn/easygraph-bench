@@ -251,6 +251,8 @@ dataset_homepage_mapping = {
     'amazon': 'https://snap.stanford.edu/data/amazon0302.html',
     'google': 'https://snap.stanford.edu/data/web-Google.html',
     'pokec': 'https://snap.stanford.edu/data/soc-Pokec.html',
+    'condmat': 'https://snap.stanford.edu/data/ca-CondMat.html',
+    'wikivote': 'https://snap.stanford.edu/data/wiki-Vote.html',
     'coauthorship': 'https://github.com/chenyang03/co-authorship-network',
     'road': 'https://networkrepository.com/road-usa.php',
     'uspowergrid': 'https://toreopsahl.com/datasets/#uspowergrid',
@@ -337,6 +339,8 @@ edgelist_filenames = [f'dataset/{x}.edgelist' for x in dataset_edgelist_filename
     'amazon.txt',
     'google.txt',
     'pokec.txt',
+    'condmat.txt',
+    'wikivote.txt',
 ]
 
 edgelist_filenames_lcc = []
