@@ -103,6 +103,10 @@ def get_args():
         choices=dataset_names + random_erdos_renyi_dataset_names,
     )
 
+    # parser.add_argument(
+    #     '-e', '--edgelist', nargs='+', help='Paths to edgelist files', type=Path
+    # )
+
     parser.add_argument(
         '--all-er',
         help='Update all random erdos renyi datasets, overrides --dataset',
@@ -128,6 +132,13 @@ def get_args():
 
 def main() -> None:
     args = get_args()
+    # if args.edgelist:
+    #     edgelist_path: Path
+    #     for edgelist_path in args.edgelist:
+    #         if not edgelist_path.exists():
+    #             continue
+    #         print(get_graph_info(nx.read_edgelist(edgelist_path)))
+    #     return
     if args.all_sampled:
         import dataset_loaders_sampled
 
