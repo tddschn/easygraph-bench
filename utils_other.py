@@ -3,13 +3,16 @@ from pathlib import Path
 from itertools import count
 import json
 from functools import cache
-from typing import Any, Callable, Iterable, Iterator, TypeVar
+from typing import TYPE_CHECKING, Any, Callable, Iterable, Iterator, TypeVar
 
 # from config import graph_info_json_path
 # to avoid circular imports
 graph_info_json_path = Path(__file__).parent / 'graph_info.json'
 
 T = TypeVar('T')
+
+if TYPE_CHECKING:
+    import networkx as nx
 
 
 @cache
@@ -85,3 +88,9 @@ def tool_str_to_tool_and_n_workers(tool_str: str) -> tuple[str, str]:
     tool = gd.get('tool', '')
     n_workers = gd.get('n_workers', '')
     return tool, n_workers
+
+def nx_read_edgelist(edgelist_path: str, directed: bool = False) -> 'nx.Graph | nx.DiGraph':
+    import networkx as nx
+    g = nx.read_edgelist(edgelist_path, delimiter="\t", nodetype=int, create_using=nx.DiGraph() if directed else nx.Graph())
+    
+
