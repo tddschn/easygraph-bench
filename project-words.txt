@@ -3,6 +3,7 @@ aaai
 allfile
 amix
 argmap
+astype
 autorange
 axhline
 axisgrid
@@ -36,6 +37,8 @@ defaultchecked
 defaultmuted
 defaultselected
 dropna
+Dtype
+dtypes
 Easygraph
 easygraph
 easygraph's
@@ -74,6 +77,7 @@ lineplot
 littleballoffur
 mahindas
 matplotlib
+maxsplit
 mbetweenness
 mcloseness
 measygraph
@@ -117,6 +121,7 @@ pagerank
 pathlib
 pauseonexit
 pipx
+plotly
 pokec
 postpatch
 powergrid
@@ -133,6 +138,7 @@ quotechar
 Renyi
 renyi
 Rossi
+rsplit
 savefig
 Sccs
 scipy
@@ -143,6 +149,7 @@ semgrep
 setp
 sharex
 sharey
+startswith
 tbody
 tddschn
 testdir
