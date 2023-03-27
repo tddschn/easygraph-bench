@@ -318,5 +318,37 @@
         "average_degree": 27.31739713854029,
         "density": 1.6730379518484355e-05,
         "type": "networkx.classes.graph.Graph"
+    },
+    "condmat.txt": {
+        "nodes": 23133,
+        "edges": 93497,
+        "is_directed": false,
+        "average_degree": 8.083430596982666,
+        "density": 0.0003494479766981958,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "condmat_lcc.txt": {
+        "nodes": 21363,
+        "edges": 91342,
+        "is_directed": false,
+        "average_degree": 8.551420680616019,
+        "density": 0.0004003099279382089,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "wikivote.txt": {
+        "nodes": 7115,
+        "edges": 100762,
+        "is_directed": false,
+        "average_degree": 28.32382290934645,
+        "density": 0.003981420144693063,
+        "type": "networkx.classes.graph.Graph"
+    },
+    "wikivote_lcc.txt": {
+        "nodes": 7066,
+        "edges": 100736,
+        "is_directed": false,
+        "average_degree": 28.512878573450326,
+        "density": 0.004035793145569756,
+        "type": "networkx.classes.graph.Graph"
     }
 }

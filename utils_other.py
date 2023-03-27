@@ -89,8 +89,16 @@ def tool_str_to_tool_and_n_workers(tool_str: str) -> tuple[str, str]:
     n_workers = gd.get('n_workers', '')
     return tool, n_workers
 
-def nx_read_edgelist(edgelist_path: str, directed: bool = False) -> 'nx.Graph | nx.DiGraph':
-    import networkx as nx
-    g = nx.read_edgelist(edgelist_path, delimiter="\t", nodetype=int, create_using=nx.DiGraph() if directed else nx.Graph())
-    
 
+def nx_read_edgelist(
+    edgelist_path: str, directed: bool = False
+) -> 'nx.Graph | nx.DiGraph':
+    import networkx as nx
+
+    g = nx.read_edgelist(
+        edgelist_path,
+        delimiter="\t",
+        nodetype=int,
+        create_using=nx.DiGraph() if directed else nx.Graph(),
+    )
+    return g
