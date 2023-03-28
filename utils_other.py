@@ -102,3 +102,11 @@ def nx_read_edgelist(
         create_using=nx.DiGraph() if directed else nx.Graph(),
     )
     return g
+
+
+def get_pretty_graph_name(graph_name: str) -> str:
+    return graph_name.rsplit('/', maxsplit=1)[-1].split('.', maxsplit=1)[0]
+
+
+def get_pretty_tool_name(tool_name: str) -> str:
+    return tool_name.split('_', maxsplit=1)[0]
