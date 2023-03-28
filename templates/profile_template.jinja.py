@@ -60,16 +60,14 @@ print()
 g_og = g
 g_python = g.py()
 g = g_python
+g.remove_edges({{ tool }}.selfloop_edges(g))
+g = g.cpp()
 {% endif %}
 
 {% if tool == 'networkx' %}
 g.remove_edges_from({{ tool }}.selfloop_edges(g))
 {% endif %}
 
-{% if tool == 'easygraph' %}
-g.remove_edges({{ tool }}.selfloop_edges(g))
-g = g.cpp()
-{% endif %}
 {% endif %}
 
 {% if tool == 'networkit' %}

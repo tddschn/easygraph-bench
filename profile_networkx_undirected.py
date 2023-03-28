@@ -149,7 +149,6 @@ g.remove_edges_from(networkx.selfloop_edges(g))
 
 
 
-
 # 'core.core_number(g)' contains quotes
 avg_times |= {'k-core': benchmark_autorange('core.core_number(g)', globals=globals(), n=n) }
 

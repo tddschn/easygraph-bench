@@ -178,13 +178,11 @@ print()
 g_og = g
 g_python = g.py()
 g = g_python
-
-
-
-
-
 g.remove_edges(easygraph.selfloop_edges(g))
 g = g.cpp()
+
+
+
 
 
 
