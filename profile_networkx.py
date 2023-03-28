@@ -155,7 +155,10 @@ print()
 # if tool is easygraph
 
 
+
 g.remove_edges_from(networkx.selfloop_edges(g))
+
+
 
 
 
