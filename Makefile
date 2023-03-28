@@ -31,7 +31,7 @@ gen-scripts:
 	./gen_bench_script.py --er-paper --multiprocessing-bench-scripts
 
 gen-scripts-20230328:
-	./gen_profile_scripts_with_suffix_wrapper.py '20230328-pagerank-kcore' --tools 'igraph' 'easygraph' --methods 'page rank' 'k-core' 'dataset/road_lcc.edgelist' 'enron_lcc.txt' 'google_lcc.txt' 'amazon_lcc.txt' 'pokec_lcc.txt'
+	./gen_profile_scripts_with_suffix_wrapper.py '20230328-pagerank-kcore' --tools 'igraph' 'easygraph' --methods 'page rank' 'k-core' -d 'dataset/road_lcc.edgelist' 'enron_lcc.txt' 'google_lcc.txt' 'amazon_lcc.txt' 'pokec_lcc.txt'
 
 gen-scripts-20230324:
 	./gen_profile_scripts_with_suffix_wrapper.py '20230324-centrality-dijkstra' --tools 'igraph' 'easygraph' --methods 'betweenness centrality' 'closeness centrality' 'shortest path' -d 'dataset/road_lcc.edgelist' 'enron_lcc.txt' 'google_lcc.txt' 'amazon_lcc.txt' 'pokec_lcc.txt'
