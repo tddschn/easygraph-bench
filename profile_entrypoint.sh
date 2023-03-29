@@ -150,12 +150,12 @@ echo "[35m============================================[0m"
 echo "dataset 13/20: [34mwikivote[0m"
 echo "[35m============================================[0m"
 
-./profile_graphtool_undirected.py wikivote.txt "$@" || echo "./profile_graphtool_undirected.py wikivote.txt failed" >>profile_entrypoint.log
-./profile_igraph_undirected.py wikivote.txt "$@" || echo "./profile_igraph_undirected.py wikivote.txt failed" >>profile_entrypoint.log
-./profile_networkit_undirected.py wikivote.txt "$@" || echo "./profile_networkit_undirected.py wikivote.txt failed" >>profile_entrypoint.log
-./profile_networkx_undirected.py wikivote.txt "$@" || echo "./profile_networkx_undirected.py wikivote.txt failed" >>profile_entrypoint.log
-# ./profile_snap_undirected.py wikivote.txt "$@" || echo "./profile_snap_undirected.py wikivote.txt failed" >>profile_entrypoint.log
-./profile_easygraph_undirected.py wikivote.txt "$@" || echo "./profile_easygraph_undirected.py wikivote.txt failed" >>profile_entrypoint.log
+./profile_graphtool.py wikivote.txt "$@" || echo "./profile_graphtool.py wikivote.txt failed" >>profile_entrypoint.log
+./profile_igraph.py wikivote.txt "$@" || echo "./profile_igraph.py wikivote.txt failed" >>profile_entrypoint.log
+./profile_networkit.py wikivote.txt "$@" || echo "./profile_networkit.py wikivote.txt failed" >>profile_entrypoint.log
+./profile_networkx.py wikivote.txt "$@" || echo "./profile_networkx.py wikivote.txt failed" >>profile_entrypoint.log
+# ./profile_snap.py wikivote.txt "$@" || echo "./profile_snap.py wikivote.txt failed" >>profile_entrypoint.log
+./profile_easygraph.py wikivote.txt "$@" || echo "./profile_easygraph.py wikivote.txt failed" >>profile_entrypoint.log
 
 # dataset: cheminformatics_lcc
 echo "[35m============================================[0m"

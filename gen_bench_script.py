@@ -26,6 +26,8 @@ from config import (
 )
 from stat import S_IEXEC
 
+from utils_other import get_pretty_graph_name
+
 ENTRYPOINT_SH_PATH = Path(__file__).parent / 'entrypoint.sh'
 ENTRYPOINT_SH_PAPER_PATH = Path(__file__).parent / 'entrypoint_paper.sh'
 # cSpell:disable
@@ -359,7 +361,7 @@ def main(args):
             # ):
             #     continue
             p = Path(edgelist_path)
-            dataset_name = p.stem
+            dataset_name = get_pretty_graph_name(str(p))
             script_lines += [
                 '',
                 f'# dataset: {dataset_name}',
