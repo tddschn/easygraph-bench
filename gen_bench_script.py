@@ -437,7 +437,7 @@ def main(args):
                 tool_line_str = ' '.join(tool_line_l)
                 script_name_suffix = '_undirected' if not is_directed else ''
                 script_filename = f'''profile_{tool}{script_name_suffix}{f'_{args.profile_suffix}' if args.profile_suffix else ''}.py'''
-                script_lines.append(f"""echo '{tool_line_str}'""")
+                script_lines.append(f"""{mark}echo '{tool_line_str}'""")
                 script_lines.append(
                     f'''{mark}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'''
                 )
