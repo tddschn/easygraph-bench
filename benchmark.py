@@ -4,8 +4,8 @@ from utils_db import insert_bench_results
 
 
 def benchmark(stmt, n, globals):
-    times = timeit.repeat(stmt, number=1, globals=globals, repeat=n)
     print('Function:', stmt)
+    times = timeit.repeat(stmt, number=1, globals=globals, repeat=n)
     print('  --------------')
     print(f'  Min:      {min(times)}')
     print(f'  Median:   {statistics.median(times)}')
@@ -19,12 +19,12 @@ def benchmark(stmt, n, globals):
 
 def benchmark_autorange(stmt: str, globals: dict, n: int | None = None) -> float:
     timer = timeit.Timer(stmt, globals=globals)
+    print('Function:', stmt)
     if n is None:
         count, total_time = timer.autorange()
     else:
         count = n
         total_time = timer.timeit(number=n)
-    print('Function:', stmt)
     print('  --------------')
     print(f'  Total time: {total_time}')
     print(f'  Count:      {count}')

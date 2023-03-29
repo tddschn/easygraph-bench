@@ -65,6 +65,8 @@
           - "'pagerank(g, alpha=0.85, tol=1e-3, max_iter=10000000)'"
         - - strongly connected components
           - "'[i for i in strongly_connected_components(g)]'"
+        - - connected components
+          - "'[i for i in connected_components(g)]'"
         - - k-core
           - "'core.core_number(g)'"
   - - snap
@@ -97,5 +99,9 @@
           - "'closeness_centrality(g)'"
         - - strongly connected components
           - "'[i for i in strongly_connected_components(g)]'"
+        - - connected components
+          - "'[i for i in connected_components(g)]'"
+        - - connected components directed
+          - "'[i for i in connected_components_directed(g)]'"
         - - k-core
           - "'k_core(g)'"
