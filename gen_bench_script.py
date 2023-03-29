@@ -353,6 +353,14 @@ def main(args):
                 if edgelist_path in args.profile_select_datasets
             ]
         len_filtered_datasets = len(filtered_edgelist_filenames)
+
+        def is_dataset_directed(dataset_name: str) -> bool:
+            try:
+                is_directed = gi[dataset_name]['is_directed']
+            except:
+                is_directed = False
+            return is_directed
+
         for i, edgelist_path in enumerate(filtered_edgelist_filenames, start=1):
             # loop over datasets
             # if (
@@ -362,15 +370,17 @@ def main(args):
             #     continue
             p = Path(edgelist_path)
             dataset_name = get_pretty_graph_name(str(p))
+            is_directed = is_dataset_directed(dataset_name)
             script_lines += [
                 '',
                 f'# dataset: {dataset_name}',
                 '''echo "\033[35m============================================\033[0m"''',
-                f'''echo "dataset {i}/{len_filtered_datasets}: \033[34m{dataset_name}\033[0m"''',
+                f'''echo "dataset {i}/{len_filtered_datasets}: \033[34m{dataset_name} ({'Directed' if is_directed else 'Undirected'})\033[0m"''',
                 '''echo "\033[35m============================================\033[0m"''',
                 '',
             ]
             # print(dataset_name)
+
             def do_comment_out_profile_entrypoint_line(tool) -> bool:
                 if tool in profile_tools_to_drop:
                     return True
@@ -378,15 +388,18 @@ def main(args):
                     return True
                 return False
 
+            tools_with_marks = {}
             for tool in gbc:
-                try:
-                    is_directed = gi[dataset_name]['is_directed']
-                except:
-                    is_directed = False
+                if do_comment_out_profile_entrypoint_line(tool):
+                    tools_with_marks[tool] = '# '
+                else:
+                    tools_with_marks[tool] = ''
+
+            for tool, mark in tools_with_marks.items():
                 script_name_suffix = '_undirected' if not is_directed else ''
                 script_filename = f'''profile_{tool}{script_name_suffix}{f'_{args.profile_suffix}' if args.profile_suffix else ''}.py'''
                 script_lines.append(
-                    f'''{"# " if do_comment_out_profile_entrypoint_line(tool) else ""}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'''
+                    f'''{mark}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'''
                 )
         output_path.write_text('\n'.join(script_lines))
         output_path.chmod(output_path.stat().st_mode | S_IEXEC)
