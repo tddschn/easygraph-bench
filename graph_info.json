@@ -350,5 +350,37 @@
     "average_degree": 28.512878573450326,
     "density": 0.004035793145569756,
     "type": "networkx.classes.graph.Graph"
+  },
+  "facebook": {
+    "nodes": 4039,
+    "edges": 88234,
+    "is_directed": true,
+    "average_degree": 43.69101262688784,
+    "density": 0.0054099817517196435,
+    "type": "networkx.classes.digraph.DiGraph"
+  },
+  "hepth": {
+    "nodes": 9877,
+    "edges": 25998,
+    "is_directed": false,
+    "average_degree": 5.264351523742027,
+    "density": 0.000533044909248889,
+    "type": "networkx.classes.graph.Graph"
+  },
+  "facebook_lcc": {
+    "nodes": 4039,
+    "edges": 88234,
+    "is_directed": false,
+    "average_degree": 43.69101262688784,
+    "density": 0.010819963503439287,
+    "type": "networkx.classes.graph.Graph"
+  },
+  "hepth_lcc": {
+    "nodes": 8638,
+    "edges": 24827,
+    "is_directed": false,
+    "average_degree": 5.748321370687659,
+    "density": 0.0006655460658431931,
+    "type": "networkx.classes.graph.Graph"
   }
 }
