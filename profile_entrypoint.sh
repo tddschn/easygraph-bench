@@ -3,7 +3,7 @@
 
 # dataset: cheminformatics
 echo "[35m============================================[0m"
-echo "dataset 1/20: [34mcheminformatics (Directed)[0m"
+echo "dataset 1/22: [34mcheminformatics (Directed)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -21,7 +21,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: bio
 echo "[35m============================================[0m"
-echo "dataset 2/20: [34mbio (Undirected)[0m"
+echo "dataset 2/22: [34mbio (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -39,7 +39,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: eco
 echo "[35m============================================[0m"
-echo "dataset 3/20: [34meco (Undirected)[0m"
+echo "dataset 3/22: [34meco (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -57,7 +57,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: pgp
 echo "[35m============================================[0m"
-echo "dataset 4/20: [34mpgp (Directed)[0m"
+echo "dataset 4/22: [34mpgp (Directed)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -75,7 +75,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: pgp_undirected
 echo "[35m============================================[0m"
-echo "dataset 5/20: [34mpgp_undirected (Undirected)[0m"
+echo "dataset 5/22: [34mpgp_undirected (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -93,7 +93,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: road
 echo "[35m============================================[0m"
-echo "dataset 6/20: [34mroad (Undirected)[0m"
+echo "dataset 6/22: [34mroad (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -111,7 +111,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: uspowergrid
 echo "[35m============================================[0m"
-echo "dataset 7/20: [34muspowergrid (Undirected)[0m"
+echo "dataset 7/22: [34muspowergrid (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -129,7 +129,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: enron
 echo "[35m============================================[0m"
-echo "dataset 8/20: [34menron (Undirected)[0m"
+echo "dataset 8/22: [34menron (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -147,7 +147,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: amazon
 echo "[35m============================================[0m"
-echo "dataset 9/20: [34mamazon (Directed)[0m"
+echo "dataset 9/22: [34mamazon (Directed)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -165,7 +165,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: google
 echo "[35m============================================[0m"
-echo "dataset 10/20: [34mgoogle (Directed)[0m"
+echo "dataset 10/22: [34mgoogle (Directed)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -183,7 +183,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: pokec
 echo "[35m============================================[0m"
-echo "dataset 11/20: [34mpokec (Directed)[0m"
+echo "dataset 11/22: [34mpokec (Directed)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -201,7 +201,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: condmat
 echo "[35m============================================[0m"
-echo "dataset 12/20: [34mcondmat (Undirected)[0m"
+echo "dataset 12/22: [34mcondmat (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -219,7 +219,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: wikivote
 echo "[35m============================================[0m"
-echo "dataset 13/20: [34mwikivote (Directed)[0m"
+echo "dataset 13/22: [34mwikivote (Directed)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -235,9 +235,45 @@ echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph.py wikivote.txt "$@" || echo "./profile_easygraph.py wikivote.txt failed" >>profile_entrypoint.log
 
+# dataset: facebook
+echo "[35m============================================[0m"
+echo "dataset 14/22: [34mfacebook (Directed)[0m"
+echo "[35m============================================[0m"
+
+echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
+./profile_graphtool.py facebook.txt "$@" || echo "./profile_graphtool.py facebook.txt failed" >>profile_entrypoint.log
+echo 'graphtool [1;4;32migraph[0m networkit networkx [9msnap[0m easygraph'
+./profile_igraph.py facebook.txt "$@" || echo "./profile_igraph.py facebook.txt failed" >>profile_entrypoint.log
+echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
+./profile_networkit.py facebook.txt "$@" || echo "./profile_networkit.py facebook.txt failed" >>profile_entrypoint.log
+echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
+./profile_networkx.py facebook.txt "$@" || echo "./profile_networkx.py facebook.txt failed" >>profile_entrypoint.log
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# ./profile_snap.py facebook.txt "$@" || echo "./profile_snap.py facebook.txt failed" >>profile_entrypoint.log
+echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
+./profile_easygraph.py facebook.txt "$@" || echo "./profile_easygraph.py facebook.txt failed" >>profile_entrypoint.log
+
+# dataset: hepth
+echo "[35m============================================[0m"
+echo "dataset 15/22: [34mhepth (Undirected)[0m"
+echo "[35m============================================[0m"
+
+echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
+./profile_graphtool_undirected.py hepth.txt "$@" || echo "./profile_graphtool_undirected.py hepth.txt failed" >>profile_entrypoint.log
+echo 'graphtool [1;4;32migraph[0m networkit networkx [9msnap[0m easygraph'
+./profile_igraph_undirected.py hepth.txt "$@" || echo "./profile_igraph_undirected.py hepth.txt failed" >>profile_entrypoint.log
+echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
+./profile_networkit_undirected.py hepth.txt "$@" || echo "./profile_networkit_undirected.py hepth.txt failed" >>profile_entrypoint.log
+echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
+./profile_networkx_undirected.py hepth.txt "$@" || echo "./profile_networkx_undirected.py hepth.txt failed" >>profile_entrypoint.log
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# ./profile_snap_undirected.py hepth.txt "$@" || echo "./profile_snap_undirected.py hepth.txt failed" >>profile_entrypoint.log
+echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
+./profile_easygraph_undirected.py hepth.txt "$@" || echo "./profile_easygraph_undirected.py hepth.txt failed" >>profile_entrypoint.log
+
 # dataset: cheminformatics_lcc
 echo "[35m============================================[0m"
-echo "dataset 14/20: [34mcheminformatics_lcc (Undirected)[0m"
+echo "dataset 16/22: [34mcheminformatics_lcc (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -255,7 +291,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: bio_lcc
 echo "[35m============================================[0m"
-echo "dataset 15/20: [34mbio_lcc (Undirected)[0m"
+echo "dataset 17/22: [34mbio_lcc (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -273,7 +309,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: eco_lcc
 echo "[35m============================================[0m"
-echo "dataset 16/20: [34meco_lcc (Undirected)[0m"
+echo "dataset 18/22: [34meco_lcc (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -291,7 +327,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: pgp_lcc
 echo "[35m============================================[0m"
-echo "dataset 17/20: [34mpgp_lcc (Undirected)[0m"
+echo "dataset 19/22: [34mpgp_lcc (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -309,7 +345,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: pgp_undirected_lcc
 echo "[35m============================================[0m"
-echo "dataset 18/20: [34mpgp_undirected_lcc (Undirected)[0m"
+echo "dataset 20/22: [34mpgp_undirected_lcc (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -327,7 +363,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: road_lcc
 echo "[35m============================================[0m"
-echo "dataset 19/20: [34mroad_lcc (Undirected)[0m"
+echo "dataset 21/22: [34mroad_lcc (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
@@ -345,7 +381,7 @@ echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 
 # dataset: uspowergrid_lcc
 echo "[35m============================================[0m"
-echo "dataset 20/20: [34muspowergrid_lcc (Undirected)[0m"
+echo "dataset 22/22: [34muspowergrid_lcc (Undirected)[0m"
 echo "[35m============================================[0m"
 
 echo '[1;4;32mgraphtool[0m igraph networkit networkx [9msnap[0m easygraph'
