@@ -8,7 +8,11 @@ Purpose: wrapper around gen_bench_script.py's --profile-suffix workflow
 import argparse
 from copy import deepcopy
 from pathlib import Path
-from config import graph_benchmark_method_order, edgelist_filenames, edgelist_filenames_lcc
+from config import (
+    graph_benchmark_method_order,
+    edgelist_filenames,
+    edgelist_filenames_lcc,
+)
 
 
 def get_args():
@@ -58,6 +62,18 @@ def get_args():
         nargs='+',
         choices=edgelist_filenames + edgelist_filenames_lcc,
         default=edgelist_filenames + edgelist_filenames_lcc,
+    )
+
+    parser.add_argument(
+        '--directed-datasets-only',
+        help='only generate scripts for directed datasets',
+        action='store_true',
+    )
+
+    parser.add_argument(
+        '--undirected-datasets-only',
+        help='only generate scripts for undirected datasets',
+        action='store_true',
     )
 
     return parser.parse_args()
