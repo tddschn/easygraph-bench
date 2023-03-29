@@ -88,6 +88,18 @@ def get_args():
     )
 
     parser.add_argument(
+        '--directed-datasets-only',
+        help='only generate scripts for directed datasets',
+        action='store_true',
+    )
+
+    parser.add_argument(
+        '--undirected-datasets-only',
+        help='only generate scripts for undirected datasets',
+        action='store_true',
+    )
+
+    parser.add_argument(
         '-e',
         '--entrypoint',
         help='generate entry point scripts instead of individual ones',
@@ -337,6 +349,14 @@ def main(args):
         return
 
     if getattr(args, 'profile_entrypoint', False):
+
+        def is_dataset_directed(dataset_name: str) -> bool:
+            try:
+                is_directed = gi[dataset_name]['is_directed']
+            except:
+                is_directed = False
+            return is_directed
+
         output_path = Path(
             f'''profile_entrypoint{f'_{args.profile_suffix}' if args.profile_suffix else ''}.sh'''
         )
@@ -346,20 +366,29 @@ def main(args):
             graph_benchmark_code_ordereddict_yaml_path.read_text(), Loader=Loader
         )
         filtered_edgelist_filenames = edgelist_filenames + edgelist_filenames_lcc
+        if args.directed_datasets_only and args.undirected_datasets_only:
+            raise ValueError(
+                'Cannot specify both --directed-datasets-only and --undirected-datasets-only'
+            )
         if args.profile_suffix:
             filtered_edgelist_filenames = [
                 edgelist_path
                 for edgelist_path in filtered_edgelist_filenames
                 if edgelist_path in args.profile_select_datasets
             ]
+        if args.directed_datasets_only:
+            filtered_edgelist_filenames = [
+                edgelist_path
+                for edgelist_path in filtered_edgelist_filenames
+                if is_dataset_directed(get_pretty_graph_name(edgelist_path))
+            ]
+        if args.undirected_datasets_only:
+            filtered_edgelist_filenames = [
+                edgelist_path
+                for edgelist_path in filtered_edgelist_filenames
+                if not is_dataset_directed(get_pretty_graph_name(edgelist_path))
+            ]
         len_filtered_datasets = len(filtered_edgelist_filenames)
-
-        def is_dataset_directed(dataset_name: str) -> bool:
-            try:
-                is_directed = gi[dataset_name]['is_directed']
-            except:
-                is_directed = False
-            return is_directed
 
         for i, edgelist_path in enumerate(filtered_edgelist_filenames, start=1):
             # loop over datasets
@@ -409,14 +438,9 @@ def main(args):
                 script_name_suffix = '_undirected' if not is_directed else ''
                 script_filename = f'''profile_{tool}{script_name_suffix}{f'_{args.profile_suffix}' if args.profile_suffix else ''}.py'''
                 script_lines.append(f"""echo '{tool_line_str}'""")
-                from icecream import ic
-
-                # ic(tool_line_str)
-                ic(script_lines[-1])
                 script_lines.append(
                     f'''{mark}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'''
                 )
-        ic(script_lines)
         output_path.write_text('\n'.join(script_lines))
         output_path.chmod(output_path.stat().st_mode | S_IEXEC)
         print(f'Profile entrypoint script generated at {output_path}')
