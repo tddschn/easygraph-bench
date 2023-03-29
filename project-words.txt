@@ -3,6 +3,8 @@ aaai
 allfile
 amix
 argmap
+arrowprops
+arrowstyle
 astype
 autorange
 axhline
@@ -44,13 +46,16 @@ easygraph
 easygraph's
 edgelist
 endgroup
+endswith
 Erdos
 erdos
 facetgraid's
 fangsong
 FDCF
 FFFD
+filterwarnings
 firstrow
+fontsize
 getcwd
 gplus
 gradio
@@ -60,11 +65,13 @@ graphml
 graphrepository
 graphtool
 groupby
+hepth
 huggingface
 icecream
 idxmin
 ieph
 igraph
+igraph's
 inproceedings
 ipykernel
 ipython
@@ -80,6 +87,7 @@ matplotlib
 maxsplit
 mbetweenness
 mcloseness
+mconnected
 measygraph
 mentrypoint
 mergedeep

@@ -35,7 +35,9 @@ wget -nv 'http://snap.stanford.edu/data/wiki-Vote.txt.gz' &&
 wget -nv 'http://snap.stanford.edu/data/facebook_combined.txt.gz' &&
     gunzip facebook_combined.txt.gz &&
     grep -v '^#' facebook_combined.txt >facebook.txt &&
-    rm facebook_combined.txt
+    rm facebook_combined.txt &&
+    # convert ' ' to \t in facebook.txt
+    sed -i 's/ /\t/g' facebook.txt
 
 # https://snap.stanford.edu/data/ca-HepTh.html
 wget -nv 'http://snap.stanford.edu/data/ca-HepTh.txt.gz' &&

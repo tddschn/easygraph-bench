@@ -341,13 +341,17 @@ edgelist_filenames = [f'dataset/{x}.edgelist' for x in dataset_edgelist_filename
     'pokec.txt',
     'condmat.txt',
     'wikivote.txt',
+    'facebook.txt',
+    'hepth.txt',
 ]
 
 edgelist_filenames_lcc = []
 for filename in edgelist_filenames:
     if not Path(filename).exists():
         continue
-    edgelist_filenames_lcc.append(str(Path(filename).with_stem(f"{Path(filename).stem}_lcc")))
+    edgelist_filenames_lcc.append(
+        str(Path(filename).with_stem(f"{Path(filename).stem}_lcc"))
+    )
 
 
 @cache
