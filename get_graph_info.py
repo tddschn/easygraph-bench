@@ -106,7 +106,12 @@ def get_args():
     )
 
     parser.add_argument('-e', '--edgelist', help='Paths to edgelist files', type=str)
-    parser.add_argument('--edgelist-delimiter', help='Delimiter of edgelist file', type=str, default='\t')
+    parser.add_argument(
+        '--edgelist-delimiter',
+        help='Delimiter of edgelist file',
+        type=str,
+        default='\t',
+    )
     parser.add_argument(
         '--directed',
         help='The edgelist file should be loaded as directed',
@@ -144,7 +149,9 @@ def main() -> None:
         edgelist_path = Path(args.edgelist)
         if not edgelist_path.exists():
             raise FileNotFoundError(f'edgelist file {edgelist_path} not found')
-        g = nx_read_edgelist(args.edgelist, directed=args.directed)
+        g = nx_read_edgelist(
+            args.edgelist, directed=args.directed, delimiter=args.edgelist_delimiter
+        )
         info = get_graph_info(g)
         gi = graph_info_json_path
         info_dict = json.loads(gi.read_text())
