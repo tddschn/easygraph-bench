@@ -343,20 +343,28 @@ def main(args):
         gbc = yaml.load(
             graph_benchmark_code_ordereddict_yaml_path.read_text(), Loader=Loader
         )
-        for edgelist_path in edgelist_filenames + edgelist_filenames_lcc:
+        filtered_edgelist_filenames = edgelist_filenames + edgelist_filenames_lcc
+        if args.profile_suffix:
+            filtered_edgelist_filenames = [
+                edgelist_path
+                for edgelist_path in filtered_edgelist_filenames
+                if edgelist_path in args.profile_select_datasets
+            ]
+        len_filtered_datasets = len(filtered_edgelist_filenames)
+        for i, edgelist_path in enumerate(filtered_edgelist_filenames, start=1):
             # loop over datasets
-            if (
-                args.profile_suffix
-                and edgelist_path not in args.profile_select_datasets
-            ):
-                continue
+            # if (
+            #     args.profile_suffix
+            #     and edgelist_path not in args.profile_select_datasets
+            # ):
+            #     continue
             p = Path(edgelist_path)
             dataset_name = p.stem
             script_lines += [
                 '',
                 f'# dataset: {dataset_name}',
                 '''echo "\033[35m============================================\033[0m"''',
-                f'''echo "dataset: \033[34m{dataset_name}\033[0m"''',
+                f'''echo "dataset {i}/{len_filtered_datasets}: \033[34m{dataset_name}\033[0m"''',
                 '''echo "\033[35m============================================\033[0m"''',
                 '',
             ]

@@ -3,7 +3,7 @@
 import easygraph as eg
 import easygraph
 # from easygraph import *  # type: ignore
-from easygraph import Dijkstra, pagerank, strongly_connected_components, read_edgelist, multi_source_dijkstra, k_core, betweenness_centrality, closeness_centrality
+from easygraph import Dijkstra, pagerank, strongly_connected_components, read_edgelist, multi_source_dijkstra, k_core, betweenness_centrality, closeness_centrality, connected_components, connected_components_directed
 
 
 from benchmark import benchmark_autorange
@@ -136,6 +136,40 @@ print()
 
 # 'closeness_centrality(g)' contains quotes
 avg_times |= {'closeness centrality': benchmark_autorange('closeness_centrality(g)', globals=globals(), n=n) }
+
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mconnected components\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+
+
+
+# '[i for i in connected_components(g)]' contains quotes
+avg_times |= {'connected components': benchmark_autorange('[i for i in connected_components(g)]', globals=globals(), n=n) }
+
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mconnected components directed\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+
+
+
+# '[i for i in connected_components_directed(g)]' contains quotes
+avg_times |= {'connected components directed': benchmark_autorange('[i for i in connected_components_directed(g)]', globals=globals(), n=n) }
 
 
 

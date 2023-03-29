@@ -142,6 +142,23 @@ avg_times |= {'strongly connected components': benchmark_autorange('[i for i in 
 
 
 # ===========================
+print(f"""Profiling \033[92mconnected components\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+
+
+
+# '[i for i in connected_components(g)]' contains quotes
+avg_times |= {'connected components': benchmark_autorange('[i for i in connected_components(g)]', globals=globals(), n=n) }
+
+
+
+
+
+
+# ===========================
 print(f"""Profiling \033[92mk-core\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
