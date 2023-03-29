@@ -30,8 +30,10 @@ gen-scripts:
 	./gen_bench_script.py --er-paper
 	./gen_bench_script.py --er-paper --multiprocessing-bench-scripts
 
+gen-scripts-20230329-directed-only:
+	./gen_profile_scripts_with_suffix_wrapper.py '20230329-scc-directed-only' --tools 'igraph' 'easygraph' --methods 'page rank' 'strongly connected components' --directed-datasets-only
+
 gen-scripts-20230328-directed-only:
-	# ./gen_profile_scripts_with_suffix_wrapper.py '20230328-pagerank-scc' --tools 'igraph' 'easygraph' --methods 'page rank' 'strongly connected components' # -d 'dataset/road_lcc.edgelist' 'enron_lcc.txt' 'google_lcc.txt' 'amazon_lcc.txt' 'pokec_lcc.txt'
 	./gen_profile_scripts_with_suffix_wrapper.py '20230328-pagerank-scc-directed-only' --tools 'igraph' 'easygraph' --methods 'page rank' 'strongly connected components' --directed-datasets-only
 
 gen-scripts-20230327:

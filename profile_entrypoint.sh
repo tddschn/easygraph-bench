@@ -14,7 +14,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit.py dataset/cheminformatics.edgelist "$@" || echo "./profile_networkit.py dataset/cheminformatics.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx.py dataset/cheminformatics.edgelist "$@" || echo "./profile_networkx.py dataset/cheminformatics.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap.py dataset/cheminformatics.edgelist "$@" || echo "./profile_snap.py dataset/cheminformatics.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph.py dataset/cheminformatics.edgelist "$@" || echo "./profile_easygraph.py dataset/cheminformatics.edgelist failed" >>profile_entrypoint.log
@@ -32,7 +32,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py dataset/bio.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/bio.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py dataset/bio.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/bio.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py dataset/bio.edgelist "$@" || echo "./profile_snap_undirected.py dataset/bio.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py dataset/bio.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/bio.edgelist failed" >>profile_entrypoint.log
@@ -50,7 +50,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py dataset/eco.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/eco.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py dataset/eco.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/eco.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py dataset/eco.edgelist "$@" || echo "./profile_snap_undirected.py dataset/eco.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py dataset/eco.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/eco.edgelist failed" >>profile_entrypoint.log
@@ -68,7 +68,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit.py dataset/pgp.edgelist "$@" || echo "./profile_networkit.py dataset/pgp.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx.py dataset/pgp.edgelist "$@" || echo "./profile_networkx.py dataset/pgp.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap.py dataset/pgp.edgelist "$@" || echo "./profile_snap.py dataset/pgp.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph.py dataset/pgp.edgelist "$@" || echo "./profile_easygraph.py dataset/pgp.edgelist failed" >>profile_entrypoint.log
@@ -86,7 +86,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py dataset/pgp_undirected.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/pgp_undirected.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py dataset/pgp_undirected.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/pgp_undirected.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py dataset/pgp_undirected.edgelist "$@" || echo "./profile_snap_undirected.py dataset/pgp_undirected.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py dataset/pgp_undirected.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/pgp_undirected.edgelist failed" >>profile_entrypoint.log
@@ -104,7 +104,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py dataset/road.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/road.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py dataset/road.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/road.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py dataset/road.edgelist "$@" || echo "./profile_snap_undirected.py dataset/road.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py dataset/road.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/road.edgelist failed" >>profile_entrypoint.log
@@ -122,7 +122,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py dataset/uspowergrid.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/uspowergrid.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py dataset/uspowergrid.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/uspowergrid.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py dataset/uspowergrid.edgelist "$@" || echo "./profile_snap_undirected.py dataset/uspowergrid.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py dataset/uspowergrid.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/uspowergrid.edgelist failed" >>profile_entrypoint.log
@@ -140,7 +140,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py enron.txt "$@" || echo "./profile_networkit_undirected.py enron.txt failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py enron.txt "$@" || echo "./profile_networkx_undirected.py enron.txt failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py enron.txt "$@" || echo "./profile_snap_undirected.py enron.txt failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py enron.txt "$@" || echo "./profile_easygraph_undirected.py enron.txt failed" >>profile_entrypoint.log
@@ -158,7 +158,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit.py amazon.txt "$@" || echo "./profile_networkit.py amazon.txt failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx.py amazon.txt "$@" || echo "./profile_networkx.py amazon.txt failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap.py amazon.txt "$@" || echo "./profile_snap.py amazon.txt failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph.py amazon.txt "$@" || echo "./profile_easygraph.py amazon.txt failed" >>profile_entrypoint.log
@@ -176,7 +176,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit.py google.txt "$@" || echo "./profile_networkit.py google.txt failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx.py google.txt "$@" || echo "./profile_networkx.py google.txt failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap.py google.txt "$@" || echo "./profile_snap.py google.txt failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph.py google.txt "$@" || echo "./profile_easygraph.py google.txt failed" >>profile_entrypoint.log
@@ -194,7 +194,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit.py pokec.txt "$@" || echo "./profile_networkit.py pokec.txt failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx.py pokec.txt "$@" || echo "./profile_networkx.py pokec.txt failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap.py pokec.txt "$@" || echo "./profile_snap.py pokec.txt failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph.py pokec.txt "$@" || echo "./profile_easygraph.py pokec.txt failed" >>profile_entrypoint.log
@@ -212,7 +212,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py condmat.txt "$@" || echo "./profile_networkit_undirected.py condmat.txt failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py condmat.txt "$@" || echo "./profile_networkx_undirected.py condmat.txt failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py condmat.txt "$@" || echo "./profile_snap_undirected.py condmat.txt failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py condmat.txt "$@" || echo "./profile_easygraph_undirected.py condmat.txt failed" >>profile_entrypoint.log
@@ -230,7 +230,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit.py wikivote.txt "$@" || echo "./profile_networkit.py wikivote.txt failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx.py wikivote.txt "$@" || echo "./profile_networkx.py wikivote.txt failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap.py wikivote.txt "$@" || echo "./profile_snap.py wikivote.txt failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph.py wikivote.txt "$@" || echo "./profile_easygraph.py wikivote.txt failed" >>profile_entrypoint.log
@@ -248,7 +248,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py dataset/cheminformatics_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/cheminformatics_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py dataset/cheminformatics_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/cheminformatics_lcc.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py dataset/cheminformatics_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/cheminformatics_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py dataset/cheminformatics_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/cheminformatics_lcc.edgelist failed" >>profile_entrypoint.log
@@ -266,7 +266,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py dataset/bio_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/bio_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py dataset/bio_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/bio_lcc.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py dataset/bio_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/bio_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py dataset/bio_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/bio_lcc.edgelist failed" >>profile_entrypoint.log
@@ -284,7 +284,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py dataset/eco_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/eco_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py dataset/eco_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/eco_lcc.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py dataset/eco_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/eco_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py dataset/eco_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/eco_lcc.edgelist failed" >>profile_entrypoint.log
@@ -302,7 +302,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py dataset/pgp_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/pgp_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py dataset/pgp_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/pgp_lcc.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py dataset/pgp_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/pgp_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py dataset/pgp_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/pgp_lcc.edgelist failed" >>profile_entrypoint.log
@@ -320,7 +320,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py dataset/pgp_undirected_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/pgp_undirected_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py dataset/pgp_undirected_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/pgp_undirected_lcc.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py dataset/pgp_undirected_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/pgp_undirected_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py dataset/pgp_undirected_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/pgp_undirected_lcc.edgelist failed" >>profile_entrypoint.log
@@ -338,7 +338,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py dataset/road_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/road_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py dataset/road_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/road_lcc.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py dataset/road_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/road_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py dataset/road_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/road_lcc.edgelist failed" >>profile_entrypoint.log
@@ -356,7 +356,7 @@ echo 'graphtool igraph [1;4;32mnetworkit[0m networkx [9msnap[0m easygraph'
 ./profile_networkit_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_networkit_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit [1;4;32mnetworkx[0m [9msnap[0m easygraph'
 ./profile_networkx_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_networkx_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log
-echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
+# echo 'graphtool igraph networkit networkx [9msnap[0m easygraph'
 # ./profile_snap_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_snap_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log
 echo 'graphtool igraph networkit networkx [9msnap[0m [1;4;32measygraph[0m'
 ./profile_easygraph_undirected.py dataset/uspowergrid_lcc.edgelist "$@" || echo "./profile_easygraph_undirected.py dataset/uspowergrid_lcc.edgelist failed" >>profile_entrypoint.log

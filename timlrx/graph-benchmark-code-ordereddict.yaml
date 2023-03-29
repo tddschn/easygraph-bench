@@ -98,10 +98,10 @@
         - - closeness centrality
           - "'closeness_centrality(g)'"
         - - strongly connected components
-          - "'[i for i in strongly_connected_components(g)]'"
-        - - connected components
-          - "'[i for i in connected_components(g)]'"
-        - - connected components directed
+          #   - "'[i for i in strongly_connected_components(g)]'"
+          # - - connected components
+          #   - "'[i for i in connected_components(g)]'"
+          # - - connected components directed
           - "'[i for i in connected_components_directed(g)]'"
         - - k-core
           - "'k_core(g)'"

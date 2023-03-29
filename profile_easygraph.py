@@ -151,42 +151,8 @@ print()
 
 
 
-# '[i for i in strongly_connected_components(g)]' contains quotes
-avg_times |= {'strongly connected components': benchmark_autorange('[i for i in strongly_connected_components(g)]', globals=globals(), n=n) }
-
-
-
-
-
-
-# ===========================
-print(f"""Profiling \033[92mconnected components\033[0m on dataset \033[34m{filename}\033[0m""")
-print("=================")
-print()
-
-
-
-
-
-# '[i for i in connected_components(g)]' contains quotes
-avg_times |= {'connected components': benchmark_autorange('[i for i in connected_components(g)]', globals=globals(), n=n) }
-
-
-
-
-
-
-# ===========================
-print(f"""Profiling \033[92mconnected components directed\033[0m on dataset \033[34m{filename}\033[0m""")
-print("=================")
-print()
-
-
-
-
-
 # '[i for i in connected_components_directed(g)]' contains quotes
-avg_times |= {'connected components directed': benchmark_autorange('[i for i in connected_components_directed(g)]', globals=globals(), n=n) }
+avg_times |= {'strongly connected components': benchmark_autorange('[i for i in connected_components_directed(g)]', globals=globals(), n=n) }
 
 
 

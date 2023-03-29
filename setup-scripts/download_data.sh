@@ -30,3 +30,15 @@ wget -nv 'http://snap.stanford.edu/data/wiki-Vote.txt.gz' &&
     gunzip wiki-Vote.txt.gz &&
     grep -v '^#' wiki-Vote.txt >wikivote.txt &&
     rm wiki-Vote.txt
+
+# https://snap.stanford.edu/data/ego-Facebook.html
+wget -nv 'http://snap.stanford.edu/data/facebook_combined.txt.gz' &&
+    gunzip facebook_combined.txt.gz &&
+    grep -v '^#' facebook_combined.txt >facebook.txt &&
+    rm facebook_combined.txt
+
+# https://snap.stanford.edu/data/ca-HepTh.html
+wget -nv 'http://snap.stanford.edu/data/ca-HepTh.txt.gz' &&
+    gunzip ca-HepTh.txt.gz &&
+    grep -v '^#' ca-HepTh.txt >hepth.txt &&
+    rm ca-HepTh.txt
