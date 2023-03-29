@@ -36,8 +36,7 @@ gi[float_cols] = gi[float_cols].astype(float)
 gi.info()
 
 # %%
-def get_pretty_graph_name(graph_name: str) -> str:
-    return graph_name.rsplit('/', maxsplit=1)[-1].split('.', maxsplit=1)[0]
+from utils_other import get_pretty_graph_name
 
 
 # apply this function to create a col of pretty graph names
