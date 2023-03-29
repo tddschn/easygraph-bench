@@ -91,13 +91,15 @@ def tool_str_to_tool_and_n_workers(tool_str: str) -> tuple[str, str]:
 
 
 def nx_read_edgelist(
-    edgelist_path: str, directed: bool = False
+    edgelist_path: str,
+    directed: bool = False,
+    delimiter: str = "\t",
 ) -> 'nx.Graph | nx.DiGraph':
     import networkx as nx
 
     g = nx.read_edgelist(
         edgelist_path,
-        delimiter="\t",
+        delimiter=delimiter,
         nodetype=int,
         create_using=nx.DiGraph() if directed else nx.Graph(),
     )
