@@ -22,6 +22,7 @@ from config import (
 )
 from pathlib import Path
 import json
+from utils_other import get_pretty_graph_name, nx_read_edgelist
 
 
 def get_fully_qualified_type_name(o) -> str:
@@ -47,6 +48,7 @@ def get_graph_info(g) -> dict:
     )
     d['type'] = type_name
     return d
+
 
 # def get_nx_lcc_graph_info(g: 'nx.Graph') -> dict:
 #     import easygraph as eg
@@ -103,9 +105,12 @@ def get_args():
         choices=dataset_names + random_erdos_renyi_dataset_names,
     )
 
-    # parser.add_argument(
-    #     '-e', '--edgelist', nargs='+', help='Paths to edgelist files', type=Path
-    # )
+    parser.add_argument('-e', '--edgelist', help='Paths to edgelist files', type=str)
+    parser.add_argument(
+        '--directed',
+        help='The edgelist file should be loaded as directed',
+        action='store_true',
+    )
 
     parser.add_argument(
         '--all-er',
@@ -124,7 +129,9 @@ def get_args():
     )
 
     parser.add_argument(
-        '--edgelist-filenames-lcc', help='Update datasets in config.edgelist_filenames_lcc', action='store_true'
+        '--edgelist-filenames-lcc',
+        help='Update datasets in config.edgelist_filenames_lcc',
+        action='store_true',
     )
 
     return parser.parse_args()
@@ -132,13 +139,21 @@ def get_args():
 
 def main() -> None:
     args = get_args()
-    # if args.edgelist:
-    #     edgelist_path: Path
-    #     for edgelist_path in args.edgelist:
-    #         if not edgelist_path.exists():
-    #             continue
-    #         print(get_graph_info(nx.read_edgelist(edgelist_path)))
-    #     return
+    if args.edgelist:
+        edgelist_path = Path(args.edgelist)
+        if not edgelist_path.exists():
+            raise FileNotFoundError(f'edgelist file {edgelist_path} not found')
+        g = nx_read_edgelist(args.edgelist, directed=args.directed)
+        info = get_graph_info(g)
+        gi = graph_info_json_path
+        info_dict = json.loads(gi.read_text())
+        info_dict[get_pretty_graph_name(args.edgelist)] = info
+        content = json.dumps(info_dict, indent=4)
+        if args.stdout:
+            print(content)
+            return
+        graph_info_json_path.write_text(content)
+        return
     if args.all_sampled:
         import dataset_loaders_sampled
 
@@ -199,8 +214,11 @@ def main() -> None:
             ]
         if args.edgelist_filenames_lcc:
             import networkx as nx
+
             for lcc_path in edgelist_filenames_lcc:
-                g = nx.read_edgelist(lcc_path, delimiter="\t", nodetype=int, create_using=nx.Graph())
+                g = nx.read_edgelist(
+                    lcc_path, delimiter="\t", nodetype=int, create_using=nx.Graph()
+                )
                 info = get_graph_info(g)
                 info_dict[lcc_path] = info
             content = json.dumps(info_dict, indent=4)
