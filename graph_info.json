@@ -231,7 +231,7 @@
     "density": 1.6053216053216054e-7,
     "type": "easygraph.classes.graph.Graph"
   },
-  "dataset/cheminformatics_lcc.edgelist": {
+  "cheminformatics_lcc": {
     "nodes": 37,
     "edges": 84,
     "is_directed": false,
@@ -239,7 +239,7 @@
     "density": 0.12612612612612611,
     "type": "networkx.classes.graph.Graph"
   },
-  "dataset/bio_lcc.edgelist": {
+  "bio_lcc": {
     "nodes": 1458,
     "edges": 1948,
     "is_directed": false,
@@ -247,7 +247,7 @@
     "density": 0.0018340107310340413,
     "type": "networkx.classes.graph.Graph"
   },
-  "dataset/eco_lcc.edgelist": {
+  "eco_lcc": {
     "nodes": 1258,
     "edges": 7619,
     "is_directed": false,
@@ -255,7 +255,7 @@
     "density": 0.009636338570776308,
     "type": "networkx.classes.graph.Graph"
   },
-  "dataset/pgp_lcc.edgelist": {
+  "pgp_lcc": {
     "nodes": 39796,
     "edges": 197150,
     "is_directed": false,
@@ -263,7 +263,7 @@
     "density": 0.00024897677994434515,
     "type": "networkx.classes.graph.Graph"
   },
-  "dataset/pgp_undirected_lcc.edgelist": {
+  "pgp_undirected_lcc": {
     "nodes": 39796,
     "edges": 197150,
     "is_directed": false,
@@ -271,7 +271,7 @@
     "density": 0.00024897677994434515,
     "type": "networkx.classes.graph.Graph"
   },
-  "dataset/road_lcc.edgelist": {
+  "road_lcc": {
     "nodes": 126146,
     "edges": 161950,
     "is_directed": false,
@@ -279,7 +279,7 @@
     "density": 2.035482734874879e-5,
     "type": "networkx.classes.graph.Graph"
   },
-  "dataset/uspowergrid_lcc.edgelist": {
+  "uspowergrid_lcc": {
     "nodes": 4941,
     "edges": 6594,
     "is_directed": false,
@@ -287,7 +287,7 @@
     "density": 0.0005403026973346214,
     "type": "networkx.classes.graph.Graph"
   },
-  "enron_lcc.txt": {
+  "enron_lcc": {
     "nodes": 33696,
     "edges": 180811,
     "is_directed": false,
@@ -295,7 +295,7 @@
     "density": 0.0003185011711252004,
     "type": "networkx.classes.graph.Graph"
   },
-  "amazon_lcc.txt": {
+  "amazon_lcc": {
     "nodes": 262111,
     "edges": 899792,
     "is_directed": false,
@@ -303,7 +303,7 @@
     "density": 2.6194088195261075e-5,
     "type": "networkx.classes.graph.Graph"
   },
-  "google_lcc.txt": {
+  "google_lcc": {
     "nodes": 855802,
     "edges": 4291352,
     "is_directed": false,
@@ -311,7 +311,7 @@
     "density": 1.1718662539836308e-5,
     "type": "networkx.classes.graph.Graph"
   },
-  "pokec_lcc.txt": {
+  "pokec_lcc": {
     "nodes": 1632803,
     "edges": 22301964,
     "is_directed": false,
@@ -319,7 +319,7 @@
     "density": 1.6730379518484355e-5,
     "type": "networkx.classes.graph.Graph"
   },
-  "condmat.txt": {
+  "condmat": {
     "nodes": 23133,
     "edges": 93497,
     "is_directed": false,
@@ -327,7 +327,7 @@
     "density": 0.0003494479766981958,
     "type": "networkx.classes.graph.Graph"
   },
-  "condmat_lcc.txt": {
+  "condmat_lcc": {
     "nodes": 21363,
     "edges": 91342,
     "is_directed": false,
@@ -335,7 +335,7 @@
     "density": 0.0004003099279382089,
     "type": "networkx.classes.graph.Graph"
   },
-  "wikivote.txt": {
+  "wikivote": {
     "nodes": 7115,
     "edges": 100762,
     "is_directed": true,
@@ -343,7 +343,7 @@
     "density": 0.0020485375110809584,
     "type": "networkx.classes.digraph.DiGraph"
   },
-  "wikivote_lcc.txt": {
+  "wikivote_lcc": {
     "nodes": 7066,
     "edges": 100736,
     "is_directed": false,
