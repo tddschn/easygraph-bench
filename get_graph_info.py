@@ -106,6 +106,7 @@ def get_args():
     )
 
     parser.add_argument('-e', '--edgelist', help='Paths to edgelist files', type=str)
+    parser.add_argument('--edgelist-delimiter', help='Delimiter of edgelist file', type=str, default='\t')
     parser.add_argument(
         '--directed',
         help='The edgelist file should be loaded as directed',
