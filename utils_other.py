@@ -110,3 +110,29 @@ def get_pretty_graph_name(graph_name: str) -> str:
 
 def get_pretty_tool_name(tool_name: str) -> str:
     return tool_name.split('_', maxsplit=1)[0]
+
+
+def style_text(text: str, style: str | None = None) -> str:
+    # match style:
+    #     case 'bold':
+    #         return f'\033[1m{text}\033[0m'
+    #     case 'underline':
+    #         return f'\033[4m{text}\033[0m'
+    #     case 'strikethrough':
+    #         return f'\033[9m{text}\033[0m'
+    #     case _:
+    #         raise ValueError(f'Invalid style: {style}')
+
+    if style is None:
+        return text
+    try:
+        from rich.console import Console
+
+        console = Console()
+        with console.capture() as c:
+            console.print(text, style=style, end='')
+        return c.get()
+    except ImportError:
+        return text
+    except:
+        return text

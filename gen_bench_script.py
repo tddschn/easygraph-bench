@@ -26,7 +26,7 @@ from config import (
 )
 from stat import S_IEXEC
 
-from utils_other import get_pretty_graph_name
+from utils_other import get_pretty_graph_name, style_text
 
 ENTRYPOINT_SH_PATH = Path(__file__).parent / 'entrypoint.sh'
 ENTRYPOINT_SH_PAPER_PATH = Path(__file__).parent / 'entrypoint_paper.sh'
@@ -396,11 +396,27 @@ def main(args):
                     tools_with_marks[tool] = ''
 
             for tool, mark in tools_with_marks.items():
+                tool_line_l = []
+                for t, m in tools_with_marks.items():
+                    if m:
+                        style = 'strike'
+                    elif tool == t:
+                        style = 'bold underline green'
+                    else:
+                        style = 'gray'
+                    tool_line_l.append(style_text(t, style))
+                tool_line_str = ' '.join(tool_line_l)
                 script_name_suffix = '_undirected' if not is_directed else ''
                 script_filename = f'''profile_{tool}{script_name_suffix}{f'_{args.profile_suffix}' if args.profile_suffix else ''}.py'''
+                script_lines.append(f"""echo '{tool_line_str}'""")
+                from icecream import ic
+
+                # ic(tool_line_str)
+                ic(script_lines[-1])
                 script_lines.append(
                     f'''{mark}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'''
                 )
+        ic(script_lines)
         output_path.write_text('\n'.join(script_lines))
         output_path.chmod(output_path.stat().st_mode | S_IEXEC)
         print(f'Profile entrypoint script generated at {output_path}')
