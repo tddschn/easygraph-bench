@@ -4,6 +4,9 @@ import easygraph as eg
 import easygraph
 # from easygraph import *  # type: ignore
 from easygraph import Dijkstra, pagerank, strongly_connected_components, read_edgelist, multi_source_dijkstra, k_core, betweenness_centrality, closeness_centrality, connected_components, connected_components_directed
+# disable warnings
+import warnings
+warnings.filterwarnings("ignore")
 
 
 from benchmark import benchmark_autorange
@@ -151,8 +154,8 @@ print()
 
 
 
-# '[i for i in connected_components_directed(g)]' contains quotes
-avg_times |= {'strongly connected components': benchmark_autorange('[i for i in connected_components_directed(g)]', globals=globals(), n=n) }
+# '[i for i in strongly_connected_components(g)]' contains quotes
+avg_times |= {'strongly connected components': benchmark_autorange('[i for i in strongly_connected_components(g)]', globals=globals(), n=n) }
 
 
 
