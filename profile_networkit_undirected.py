@@ -84,23 +84,6 @@ avg_times |= {'shortest path': benchmark_autorange("nk.distance.BFS(g, 0, storeP
 
 
 # ===========================
-print(f"""Profiling \033[92mpage rank\033[0m on dataset \033[34m{filename}\033[0m""")
-print("=================")
-print()
-
-
-
-
-
-# "nk.centrality.PageRank(g, damp=0.85, tol=1e-3).run().scores()" contains quotes
-avg_times |= {'page rank': benchmark_autorange("nk.centrality.PageRank(g, damp=0.85, tol=1e-3).run().scores()", globals=globals(), n=n) }
-
-
-
-
-
-
-# ===========================
 print(f"""Profiling \033[92mk-core\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()

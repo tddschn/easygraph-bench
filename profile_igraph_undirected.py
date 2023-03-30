@@ -80,21 +80,6 @@ avg_times |= {'shortest path': benchmark_autorange("g.distances(source=[g.vs[0]]
 
 
 # ===========================
-print(f"""Profiling \033[92mpage rank\033[0m on dataset \033[34m{filename}\033[0m""")
-print("=================")
-print()
-
-
-
-# "g.pagerank(damping=0.85)" contains quotes
-avg_times |= {'page rank': benchmark_autorange("g.pagerank(damping=0.85)", globals=globals(), n=n) }
-
-
-
-
-
-
-# ===========================
 print(f"""Profiling \033[92mbetweenness centrality\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()

@@ -108,23 +108,6 @@ avg_times |= {'shortest path': benchmark_autorange(f'shortest_path_length(g, {no
 
 
 # ===========================
-print(f"""Profiling \033[92mpage rank\033[0m on dataset \033[34m{filename}\033[0m""")
-print("=================")
-print()
-
-
-
-
-
-# 'pagerank(g, alpha=0.85, tol=1e-3, max_iter=10000000)' contains quotes
-avg_times |= {'page rank': benchmark_autorange('pagerank(g, alpha=0.85, tol=1e-3, max_iter=10000000)', globals=globals(), n=n) }
-
-
-
-
-
-
-# ===========================
 print(f"""Profiling \033[92mconnected components\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()

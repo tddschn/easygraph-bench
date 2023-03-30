@@ -30,6 +30,11 @@ graph_benchmark_method_order = [
     'strongly connected components',  # tim put this last
 ]
 
+graph_benchmark_method_directed_only = {'loading', 'page rank', 'strongly connected components'}
+graph_benchmark_method_undirected_only = {
+    'loading_undirected',
+}
+
 # not deprecated
 # directly editing the ordereddict yaml is easier than rewriting a lot of code
 graph_benchmark_code_yaml_path = TIMLRX_DIR / 'graph-benchmark-code.yaml'

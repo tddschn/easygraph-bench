@@ -16,6 +16,8 @@ from config import (
     read_profile_preparation_code,
     graph_benchmark_code_ordereddict_yaml_path,
     graph_benchmark_method_order,
+    graph_benchmark_method_directed_only,
+    graph_benchmark_method_undirected_only,
     edgelist_filenames,
     edgelist_filenames_lcc,
     profile_tools_to_drop,
@@ -333,10 +335,12 @@ def main(args):
                     continue
                 methods_to_pop = []
                 if loading_method == 'loading':
-                    methods_to_pop.append('loading_undirected')
+                    # methods_to_pop.append('loading_undirected')
+                    methods_to_pop.extend(graph_benchmark_method_undirected_only)
                 if loading_method == 'loading_undirected':
-                    methods_to_pop.append('loading')
+                    # methods_to_pop.append('loading')
                     # methods_to_pop += ['page rank', 'strongly connected components']
+                    methods_to_pop.extend(graph_benchmark_method_directed_only)
                     methods_to_pop += ['strongly connected components']
                 [m.pop(method_to_pop, None) for method_to_pop in methods_to_pop]
                 script_content = gen_profile_script(tool, m, template_profile_script)

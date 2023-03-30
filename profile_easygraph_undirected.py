@@ -95,23 +95,6 @@ avg_times |= {'shortest path': benchmark_autorange(f'Dijkstra(g, {nodeid})', glo
 
 
 # ===========================
-print(f"""Profiling \033[92mpage rank\033[0m on dataset \033[34m{filename}\033[0m""")
-print("=================")
-print()
-
-
-
-
-
-# 'pagerank(g)' contains quotes
-avg_times |= {'page rank': benchmark_autorange('pagerank(g)', globals=globals(), n=n) }
-
-
-
-
-
-
-# ===========================
 print(f"""Profiling \033[92mbetweenness centrality\033[0m on dataset \033[34m{filename}\033[0m""")
 print("=================")
 print()
