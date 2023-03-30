@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
+# disable warnings before importing tensorflow when importing easygraph
+import warnings
+warnings.filterwarnings("ignore")
 import easygraph as eg
 import easygraph
 # from easygraph import *  # type: ignore
 from easygraph import Dijkstra, pagerank, strongly_connected_components, read_edgelist, multi_source_dijkstra, k_core, betweenness_centrality, closeness_centrality, connected_components, connected_components_directed
-# disable warnings
-import warnings
-warnings.filterwarnings("ignore")
 
 
 from benchmark import benchmark_autorange

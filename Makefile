@@ -31,7 +31,7 @@ gen-scripts:
 	./gen_bench_script.py --er-paper --multiprocessing-bench-scripts
 
 gen-scripts-20230330:
-	./gen_profile_scripts_with_suffix_wrapper.py '20230330-hepth-fb' -t 'igraph' 'easygraph' -d 'facebook.txt' 'facebook_lcc.txt' 'hepth.txt' 'hepth_lcc.txt'
+	./gen_profile_scripts_with_suffix_wrapper.py '20230330-hepth-fb-fix' -t 'igraph' 'easygraph' -d 'facebook.txt' 'facebook_lcc.txt' 'hepth.txt' 'hepth_lcc.txt'
 
 gen-scripts-20230329-directed-only:
 	./gen_profile_scripts_with_suffix_wrapper.py '20230329-scc-directed-only' --tools 'igraph' 'easygraph' --methods 'page rank' 'strongly connected components' --directed-datasets-only
