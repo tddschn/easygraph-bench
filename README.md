@@ -212,6 +212,18 @@ or run all of them `./bench.sh`.
 
 You can run benchmarking on a single dataset for a single library with the `./profile_*.py` scripts, or use the convenience script `./profile_entrypoint.sh` to profile a bunch of datasets for the 6 libraries (you may need to adjust the dataset locations for this script to work).
 
+```bash
+# Download datasets
+cp scripts/download_data.sh . && bash download_data.sh
+
+# Get LCC datasets from the downloaded datasets
+./get_lcc_edgelist.py
+
+# Generate the scripts, only bench what you want to bench
+gen-scripts-20230328-directed-only:
+	./gen_profile_scripts_with_suffix_wrapper.py '20230328-pagerank-scc-directed-only' --tools 'igraph' 'easygraph' --methods 'page rank' 'strongly connected components' --directed-datasets-only
+```
+
 #### Scripts usage
 
 ```
@@ -304,52 +316,52 @@ The `er_*` Erdos-Renyi random graphs are generated with `eg.erdos_renyi_P()`, av
 
 <!-- BEGIN DATASET TABLE -->
 
-| Dataset Name | nodes | edges | is_directed | average_degree | density | type |
-|-----|-----|-----|-----|-----|-----|-----|
-| [cheminformatics](https://networkrepository.com/ENZYMES-g1.php) | 37 | 168 | True | 9.08108108108108 | 0.12612612612612611 | easygraph.classes.directed_graph.DiGraph |
-| cheminformatics_lcc | 37 | 84 | False | 4.54054054054054 | 0.12612612612612611 | networkx.classes.graph.Graph |
-| [eco](https://networkrepository.com/econ-mahindas.php) | 1258 | 7619 | False | 12.112877583465819 | 0.009636338570776308 | networkx.classes.graph.Graph |
-| eco_lcc | 1258 | 7619 | False | 12.112877583465819 | 0.009636338570776308 | networkx.classes.graph.Graph |
-| [bio](https://networkrepository.com/bio-yeast.php) | 1458 | 1948 | False | 2.672153635116598 | 0.0018340107310340413 | easygraph.classes.graph.Graph |
-| bio_lcc | 1458 | 1948 | False | 2.672153635116598 | 0.0018340107310340413 | networkx.classes.graph.Graph |
-| [road_sampled](https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled) | 2075 | 1132 | False | 1.0910843373493977 | 0.0005260773082687548 | networkx.classes.graph.Graph |
-| facebook | 4039 | 88234 | True | 43.69101262688784 | 0.0054099817517196435 | networkx.classes.digraph.DiGraph |
-| facebook_lcc | 4039 | 88234 | False | 43.69101262688784 | 0.010819963503439287 | networkx.classes.graph.Graph |
-| [coauthorship_sampled](https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled) | 4340 | 6398 | False | 2.9483870967741934 | 0.0006795084343798557 | networkx.classes.graph.Graph |
-| [uspowergrid](https://toreopsahl.com/datasets/#uspowergrid) | 4941 | 6594 | False | 2.66909532483303 | 0.0005403026973346214 | networkx.classes.graph.Graph |
-| uspowergrid_lcc | 4941 | 6594 | False | 2.66909532483303 | 0.0005403026973346214 | networkx.classes.graph.Graph |
-| [pgp_sampled](https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled) | 6465 | 18906 | True | 5.848723897911833 | 0.00045240747972709105 | networkx.classes.digraph.DiGraph |
-| wikivote_lcc | 7066 | 100736 | False | 28.512878573450326 | 0.004035793145569756 | networkx.classes.graph.Graph |
-| [wikivote](https://snap.stanford.edu/data/wiki-Vote.html) | 7115 | 100762 | True | 29.146591707659873 | 0.0020485375110809584 | networkx.classes.digraph.DiGraph |
-| hepth_lcc | 8638 | 24827 | False | 5.748321370687659 | 0.0006655460658431931 | networkx.classes.graph.Graph |
-| [pgp_undirected_sampled](https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled) | 8781 | 51939 | False | 11.829859924837718 | 0.0013473644561318586 | networkx.classes.graph.Graph |
-| [enron_sampled](https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled) | 9301 | 79905 | False | 17.182023438339964 | 0.001847529401972039 | networkx.classes.graph.Graph |
-| hepth | 9877 | 25998 | False | 5.264351523742027 | 0.000533044909248889 | networkx.classes.graph.Graph |
-| condmat_lcc | 21363 | 91342 | False | 8.551420680616019 | 0.0004003099279382089 | networkx.classes.graph.Graph |
-| [condmat](https://snap.stanford.edu/data/ca-CondMat.html) | 23133 | 93497 | False | 8.083430596982666 | 0.0003494479766981958 | networkx.classes.graph.Graph |
-| enron_lcc | 33696 | 180811 | False | 10.731896961063628 | 0.0003185011711252004 | networkx.classes.graph.Graph |
-| [enron](https://snap.stanford.edu/data/email-Enron.html) | 36692 | 183831 | False | 10.020222391802028 | 0.00027309755503535 | networkx.classes.graph.Graph |
-| [pgp](https://github.com/tddschn/easygraph-bench/blob/master/dataset/pgp/pgp.xml) | 39796 | 301498 | True | 15.15217609810031 | 0.00019037788790175037 | networkx.classes.digraph.DiGraph |
-| [pgp_undirected](https://github.com/tddschn/easygraph-bench/blob/master/dataset/pgp/pgp_undirected.xml) | 39796 | 197150 | False | 9.908030957885215 | 0.00024897677994434515 | networkx.classes.graph.Graph |
-| pgp_lcc | 39796 | 197150 | False | 9.908030957885215 | 0.00024897677994434515 | networkx.classes.graph.Graph |
-| pgp_undirected_lcc | 39796 | 197150 | False | 9.908030957885215 | 0.00024897677994434515 | networkx.classes.graph.Graph |
-| road_lcc | 126146 | 161950 | False | 2.567659695907916 | 2.035482734874879e-05 | networkx.classes.graph.Graph |
-| [road](https://networkrepository.com/road-usa.php) | 129164 | 165435 | False | 2.5616270787525934 | 1.9832514564949666e-05 | easygraph.classes.graph.Graph |
-| [amazon](https://snap.stanford.edu/data/amazon0302.html) | 262111 | 1234877 | True | 9.42254998836371 | 1.7974419114806206e-05 | networkx.classes.digraph.DiGraph |
-| amazon_lcc | 262111 | 899792 | False | 6.86573245685988 | 2.6194088195261075e-05 | networkx.classes.graph.Graph |
-| [amazon_sampled](https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled) | 262111 | 1234877 | True | 9.42254998836371 | 1.7974419114806206e-05 | networkx.classes.digraph.DiGraph |
-| [coauthorship](https://github.com/chenyang03/co-authorship-network) | 402392 | 1234019 | False | 6.1334171653512 | 1.5242431280399412e-05 | networkx.classes.graph.Graph |
-| google_lcc | 855802 | 4291352 | False | 10.028843120254452 | 1.1718662539836308e-05 | networkx.classes.graph.Graph |
-| [google](https://snap.stanford.edu/data/web-Google.html) | 875713 | 5105039 | True | 11.659160021605253 | 6.656960291514363e-06 | networkx.classes.digraph.DiGraph |
-| [pokec](https://snap.stanford.edu/data/soc-Pokec.html) | 1632803 | 30622564 | True | 37.50919614919865 | 1.148614349725155e-05 | networkx.classes.digraph.DiGraph |
-| pokec_lcc | 1632803 | 22301964 | False | 27.31739713854029 | 1.6730379518484355e-05 | networkx.classes.graph.Graph |
-| [er_500](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py) | 500 | 2511 | False | 10.044 | 0.020128256513026053 | easygraph.classes.graph.Graph |
-| [er_1000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py) | 1000 | 4950 | False | 9.9 | 0.00990990990990991 | easygraph.classes.graph.Graph |
-| [er_5000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py) | 5000 | 24920 | False | 9.968 | 0.001993998799759952 | easygraph.classes.graph.Graph |
-| [er_10000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py) | 10000 | 50023 | False | 10.0046 | 0.0010005600560056005 | easygraph.classes.graph.Graph |
-| [er_paper_20221213_50000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py) | 50000 | 60316 | False | 2.41264 | 4.8253765075301506e-05 | easygraph.classes.graph.Graph |
-| [er_paper_20221213_500000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py) | 500000 | 70315 | False | 0.28126 | 5.625211250422501e-07 | easygraph.classes.graph.Graph |
-| [er_paper_20221213_1000000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py) | 1000000 | 80266 | False | 0.160532 | 1.6053216053216054e-07 | easygraph.classes.graph.Graph |
+| Dataset Name                                                                                            | nodes   | edges    | is_directed | average_degree     | density                | type                                     |
+| ------------------------------------------------------------------------------------------------------- | ------- | -------- | ----------- | ------------------ | ---------------------- | ---------------------------------------- |
+| [cheminformatics](https://networkrepository.com/ENZYMES-g1.php)                                         | 37      | 168      | True        | 9.08108108108108   | 0.12612612612612611    | easygraph.classes.directed_graph.DiGraph |
+| cheminformatics_lcc                                                                                     | 37      | 84       | False       | 4.54054054054054   | 0.12612612612612611    | networkx.classes.graph.Graph             |
+| [eco](https://networkrepository.com/econ-mahindas.php)                                                  | 1258    | 7619     | False       | 12.112877583465819 | 0.009636338570776308   | networkx.classes.graph.Graph             |
+| eco_lcc                                                                                                 | 1258    | 7619     | False       | 12.112877583465819 | 0.009636338570776308   | networkx.classes.graph.Graph             |
+| [bio](https://networkrepository.com/bio-yeast.php)                                                      | 1458    | 1948     | False       | 2.672153635116598  | 0.0018340107310340413  | easygraph.classes.graph.Graph            |
+| bio_lcc                                                                                                 | 1458    | 1948     | False       | 2.672153635116598  | 0.0018340107310340413  | networkx.classes.graph.Graph             |
+| [road_sampled](https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled)                  | 2075    | 1132     | False       | 1.0910843373493977 | 0.0005260773082687548  | networkx.classes.graph.Graph             |
+| facebook                                                                                                | 4039    | 88234    | True        | 43.69101262688784  | 0.0054099817517196435  | networkx.classes.digraph.DiGraph         |
+| facebook_lcc                                                                                            | 4039    | 88234    | False       | 43.69101262688784  | 0.010819963503439287   | networkx.classes.graph.Graph             |
+| [coauthorship_sampled](https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled)          | 4340    | 6398     | False       | 2.9483870967741934 | 0.0006795084343798557  | networkx.classes.graph.Graph             |
+| [uspowergrid](https://toreopsahl.com/datasets/#uspowergrid)                                             | 4941    | 6594     | False       | 2.66909532483303   | 0.0005403026973346214  | networkx.classes.graph.Graph             |
+| uspowergrid_lcc                                                                                         | 4941    | 6594     | False       | 2.66909532483303   | 0.0005403026973346214  | networkx.classes.graph.Graph             |
+| [pgp_sampled](https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled)                   | 6465    | 18906    | True        | 5.848723897911833  | 0.00045240747972709105 | networkx.classes.digraph.DiGraph         |
+| wikivote_lcc                                                                                            | 7066    | 100736   | False       | 28.512878573450326 | 0.004035793145569756   | networkx.classes.graph.Graph             |
+| [wikivote](https://snap.stanford.edu/data/wiki-Vote.html)                                               | 7115    | 100762   | True        | 29.146591707659873 | 0.0020485375110809584  | networkx.classes.digraph.DiGraph         |
+| hepth_lcc                                                                                               | 8638    | 24827    | False       | 5.748321370687659  | 0.0006655460658431931  | networkx.classes.graph.Graph             |
+| [pgp_undirected_sampled](https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled)        | 8781    | 51939    | False       | 11.829859924837718 | 0.0013473644561318586  | networkx.classes.graph.Graph             |
+| [enron_sampled](https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled)                 | 9301    | 79905    | False       | 17.182023438339964 | 0.001847529401972039   | networkx.classes.graph.Graph             |
+| hepth                                                                                                   | 9877    | 25998    | False       | 5.264351523742027  | 0.000533044909248889   | networkx.classes.graph.Graph             |
+| condmat_lcc                                                                                             | 21363   | 91342    | False       | 8.551420680616019  | 0.0004003099279382089  | networkx.classes.graph.Graph             |
+| [condmat](https://snap.stanford.edu/data/ca-CondMat.html)                                               | 23133   | 93497    | False       | 8.083430596982666  | 0.0003494479766981958  | networkx.classes.graph.Graph             |
+| enron_lcc                                                                                               | 33696   | 180811   | False       | 10.731896961063628 | 0.0003185011711252004  | networkx.classes.graph.Graph             |
+| [enron](https://snap.stanford.edu/data/email-Enron.html)                                                | 36692   | 183831   | False       | 10.020222391802028 | 0.00027309755503535    | networkx.classes.graph.Graph             |
+| [pgp](https://github.com/tddschn/easygraph-bench/blob/master/dataset/pgp/pgp.xml)                       | 39796   | 301498   | True        | 15.15217609810031  | 0.00019037788790175037 | networkx.classes.digraph.DiGraph         |
+| [pgp_undirected](https://github.com/tddschn/easygraph-bench/blob/master/dataset/pgp/pgp_undirected.xml) | 39796   | 197150   | False       | 9.908030957885215  | 0.00024897677994434515 | networkx.classes.graph.Graph             |
+| pgp_lcc                                                                                                 | 39796   | 197150   | False       | 9.908030957885215  | 0.00024897677994434515 | networkx.classes.graph.Graph             |
+| pgp_undirected_lcc                                                                                      | 39796   | 197150   | False       | 9.908030957885215  | 0.00024897677994434515 | networkx.classes.graph.Graph             |
+| road_lcc                                                                                                | 126146  | 161950   | False       | 2.567659695907916  | 2.035482734874879e-05  | networkx.classes.graph.Graph             |
+| [road](https://networkrepository.com/road-usa.php)                                                      | 129164  | 165435   | False       | 2.5616270787525934 | 1.9832514564949666e-05 | easygraph.classes.graph.Graph            |
+| [amazon](https://snap.stanford.edu/data/amazon0302.html)                                                | 262111  | 1234877  | True        | 9.42254998836371   | 1.7974419114806206e-05 | networkx.classes.digraph.DiGraph         |
+| amazon_lcc                                                                                              | 262111  | 899792   | False       | 6.86573245685988   | 2.6194088195261075e-05 | networkx.classes.graph.Graph             |
+| [amazon_sampled](https://github.com/tddschn/easygraph-bench/blob/master/dataset/sampled)                | 262111  | 1234877  | True        | 9.42254998836371   | 1.7974419114806206e-05 | networkx.classes.digraph.DiGraph         |
+| [coauthorship](https://github.com/chenyang03/co-authorship-network)                                     | 402392  | 1234019  | False       | 6.1334171653512    | 1.5242431280399412e-05 | networkx.classes.graph.Graph             |
+| google_lcc                                                                                              | 855802  | 4291352  | False       | 10.028843120254452 | 1.1718662539836308e-05 | networkx.classes.graph.Graph             |
+| [google](https://snap.stanford.edu/data/web-Google.html)                                                | 875713  | 5105039  | True        | 11.659160021605253 | 6.656960291514363e-06  | networkx.classes.digraph.DiGraph         |
+| [pokec](https://snap.stanford.edu/data/soc-Pokec.html)                                                  | 1632803 | 30622564 | True        | 37.50919614919865  | 1.148614349725155e-05  | networkx.classes.digraph.DiGraph         |
+| pokec_lcc                                                                                               | 1632803 | 22301964 | False       | 27.31739713854029  | 1.6730379518484355e-05 | networkx.classes.graph.Graph             |
+| [er_500](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)                     | 500     | 2511     | False       | 10.044             | 0.020128256513026053   | easygraph.classes.graph.Graph            |
+| [er_1000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)                    | 1000    | 4950     | False       | 9.9                | 0.00990990990990991    | easygraph.classes.graph.Graph            |
+| [er_5000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)                    | 5000    | 24920    | False       | 9.968              | 0.001993998799759952   | easygraph.classes.graph.Graph            |
+| [er_10000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)                   | 10000   | 50023    | False       | 10.0046            | 0.0010005600560056005  | easygraph.classes.graph.Graph            |
+| [er_paper_20221213_50000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)    | 50000   | 60316    | False       | 2.41264            | 4.8253765075301506e-05 | easygraph.classes.graph.Graph            |
+| [er_paper_20221213_500000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)   | 500000  | 70315    | False       | 0.28126            | 5.625211250422501e-07  | easygraph.classes.graph.Graph            |
+| [er_paper_20221213_1000000](https://github.com/tddschn/easygraph-bench/blob/master/dataset_loaders.py)  | 1000000 | 80266    | False       | 0.160532           | 1.6053216053216054e-07 | easygraph.classes.graph.Graph            |
 
 
 <!-- END DATASET TABLE -->
