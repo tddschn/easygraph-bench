@@ -1,6 +1,10 @@
 import timeit
 import statistics
-from utils_db import insert_bench_results
+
+# try:
+#     from utils_db import insert_bench_results
+# except ImportError:
+#     print(f'Could not import insert_bench_results from utils_db.py')
 
 
 def benchmark(stmt, n, globals):
