@@ -27,6 +27,7 @@ compositionstart
 Conda
 conda
 condmat
+consolas
 coreness
 coreturn
 coreturn's
@@ -89,6 +90,7 @@ mbetweenness
 mcloseness
 mconnected
 measygraph
+Menlo
 mentrypoint
 mergedeep
 metavariable
@@ -100,6 +102,7 @@ mloading
 mmread
 mnetworkit
 mnetworkx
+monospace
 mpage
 mshortest
 msie
