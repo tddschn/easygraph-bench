@@ -5,6 +5,7 @@ from graph_tool.all import *  # type: ignore
 
 from benchmark import benchmark_autorange
 from utils_db import profile_script_insert_results
+import sqlite3
 
 import argparse
 
@@ -110,4 +111,8 @@ avg_times |= {'k-core': benchmark_autorange('kcore_decomposition(g).a', globals=
 
 
 
-profile_script_insert_results(__file__, filename, avg_times, args.iteration)
+try:
+    profile_script_insert_results(__file__, filename, avg_times, args.iteration)
+except sqlite3.OperationalError as e:
+    print(f"Failed to insert results into database: \n{e}")
+    print(f'Please run `./create_bench_results_db.py` to resolve this issue.')
