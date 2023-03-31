@@ -43,6 +43,16 @@ def get_args():
     )
 
     parser.add_argument(
+        '-T',
+        '--profile-no-tools',
+        help='Exclude certain tools for profiling',
+        type=str,
+        nargs='+',
+        choices=['igraph', 'graphtool', 'networkit', 'easygraph', 'networkx', 'snap'],
+        default=[],
+    )
+
+    parser.add_argument(
         '-m',
         '--methods',
         dest='profile_select_methods',
@@ -51,6 +61,16 @@ def get_args():
         nargs='+',
         choices=graph_benchmark_method_order,
         default=graph_benchmark_method_order,
+    )
+
+    parser.add_argument(
+        '-M',
+        '--profile-no-methods',
+        help='Exclude certain methods for profiling',
+        type=str,
+        nargs='+',
+        choices=graph_benchmark_method_order,
+        default=[],
     )
 
     parser.add_argument(
@@ -63,6 +83,17 @@ def get_args():
         choices=edgelist_filenames + edgelist_filenames_lcc,
         default=edgelist_filenames + edgelist_filenames_lcc,
     )
+
+    parser.add_argument(
+        '-D',
+        '--profile-no-datasets',
+        help='Exclude certain datasets for profiling',
+        type=str,
+        nargs='+',
+        choices=edgelist_filenames + edgelist_filenames_lcc,
+        default=[],
+    )
+
 
     parser.add_argument(
         '--directed-datasets-only',
