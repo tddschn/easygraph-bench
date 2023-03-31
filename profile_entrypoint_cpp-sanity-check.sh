@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -e
 
 # dataset: cheminformatics
 echo "[35m============================================[0m"

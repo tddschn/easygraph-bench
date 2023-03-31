@@ -405,6 +405,8 @@ def main(args):
             f'''profile_entrypoint{f'_{args.profile_suffix}' if args.profile_suffix else ''}.sh'''
         )
         script_lines = ['#!/usr/bin/env bash', '']
+        if exit_on_error:
+            script_lines.append('set -e')
         gi = json.loads(graph_info_json_path.read_text())
         gbc = yaml.load(
             graph_benchmark_code_ordereddict_yaml_path.read_text(), Loader=Loader
