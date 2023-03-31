@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 # disable warnings before importing tensorflow when importing easygraph
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import warnings
 warnings.filterwarnings("ignore")
 import easygraph as eg
