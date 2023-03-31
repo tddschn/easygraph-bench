@@ -89,10 +89,11 @@
           - '''read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.DiGraph()).cpp()'''
         - - loading_undirected
           - '''read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph()).cpp()'''
-        - - shortest path
-          - f'Dijkstra(g, {nodeid})'
+        # page rank before dijkstra to avoid segfault
         - - page rank
           - "'pagerank(g)'"
+        - - shortest path
+          - f'Dijkstra(g, {nodeid})'
         - - betweenness centrality
           - "'betweenness_centrality(g)'"
         - - closeness centrality

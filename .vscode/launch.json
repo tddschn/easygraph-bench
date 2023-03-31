@@ -5,6 +5,17 @@
   "version": "0.2.0",
   "configurations": [
     {
+      // page rank segfault
+      // cmd: ./profile_easygraph_cpp-sanity-check.py dataset/cheminformatics.edgelist
+      "name": "profile easygraph cpp sanity check",
+      "type": "python",
+      "request": "launch",
+      "program": "profile_easygraph_cpp-sanity-check.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "args": ["dataset/cheminformatics.edgelist"]
+    },
+    {
       "name": "gen script profile_entrypoint",
       "type": "python",
       "request": "launch",
