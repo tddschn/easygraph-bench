@@ -4,11 +4,16 @@ from datetime import datetime
 from pathlib import Path
 from typing import Iterable
 
-from config import (bench_results_db_path, bench_results_table_name,
-                    dataset_homepage_mapping, graph_info_json_path,
-                    graph_info_table_name,
-                    graph_property_to_excel_field_mapping, methods6_timlrx,
-                    methods_timlrx)
+from config import (
+    bench_results_db_path,
+    bench_results_table_name,
+    dataset_homepage_mapping,
+    graph_info_json_path,
+    graph_info_table_name,
+    graph_property_to_excel_field_mapping,
+    methods6_timlrx,
+    methods_timlrx,
+)
 from utils_other import get_autorange_count
 
 python_type_to_sqlite_type = {
@@ -142,28 +147,7 @@ def profile_script_insert_results(
     write_csv: bool = True,
     csv_file: Path = Path(__file__).parent / 'profile_results.csv',
 ) -> None:
-    with sqlite3.connect(bench_results_db_path) as conn:
-        now = datetime.now()
-        # num_method = len(avg_times)
-        # if num_method == 6:
-        #     methods = methods6_timlrx
-        # else:
-        #     methods = methods_timlrx
-        # for i, avg_time in enumerate(avg_times):
-        for method, avg_time in avg_times.items():
-            insert_bench_results(
-                conn,
-                dataset=Path(dataset_filename).stem,
-                method=method if method != 'loading_undirected' else 'loading',
-                tool=Path(script)
-                .stem.removesuffix('_profile')
-                .removeprefix('profile_')
-                .removesuffix('_undirected'),
-                average_time=avg_time,
-                timestamp=now,
-                iteration_count=iteration_count,
-            )
-
+    now = datetime.now()
     if write_csv:
         import csv
 
@@ -186,3 +170,24 @@ def profile_script_insert_results(
                         iteration_count,
                     ]
                 )
+
+    with sqlite3.connect(bench_results_db_path) as conn:
+        # num_method = len(avg_times)
+        # if num_method == 6:
+        #     methods = methods6_timlrx
+        # else:
+        #     methods = methods_timlrx
+        # for i, avg_time in enumerate(avg_times):
+        for method, avg_time in avg_times.items():
+            insert_bench_results(
+                conn,
+                dataset=Path(dataset_filename).stem,
+                method=method if method != 'loading_undirected' else 'loading',
+                tool=Path(script)
+                .stem.removesuffix('_profile')
+                .removeprefix('profile_')
+                .removesuffix('_undirected'),
+                average_time=avg_time,
+                timestamp=now,
+                iteration_count=iteration_count,
+            )
