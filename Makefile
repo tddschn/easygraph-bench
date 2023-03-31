@@ -30,6 +30,9 @@ gen-scripts:
 	./gen_bench_script.py --er-paper
 	./gen_bench_script.py --er-paper --multiprocessing-bench-scripts
 
+gen-easygraph-cpp-sanity-check-scripts:
+	./gen_profile_scripts_with_suffix_wrapper.py 'cpp-sanity-check' -t 'easygraph' -d 'dataset/cheminformatics.edgelist' 'dataset/bio.edgelist'
+
 gen-scripts-20230331:
 	./gen_profile_scripts_with_suffix_wrapper.py '20230331-all-without-google-pokec' -t 'igraph' 'easygraph' -D 'google.txt' 'google_lcc.txt' 'pokec.txt' 'pokec_lcc.txt'
 
