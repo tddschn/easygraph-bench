@@ -94,7 +94,6 @@ def get_args():
         default=[],
     )
 
-
     parser.add_argument(
         '--directed-datasets-only',
         help='only generate scripts for directed datasets',
@@ -104,6 +103,13 @@ def get_args():
     parser.add_argument(
         '--undirected-datasets-only',
         help='only generate scripts for undirected datasets',
+        action='store_true',
+    )
+
+    parser.add_argument(
+        '-e',
+        '--profile-entrypoint-exit-on-error',
+        help='exit on error in profile entrypoint scripts',
         action='store_true',
     )
 

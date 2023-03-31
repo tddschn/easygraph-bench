@@ -223,6 +223,12 @@ def get_args():
         action='store_true',
     )
 
+    parser.add_argument(
+        '--profile-entrypoint-exit-on-error',
+        help='exit on error in profile entrypoint scripts',
+        action='store_true',
+    )
+
     parser.add_argument('-m', '--multiprocessing-bench-scripts', action='store_true')
     parser.add_argument('--er-paper', action='store_true')
     # parser.add_argument(
@@ -347,7 +353,9 @@ def main(args):
             graph_benchmark_code_ordereddict_yaml_path.read_text(), Loader=Loader
         )
         for tool, method_to_code_mapping in gbc.items():
-            if args.profile_suffix and (tool not in args.profile_select_tools or tool in args.profile_no_tools):
+            if args.profile_suffix and (
+                tool not in args.profile_select_tools or tool in args.profile_no_tools
+            ):
                 continue
             for loading_method, script_name_suffix in loading_methods.items():
                 # loading_method can only be loading or loading_undirected
@@ -356,7 +364,10 @@ def main(args):
                     m = {
                         method: code
                         for method, code in m.items()
-                        if (method in [loading_method] + args.profile_select_methods and method not in args.profile_no_methods)
+                        if (
+                            method in [loading_method] + args.profile_select_methods
+                            and method not in args.profile_no_methods
+                        )
                     }
                 if loading_method not in m and not args.profile_suffix:
                     continue
@@ -380,6 +391,8 @@ def main(args):
         return
 
     if getattr(args, 'profile_entrypoint', False):
+        #         '--profile-entrypoint-exit-on-error',
+        exit_on_error = args.profile_entrypoint_exit_on_error
 
         def is_dataset_directed(dataset_name: str) -> bool:
             try:
@@ -405,7 +418,10 @@ def main(args):
             filtered_edgelist_filenames = [
                 edgelist_path
                 for edgelist_path in filtered_edgelist_filenames
-                if (edgelist_path in args.profile_select_datasets and edgelist_path not in args.profile_no_datasets)
+                if (
+                    edgelist_path in args.profile_select_datasets
+                    and edgelist_path not in args.profile_no_datasets
+                )
             ]
         if args.directed_datasets_only:
             filtered_edgelist_filenames = [
@@ -444,7 +460,10 @@ def main(args):
             def do_comment_out_profile_entrypoint_line(tool) -> bool:
                 if tool in profile_tools_to_drop:
                     return True
-                if args.profile_suffix and (tool not in args.profile_select_tools or tool in args.profile_no_tools):
+                if args.profile_suffix and (
+                    tool not in args.profile_select_tools
+                    or tool in args.profile_no_tools
+                ):
                     return True
                 return False
 
@@ -469,9 +488,14 @@ def main(args):
                 script_name_suffix = '_undirected' if not is_directed else ''
                 script_filename = f'''profile_{tool}{script_name_suffix}{f'_{args.profile_suffix}' if args.profile_suffix else ''}.py'''
                 script_lines.append(f"""{mark}echo '{tool_line_str}'""")
-                script_lines.append(
-                    f'''{mark}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'''
-                )
+                if exit_on_error:
+                    script_lines.append(
+                        f'''{mark}./{script_filename} {edgelist_path} "$@"'''
+                    )
+                else:
+                    script_lines.append(
+                        f'''{mark}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'''
+                    )
         output_path.write_text('\n'.join(script_lines))
         output_path.chmod(output_path.stat().st_mode | S_IEXEC)
         print(f'Profile entrypoint script generated at {output_path}')
