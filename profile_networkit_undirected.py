@@ -5,6 +5,7 @@ import networkit as nk
 
 from benchmark import benchmark_autorange
 from utils_db import profile_script_insert_results
+from utils_other import remove_system_resource_limits
 import sqlite3
 
 import argparse
@@ -28,6 +29,9 @@ def get_args():
 
 
 args = get_args()
+
+remove_system_resource_limits()
+
 filename = args.dataset
 n = args.iteration
 
