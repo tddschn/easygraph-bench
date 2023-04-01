@@ -138,3 +138,18 @@ def style_text(text: str, style: str | None = None) -> str:
         return text
     except:
         return text
+
+
+def remove_system_resource_limits():
+    try:
+        import resource
+
+        resource.setrlimit(
+            resource.RLIMIT_STACK, (resource.RLIM_INFINITY, resource.RLIM_INFINITY)
+        )
+        print(f'setrlimit: {resource.getrlimit(resource.RLIMIT_STACK)}')
+    except:
+        import sys
+
+        sys.setrecursionlimit(5000)
+        print(f'setrecursionlimit: {sys.getrecursionlimit()}')

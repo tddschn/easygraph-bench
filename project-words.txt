@@ -58,6 +58,7 @@ filterwarnings
 firstrow
 fontsize
 getcwd
+getrlimit
 gplus
 gradio
 graphio
@@ -148,6 +149,8 @@ qualname
 quotechar
 Renyi
 renyi
+RLIM
+RLIMIT
 Rossi
 rsplit
 savefig
@@ -158,6 +161,8 @@ seaborn
 selfloop
 semgrep
 setp
+setrecursionlimit
+setrlimit
 sharex
 sharey
 startswith
