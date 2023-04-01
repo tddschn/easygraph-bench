@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # set default path to Easy-Graph repo dir
 repo_path="${1:-$HOME/Easy-Graph}"
