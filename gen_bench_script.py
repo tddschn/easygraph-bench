@@ -445,6 +445,7 @@ def main(args):
                     fn not in args.profile_select_datasets
                     or fn in args.profile_no_datasets
                 ):
+                    filtered_edgelist_filenames.remove(fn)
                     continue
                 if (pn := get_pretty_graph_name(fn)) in graphs_to_drop:
                     filtered_edgelist_filenames.remove(fn)
@@ -453,12 +454,7 @@ def main(args):
                         f'Not including dataset {pn} because it is a duplicate of {dsn}'
                     )
             filtered_edgelist_filenames = [
-                edgelist_path
-                for edgelist_path in filtered_edgelist_filenames
-                if (
-                    edgelist_path in args.profile_select_datasets
-                    and edgelist_path not in args.profile_no_datasets
-                )
+                edgelist_path for edgelist_path in filtered_edgelist_filenames
             ]
         if args.directed_datasets_only:
             filtered_edgelist_filenames = [
