@@ -441,6 +441,11 @@ def main(args):
         if args.profile_suffix:
             graphs_to_drop = json.loads(duplicated_graphs_to_drop_json_path.read_text())
             for fn in filtered_edgelist_filenames:
+                if (
+                    fn not in args.profile_select_datasets
+                    or fn in args.profile_no_datasets
+                ):
+                    continue
                 if (pn := get_pretty_graph_name(fn)) in graphs_to_drop:
                     filtered_edgelist_filenames.remove(fn)
                     dsn = get_dataset_name(fn)
