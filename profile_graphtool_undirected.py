@@ -38,7 +38,7 @@ def get_args():
         action='store_true',
     )
     parser.add_argument(
-        '--print-graph-info-only'
+        '--print-graph-info-only',
         help='get the # of nodes and edges and print, then exit',
         action='store_true',
     )
