@@ -229,6 +229,13 @@ def get_args():
     )
 
     parser.add_argument(
+        '--profile-entrypoint-bash-arg',
+        help='command line args for profile entrypoint scripts',
+        type=str,
+        default='"$@"',
+    )
+
+    parser.add_argument(
         '--profile-entrypoint-exit-on-error',
         help='exit on error in profile entrypoint scripts',
         action='store_true',
@@ -504,11 +511,11 @@ def main(args):
                 script_lines.append(f"""{mark}echo '{tool_line_str}'""")
                 if exit_on_error:
                     script_lines.append(
-                        f'''{mark}./{script_filename} {edgelist_path} "$@"'''
+                        f'''{mark}./{script_filename} {edgelist_path} {args.profile_entrypoint_bash_arg}'''
                     )
                 else:
                     script_lines.append(
-                        f'''{mark}./{script_filename} {edgelist_path} "$@" || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'''
+                        f'''{mark}./{script_filename} {edgelist_path} {args.profile_entrypoint_bash_arg} || echo "./{script_filename} {edgelist_path} failed" >>profile_entrypoint.log'''
                     )
         output_path.write_text('\n'.join(script_lines))
         output_path.chmod(output_path.stat().st_mode | S_IEXEC)

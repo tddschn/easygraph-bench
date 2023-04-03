@@ -33,6 +33,13 @@ gen-scripts:
 gen-easygraph-cpp-sanity-check-scripts:
 	./gen_profile_scripts_with_suffix_wrapper.py 'cpp-sanity-check' -e -t 'easygraph' -d 'dataset/cheminformatics.edgelist' 'dataset/bio.edgelist'
 
+# gen-scripts-20230403-print-graph-info:
+# 	./gen_profile_scripts_with_suffix_wrapper.py '20230403-lastfm-print-graph-info' -t 'igraph' 'easygraph' -d 'lastfm.txt' --profile-entrypoint-bash-arg "\-\-print-graph-info-only"
+
+gen-scripts-20230403-print-graph-info:
+	./gen_profile_scripts_with_suffix_wrapper.py '20230403-lastfm' -t 'igraph' 'easygraph' -d 'lastfm.txt' 'lastfm_lcc.txt'
+	./profile_entrypoint_20230403-lastfm.sh --print-graph-info-only
+
 gen-scripts-20230403:
 	./gen_profile_scripts_with_suffix_wrapper.py '20230403-lastfm' -t 'igraph' 'easygraph' -d 'lastfm.txt' 'lastfm_lcc.txt'
 

@@ -113,6 +113,13 @@ def get_args():
         action='store_true',
     )
 
+    parser.add_argument(
+        '--profile-entrypoint-bash-arg',
+        help='command line args for profile entrypoint scripts',
+        type=str,
+        default='"$@"',
+    )
+
     return parser.parse_args()
 
 
