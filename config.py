@@ -45,9 +45,9 @@ graph_benchmark_method_to_color = {
     'shortest path': 'green',
     'page rank': 'blue',
     'betweenness centrality': 'red',
-    'closeness centrality': 'orange',
+    'closeness centrality': 'magenta',
     'k-core': 'purple',
-    'strongly connected components': 'brown',
+    'strongly connected components': 'cyan',
 }
 
 # not deprecated
