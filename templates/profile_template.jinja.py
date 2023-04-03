@@ -6,9 +6,16 @@ from benchmark import benchmark_autorange
 from utils_db import profile_script_insert_results
 from utils_other import remove_system_resource_limits
 import sqlite3
+import sys
 
 import argparse
 
+def insert_results():
+    try:
+        profile_script_insert_results(__file__, filename, avg_times, args.iteration)
+    except sqlite3.OperationalError as e:
+        print(f"Failed to insert results into database: \n{e}")
+        print(f'Please run `./create_bench_results_db.py` to resolve this issue.')
 
 def get_args():
     '''Get command-line arguments'''
@@ -29,10 +36,17 @@ def get_args():
         help='get the # of nodes and edges and print',
         action='store_true',
     )
+    parser.add_argument(
+        '--print-graph-info-only'
+        help='get the # of nodes and edges and print, then exit',
+        action='store_true',
+    )
     return parser.parse_args()
 
 
 args = get_args()
+if args.print_graph_info_only:
+    args.print_graph_info = True
 
 remove_system_resource_limits()
 
@@ -102,6 +116,9 @@ if args.print_graph_info:
     print('{{ tool }} does not support printing graph info.')
     {% endif %}
 
+    if args.print_graph_info_only:
+        sys.exit(0)
+
 {# {% set loading_code_str = {{ code }} %} #}
 {% endif %}
 
@@ -116,8 +133,4 @@ first_node = get_first_node(g)
 
 {% endfor %}
 
-try:
-    profile_script_insert_results(__file__, filename, avg_times, args.iteration)
-except sqlite3.OperationalError as e:
-    print(f"Failed to insert results into database: \n{e}")
-    print(f'Please run `./create_bench_results_db.py` to resolve this issue.')
+insert_results()
