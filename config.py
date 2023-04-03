@@ -30,9 +30,24 @@ graph_benchmark_method_order = [
     'strongly connected components',  # tim put this last
 ]
 
-graph_benchmark_method_directed_only = {'loading', 'page rank', 'strongly connected components'}
+graph_benchmark_method_directed_only = {
+    'loading',
+    'page rank',
+    'strongly connected components',
+}
 graph_benchmark_method_undirected_only = {
     'loading_undirected',
+}
+
+graph_benchmark_method_to_color = {
+    'loading': 'yellow',
+    'loading_undirected': 'yellow',
+    'shortest path': 'green',
+    'page rank': 'blue',
+    'betweenness centrality': 'red',
+    'closeness centrality': 'orange',
+    'k-core': 'purple',
+    'strongly connected components': 'brown',
 }
 
 # not deprecated
