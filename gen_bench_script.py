@@ -15,6 +15,7 @@ from config import (
     bench_scripts_set,
     read_profile_preparation_code,
     graph_benchmark_code_ordereddict_yaml_path,
+    print_graph_info_yaml_path,
     graph_benchmark_method_order,
     graph_benchmark_method_directed_only,
     graph_benchmark_method_undirected_only,
@@ -62,13 +63,17 @@ def gen_bench_script_entrypoint_bash(
 
 
 def gen_profile_script(
-    tool: str, method_to_code_mapping: dict[str, str], template: Template
+    tool: str,
+    method_to_code_mapping: dict[str, str],
+    template: Template,
+    print_graph_info: str | None = None,
 ) -> str:
     profile_preparation_code = read_profile_preparation_code()[tool]
     return template.render(
         tool=tool,
         profile_preparation_code=profile_preparation_code,
         graph_benchmark_code=method_to_code_mapping,
+        print_graph_info=print_graph_info,
     )
 
 
@@ -352,12 +357,17 @@ def main(args):
         gbc = yaml.load(
             graph_benchmark_code_ordereddict_yaml_path.read_text(), Loader=Loader
         )
+        print_graph_info_dict = yaml.load(
+            print_graph_info_yaml_path.read_text(), Loader=Loader
+        )
         for tool, method_to_code_mapping in gbc.items():
             if args.profile_suffix and (
                 tool not in args.profile_select_tools or tool in args.profile_no_tools
             ):
                 continue
             for loading_method, script_name_suffix in loading_methods.items():
+                print_graph_info: str | None = None
+                print_graph_info = print_graph_info_dict.get(tool)
                 # loading_method can only be loading or loading_undirected
                 m = method_to_code_mapping.copy()
                 if args.profile_suffix:
@@ -381,7 +391,9 @@ def main(args):
                     methods_to_pop.extend(graph_benchmark_method_directed_only)
                     methods_to_pop += ['strongly connected components']
                 [m.pop(method_to_pop, None) for method_to_pop in methods_to_pop]
-                script_content = gen_profile_script(tool, m, template_profile_script)
+                script_content = gen_profile_script(
+                    tool, m, template_profile_script, print_graph_info
+                )
                 output_path = Path(
                     f'''profile_{tool}{script_name_suffix}{f'_{args.profile_suffix}' if args.profile_suffix else ''}.py'''
                 )

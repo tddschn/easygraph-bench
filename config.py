@@ -57,6 +57,8 @@ graph_benchmark_code_ordereddict_yaml_path = (
     TIMLRX_DIR / 'graph-benchmark-code-ordereddict.yaml'
 )
 
+print_graph_info_yaml_path = TIMLRX_DIR / 'print_graph_info.yaml'
+
 tool_order = ['nx', 'eg', 'eg (C++)']
 
 # (`eg.average_clustering` vs `nx.average_clustering`, ...)
