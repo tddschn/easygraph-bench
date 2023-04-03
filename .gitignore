@@ -1,5 +1,6 @@
 !.vscode/
 !.vscode/launch.json
+duplicated_graphs_to_drop.json
 *_lcc.edgelist
 pgp_sampled_1500_20230317.edgelist
 pyinstrument_profile_evaluations.*
