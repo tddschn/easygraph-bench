@@ -44,3 +44,13 @@ wget -nv 'http://snap.stanford.edu/data/ca-HepTh.txt.gz' &&
     gunzip ca-HepTh.txt.gz &&
     grep -v '^#' ca-HepTh.txt >hepth.txt &&
     rm ca-HepTh.txt
+
+# https://snap.stanford.edu/data/feather-lastfm-social.html
+# https://snap.stanford.edu/data/lastfm_asia.zip
+wget -nv 'https://snap.stanford.edu/data/lastfm_asia.zip' &&
+    unzip -jn lastfm_asia.zip lasftm_asia/lastfm_asia_edges.csv -d . &&
+    # the dir `lastfm_asia` is created, copy `lasftm_asia/lastfm_asia_edges.csv` to `lastfm.txt`, remove csv header, replace ',' with '\t'
+    sed -i '1d' lastfm_asia_edges.csv &&
+    sed -i 's/,/\t/g' lastfm_asia_edges.csv &&
+    mv lastfm_asia_edges.csv lastfm.txt &&
+    rm lastfm_asia.zip
