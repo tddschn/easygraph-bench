@@ -363,6 +363,7 @@ edgelist_filenames = [f'dataset/{x}.edgelist' for x in dataset_edgelist_filename
     'wikivote.txt',
     'facebook.txt',
     'hepth.txt',
+    'lastfm.txt',
 ]
 
 edgelist_filenames_lcc = []
