@@ -1,7 +1,16 @@
 #!/usr/bin/env python3
 
+from pathlib import Path
+
 
 def get_dataset_name(s: str) -> str:
+    # remove s's file extension if any
+    # s = Path(s).stem
+    from utils_other import get_pretty_graph_name
+
+    s = get_pretty_graph_name(s)
+
+    # remove '_lcc' or '_sampled'
     return s.removesuffix('_lcc').removesuffix('_sampled')
 
 

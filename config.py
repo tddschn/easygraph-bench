@@ -8,6 +8,9 @@ from utils_other import get_dataset_list_sorted_by_nodes_and_edges
 
 DATASET_DIR = Path(__file__).parent / "dataset"
 graph_info_json_path = Path(__file__).parent / 'graph_info.json'
+duplicated_graphs_to_drop_json_path = (
+    Path(__file__).parent / 'duplicated_graphs_to_drop.json'
+)
 graph_info_table_name = 'graph_info'
 bench_results_table_name = 'bench_results'
 bench_results_db_path = Path(__file__).parent / 'bench-results.db'

@@ -11,6 +11,7 @@ from jinja2 import FileSystemLoader, Environment, Template
 from pathlib import Path
 from config import (
     graph_info_json_path,
+    duplicated_graphs_to_drop_json_path,
     dataset_names,
     bench_scripts_set,
     read_profile_preparation_code,
@@ -27,6 +28,8 @@ from config import (
     er_dataset_names_for_paper_multiprocessing,
     random_erdos_renyi_graphs_load_function_names_date_s,
 )
+
+from get_duplicated_graphs_to_drop import get_dataset_name
 from stat import S_IEXEC
 
 from utils_other import get_pretty_graph_name, style_text
@@ -436,6 +439,14 @@ def main(args):
                 'Cannot specify both --directed-datasets-only and --undirected-datasets-only'
             )
         if args.profile_suffix:
+            graphs_to_drop = json.loads(duplicated_graphs_to_drop_json_path.read_text())
+            for fn in filtered_edgelist_filenames:
+                if (pn := get_pretty_graph_name(fn)) in graphs_to_drop:
+                    filtered_edgelist_filenames.remove(fn)
+                    dsn = get_dataset_name(fn)
+                    print(
+                        f'Not including dataset {pn} because it is a duplicate of {dsn}'
+                    )
             filtered_edgelist_filenames = [
                 edgelist_path
                 for edgelist_path in filtered_edgelist_filenames
