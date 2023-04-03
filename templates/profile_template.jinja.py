@@ -24,6 +24,11 @@ def get_args():
         metavar='INT',
         type=int,
     )
+    parser.add_argument(
+        '--print-graph-info',
+        help='get the # of nodes and edges and print',
+        action='store_true',
+    )
     return parser.parse_args()
 
 
@@ -89,6 +94,14 @@ avg_times |= {'{{ method }}': benchmark_autorange({{ code }}, globals=globals(),
 
 # loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval({{ code }})
+
+if args.print_graph_info:
+    {% if print_graph_info %}
+    {{ print_graph_info }}
+    {% else %}
+    print('{{ tool }} does not support printing graph info.')
+    {% endif %}
+
 {# {% set loading_code_str = {{ code }} %} #}
 {% endif %}
 
