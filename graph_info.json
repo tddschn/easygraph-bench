@@ -382,5 +382,21 @@
     "average_degree": 5.748321370687659,
     "density": 0.0006655460658431931,
     "type": "networkx.classes.graph.Graph"
+  },
+  "lastfm": {
+    "nodes": 7624,
+    "edges": 27806,
+    "is_directed": false,
+    "average_degree": 7.2943336831059815,
+    "density": 0.0009568849118596328,
+    "type": "networkx.classes.graph.Graph"
+  },
+  "lastfm_lcc": {
+    "nodes": 7624,
+    "edges": 27806,
+    "is_directed": false,
+    "average_degree": 7.2943336831059815,
+    "density": 0.0009568849118596328,
+    "type": "networkx.classes.graph.Graph"
   }
 }

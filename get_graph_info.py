@@ -156,7 +156,7 @@ def main() -> None:
         gi = graph_info_json_path
         info_dict = json.loads(gi.read_text())
         info_dict[get_pretty_graph_name(args.edgelist)] = info
-        content = json.dumps(info_dict, indent=4)
+        content = json.dumps(info_dict, indent=2)
         if args.stdout:
             print(content)
             return
@@ -170,7 +170,7 @@ def main() -> None:
             gi_d[f'{sampled_graph_dataset_name}_sampled'] = get_graph_info(
                 getattr(dataset_loaders_sampled, f'load_{sampled_graph_dataset_name}')()
             )
-        graph_info_json_path.write_text(json.dumps(gi_d, indent=4))
+        graph_info_json_path.write_text(json.dumps(gi_d, indent=2))
         return
     if args.remove_er_info_where_dataset_not_present:
         gi_d = json.loads(graph_info_json_path.read_text())
@@ -182,7 +182,7 @@ def main() -> None:
                 ).exists()
             ):
                 del gi_d[dataset]
-        graph_info_json_path.write_text(json.dumps(gi_d, indent=4))
+        graph_info_json_path.write_text(json.dumps(gi_d, indent=2))
         return
 
     import dataset_loaders
@@ -205,7 +205,7 @@ def main() -> None:
             info = get_graph_info(g)
             info_dict[dataset_name] = info
 
-        content = json.dumps(info_dict, indent=4)
+        content = json.dumps(info_dict, indent=2)
         if args.stdout:
             print(content)
             return
@@ -229,7 +229,7 @@ def main() -> None:
                 )
                 info = get_graph_info(g)
                 info_dict[lcc_path] = info
-            content = json.dumps(info_dict, indent=4)
+            content = json.dumps(info_dict, indent=2)
             if args.stdout:
                 print(content)
                 return
@@ -246,7 +246,7 @@ def main() -> None:
             info = get_graph_info(g)
             info_dict[dataset_name] = info
 
-        content = json.dumps(info_dict, indent=4)
+        content = json.dumps(info_dict, indent=2)
         if args.stdout:
             print(content)
             return
