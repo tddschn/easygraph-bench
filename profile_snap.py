@@ -25,6 +25,11 @@ def get_args():
         metavar='INT',
         type=int,
     )
+    parser.add_argument(
+        '--print-graph-info',
+        help='get the # of nodes and edges and print',
+        action='store_true',
+    )
     return parser.parse_args()
 
 
@@ -61,6 +66,12 @@ avg_times |= {'loading': benchmark_autorange("snap.LoadEdgeListStr(snap.PNGraph,
 
 # loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval("snap.LoadEdgeListStr(snap.PNGraph, filename, 0, 1)")
+
+if args.print_graph_info:
+    
+    print('snap does not support printing graph info.')
+    
+
 
 
 

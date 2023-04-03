@@ -1,6 +1,6 @@
 easygraph: |
   # get the # of nodes and edges and print
-  print(f"{g.number_of_nodes()=}, {g.number_of_edges()=}")
+      print(f"{g.number_of_nodes()=}, {g.number_of_edges()=}")
 igraph: |
   # get the # of nodes and edges and print
-  print(f"{g.vcount()=}, {g.ecount()=}")
+      print(f"{g.vcount()=}, {g.ecount()=}")

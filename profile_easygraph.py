@@ -33,6 +33,11 @@ def get_args():
         metavar='INT',
         type=int,
     )
+    parser.add_argument(
+        '--print-graph-info',
+        help='get the # of nodes and edges and print',
+        action='store_true',
+    )
     return parser.parse_args()
 
 
@@ -71,6 +76,14 @@ avg_times |= {'loading': benchmark_autorange('read_edgelist(filename, delimiter=
 
 # loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.DiGraph()).cpp()')
+
+if args.print_graph_info:
+    
+    # get the # of nodes and edges and print
+    print(f"{g.number_of_nodes()=}, {g.number_of_edges()=}")
+
+    
+
 
 
 
