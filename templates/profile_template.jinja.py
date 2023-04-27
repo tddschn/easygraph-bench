@@ -80,13 +80,13 @@ g = g_python
 {% endif %}
 
 {% if tool in ('networkx', 'networkit', 'easygraph') %}
-{% if method == 'k-core' %}
+    {% if method == 'k-core' %}
 
 # remove self loop from graph g before doing k-core
-{% if tool in ('networkx', 'easygraph') %}
+        {% if tool in ('networkx', 'easygraph') %}
 
 # if tool is easygraph
-{% if tool == 'easygraph' %}
+            {% if tool == 'easygraph' %}
 # give eg access to a python version of Graph first, so that removing self loops is possible
 # eval code.removesuffix('.cpp()')
 {# g_python = eval({{ loading_code_str }}.removesuffix('.cpp()')) #}
@@ -95,19 +95,18 @@ g_python = g.py()
 g = g_python
 g.remove_edges({{ tool }}.selfloop_edges(g))
 g = g.cpp()
-{% endif %}
+            {% endif %}
 
-{% if tool == 'networkx' %}
+        {% if tool == 'networkx' %}
 g.remove_edges_from({{ tool }}.selfloop_edges(g))
-{% endif %}
+        {% endif %}
 
-{% endif %}
+    {% endif %}
 
-{% if tool == 'networkit' %}
+    {% if tool == 'networkit' %}
 g.removeSelfLoops()
-{% endif %}
+    {% endif %}
 
-{% endif %}
 {% endif %}
 
 # {{ code }} contains quotes
@@ -121,6 +120,7 @@ avg_times |= {'{{ method }}': benchmark_autorange({{ code }}, globals=globals(),
 g = g_og
 {% endif %}
 
+{% if method in ('loading', 'loading_undirected') %}
 # loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval({{ code }})
 
@@ -135,14 +135,13 @@ if args.print_graph_info:
         sys.exit(0)
 
 {# {% set loading_code_str = {{ code }} %} #}
-{% endif %}
 
-{% if method in ('loading', 'loading_undirected') %}
-{% if tool in ('networkx', 'easygraph') %}
+    {% if tool in ('networkx', 'easygraph') %}
 # networkx & easygraph only, after loading*
 from utils import get_first_node
 nodeid = 'first_node'
 first_node = get_first_node(g)
+    {% endif %}
 {% endif %}
 {% endif %}
 

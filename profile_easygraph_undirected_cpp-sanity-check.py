@@ -8,7 +8,7 @@ warnings.filterwarnings("ignore")
 import easygraph as eg
 import easygraph
 # from easygraph import *  # type: ignore
-from easygraph import Dijkstra, pagerank, strongly_connected_components, read_edgelist, multi_source_dijkstra, k_core, betweenness_centrality, closeness_centrality, connected_components, connected_components_directed
+from easygraph import Dijkstra, pagerank, strongly_connected_components, read_edgelist, multi_source_dijkstra, k_core, betweenness_centrality, closeness_centrality, connected_components, connected_components_directed, clustering, constraint
 
 
 from benchmark import benchmark_autorange
@@ -80,11 +80,20 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
+
+    
 
 # 'read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph()).cpp()' contains quotes
 avg_times |= {'loading_undirected': benchmark_autorange('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph()).cpp()', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
 
 
 
@@ -103,13 +112,12 @@ if args.print_graph_info:
 
 
 
-
-
-
+    
 # networkx & easygraph only, after loading*
 from utils import get_first_node
 nodeid = 'first_node'
 first_node = get_first_node(g)
+    
 
 
 
@@ -120,11 +128,20 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
+
+    
 
 # f'Dijkstra(g, {nodeid})' contains quotes
 avg_times |= {'shortest path': benchmark_autorange(f'Dijkstra(g, {nodeid})', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
 
 
 
@@ -137,11 +154,20 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
+
+    
 
 # 'betweenness_centrality(g)' contains quotes
 avg_times |= {'betweenness centrality': benchmark_autorange('betweenness_centrality(g)', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
 
 
 
@@ -154,11 +180,174 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
+
+    
 
 # 'closeness_centrality(g)' contains quotes
 avg_times |= {'closeness centrality': benchmark_autorange('closeness_centrality(g)', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
+
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mclustering\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
+
+
+
+    
+
+# 'clustering(g)' contains quotes
+avg_times |= {'clustering': benchmark_autorange('clustering(g)', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
+
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mconstraint\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
+
+g_og = g
+g_python = g.py()
+g = g_python
+
+
+
+    
+
+# 'constraint(g)' contains quotes
+avg_times |= {'constraint': benchmark_autorange('constraint(g)', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
+
+g = g_og
+
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mconstraint-2-workers\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
+
+g_og = g
+g_python = g.py()
+g = g_python
+
+
+
+    
+
+# 'constraint(g, n_workers=2)' contains quotes
+avg_times |= {'constraint-2-workers': benchmark_autorange('constraint(g, n_workers=2)', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
+
+g = g_og
+
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mconstraint-4-workers\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
+
+g_og = g
+g_python = g.py()
+g = g_python
+
+
+
+    
+
+# 'constraint(g, n_workers=4)' contains quotes
+avg_times |= {'constraint-4-workers': benchmark_autorange('constraint(g, n_workers=4)', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
+
+g = g_og
+
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mconstraint-8-workers\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
+
+g_og = g
+g_python = g.py()
+g = g_python
+
+
+
+    
+
+# 'constraint(g, n_workers=8)' contains quotes
+avg_times |= {'constraint-8-workers': benchmark_autorange('constraint(g, n_workers=8)', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
+
+g = g_og
 
 
 
@@ -171,13 +360,18 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
+
+
+    
 
 # remove self loop from graph g before doing k-core
-
+        
 
 # if tool is easygraph
-
+            
 # give eg access to a python version of Graph first, so that removing self loops is possible
 # eval code.removesuffix('.cpp()')
 
@@ -186,19 +380,23 @@ g_python = g.py()
 g = g_python
 g.remove_edges(easygraph.selfloop_edges(g))
 g = g.cpp()
+            
 
+        
 
+    
 
-
-
-
-
-
+    
 
 
 
 # 'k_core(g)' contains quotes
 avg_times |= {'k-core': benchmark_autorange('k_core(g)', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
 
 
 

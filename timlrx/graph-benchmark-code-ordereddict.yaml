@@ -90,9 +90,13 @@
   - - easygraph
     - !!python/object/apply:collections.OrderedDict
       - - - loading
-          - '''read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.DiGraph()).cpp()'''
+          - '''read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.DiGraph())'''
         - - loading_undirected
-          - '''read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph()).cpp()'''
+          - '''read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph())'''
+        # - - loading_py
+        #   - '''read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.DiGraph()).cpp()'''
+        # - - loading_undirected_py
+        #   - '''read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph()).cpp()'''
         # page rank before dijkstra to avoid segfault
         - - page rank
           - "'pagerank(g)'"
