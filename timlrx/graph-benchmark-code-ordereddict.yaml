@@ -32,6 +32,10 @@
           - '"g.betweenness()"'
         - - closeness centrality
           - '"g.closeness()"'
+        - - clustering
+          - '"g.transitivity_local_undirected()"'
+        - - constraint
+          - '"g.constraint()"'
         - - k-core
           - '"g.coreness(mode=''all'')"'
         - - strongly connected components
@@ -98,6 +102,16 @@
           - "'betweenness_centrality(g)'"
         - - closeness centrality
           - "'closeness_centrality(g)'"
+        - - clustering
+          - "'clustering(g)'"
+        - - constraint
+          - "'constraint(g)'"
+        - - constraint-2-workers
+          - "'constraint(g, n_workers=2)'"
+        - - constraint-4-workers
+          - "'constraint(g, n_workers=4)'"
+        - - constraint-8-workers
+          - "'constraint(g, n_workers=8)'"
         - - strongly connected components
           - "'[i for i in strongly_connected_components(g)]'"
         # - - connected components

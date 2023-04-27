@@ -70,6 +70,15 @@ print(f"""Profiling \033[92m{{ method }}\033[0m on dataset \033[34m{filename}\03
 print("=================")
 print()
 
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
+{% if tool == 'easygraph' and method.startswith('constraint') %}
+g_og = g
+g_python = g.py()
+g = g_python
+{% endif %}
+
 {% if tool in ('networkx', 'networkit', 'easygraph') %}
 {% if method == 'k-core' %}
 
@@ -104,7 +113,13 @@ g.removeSelfLoops()
 # {{ code }} contains quotes
 avg_times |= {'{{ method }}': benchmark_autorange({{ code }}, globals=globals(), n=n) }
 
-{% if method in ('loading', 'loading_undirected') %}
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
+{% if tool == 'easygraph' and method.startswith('constraint') %}
+g = g_og
+{% endif %}
 
 # loading* only, make g in the globals() so the methods after loading methods can access it.
 g = eval({{ code }})

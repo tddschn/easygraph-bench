@@ -29,6 +29,11 @@ graph_benchmark_method_order = [
     'page rank',
     'betweenness centrality',
     'closeness centrality',
+    'constraint',
+    'clustering',
+    'clustering-2-workers',
+    'clustering-4-workers',
+    'clustering-8-workers',
     'k-core',
     'strongly connected components',  # tim put this last
 ]
