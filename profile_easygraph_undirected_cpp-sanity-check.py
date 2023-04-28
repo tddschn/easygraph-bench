@@ -240,9 +240,7 @@ print()
 # easygraph constraint doesn't have c bindings
 # if method starts with 'constraint', then use python version of graph
 
-g_og = g
-g_python = g.py()
-g = g_python
+g = g_py
 
 
 
@@ -250,102 +248,6 @@ g = g_python
 
 # 'constraint(g)' contains quotes
 avg_times |= {'constraint': benchmark_autorange('constraint(g)', globals=globals(), n=n) }
-
-# if tool starts with 'constraint' and
-
-# easygraph constraint doesn't have c bindings
-# if method starts with 'constraint', then convert g back
-
-g = g_cpp
-
-
-
-
-
-
-# ===========================
-print(f"""Profiling \033[92mconstraint-2-workers\033[0m on dataset \033[34m{filename}\033[0m""")
-print("=================")
-print()
-
-
-# easygraph constraint doesn't have c bindings
-# if method starts with 'constraint', then use python version of graph
-
-g_og = g
-g_python = g.py()
-g = g_python
-
-
-
-    
-
-# 'constraint(g, n_workers=2)' contains quotes
-avg_times |= {'constraint-2-workers': benchmark_autorange('constraint(g, n_workers=2)', globals=globals(), n=n) }
-
-# if tool starts with 'constraint' and
-
-# easygraph constraint doesn't have c bindings
-# if method starts with 'constraint', then convert g back
-
-g = g_cpp
-
-
-
-
-
-
-# ===========================
-print(f"""Profiling \033[92mconstraint-4-workers\033[0m on dataset \033[34m{filename}\033[0m""")
-print("=================")
-print()
-
-
-# easygraph constraint doesn't have c bindings
-# if method starts with 'constraint', then use python version of graph
-
-g_og = g
-g_python = g.py()
-g = g_python
-
-
-
-    
-
-# 'constraint(g, n_workers=4)' contains quotes
-avg_times |= {'constraint-4-workers': benchmark_autorange('constraint(g, n_workers=4)', globals=globals(), n=n) }
-
-# if tool starts with 'constraint' and
-
-# easygraph constraint doesn't have c bindings
-# if method starts with 'constraint', then convert g back
-
-g = g_cpp
-
-
-
-
-
-
-# ===========================
-print(f"""Profiling \033[92mconstraint-8-workers\033[0m on dataset \033[34m{filename}\033[0m""")
-print("=================")
-print()
-
-
-# easygraph constraint doesn't have c bindings
-# if method starts with 'constraint', then use python version of graph
-
-g_og = g
-g_python = g.py()
-g = g_python
-
-
-
-    
-
-# 'constraint(g, n_workers=8)' contains quotes
-avg_times |= {'constraint-8-workers': benchmark_autorange('constraint(g, n_workers=8)', globals=globals(), n=n) }
 
 # if tool starts with 'constraint' and
 

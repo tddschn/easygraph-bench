@@ -35,9 +35,9 @@ gen-easygraph-cpp-sanity-check-scripts:
 
 gen-scripts-20230427-constraint-clustering:
 	./gen_profile_scripts_with_suffix_wrapper.py '20230427-constraint-clustering' \
-		-m 'constraint' 'constraint-2-workers' 'constraint-4-workers' 'constraint-8-workers' \
+		-m 'constraint' 'clustering' \
 		-t 'igraph' 'easygraph' \
-		-d 'lastfm.txt' 'lastfm_lcc.txt'
+		-D 'google.txt' 'google_lcc.txt' 'pokec.txt' 'pokec_lcc.txt' 'amazon.txt' 'amazon_lcc.txt' 'dataset/pgp.edgelist' 'dataset/pgp_undirected.edgelist'
 
 # gen-scripts-20230403-print-graph-info:
 # 	./gen_profile_scripts_with_suffix_wrapper.py '20230403-lastfm-print-graph-info' -t 'igraph' 'easygraph' -d 'lastfm.txt' --profile-entrypoint-bash-arg "\-\-print-graph-info-only"

@@ -31,9 +31,10 @@ graph_benchmark_method_order = [
     'closeness centrality',
     'clustering',
     'constraint',
-    'constraint-2-workers',
-    'constraint-4-workers',
-    'constraint-8-workers',
+    # 'constraint-2-workers',
+    # 'constraint-4-workers',
+    # 'constraint-8-workers',
+    # subprocesses mess with my globals()
     'k-core',
     'strongly connected components',  # tim put this last
 ]
