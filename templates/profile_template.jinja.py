@@ -90,8 +90,7 @@ g = g_python
 # give eg access to a python version of Graph first, so that removing self loops is possible
 # eval code.removesuffix('.cpp()')
 {# g_python = eval({{ loading_code_str }}.removesuffix('.cpp()')) #}
-g_og = g
-g_python = g.py()
+g_python = g_py
 g = g_python
 g.remove_edges({{ tool }}.selfloop_edges(g))
 g = g.cpp()
@@ -117,12 +116,19 @@ avg_times |= {'{{ method }}': benchmark_autorange({{ code }}, globals=globals(),
 # easygraph constraint doesn't have c bindings
 # if method starts with 'constraint', then convert g back
 {% if tool == 'easygraph' and method.startswith('constraint') %}
-g = g_og
+g = g_cpp
 {% endif %}
 
 {% if method in ('loading', 'loading_undirected') %}
 # loading* only, make g in the globals() so the methods after loading methods can access it.
+    {% if tool == 'easygraph' %}
+g_py = eval({{ code }})
+g = g_py.cpp()
+g_cpp = g
+    {% else %}
 g = eval({{ code }})
+    {% endif %}
+
 
 if args.print_graph_info:
     {% if print_graph_info %}
