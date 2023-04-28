@@ -264,14 +264,15 @@ easygraph_multipcoessing_methods_available_in_networkx = {
 }
 
 easygraph_multipcoessing_methods_for_paper = {
-    'betweenness_centrality',
-    'closeness_centrality',
+    # 'betweenness_centrality',
+    # 'closeness_centrality',
     'constraint',
-    'hierarchy',
+    # 'hierarchy',
 }
 
 easygraph_multiprocessing_n_workers_options = [2, 4, 8]
-easygraph_multiprocessing_n_workers_options_for_paper = [2, 4]
+# easygraph_multiprocessing_n_workers_options_for_paper = [2, 4]
+easygraph_multiprocessing_n_workers_options_for_paper = [2, 4, 8]
 dataset_homepage_mapping = {
     'cheminformatics': 'https://networkrepository.com/ENZYMES-g1.php',
     'bio': 'https://networkrepository.com/bio-yeast.php',

@@ -72,26 +72,8 @@ print("=================")
 print()
 
 
-
-# "snap.LoadEdgeListStr(snap.PNGraph, filename, 0, 1)" contains quotes
-avg_times |= {'loading': benchmark_autorange("snap.LoadEdgeListStr(snap.PNGraph, filename, 0, 1)", globals=globals(), n=n) }
-
-
-
-# loading* only, make g in the globals() so the methods after loading methods can access it.
-g = eval("snap.LoadEdgeListStr(snap.PNGraph, filename, 0, 1)")
-
-if args.print_graph_info:
-    
-    print('snap does not support printing graph info.')
-    
-
-    if args.print_graph_info_only:
-        sys.exit(0)
-
-
-
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -103,10 +85,8 @@ print("=================")
 print()
 
 
-
-# "snap.GetNodesAtHop(g, 0, 2, NodeVec, True)" contains quotes
-avg_times |= {'2-hops': benchmark_autorange("snap.GetNodesAtHop(g, 0, 2, NodeVec, True)", globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -118,10 +98,8 @@ print("=================")
 print()
 
 
-
-# "snap.GetShortPath(g, 0, NIdToDistH, True)" contains quotes
-avg_times |= {'shortest path': benchmark_autorange("snap.GetShortPath(g, 0, NIdToDistH, True)", globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -133,10 +111,8 @@ print("=================")
 print()
 
 
-
-# "snap.GetPageRank(g, PRankH, 0.85, 1e-3, 10000000)" contains quotes
-avg_times |= {'page rank': benchmark_autorange("snap.GetPageRank(g, PRankH, 0.85, 1e-3, 10000000)", globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -148,10 +124,8 @@ print("=================")
 print()
 
 
-
-# "snap.GetKCoreNodes(g, CoreIDSzV)" contains quotes
-avg_times |= {'k-core': benchmark_autorange("snap.GetKCoreNodes(g, CoreIDSzV)", globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -163,10 +137,8 @@ print("=================")
 print()
 
 
-
-# "snap.GetSccs(g, Components)" contains quotes
-avg_times |= {'strongly connected components': benchmark_autorange("snap.GetSccs(g, Components)", globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 

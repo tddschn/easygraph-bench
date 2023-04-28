@@ -72,26 +72,8 @@ print("=================")
 print()
 
 
-
-# '''load_graph_from_csv(filename, directed=True, csv_options={'delimiter': '\t', 'quotechar': '"'})''' contains quotes
-avg_times |= {'loading': benchmark_autorange('''load_graph_from_csv(filename, directed=True, csv_options={'delimiter': '\t', 'quotechar': '"'})''', globals=globals(), n=n) }
-
-
-
-# loading* only, make g in the globals() so the methods after loading methods can access it.
-g = eval('''load_graph_from_csv(filename, directed=True, csv_options={'delimiter': '\t', 'quotechar': '"'})''')
-
-if args.print_graph_info:
-    
-    print('graphtool does not support printing graph info.')
-    
-
-    if args.print_graph_info_only:
-        sys.exit(0)
-
-
-
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -103,10 +85,8 @@ print("=================")
 print()
 
 
-
-# "shortest_distance(g, g.vertex(0), max_dist=2).a" contains quotes
-avg_times |= {'2-hops': benchmark_autorange("shortest_distance(g, g.vertex(0), max_dist=2).a", globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -118,10 +98,8 @@ print("=================")
 print()
 
 
-
-# "shortest_distance(g, g.vertex(0)).a" contains quotes
-avg_times |= {'shortest path': benchmark_autorange("shortest_distance(g, g.vertex(0)).a", globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -133,10 +111,8 @@ print("=================")
 print()
 
 
-
-# 'pagerank(g, damping=0.85, epsilon=1e-3, max_iter=10000000).a' contains quotes
-avg_times |= {'page rank': benchmark_autorange('pagerank(g, damping=0.85, epsilon=1e-3, max_iter=10000000).a', globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -148,10 +124,8 @@ print("=================")
 print()
 
 
-
-# 'kcore_decomposition(g).a' contains quotes
-avg_times |= {'k-core': benchmark_autorange('kcore_decomposition(g).a', globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -163,10 +137,8 @@ print("=================")
 print()
 
 
-
-# 'cc, _ = label_components(g, vprop=None, directed=True, attractors=False); cc.a' contains quotes
-avg_times |= {'strongly connected components': benchmark_autorange('cc, _ = label_components(g, vprop=None, directed=True, attractors=False); cc.a', globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 

@@ -72,16 +72,28 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
+
+    
 
 # "nk.graphio.EdgeListReader(separator='\t', firstNode=0, continuous=True).read(filename)" contains quotes
 avg_times |= {'loading_undirected': benchmark_autorange("nk.graphio.EdgeListReader(separator='\t', firstNode=0, continuous=True).read(filename)", globals=globals(), n=n) }
 
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
+
 
 
 # loading* only, make g in the globals() so the methods after loading methods can access it.
+    
 g = eval("nk.graphio.EdgeListReader(separator='\t', firstNode=0, continuous=True).read(filename)")
+    
+
 
 if args.print_graph_info:
     
@@ -93,8 +105,7 @@ if args.print_graph_info:
 
 
 
-
-
+    
 
 
 
@@ -105,11 +116,20 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
+
+    
 
 # "nk.distance.BFS(g, 0, storePaths=False).run().getDistances(False)" contains quotes
 avg_times |= {'shortest path': benchmark_autorange("nk.distance.BFS(g, 0, storePaths=False).run().getDistances(False)", globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
 
 
 
@@ -122,20 +142,29 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
+
+
+    
 
 # remove self loop from graph g before doing k-core
+        
 
-
-
+    
 g.removeSelfLoops()
-
-
+    
 
 
 
 # "nk.centrality.CoreDecomposition(g).run().scores()" contains quotes
 avg_times |= {'k-core': benchmark_autorange("nk.centrality.CoreDecomposition(g).run().scores()", globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
 
 
 

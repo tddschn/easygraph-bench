@@ -74,16 +74,28 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
+
+    
 
 # 'read_edgelist(filename, delimiter="\t", nodetype=int, create_using=nx.Graph())' contains quotes
 avg_times |= {'loading_undirected': benchmark_autorange('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=nx.Graph())', globals=globals(), n=n) }
 
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
+
 
 
 # loading* only, make g in the globals() so the methods after loading methods can access it.
+    
 g = eval('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=nx.Graph())')
+    
+
 
 if args.print_graph_info:
     
@@ -95,13 +107,12 @@ if args.print_graph_info:
 
 
 
-
-
-
+    
 # networkx & easygraph only, after loading*
 from utils import get_first_node
 nodeid = 'first_node'
 first_node = get_first_node(g)
+    
 
 
 
@@ -112,11 +123,20 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
+
+    
 
 # f'single_source_shortest_path_length(g, {nodeid}, cutoff=2)' contains quotes
 avg_times |= {'2-hops': benchmark_autorange(f'single_source_shortest_path_length(g, {nodeid}, cutoff=2)', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
 
 
 
@@ -129,11 +149,20 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
+
+    
 
 # f'shortest_path_length(g, {nodeid})' contains quotes
 avg_times |= {'shortest path': benchmark_autorange(f'shortest_path_length(g, {nodeid})', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
 
 
 
@@ -146,11 +175,20 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
+
+    
 
 # '[i for i in connected_components(g)]' contains quotes
 avg_times |= {'connected components': benchmark_autorange('[i for i in connected_components(g)]', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
 
 
 
@@ -163,27 +201,36 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
+
+
+    
 
 # remove self loop from graph g before doing k-core
-
+        
 
 # if tool is easygraph
+            
 
-
-
+        
 g.remove_edges_from(networkx.selfloop_edges(g))
+        
 
+    
 
-
-
-
-
+    
 
 
 
 # 'core.core_number(g)' contains quotes
 avg_times |= {'k-core': benchmark_autorange('core.core_number(g)', globals=globals(), n=n) }
+
+# if tool starts with 'constraint' and
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then convert g back
 
 
 

@@ -72,28 +72,8 @@ print("=================")
 print()
 
 
-
-# "Graph.Read(filename, format='edges', directed=False)" contains quotes
-avg_times |= {'loading_undirected': benchmark_autorange("Graph.Read(filename, format='edges', directed=False)", globals=globals(), n=n) }
-
-
-
-# loading* only, make g in the globals() so the methods after loading methods can access it.
-g = eval("Graph.Read(filename, format='edges', directed=False)")
-
-if args.print_graph_info:
-    
-    # get the # of nodes and edges and print
-    print(f"{g.vcount()=}, {g.ecount()=}")
-
-    
-
-    if args.print_graph_info_only:
-        sys.exit(0)
-
-
-
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -105,10 +85,8 @@ print("=================")
 print()
 
 
-
-# "g.distances(source=[g.vs[0]], weights=[1]*len(g.es), )" contains quotes
-avg_times |= {'shortest path': benchmark_autorange("g.distances(source=[g.vs[0]], weights=[1]*len(g.es), )", globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -120,10 +98,8 @@ print("=================")
 print()
 
 
-
-# "g.betweenness()" contains quotes
-avg_times |= {'betweenness centrality': benchmark_autorange("g.betweenness()", globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -135,10 +111,34 @@ print("=================")
 print()
 
 
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
-# "g.closeness()" contains quotes
-avg_times |= {'closeness centrality': benchmark_autorange("g.closeness()", globals=globals(), n=n) }
 
+
+
+
+# ===========================
+print(f"""Profiling \033[92mclustering\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
+
+
+
+
+
+# ===========================
+print(f"""Profiling \033[92mconstraint\033[0m on dataset \033[34m{filename}\033[0m""")
+print("=================")
+print()
+
+
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
@@ -150,10 +150,8 @@ print("=================")
 print()
 
 
-
-# "g.coreness(mode='all')" contains quotes
-avg_times |= {'k-core': benchmark_autorange("g.coreness(mode='all')", globals=globals(), n=n) }
-
+# easygraph constraint doesn't have c bindings
+# if method starts with 'constraint', then use python version of graph
 
 
 
