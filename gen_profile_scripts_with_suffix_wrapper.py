@@ -90,7 +90,7 @@ def get_args():
         help='Exclude certain datasets for profiling',
         type=str,
         nargs='+',
-        choices=edgelist_filenames + edgelist_filenames_lcc,
+        # choices=edgelist_filenames + edgelist_filenames_lcc,
         default=[],
     )
 
