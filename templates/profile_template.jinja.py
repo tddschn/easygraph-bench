@@ -74,9 +74,7 @@ print()
 # easygraph constraint doesn't have c bindings
 # if method starts with 'constraint', then use python version of graph
 {% if tool == 'easygraph' and method.startswith('constraint') %}
-g_og = g
-g_python = g.py()
-g = g_python
+g = g_py
 {% endif %}
 
 {% if tool in ('networkx', 'networkit', 'easygraph') %}

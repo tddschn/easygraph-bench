@@ -87,8 +87,8 @@ print()
 
     
 
-# 'read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph()).cpp()' contains quotes
-avg_times |= {'loading_undirected': benchmark_autorange('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph()).cpp()', globals=globals(), n=n) }
+# 'read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph())' contains quotes
+avg_times |= {'loading_undirected': benchmark_autorange('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph())', globals=globals(), n=n) }
 
 # if tool starts with 'constraint' and
 
@@ -98,7 +98,12 @@ avg_times |= {'loading_undirected': benchmark_autorange('read_edgelist(filename,
 
 
 # loading* only, make g in the globals() so the methods after loading methods can access it.
-g = eval('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph()).cpp()')
+    
+g_py = eval('read_edgelist(filename, delimiter="\t", nodetype=int, create_using=eg.Graph())')
+g = g_py.cpp()
+g_cpp = g
+    
+
 
 if args.print_graph_info:
     
@@ -251,7 +256,7 @@ avg_times |= {'constraint': benchmark_autorange('constraint(g)', globals=globals
 # easygraph constraint doesn't have c bindings
 # if method starts with 'constraint', then convert g back
 
-g = g_og
+g = g_cpp
 
 
 
@@ -283,7 +288,7 @@ avg_times |= {'constraint-2-workers': benchmark_autorange('constraint(g, n_worke
 # easygraph constraint doesn't have c bindings
 # if method starts with 'constraint', then convert g back
 
-g = g_og
+g = g_cpp
 
 
 
@@ -315,7 +320,7 @@ avg_times |= {'constraint-4-workers': benchmark_autorange('constraint(g, n_worke
 # easygraph constraint doesn't have c bindings
 # if method starts with 'constraint', then convert g back
 
-g = g_og
+g = g_cpp
 
 
 
@@ -347,7 +352,7 @@ avg_times |= {'constraint-8-workers': benchmark_autorange('constraint(g, n_worke
 # easygraph constraint doesn't have c bindings
 # if method starts with 'constraint', then convert g back
 
-g = g_og
+g = g_cpp
 
 
 
@@ -375,8 +380,7 @@ print()
 # give eg access to a python version of Graph first, so that removing self loops is possible
 # eval code.removesuffix('.cpp()')
 
-g_og = g
-g_python = g.py()
+g_python = g_py
 g = g_python
 g.remove_edges(easygraph.selfloop_edges(g))
 g = g.cpp()
